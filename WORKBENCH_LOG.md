@@ -11,3 +11,4 @@
 - Recorded the version 1 boundary: no Multica daemon, Desktop UI, or core runtime modifications.
 - Multica Desktop shows runtimes, but CLI runtime listing returned empty output; agent creation is blocked until workspace/profile alignment is resolved.
 - Added redaction filtering to the read-only workbench state inspection script before printing Multica workspace, runtime, and agent output.
+- Hardened header and cookie redaction for multi-part auth, API key, token, secret, and password values in the read-only state inspection script.
