@@ -25,3 +25,4 @@
 - Created private Multica pilot agent `Codex Guardian` (`28b28318-1ba5-4d41-883e-9763ce66c816`) on verified Codex runtime `76228a28-203a-4249-9756-731d3cf68554` after explicit user confirmation; existing `Workbench Max` remains preserved.
 - Created non-destructive Multica pilot issue `DAS-1` (`208b61ae-0bbc-4cf6-be99-d6e026ebc6bc`) assigned to `Codex Guardian` after explicit user confirmation.
 - Verified Codex Guardian pilot run `526a9e37-66d2-482f-9b26-62e14fd7bddf` completed, posted comment `49d18343-dc48-4943-8a9b-436607149c44`, and moved issue `DAS-1` to `in_review` without editing files, running destructive commands, or creating extra agents.
+- Prepared guarded full-roster creation script for the private Multica Workbench after Codex Guardian pilot pass; no full-roster agents were created yet.

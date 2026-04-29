@@ -24,7 +24,7 @@ export CODEX_RUNTIME_ID="76228a28-203a-4249-9756-731d3cf68554"
 export HERMES_RUNTIME_ID="d3a6d5a7-a80e-42ba-9d9e-3cefbc27fcf2"
 ```
 
-Existing private `Workbench Max` agent on the Codex runtime was observed and must be preserved.
+Existing private `Workbench Max` agent on the Codex runtime was observed and must be preserved. Existing `Codex Guardian` is the completed pilot and is intentionally excluded from the generated full-roster script.
 
 ## Runtime ID Verification
 
@@ -58,8 +58,8 @@ multica --profile "$MULTICA_PROFILE" --workspace-id "$MULTICA_WORKSPACE_ID" agen
 | Agent | Definition file | Runtime variable | Max concurrent tasks | Visibility |
 | --- | --- | --- | ---: | --- |
 | Workbench Admin | `/Users/0xvox/multica-ultimate-workbench/agents/inner/workbench-admin.md` | `CLAUDE_RUNTIME_ID` | 2 | private |
-| Workbench Supervisor | `/Users/0xvox/multica-ultimate-workbench/agents/inner/workbench-supervisor.md` | `CODEX_RUNTIME_ID` or `CLAUDE_RUNTIME_ID` | 2 | private |
-| Workbench Synthesizer | `/Users/0xvox/multica-ultimate-workbench/agents/inner/workbench-synthesizer.md` | `HERMES_RUNTIME_ID` or `CLAUDE_RUNTIME_ID` | 1 | private |
+| Workbench Supervisor | `/Users/0xvox/multica-ultimate-workbench/agents/inner/workbench-supervisor.md` | `CODEX_RUNTIME_ID` | 2 | private |
+| Workbench Synthesizer | `/Users/0xvox/multica-ultimate-workbench/agents/inner/workbench-synthesizer.md` | `HERMES_RUNTIME_ID` | 1 | private |
 
 ## Outer Ring
 
@@ -71,9 +71,9 @@ multica --profile "$MULTICA_PROFILE" --workspace-id "$MULTICA_WORKSPACE_ID" agen
 | Claude Architect | `/Users/0xvox/multica-ultimate-workbench/agents/outer/claude-architect.md` | `CLAUDE_RUNTIME_ID` | 2 | private |
 | Claude Docs | `/Users/0xvox/multica-ultimate-workbench/agents/outer/claude-docs.md` | `CLAUDE_RUNTIME_ID` | 2 | private |
 | QA Verifier | `/Users/0xvox/multica-ultimate-workbench/agents/outer/qa-verifier.md` | `CODEX_RUNTIME_ID` | 2 | private |
-| Benchmark Scout | `/Users/0xvox/multica-ultimate-workbench/agents/outer/benchmark-scout.md` | `HERMES_RUNTIME_ID` or `CODEX_RUNTIME_ID` | 1 | private |
+| Benchmark Scout | `/Users/0xvox/multica-ultimate-workbench/agents/outer/benchmark-scout.md` | `HERMES_RUNTIME_ID` | 1 | private |
 | Ops Mechanic | `/Users/0xvox/multica-ultimate-workbench/agents/outer/ops-mechanic.md` | `CODEX_RUNTIME_ID` | 1 | private |
-| Memory Curator | `/Users/0xvox/multica-ultimate-workbench/agents/outer/memory-curator.md` | `CLAUDE_RUNTIME_ID` or `HERMES_RUNTIME_ID` | 1 | private |
+| Memory Curator | `/Users/0xvox/multica-ultimate-workbench/agents/outer/memory-curator.md` | `CLAUDE_RUNTIME_ID` | 1 | private |
 
 ## Pilot: Codex Guardian
 
@@ -117,6 +117,16 @@ Before expanding beyond the pilot:
 ```bash
 multica --profile "$MULTICA_PROFILE" --workspace-id "$MULTICA_WORKSPACE_ID" agent list --output json
 ```
+
+## Full Private Roster Script
+
+Run only after the Codex Guardian pilot has passed and the live agent list still contains only the preserved `Workbench Max` plus the existing `Codex Guardian` pilot:
+
+```bash
+CONFIRM_CREATE_WORKBENCH_ROSTER=yes /Users/0xvox/multica-ultimate-workbench/scripts/create-agent-roster.sh
+```
+
+The full-roster script re-checks exact profile, workspace, and runtime IDs before any Multica contact. It reads the current agent list before each create, skips exact-name matches, never recreates `Codex Guardian`, and never creates `Workbench Max`.
 DOC
 
 printf 'Generated %s\n' "$OUTPUT"
