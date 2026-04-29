@@ -64,22 +64,6 @@ export HERMES_RUNTIME_ID
 | Ops Mechanic | `/Users/0xvox/multica-ultimate-workbench/agents/outer/ops-mechanic.md` | `CODEX_RUNTIME_ID` | 1 | private |
 | Memory Curator | `/Users/0xvox/multica-ultimate-workbench/agents/outer/memory-curator.md` | `CLAUDE_MIMO_RUNTIME_ID` or `HERMES_RUNTIME_ID` | 1 | private |
 
-## Dry-run Command Shape
-
-This is the expected command shape. Keep it as reference text until the runtime variable is verified.
-
-```text
-: "${CODEX_RUNTIME_ID:?Set CODEX_RUNTIME_ID from verified Multica runtime data}"
-
-multica agent create \
-  --name "Agent Name" \
-  --instructions-file "/Users/0xvox/multica-ultimate-workbench/agents/path/to/agent.md" \
-  --runtime "$CODEX_RUNTIME_ID" \
-  --runtime-config-json '{"custom_args":["--ask-for-approval","on-request"]}' \
-  --max-concurrent-tasks 1 \
-  --visibility private
-```
-
 ## Pilot: Codex Guardian
 
 Use this block first after verifying `CODEX_RUNTIME_ID` from Multica runtime data. It creates only `Codex Guardian`, with Codex approval set to `on-request`, one concurrent task, and private visibility.
