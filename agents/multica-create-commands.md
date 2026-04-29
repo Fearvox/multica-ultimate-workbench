@@ -119,4 +119,4 @@ Run only after the Codex Guardian pilot has passed and the live agent list still
 CONFIRM_CREATE_WORKBENCH_ROSTER=yes /Users/0xvox/multica-ultimate-workbench/scripts/create-agent-roster.sh
 ```
 
-The full-roster script re-checks exact profile, workspace, and runtime IDs before any Multica contact. It reads the current agent list before each create, skips exact-name matches, never recreates `Codex Guardian`, and never creates `Workbench Max`.
+The full-roster script re-checks exact profile, workspace, and runtime IDs before any Multica contact. After those guards pass, it reads and validates the current agent list once before any create. If listing or JSON shape validation fails, it exits before mutation. Successfully parsed existing names drive idempotent skips, so it never recreates `Codex Guardian` and never creates `Workbench Max`.

@@ -60,11 +60,60 @@ multica_workbench() {
   multica --profile "$MULTICA_PROFILE" --workspace-id "$MULTICA_WORKSPACE_ID" "$@"
 }
 
+EXISTING_AGENT_NAME_LIST=()
+
+read_existing_agent_names() {
+  local agent_list_json
+  local existing_names_json
+  local existing_name
+
+  if ! agent_list_json="$(multica_workbench agent list --output json)"; then
+    echo "Refusing to create the workbench roster because agent list preflight failed." >&2
+    echo "No Multica mutation was made." >&2
+    exit 1
+  fi
+
+  if ! existing_names_json="$(printf '%s\n' "$agent_list_json" | jq -ce '
+    if type == "array" then
+      [
+        .[]
+        | if type == "object" and ((.name? | type == "string") or (.display_name? | type == "string")) then
+            (.name? // .display_name?)
+          else
+            error("agent list item is missing a string name")
+          end
+      ]
+      | unique
+    else
+      error("agent list JSON must be an array")
+    end
+  ')"; then
+    echo "Refusing to create the workbench roster because agent list JSON did not match the expected shape." >&2
+    echo "No Multica mutation was made." >&2
+    exit 1
+  fi
+
+  EXISTING_AGENT_NAME_LIST=()
+  while IFS= read -r existing_name; do
+    EXISTING_AGENT_NAME_LIST+=("$existing_name")
+  done < <(printf '%s\n' "$existing_names_json" | jq -r '.[]')
+}
+
 agent_exists() {
   local name="$1"
+  local existing_name
 
-  multica_workbench agent list --output json \
-    | jq -e --arg name "$name" '.. | objects | select((.name? // .display_name? // "") == $name)' >/dev/null
+  if [[ "${#EXISTING_AGENT_NAME_LIST[@]}" -eq 0 ]]; then
+    return 1
+  fi
+
+  for existing_name in "${EXISTING_AGENT_NAME_LIST[@]}"; do
+    if [[ "$existing_name" == "$name" ]]; then
+      return 0
+    fi
+  done
+
+  return 1
 }
 
 create_agent_if_missing() {
@@ -92,6 +141,8 @@ create_agent_if_missing() {
 
   printf '{"status":"created","agent":%s}\n' "$(jq -Rn --arg v "$name" '$v')"
 }
+
+read_existing_agent_names
 
 create_agent_if_missing \
   "Workbench Admin" \
