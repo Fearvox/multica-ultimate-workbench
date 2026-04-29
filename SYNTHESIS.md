@@ -84,9 +84,24 @@ Existing companion agent:
 | Automation silently performing unsafe changes | Loss of human control over high-risk work. | Autopilots create issues for approval-driven execution. |
 | Outer Ring agents coordinating each other | Confused ownership and unreviewed delegation chains. | Outer Ring agents only execute assigned bounded tasks. |
 | Done claims without evidence | False completion and broken trust. | Every completion must include verification evidence. |
-| Autopilot-created issues lack the local workbench repo | Agents cannot verify this repository's docs/specs from their assigned workdir. | Link the versioned workbench repo into the workspace before asking agents to inspect local files. |
+| Autopilot-created issues lack the local workbench repo | Agents cannot verify this repository's docs/specs from their assigned workdir. | Mitigated on 2026-04-29 by linking `file:///Users/0xvox/multica-ultimate-workbench` into workspace `DASH`; keep the repo link visible in `workspace get`. |
 | Agent roster and human member counts get conflated | Health cards can under-report the actual agent roster. | Health autopilot must run `agent list` and `workspace members` separately and report counts/names separately. |
+| Workspace skills drift from local source | Agents may run stale or invisible operating protocols. | Keep canonical skill source in `skills/`, record live IDs, and verify `skill list` plus agent bindings after changes. |
+
+## Workspace Skill Core Pack
+
+Created in Multica workspace `DASH` on 2026-04-29 and attached to the 12 target workbench agents. `Workbench Max` was intentionally preserved and not modified.
+
+| Skill | Live ID | Purpose |
+| --- | --- | --- |
+| `workbench-sdd` | `2cf724da-976a-40e6-be9b-ecbdc2af9041` | Raw requirement -> product design -> technical design -> task list -> execution/verification. |
+| `workbench-conductor` | `811318a4-f396-4c87-8a89-80b5d871c6f5` | Two-ring routing, role boundaries, and issue/comment discipline. |
+| `workbench-research` | `ee3222fc-2722-4502-9e7f-883901ad01fc` | Evidence-first research and source discipline. |
+| `workbench-review-qa` | `e8c8d908-1a13-4d5c-8b5f-dc48a908a149` | PASS/FLAG/BLOCK review and QA verification. |
+| `workbench-implementation` | `b4bf2dce-9acc-4082-ab6b-7fcb1383950a` | Minimal-patch implementation and ops discipline. |
+| `workbench-design-docs` | `66f04cd9-f62d-42b9-be2b-24ded62484bc` | Product design, technical design, copy, and docs. |
+| `workbench-memory-synthesis` | `8d80f2f9-46cf-4d1e-a0bb-63c7064907eb` | Durable memory, decision logging, and handoffs. |
 
 ## Next Immediate Action
 
-Commit the updated daily-health spec, then link `/Users/0xvox/multica-ultimate-workbench` into the Multica `DASH` workspace as a repository source so future agents can run `multica repo checkout` before verifying workbench docs. After the repo link is visible in `workspace get`, rerun `DAS-4` QA against the live autopilot and checked-out spec; only then close `DAS-4` to `done`.
+Create a small `DAS-5` skill-pack smoke issue for `Workbench Admin` to confirm new tasks can see the attached skills, then move into the SDD upgrade pass: raw requirement -> product design -> technical design -> task list for the full two-ring system.

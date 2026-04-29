@@ -47,3 +47,10 @@
 - `Workbench Supervisor` reviewed `DAS-4` and posted FLAG comment `7cf5d245-0cdc-475e-bd14-14a85ec17cd1`: the autopilot workflow worked, but the first Admin health card confused human member count with configured agent count.
 - Hardened the live autopilot description to require separate evidence lines for issues, configured agents, human members, autopilots, and cancelled/failed run risk evidence; updated `autopilots/daily-health.md` with the live autopilot ID, trigger ID, schedule, and evidence checklist.
 - `QA Verifier` posted FLAG comment `c8e92be9-8ca5-4487-933a-991c27232ca8`: the live autopilot correction is verified, but agents cannot verify local workbench docs from autopilot-created issues because workspace `DASH` currently has `repos: []` and no checkout of this repository.
+- Linked `file:///Users/0xvox/multica-ultimate-workbench` into workspace `DASH` so agents can run `multica repo checkout` before verifying local workbench docs.
+- Re-ran `DAS-4` QA after the workspace repo link; `QA Verifier` checked out the repo, saw commit `acd13bb`, verified `autopilots/daily-health.md`, the live autopilot, workspace repo visibility, and a clean worktree, then posted PASS comment `5d5c7918-5137-4574-9675-e02121107ce7`.
+- Closed `DAS-4` to `done` after the autopilot smoke, prompt hardening, repo-link remediation, and QA pass.
+- Confirmed Multica workspace `DASH` had no workspace skills and all 12 target workbench agents had empty skill assignments before installing the core skill pack.
+- Created the high-frequency workspace skill core pack: `workbench-sdd`, `workbench-conductor`, `workbench-research`, `workbench-review-qa`, `workbench-implementation`, `workbench-design-docs`, and `workbench-memory-synthesis`.
+- Corrected an initial empty-content skill creation by updating the already-created Multica skill records with the canonical source from `skills/`; verified all 7 live skills have non-empty content.
+- Attached the core skill pack to the 12 target workbench agents according to role, while intentionally leaving preserved `Workbench Max` unmodified.

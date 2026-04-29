@@ -12,6 +12,7 @@ It does not replace Multica. Multica remains the native collaboration layer for 
 - Issues are for executable work.
 - @mentions are for parallel advice or review.
 - Autopilots create issues for scheduled checks; they do not silently run high-risk work.
+- Workspace skills provide the shared high-frequency operating layer for SDD, routing, research, review, implementation, design/docs, and memory synthesis.
 
 ## Critical Rules
 
@@ -20,6 +21,7 @@ It does not replace Multica. Multica remains the native collaboration layer for 
 - Codex command and patch approval are configured through Codex CLI/profile/runtime args.
 - No agent may claim done without evidence.
 - Outer Ring agents do not assign work to each other.
+- Skill source lives in `skills/`; live Multica skill IDs and attachment map are recorded in `skills/README.md`.
 
 ## Planned Useful Commands
 
