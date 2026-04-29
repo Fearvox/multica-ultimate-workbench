@@ -76,15 +76,23 @@ Use this block first after verifying `CODEX_RUNTIME_ID` from Multica runtime dat
 CONFIRM_CREATE_CODEX_GUARDIAN=yes /Users/0xvox/multica-ultimate-workbench/scripts/create-pilot-agent.sh
 ```
 
-The script refuses to contact Multica unless `CONFIRM_CREATE_CODEX_GUARDIAN=yes` is set at action time.
+The script refuses to contact Multica unless `CONFIRM_CREATE_CODEX_GUARDIAN=yes` is set at action time and the effective `MULTICA_PROFILE`, `MULTICA_WORKSPACE_ID`, and `CODEX_RUNTIME_ID` exactly match the verified pilot target values below.
 
 Equivalent command shape:
 
 ```bash
-MULTICA_PROFILE="${MULTICA_PROFILE:-desktop-api.multica.ai}"
-MULTICA_WORKSPACE_ID="${MULTICA_WORKSPACE_ID:-5470ee5d-0791-4713-beb4-fd6a187d6523}"
-CODEX_RUNTIME_ID="${CODEX_RUNTIME_ID:-76228a28-203a-4249-9756-731d3cf68554}"
+CANONICAL_MULTICA_PROFILE="desktop-api.multica.ai"
+CANONICAL_MULTICA_WORKSPACE_ID="5470ee5d-0791-4713-beb4-fd6a187d6523"
+CANONICAL_CODEX_RUNTIME_ID="76228a28-203a-4249-9756-731d3cf68554"
+
+MULTICA_PROFILE="${MULTICA_PROFILE:-$CANONICAL_MULTICA_PROFILE}"
+MULTICA_WORKSPACE_ID="${MULTICA_WORKSPACE_ID:-$CANONICAL_MULTICA_WORKSPACE_ID}"
+CODEX_RUNTIME_ID="${CODEX_RUNTIME_ID:-$CANONICAL_CODEX_RUNTIME_ID}"
 ROOT="/Users/0xvox/multica-ultimate-workbench"
+
+[[ "$MULTICA_PROFILE" == "$CANONICAL_MULTICA_PROFILE" ]]
+[[ "$MULTICA_WORKSPACE_ID" == "$CANONICAL_MULTICA_WORKSPACE_ID" ]]
+[[ "$CODEX_RUNTIME_ID" == "$CANONICAL_CODEX_RUNTIME_ID" ]]
 
 multica --profile "$MULTICA_PROFILE" --workspace-id "$MULTICA_WORKSPACE_ID" agent create \
   --name "Codex Guardian" \

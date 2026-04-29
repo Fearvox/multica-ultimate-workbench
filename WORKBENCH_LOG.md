@@ -20,3 +20,4 @@
 - Updated the read-only state script to default Multica calls to the verified Desktop profile and `DASH` workspace while still allowing explicit environment overrides.
 - Added bare `Auth`/`AUTH`/`auth` field redaction to the read-only state script while preserving existing credential filters.
 - Prepared the guarded Task 7 Codex Guardian pilot creation script and corrected generated create-command docs to use verified Multica create flags only; no Multica agent was created.
+- Added exact-match target guards to the Codex Guardian pilot creation script so inherited environment overrides cannot redirect profile, workspace, or runtime before creation; no Multica agent was created.
