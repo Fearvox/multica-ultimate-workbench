@@ -10,6 +10,28 @@ Multica remains the native collaboration layer for live agents, direct chat, iss
 
 Version 1 should stay conservative: no Multica daemon changes, no Desktop UI changes, no core runtime modifications, and no silent high-risk automation.
 
+## Verified Multica Workspace And Runtimes
+
+Verified on 2026-04-29 before any workbench agent creation. Use the explicit read-only prefix:
+
+```bash
+multica --profile desktop-api.multica.ai --workspace-id 5470ee5d-0791-4713-beb4-fd6a187d6523 ...
+```
+
+| Field | Value |
+| --- | --- |
+| Profile | `desktop-api.multica.ai` |
+| Workspace | `DASH` |
+| Workspace ID | `5470ee5d-0791-4713-beb4-fd6a187d6523` |
+
+| Runtime | ID | Provider | Status |
+| --- | --- | --- | --- |
+| Claude | `dd23854a-7a38-4d04-8d02-014ba5a9df3d` | `claude` | online |
+| Codex | `76228a28-203a-4249-9756-731d3cf68554` | `codex` | online |
+| Hermes | `d3a6d5a7-a80e-42ba-9d9e-3cefbc27fcf2` | `hermes` | online |
+
+No workbench agents were created during verification. The existing private `Workbench Max` agent on the Codex runtime must be preserved.
+
 ## Ring Model
 
 ### Inner Ring
