@@ -87,4 +87,4 @@ Existing companion agent:
 
 ## Next Immediate Action
 
-Post a formal `Workbench Supervisor` verdict on `DAS-1`, then create a bounded implementation issue for `Codex Developer` to verify or harden the existing read-only `scripts/list-workbench-state.sh` helper. The next implementation issue must use sequential assignment only: `Codex Developer` owns the change, `Workbench Supervisor` reviews, and `QA Verifier` verifies evidence.
+Close out the human review state for `DAS-1` and `DAS-3`, then create the first conservative autopilot-backed workflow: a scheduled health-check issue in create-issue mode only. The autopilot should assign `Workbench Admin` to produce a routing card, then use the proven sequential handoff pattern: bounded owner, `Workbench Supervisor` review, and `QA Verifier` evidence verification. No autopilot should directly mutate local files, Multica core runtime, Desktop UI, or live credentials.
