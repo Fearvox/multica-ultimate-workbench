@@ -21,3 +21,5 @@
 - Added bare `Auth`/`AUTH`/`auth` field redaction to the read-only state script while preserving existing credential filters.
 - Prepared the guarded Task 7 Codex Guardian pilot creation script and corrected generated create-command docs to use verified Multica create flags only; no Multica agent was created.
 - Added exact-match target guards to the Codex Guardian pilot creation script so inherited environment overrides cannot redirect profile, workspace, or runtime before creation; no Multica agent was created.
+
+- Created private Multica pilot agent `Codex Guardian` (`28b28318-1ba5-4d41-883e-9763ce66c816`) on verified Codex runtime `76228a28-203a-4249-9756-731d3cf68554` after explicit user confirmation; existing `Workbench Max` remains preserved.
