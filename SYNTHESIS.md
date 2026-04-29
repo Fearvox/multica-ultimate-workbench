@@ -90,7 +90,7 @@ Existing companion agent:
 
 ## Workspace Skill Core Pack
 
-Created in Multica workspace `DASH` on 2026-04-29 and attached to the 12 target workbench agents. `Workbench Max` was intentionally preserved and not modified.
+Created in Multica workspace `DASH` on 2026-04-29 and attached to the 12 target workbench agents. `Workbench Max` was intentionally preserved and not modified. `DAS-5` verified that a fresh Workbench Admin task can see `workbench-conductor` and `workbench-sdd` and can check out the local skill source at commit `2812d01`.
 
 | Skill | Live ID | Purpose |
 | --- | --- | --- |
@@ -104,4 +104,4 @@ Created in Multica workspace `DASH` on 2026-04-29 and attached to the 12 target 
 
 ## Next Immediate Action
 
-Create a small `DAS-5` skill-pack smoke issue for `Workbench Admin` to confirm new tasks can see the attached skills, then move into the SDD upgrade pass: raw requirement -> product design -> technical design -> task list for the full two-ring system.
+Begin the SDD upgrade pass for the full two-ring system: raw requirement -> product design -> technical design -> task list, with AI participation at every stage and efficiency rules for the high-frequency skills.

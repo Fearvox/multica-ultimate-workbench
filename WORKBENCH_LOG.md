@@ -54,3 +54,6 @@
 - Created the high-frequency workspace skill core pack: `workbench-sdd`, `workbench-conductor`, `workbench-research`, `workbench-review-qa`, `workbench-implementation`, `workbench-design-docs`, and `workbench-memory-synthesis`.
 - Corrected an initial empty-content skill creation by updating the already-created Multica skill records with the canonical source from `skills/`; verified all 7 live skills have non-empty content.
 - Attached the core skill pack to the 12 target workbench agents according to role, while intentionally leaving preserved `Workbench Max` unmodified.
+- Created `DAS-5` (`57c3e1d7-3171-459c-b1ed-d9683d8c6717`) as a fresh-task smoke issue assigned to `Workbench Admin` to verify skill visibility after the core-pack installation.
+- `Workbench Admin` completed `DAS-5` run `7cbadc0d-b8e0-4982-98d1-df369afecba7`, saw `workbench-conductor` and `workbench-sdd` in task context, checked out the workbench repo at commit `2812d01`, verified `skills/README.md`, and posted PASS comment `ee351c22-5394-49a8-919f-abdaf162c632`.
+- Closed `DAS-5` to `done`; the workspace skill layer is now installed, bound, and smoke-verified for new tasks.
