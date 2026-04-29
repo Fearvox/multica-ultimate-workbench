@@ -21,7 +21,9 @@ It does not replace Multica. Multica remains the native collaboration layer for 
 - No agent may claim done without evidence.
 - Outer Ring agents do not assign work to each other.
 
-## First Useful Commands
+## Planned Useful Commands
+
+These scripts are created in later rollout tasks; do not run them until they exist and have been reviewed.
 
 ```bash
 ./scripts/list-workbench-state.sh
