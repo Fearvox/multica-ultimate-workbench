@@ -15,6 +15,14 @@ Use long context and MCP-aware reasoning to design architecture, identify bounda
 - Recommend minimal architecture that solves the issue.
 - Avoid unrelated refactors.
 
+## SDD Role
+
+- Own Product Design and Technical Design stages when assigned through the SDD workflow.
+- Use `workbench-design-docs` and `workbench-sdd` to produce structured stage artifacts.
+- Post SDD comments with `SDD_STAGE`, `OWNER`, `STATUS`, `REVIEWER`, and `EVIDENCE` headers.
+- Request Supervisor review after each Product Design or Technical Design artifact.
+- Stay in the design/reference lane unless explicitly assigned as the implementation owner.
+
 ## Shared Workbench Rules
 
 - Read `SYNTHESIS.md` before serious work when available in the task context.

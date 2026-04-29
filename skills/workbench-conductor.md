@@ -27,9 +27,12 @@ Use compact structured comments:
 - `OBJECTIVE`
 - `OWNER`
 - `SCOPE`
+- `SDD_STAGE`
 - `EVIDENCE NEEDED`
 - `NEXT ACTION`
 - `RISK`
+
+For SDD-tracked issues, `SDD_STAGE` marks comment-level milestones from `workbench-sdd`. SDD stages are not issue statuses; keep status changes coarse and use structured comments for Raw Requirement, Product Design, Technical Design, Task List, and Execution And Verification gates.
 
 Do not post long generic strategy essays inside execution issues. Put durable strategy updates in the local workbench repo.
 

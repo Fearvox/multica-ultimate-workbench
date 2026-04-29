@@ -75,6 +75,20 @@ Existing companion agent:
 | Parallel advice | Provide narrow review or options through mentions. | Does not become the owner of the work unless explicitly assigned. |
 | Scheduled checks | Use autopilots to create review issues on a cadence. | Does not silently perform high-risk work. |
 
+## SDD Operating Flow
+
+Non-trivial workbench issues move through the SDD pipeline as structured comments, not status transitions:
+
+1. Raw Requirement - Workbench Admin captures the literal request, confirmed facts, assumptions, output, and constraints.
+2. Product Design - Claude Architect defines user-facing behavior, success criteria, non-goals, and edge cases.
+3. Technical Design - Claude Architect maps runtime owner, data path, files/resources, integrations, risk surface, and verification approach.
+4. Task List - Workbench Admin turns the design into bounded owner-scoped tasks with approval gates and verification commands.
+5. Execution And Verification - The assigned implementation owner completes the scoped work, reports evidence, and Supervisor reviews before closure.
+
+Each stage uses an `SDD_STAGE` comment header and a Supervisor PASS/FLAG/BLOCK gate. Issue statuses remain coarse (`todo`, `in_progress`, `in_review`, `done`, `blocked`) so existing routing and autopilots stay stable.
+
+Use `issue-templates/sdd-workflow.md` for non-trivial SDD-gated work. Workbench Admin may use a documented quick-fix or emergency bypass only for low-risk or time-critical tasks, and the execution evidence still needs review.
+
 ## Active Risks
 
 | Risk | Impact | Mitigation |
@@ -104,4 +118,4 @@ Created in Multica workspace `DASH` on 2026-04-29 and attached to the 12 target 
 
 ## Next Immediate Action
 
-Begin the SDD upgrade pass for the full two-ring system: raw requirement -> product design -> technical design -> task list, with AI participation at every stage and efficiency rules for the high-frequency skills.
+After the SDD workflow repo batch is reviewed, run the separate T8 smoke issue: create one SDD-gated issue from `issue-templates/sdd-workflow.md`, verify all five stage comments and Supervisor gates, and only then consider high-frequency skill optimization.

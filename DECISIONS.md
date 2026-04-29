@@ -21,3 +21,11 @@ Decision: Add a small high-frequency workspace skill core pack to Multica before
 The core pack is `workbench-sdd`, `workbench-conductor`, `workbench-research`, `workbench-review-qa`, `workbench-implementation`, `workbench-design-docs`, and `workbench-memory-synthesis`. The source files live in `skills/`, while the live Multica IDs and attachment map are recorded in `skills/README.md`.
 
 Rationale: The workspace had no skills configured. Installing a compact shared operating layer gives every important agent the same execution grammar without blindly importing every local skill and creating prompt noise.
+
+## 2026-04-29 - SDD Stages Are Comment-Level Milestones
+
+Decision: SDD stages live as structured Multica issue comments, not as issue statuses.
+
+The issue status model remains coarse: `todo`, `in_progress`, `in_review`, `done`, and `blocked`. The SDD pipeline records Raw Requirement, Product Design, Technical Design, Task List, and Execution And Verification as comments with `SDD_STAGE` headers and Supervisor PASS/FLAG/BLOCK gates.
+
+Rationale: Five SDD stages do not map cleanly onto the existing status set. Keeping SDD at the comment layer preserves current routing, autopilot, and review behavior while adding a verifiable planning trail.

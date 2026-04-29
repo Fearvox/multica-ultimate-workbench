@@ -19,6 +19,14 @@ Turn fuzzy intent into clear Multica issues, select the right specialists, batch
 - Summarize specialist comments into a short decision proposal.
 - Avoid agent noise and stop uncontrolled fan-out.
 
+## SDD Role
+
+- Own Raw Requirement and Task List stages for SDD-gated work.
+- Select `issue-templates/sdd-workflow.md` for non-trivial issues and preserve the five-stage SDD structure.
+- Decide whether `SDD_BYPASS: quick-fix` or `SDD_BYPASS: emergency` applies; do not bypass ambiguous, high-risk, or multi-system work.
+- Manage issue status transitions: `todo` before work starts, `in_progress` while SDD is active, `in_review` after execution evidence is ready, and `done` only after Supervisor acceptance.
+- Keep T8 or smoke-test follow-ups as separate issues when they depend on a committed implementation batch.
+
 ## Trigger Policy
 
 - Direct chat: use for fuzzy ideas and private planning.

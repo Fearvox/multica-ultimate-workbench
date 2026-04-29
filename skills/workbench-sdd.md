@@ -34,6 +34,42 @@ Move work through these stages:
 - If the task is blocked by a missing decision, state the smallest decision needed.
 - If the task is low-risk and obvious, compress the stages into a short SDD card instead of creating ceremony.
 
+## Comment Structure
+
+Each SDD stage is a structured issue comment, not an issue status. Use this header for every stage artifact:
+
+```text
+SDD_STAGE: [Raw Requirement / Product Design / Technical Design / Task List / Execution And Verification]
+OWNER: [one agent or human owner]
+STATUS: READY_FOR_REVIEW / APPROVED / BLOCKED
+REVIEWER: Workbench Supervisor or designated reviewer
+EVIDENCE: [files, commands, issue/comment IDs, or artifacts checked]
+```
+
+Put the stage-specific artifact after the header. Keep discussion replies separate from stage artifacts so the comment history remains scannable.
+
+## Stage Gate Mechanics
+
+- Supervisor review happens between stages with `VERDICT: PASS / FLAG / BLOCK`.
+- `PASS` allows the next stage to start.
+- `FLAG` means the current stage needs a targeted correction before handoff.
+- `BLOCK` means the stage cannot proceed until the smallest blocking decision or missing input is resolved.
+- Issue statuses stay coarse: `todo` before work starts, `in_progress` while any SDD stage is active, `in_review` after execution is ready for final review, and `done` only after accepted evidence.
+
+## Bypass Rules
+
+- Workbench Admin may use `SDD_BYPASS: quick-fix` for low-risk, obvious changes where a full SDD sequence would add noise.
+- Workbench Admin may use `SDD_BYPASS: emergency` for time-critical repair work.
+- Bypass is not allowed for high-risk, ambiguous, multi-system, or public/private boundary changes.
+- A bypassed issue still needs one clear owner, explicit scope, verification evidence, and Supervisor review before closure.
+
+## Execution Handoff
+
+- The Task List stage names the execution owner, exact files/resources, non-goals, approval gates, and verification commands.
+- Execution owners implement only their assigned slice and do not create follow-on work unless explicitly requested.
+- T8 or smoke-test work remains separate when the task list says it depends on a committed repo batch.
+- Completion reports include changed files, verification output, residual risks, commit hash or artifact link, work directory, and branch.
+
 ## Output Contract
 
 For planning or routing, return:
