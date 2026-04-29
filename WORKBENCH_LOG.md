@@ -10,3 +10,4 @@
 - Recorded that Multica remains the live collaboration/runtime layer and this repository remains the versioned workbench memory.
 - Recorded the version 1 boundary: no Multica daemon, Desktop UI, or core runtime modifications.
 - Multica Desktop shows runtimes, but CLI runtime listing returned empty output; agent creation is blocked until workspace/profile alignment is resolved.
+- Added redaction filtering to the read-only workbench state inspection script before printing Multica workspace, runtime, and agent output.

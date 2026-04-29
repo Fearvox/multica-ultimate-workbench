@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+redact_state_output() {
+  sed -E \
+    -e "s/([Bb][Ee][Aa][Rr][Ee][Rr])[[:space:]]+[^[:space:]\"',;}]+/\\1 [REDACTED]/g" \
+    -e "s/([Tt][Oo][Kk][Ee][Nn]|[Aa][Pp][Ii]_[Kk][Ee][Yy]|[Aa][Pp][Ii][Kk][Ee][Yy]|[Ss][Ee][Cc][Rr][Ee][Tt]|[Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd]|[Aa][Uu][Tt][Hh][Oo][Rr][Ii][Zz][Aa][Tt][Ii][Oo][Nn]|[Cc][Oo][Oo][Kk][Ii][Ee])([[:space:]\"'._-]*[:=][[:space:]\"']*)[^[:space:]\"',;}]+/\\1\\2[REDACTED]/g" \
+    -e "s/([A-Za-z_][A-Za-z0-9_]*_([Kk][Ee][Yy]|[Tt][Oo][Kk][Ee][Nn]|[Ss][Ee][Cc][Rr][Ee][Tt])=)[^[:space:]\"',;}]+/\\1[REDACTED]/g"
+}
+
 echo "== Workbench state =="
 date
 
@@ -16,19 +23,19 @@ done
 
 echo
 echo "== Multica workspace =="
-multica workspace get --output json 2>/dev/null || true
+(multica workspace get --output json 2>/dev/null || true) | redact_state_output
 
 echo
 echo "== Multica workspaces =="
-multica workspace list 2>/dev/null || true
+(multica workspace list 2>/dev/null || true) | redact_state_output
 
 echo
 echo "== Multica runtimes =="
-multica runtime list --output json 2>/dev/null || multica runtime list 2>/dev/null || true
+(multica runtime list --output json 2>/dev/null || multica runtime list 2>/dev/null || true) | redact_state_output
 
 echo
 echo "== Multica agents =="
-multica agent list --output json 2>/dev/null || multica agent list 2>/dev/null || true
+(multica agent list --output json 2>/dev/null || multica agent list 2>/dev/null || true) | redact_state_output
 
 echo
 echo "== Codex approval options =="
