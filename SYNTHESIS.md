@@ -84,7 +84,9 @@ Existing companion agent:
 | Automation silently performing unsafe changes | Loss of human control over high-risk work. | Autopilots create issues for approval-driven execution. |
 | Outer Ring agents coordinating each other | Confused ownership and unreviewed delegation chains. | Outer Ring agents only execute assigned bounded tasks. |
 | Done claims without evidence | False completion and broken trust. | Every completion must include verification evidence. |
+| Autopilot-created issues lack the local workbench repo | Agents cannot verify this repository's docs/specs from their assigned workdir. | Link the versioned workbench repo into the workspace before asking agents to inspect local files. |
+| Agent roster and human member counts get conflated | Health cards can under-report the actual agent roster. | Health autopilot must run `agent list` and `workspace members` separately and report counts/names separately. |
 
 ## Next Immediate Action
 
-Close out the human review state for `DAS-1` and `DAS-3`, then create the first conservative autopilot-backed workflow: a scheduled health-check issue in create-issue mode only. The autopilot should assign `Workbench Admin` to produce a routing card, then use the proven sequential handoff pattern: bounded owner, `Workbench Supervisor` review, and `QA Verifier` evidence verification. No autopilot should directly mutate local files, Multica core runtime, Desktop UI, or live credentials.
+Commit the updated daily-health spec, then link `/Users/0xvox/multica-ultimate-workbench` into the Multica `DASH` workspace as a repository source so future agents can run `multica repo checkout` before verifying workbench docs. After the repo link is visible in `workspace get`, rerun `DAS-4` QA against the live autopilot and checked-out spec; only then close `DAS-4` to `done`.
