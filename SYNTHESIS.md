@@ -87,4 +87,4 @@ Existing companion agent:
 
 ## Next Immediate Action
 
-Create one small workflow issue through `Workbench Admin`, have `Workbench Supervisor` review it, and use `QA Verifier` for evidence. This validates the real multi-agent handoff path before adding autopilots or wider scheduled behavior.
+Post a formal `Workbench Supervisor` verdict on `DAS-1`, then create a bounded implementation issue for `Codex Developer` to verify or harden the existing read-only `scripts/list-workbench-state.sh` helper. The next implementation issue must use sequential assignment only: `Codex Developer` owns the change, `Workbench Supervisor` reviews, and `QA Verifier` verifies evidence.
