@@ -1,0 +1,43 @@
+# Synthesis
+
+Date: 2026-04-29
+
+## Current Strategy
+
+The Multica Ultimate Workbench is a durable local operating memory for a Hybrid Multica Two-Ring Workbench. It preserves strategy, decisions, risks, issue templates, agent role definitions, autopilot definitions, and helper scripts without replacing Multica itself.
+
+Multica remains the native collaboration layer for live agents, direct chat, issue execution, comments, runtimes, and autopilots. This repository is the versioned source of truth for workbench design and operating discipline.
+
+Version 1 should stay conservative: no Multica daemon changes, no Desktop UI changes, no core runtime modifications, and no silent high-risk automation.
+
+## Ring Model
+
+### Inner Ring
+
+| Role | Purpose | Boundary |
+| --- | --- | --- |
+| Command | Convert fuzzy direction into executable issue shape. | Does not run specialist work directly when delegation is clearer. |
+| Review | Verify evidence, risks, and completion claims. | Does not accept done without concrete outputs. |
+| Synthesis | Maintain strategy, decisions, logs, and next actions. | Does not replace Multica issue/comment history. |
+
+### Outer Ring
+
+| Role | Purpose | Boundary |
+| --- | --- | --- |
+| Specialist execution | Complete bounded implementation, analysis, or research tasks. | Does not assign work to other Outer Ring agents. |
+| Parallel advice | Provide narrow review or options through mentions. | Does not become the owner of the work unless explicitly assigned. |
+| Scheduled checks | Use autopilots to create review issues on a cadence. | Does not silently perform high-risk work. |
+
+## Active Risks
+
+| Risk | Impact | Mitigation |
+| --- | --- | --- |
+| Workbench scope creep into Multica core runtime | Version 1 becomes risky and hard to validate. | Keep repository as operating memory only. |
+| Secret or token leakage into durable docs | Security breach and contaminated history. | Never store secrets, OAuth material, or private tokens here. |
+| Automation silently performing unsafe changes | Loss of human control over high-risk work. | Autopilots create issues for approval-driven execution. |
+| Outer Ring agents coordinating each other | Confused ownership and unreviewed delegation chains. | Outer Ring agents only execute assigned bounded tasks. |
+| Done claims without evidence | False completion and broken trust. | Every completion must include verification evidence. |
+
+## Next Immediate Action
+
+Create the initial workbench skeleton, verify the expected files, and commit the bootstrap state. After that, subsequent tasks can add scripts, templates, agent definitions, and autopilot definitions under explicit human-approved scope.

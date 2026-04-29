@@ -1,0 +1,8 @@
+.DS_Store
+tmp/
+logs/
+*.log
+*.env
+.env
+.env.*
+state/runtime-snapshots/
