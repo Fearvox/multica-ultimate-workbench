@@ -80,17 +80,28 @@ multica --profile "$MULTICA_PROFILE" --workspace-id "$MULTICA_WORKSPACE_ID" agen
 Use this block first after verifying `CODEX_RUNTIME_ID` from Multica runtime data. It creates only `Codex Guardian`, with Codex approval set to `on-request`, one concurrent task, and private visibility.
 
 ```bash
-: "${MULTICA_PROFILE:?Set MULTICA_PROFILE from verified Multica profile data}"
-: "${MULTICA_WORKSPACE_ID:?Set MULTICA_WORKSPACE_ID from verified Multica workspace data}"
-: "${CODEX_RUNTIME_ID:?Set CODEX_RUNTIME_ID from verified Multica runtime data}"
+CONFIRM_CREATE_CODEX_GUARDIAN=yes /Users/0xvox/multica-ultimate-workbench/scripts/create-pilot-agent.sh
+```
+
+The script refuses to contact Multica unless `CONFIRM_CREATE_CODEX_GUARDIAN=yes` is set at action time.
+
+Equivalent command shape:
+
+```bash
+MULTICA_PROFILE="${MULTICA_PROFILE:-desktop-api.multica.ai}"
+MULTICA_WORKSPACE_ID="${MULTICA_WORKSPACE_ID:-5470ee5d-0791-4713-beb4-fd6a187d6523}"
+CODEX_RUNTIME_ID="${CODEX_RUNTIME_ID:-76228a28-203a-4249-9756-731d3cf68554}"
+ROOT="/Users/0xvox/multica-ultimate-workbench"
 
 multica --profile "$MULTICA_PROFILE" --workspace-id "$MULTICA_WORKSPACE_ID" agent create \
   --name "Codex Guardian" \
-  --instructions-file "/Users/0xvox/multica-ultimate-workbench/agents/outer/codex-guardian.md" \
-  --runtime "$CODEX_RUNTIME_ID" \
-  --runtime-config-json '{"custom_args":["--ask-for-approval","on-request"]}' \
+  --description "High-risk local ops, command approval, rollback planning, and evidence-first verification." \
+  --instructions "$(cat "$ROOT/agents/outer/codex-guardian.md")" \
+  --runtime-id "$CODEX_RUNTIME_ID" \
+  --runtime-config '{"custom_args":["--ask-for-approval","on-request"]}' \
   --max-concurrent-tasks 1 \
-  --visibility private
+  --visibility private \
+  --output json
 ```
 
 Before expanding beyond the pilot:
