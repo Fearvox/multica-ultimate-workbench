@@ -17,3 +17,4 @@
 - Verified that the Multica Desktop daemon runs with profile `desktop-api.multica.ai` and watches workspace `DASH` (`5470ee5d-0791-4713-beb4-fd6a187d6523`).
 - Verified runtime IDs with explicit profile and workspace flags: Claude `dd23854a-7a38-4d04-8d02-014ba5a9df3d`, Codex `76228a28-203a-4249-9756-731d3cf68554`, Hermes `d3a6d5a7-a80e-42ba-9d9e-3cefbc27fcf2`; all three were online.
 - Confirmed no workbench agents were created during Task 6 verification; existing private `Workbench Max` agent on the Codex runtime remains preserved.
+- Updated the read-only state script to default Multica calls to the verified Desktop profile and `DASH` workspace while still allowing explicit environment overrides.
