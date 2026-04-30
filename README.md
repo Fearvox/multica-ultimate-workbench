@@ -13,6 +13,7 @@ It does not replace Multica. Multica remains the native collaboration layer for 
 - @mentions are for parallel advice or review.
 - Autopilots create issues for scheduled checks; they do not silently run high-risk work.
 - Workspace skills provide the shared high-frequency operating layer for SDD, routing, research, review, implementation, design/docs, and memory synthesis.
+- The flight recorder provides compact per-issue `RUN_DIGEST` summaries for review without persisting raw Multica payloads.
 
 ## Critical Rules
 
@@ -23,12 +24,18 @@ It does not replace Multica. Multica remains the native collaboration layer for 
 - Outer Ring agents do not assign work to each other.
 - Skill source lives in `skills/`; live Multica skill IDs and attachment map are recorded in `skills/README.md`.
 
-## Planned Useful Commands
+## Useful Commands
 
-These scripts are created in later rollout tasks; do not run them until they exist and have been reviewed.
+Read-only helpers:
 
 ```bash
 ./scripts/list-workbench-state.sh
+./scripts/collect-flight-recorder.sh <issue-id>
+```
+
+Source regeneration helper:
+
+```bash
 ./scripts/generate-create-commands.sh
 ```
 
