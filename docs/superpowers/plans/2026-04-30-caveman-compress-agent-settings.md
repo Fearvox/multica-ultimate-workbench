@@ -100,15 +100,15 @@ Then verify:
 
 ```bash
 cd /Users/0xvox/multica-ultimate-workbench
-test -f agents/inner/workbench-admin.md.original.md
-wc -w agents/inner/workbench-admin.md.original.md agents/inner/workbench-admin.md
-git diff -- agents/inner/workbench-admin.md agents/inner/workbench-admin.md.original.md
+test -f agents/inner/workbench-admin.original.md
+wc -w agents/inner/workbench-admin.original.md agents/inner/workbench-admin.md
+git diff -- agents/inner/workbench-admin.md agents/inner/workbench-admin.original.md
 git diff --check
 ```
 
 Acceptance criteria:
 
-- Backup exists at `agents/inner/workbench-admin.md.original.md`.
+- Backup exists at `agents/inner/workbench-admin.original.md`.
 - Compressed prompt keeps the role, runtime, ring, concurrency, mission, SDD role, trigger policy, shared rules, BLOCKED policy, and risky-action confirmation rule.
 - No code block, command, path, URL, model/runtime name, date, or exact label is damaged.
 - `git diff --check` passes.
@@ -117,7 +117,7 @@ If pilot behavior looks semantically degraded, restore with:
 
 ```bash
 cd /Users/0xvox/multica-ultimate-workbench
-cp agents/inner/workbench-admin.md.original.md agents/inner/workbench-admin.md
+cp agents/inner/workbench-admin.original.md agents/inner/workbench-admin.md
 ```
 
 Do not continue to batch compression until the pilot diff is acceptable.
@@ -309,7 +309,7 @@ Commit separately:
 
 ```bash
 cd /Users/0xvox/multica-ultimate-workbench
-git add agents/AGENT_ROSTER.md agents/AGENT_ROSTER.md.original.md agents/multica-create-commands.md agents/multica-create-commands.md.original.md
+git add agents/AGENT_ROSTER.md agents/AGENT_ROSTER.original.md agents/multica-create-commands.md agents/multica-create-commands.original.md
 git commit -m "docs: caveman compress agent source docs"
 ```
 
