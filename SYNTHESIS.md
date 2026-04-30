@@ -1,7 +1,7 @@
 # Synthesis
 
 Date: 2026-04-29
-Last updated: 2026-04-30 UTC during DAS-15 flight recorder rollout.
+Last updated: 2026-04-30 UTC during Multica 0.2.21 workflow upgrade.
 
 ## Current Strategy
 
@@ -24,6 +24,17 @@ multica --profile desktop-api.multica.ai --workspace-id 5470ee5d-0791-4713-beb4-
 | Profile | `desktop-api.multica.ai` |
 | Workspace | `DASH` |
 | Workspace ID | `5470ee5d-0791-4713-beb4-fd6a187d6523` |
+
+Live project binding created after the Multica 0.2.21 update:
+
+| Field | Value |
+| --- | --- |
+| Project | `Ultimate Workbench` |
+| Project ID | `fa2a44e7-5ba8-4b09-a2ed-5bb0ac53b269` |
+| Project status | `in_progress` |
+| Lead | `Workbench Admin` |
+| GitHub repo resource | `https://github.com/Fearvox/multica-ultimate-workbench` |
+| Resource ID | `437fe66b-f61e-4625-af20-fb723c0177be` |
 
 | Runtime | ID | Provider | Status |
 | --- | --- | --- | --- |
@@ -48,6 +59,7 @@ Verified on 2026-04-29 after full roster creation.
 | Claude Architect | `36f427ec-5395-4e0b-8168-f4fd02086826` | Claude | private | 2 | idle |
 | Claude Docs | `2a4acdbe-c9d3-4394-8194-67f0e90b7d21` | Claude | private | 2 | idle |
 | QA Verifier | `45d11e94-303d-480b-b4b9-cffbcf8f79c4` | Codex | private | 2 | idle |
+| Workbench VM Runner | `e42ff104-7ff2-41d8-936d-fe18448c2e1c` | Codex | private | 1 | idle |
 | Benchmark Scout | `54e53ad9-b677-4995-8a56-1c70d99be4c0` | Hermes | private | 1 | idle |
 | Ops Mechanic | `cf068511-8cde-455d-9c91-a6cf84d581be` | Codex | private | 1 | idle |
 | Memory Curator | `f437828c-a14b-4cc2-9449-6537e426a216` | Claude | private | 1 | idle |
@@ -93,6 +105,20 @@ Each stage uses an `SDD_STAGE` comment header and a Supervisor PASS/FLAG/BLOCK g
 
 Use `issue-templates/sdd-workflow.md` for non-trivial SDD-gated work. Workbench Admin may use a documented quick-fix or emergency bypass only for low-risk or time-critical tasks, and the execution evidence still needs review.
 
+## Multica 0.2.21 Operating Flow
+
+The 0.2.21 surface adds practical rails that now belong in the workbench's default workflow:
+
+| Surface | Workbench use |
+| --- | --- |
+| Project-bound repo | Attach or name the `Ultimate Workbench` project before repo-local claims. |
+| Quick Capture / URL enrichment | Preserve literal request first, then enrich into Raw Requirement. |
+| Fresh rerun | Prefer a clean rerun for stale context, wrong repo/branch, auth changes, or poisoned resume state. |
+| Mermaid rendering | Use compact diagrams for routing, SDD flow, review state, and VM lease shape. |
+| Per-agent model/env config | Prefer `--model`, `--custom-env-file`, or `--custom-env-stdin` over prompt-only runtime rules. |
+
+See `docs/multica-021-workflow.md`.
+
 ## Active Risks
 
 | Risk | Impact | Mitigation |
@@ -109,6 +135,9 @@ Use `issue-templates/sdd-workflow.md` for non-trivial SDD-gated work. Workbench 
 | Workspace skills drift from local source | Agents may run stale or invisible operating protocols. | Keep canonical skill source in `skills/`, record live IDs, and verify `skill list` plus agent bindings after changes. |
 | Prompt bloat from over-attached skills | Agents waste context and quota on irrelevant operating protocols. | Attach skills by role, keep high-frequency skills compact, and use `workbench-token-context-discipline` for large histories/docs. |
 | Runtime workdir lacks checked-out repo files unless agents explicitly checkout | Agents may not find `SYNTHESIS.md` or `issue-templates/sdd-workflow.md` even when those files exist in the source repo. | For tasks requiring repo-local docs or templates, require `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` before file verification. |
+| Issues drift away from the correct repo as more projects are added | Agents may inspect the wrong source tree or stale local checkout. | Use the `Ultimate Workbench` project-bound GitHub repo resource as the default anchor for workbench issues. |
+| Reruns inherit polluted context | A retry can repeat stale assumptions or wrong checkout state. | Use fresh reruns when stale context, wrong branch, auth changes, or incomplete evidence publishing appears. |
+| Runtime configuration gets duplicated in prompts | Model and environment choices drift across docs, agent settings, and CLI flags. | Prefer Multica agent `--model` and safe custom env file/stdin config for runtime-specific settings; document IDs and verification evidence after changes. |
 | Review cannot explain token/context cost from issue history alone | High run cost or cache-read behavior can look mysterious and hard to triage. | Use `scripts/collect-flight-recorder.sh <issue-id>` to produce compact `RUN_DIGEST` summaries; use UI/API billing evidence when CLI run JSON does not expose token fields. |
 | Evidence artifacts can consume disk or leak raw payloads | Low disk headroom and durable docs can become polluted with unnecessary raw logs. | Default flight-recorder mode is stdout only; persistent mode writes summary files only and should stay under `artifacts/flight-recorder/<issue-id>` when explicitly needed. |
 | Workspace skills decay or overlap over time | Prompt bloat, duplicated rules, stale bindings, and unsafe maintenance edits. | Use `docs/skill-curator.md` and `autopilots/skill-curator.md`; v1 curator is review-only and requires approval before deletion, archive moves, live sync, or attachment changes. |
@@ -117,7 +146,7 @@ Use `issue-templates/sdd-workflow.md` for non-trivial SDD-gated work. Workbench 
 
 Created in Multica workspace `DASH` on 2026-04-29 and attached to the 12 target workbench agents. `Workbench Max` was intentionally preserved and not modified. `DAS-5` verified that a fresh Workbench Admin task can see `workbench-conductor` and `workbench-sdd` and can check out the local skill source at commit `2812d01`.
 
-DAS-9 expanded the pack from 7 core skills to 15 high-frequency skills. The expansion kept the same principle: local source first, live sync after backup, role-specific bindings, and `Workbench Max` untouched. `DAS-10` fresh Workbench Admin smoke run `5dfe420e-0f0b-4d7d-84e5-d56e6e44ad30` posted PASS comment `7e3f1946-d016-460b-b2d6-743c95c45393`.
+DAS-9 expanded the pack from 7 core skills to 15 high-frequency skills. The Capy VM Lane later added `workbench-capy-vm-lane`, bringing the live pack to 16 skills. The expansion kept the same principle: local source first, live sync after backup, role-specific bindings, and `Workbench Max` untouched. `DAS-10` fresh Workbench Admin smoke run `5dfe420e-0f0b-4d7d-84e5-d56e6e44ad30` posted PASS comment `7e3f1946-d016-460b-b2d6-743c95c45393`.
 
 | Skill | Live ID | Purpose |
 | --- | --- | --- |
@@ -132,6 +161,7 @@ DAS-9 expanded the pack from 7 core skills to 15 high-frequency skills. The expa
 | `workbench-code-review` | `b7b035cb-67d6-4fbd-a756-c410190576a9` | Findings-first review discipline for diffs, live changes, and evidence quality. |
 | `workbench-frontend-design-qa` | `961497cb-a1f3-48df-961d-f9983ee918aa` | Visual/UI QA for responsive surfaces, text fit, hierarchy, and interaction states. |
 | `workbench-browser-proofshot-qa` | `2acab3df-7b28-4ca4-a34b-4c713a453ada` | Browser verification with screenshots, traces, console/network checks, and repro steps. |
+| `workbench-capy-vm-lane` | `23205bad-177e-4937-8934-d0ea5b8b1a4e` | Controlled VM/Computer execution for GUI, browser, sandbox, screenshots, lease discipline, and teardown evidence. |
 | `workbench-docs-release` | `f2bac02b-5daf-400e-93df-49e97f64c59c` | Documentation sync after behavior, roster, skill, or release changes. |
 | `workbench-token-context-discipline` | `6fe7672c-5821-40bf-abd0-ac52b953eb56` | Compact context, cache-aware execution, and role-specific skill attachment discipline. |
 | `workbench-product-brainstorming` | `a9ec34a7-8c0d-4858-a013-899bff60d664` | Bounded product ideation with options, tradeoffs, recommendation, and smallest test. |
@@ -188,4 +218,4 @@ New source entries:
 
 ## Next Immediate Action
 
-The workbench now has a live auto-review handoff and frontmatter-hardened skill source. `Auto Review Sweeper` creates a Supervisor sweep every 30 minutes and lets PASS targets move to `done` without manual reassignment. DAS-31 added Codex-compatible YAML frontmatter to all 15 local/live workbench skills, canonicalized Workbench Max as a preserved Special bench, and added objective stale-skill indicators. Remaining runtime hygiene: stale MCP auth noise appears to come from global Codex/plugin auth, not this repo's workbench skill source.
+The workbench now has a live auto-review handoff, frontmatter-hardened skill source, Capy VM Lane pilot, and Multica 0.2.21 project-bound repo anchor. `Auto Review Sweeper` creates a Supervisor sweep every 30 minutes and lets PASS targets move to `done` without manual reassignment. Remaining runtime hygiene: stale MCP auth noise appears to come from global Codex/plugin auth, not this repo's workbench skill source.

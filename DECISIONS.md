@@ -93,3 +93,13 @@ Decision: add a controlled VM/Computer execution lane for GUI, browser, sandbox,
 Reason: some workbench tasks need disposable desktop state and visual proof, but Multica should remain the routing, review, issue, and evidence source of truth.
 
 Consequence: VM sessions must be declared through SDD fields, owned by one issue and one agent, artifact-backed, and destroyed by default. The lane must not become an autonomous scheduler or a replacement for Multica.
+
+## 2026-04-30 - Adopt Multica 0.2.21 Project-Bound Workflow Rails
+
+Decision: use Multica 0.2.21 features as workbench workflow rails: project-bound repo resources, Quick Capture intake, fresh reruns, Mermaid diagrams, and per-agent runtime config.
+
+The live `Ultimate Workbench` project is the default project anchor for this repo. It binds the GitHub repository resource and is led by Workbench Admin. Non-trivial intake still flows through SDD comments and Supervisor review; the project binding only reduces repo ambiguity.
+
+Runtime-specific choices should move toward Multica agent config (`--model`, `--custom-env-file`, `--custom-env-stdin`) before being duplicated in prompts. Fresh reruns are preferred when a run inherits stale context, wrong repo/branch state, changed auth/runtime configuration, or incomplete evidence publishing.
+
+Rationale: 0.2.21 gives native product support for patterns the workbench had been enforcing manually. Adopting those rails reduces checkout mistakes, stale retries, prompt bloat, and diagram-free ambiguity while preserving the existing source-first and review-first discipline.

@@ -8,6 +8,14 @@ State the concrete outcome the user needs.
 
 List the source request, repo, branch, relevant files, prior issue/comment IDs, and constraints.
 
+## Intake / Project Routing
+
+- Intake source: `quick-capture` / `direct-chat` / `manual-issue` / `autopilot` / `agent-created`
+- Project:
+- Repo resource:
+- Source URL, if enriched:
+- Literal request preserved: yes/no
+
 ## Owner
 
 Assigned stage owner:
@@ -44,6 +52,10 @@ Use full SDD for non-trivial work. Workbench Admin may mark `SDD_BYPASS: quick-f
 - Do not read full issue lists, full agent rosters, or unrelated docs unless the stage explains why.
 - If the artifact cannot fit in one reviewable comment, compress it before posting instead of splitting it.
 
+## Rerun Policy
+
+Use a fresh rerun instead of extending a polluted run when repo context, branch state, auth state, runtime config, or prior issue state is stale. The rerun must cite the previous run ID and start from the newest `HANDOFF_SUMMARY` and `SCOPED_EVIDENCE`.
+
 ## Raw Requirement
 
 ```text
@@ -52,6 +64,10 @@ OWNER:
 STATUS: READY_FOR_REVIEW
 REVIEWER: Workbench Supervisor
 EVIDENCE:
+INTAKE_SOURCE:
+PROJECT:
+REPO_RESOURCE:
+URL_CONTEXT:
 HANDOFF_SUMMARY:
 SCOPED_EVIDENCE:
 ANTI_OVER_READ:

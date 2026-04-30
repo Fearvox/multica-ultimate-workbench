@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-04-30T11:57:20Z",
+  "description": "Project-bound operating hub for the Multica Ultimate Workbench source repo, SDD intake, live review gates, and VM lane pilots.",
+  "done_count": 0,
+  "icon": null,
+  "id": "fa2a44e7-5ba8-4b09-a2ed-5bb0ac53b269",
+  "issue_count": 0,
+  "lead_id": "5fb626ce-488c-44cd-81c1-0cfb3ea26bce",
+  "lead_type": "agent",
+  "priority": "none",
+  "status": "in_progress",
+  "title": "Ultimate Workbench",
+  "updated_at": "2026-04-30T11:58:10Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

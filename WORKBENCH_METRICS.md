@@ -55,6 +55,14 @@ Use the digest as evidence, not as the verdict.
 - `FLAG`: failed/cancelled runs, missing final evidence, no verdict marker, oversized trace, or token attribution not visible where expected.
 - `PASS`: digest is coherent, evidence exists, and residual risks are named.
 
+## Fresh Rerun Interpretation
+
+After Multica 0.2.21, use fresh reruns as a context hygiene tool:
+
+- `PASS`: a rerun starts from the latest compact handoff, cites the prior stale run, and produces coherent evidence.
+- `FLAG`: a rerun fixes execution but leaves repo/branch/auth provenance unclear.
+- `BLOCK`: repeated reruns inherit the same stale state, wrong repo, missing checkout, or missing evidence publishing.
+
 ## Storage Rules
 
 - Default mode writes no persistent files.

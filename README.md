@@ -15,7 +15,7 @@
 ![Curator](https://img.shields.io/badge/maintenance-skill_curator-9333ea?style=flat-square)
 ![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)
 
-**Jump / 跳转:** [Overview](#overview--总览) · [Architecture](#architecture--架构) · [SDD](#sdd-workflow--规范驱动开发流程) · [Commands](#commands--常用命令) · [Docs](#documentation-map--文档地图)
+**Jump / 跳转:** [Overview](#overview--总览) · [Architecture](#architecture--架构) · [SDD](#sdd-workflow--规范驱动开发流程) · [Multica 0.2.21](#multica-021-workflow--multica-021-工作流) · [Commands](#commands--常用命令) · [Docs](#documentation-map--文档地图)
 
 ## Overview / 总览
 
@@ -108,6 +108,23 @@ Workspace skills are the shared grammar of the workbench. They keep high-frequen
 Workspace skills 是工作台的共享语法。它们把高频行为固定下来：SDD、conductor routing、research、implementation、review、docs release、browser proofshot QA、token/context discipline、memory synthesis。
 
 See [skills/README.md](skills/README.md) for the live skill map and attachment design.
+
+## Multica 0.2.21 Workflow / Multica 0.2.21 工作流
+
+Multica 0.2.21 adds product surfaces that map directly onto the workbench: project-bound repos, Quick Capture intake, fresh reruns, Mermaid rendering, per-agent model config, and safer custom env handling. The workbench uses these as routing and evidence rails, not as a replacement for SDD or Supervisor review.
+
+Multica 0.2.21 的新能力正好贴合工作台：Project 绑定 repo、Quick Capture intake、fresh rerun、Mermaid 渲染、per-agent model config、更安全的 custom env。工作台把它们作为路由和证据轨道，而不是替代 SDD 或 Supervisor review。
+
+```mermaid
+flowchart LR
+  A["Quick Capture / raw request"] --> B["Project-bound repo"]
+  B --> C["SDD handoff"]
+  C --> D["Owner execution"]
+  D --> E["Evidence artifact"]
+  E --> F["Supervisor verdict"]
+```
+
+See [docs/multica-021-workflow.md](docs/multica-021-workflow.md).
 
 ## Flight Recorder / Flight Recorder
 
@@ -203,6 +220,7 @@ The workbench is intentionally conservative:
 | Historical rollout log / 历史流水账 | [WORKBENCH_LOG.md](WORKBENCH_LOG.md) |
 | Flight recorder contract / Flight Recorder 契约 | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
 | VM execution lane / VM 执行通道 | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
+| Multica 0.2.21 workflow upgrade / Multica 0.2.21 工作流升级 | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
 | Skill curator protocol / Skill Curator 协议 | [docs/skill-curator.md](docs/skill-curator.md) |
 | Workspace skill map / Skill 映射 | [skills/README.md](skills/README.md) |
 | Agent roster / Agent 名册 | [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) |
@@ -211,6 +229,6 @@ The workbench is intentionally conservative:
 
 ## Current Status / 当前状态
 
-The workbench has a verified two-ring roster, a high-frequency workspace skill pack, source-first prompt compression, daily health autopilot scaffolding, an automatic review sweeper, a flight recorder that has passed live QA/Supervisor review, and a source-level skill curator protocol. Current operational truth lives in [SYNTHESIS.md](SYNTHESIS.md); historical details live in [WORKBENCH_LOG.md](WORKBENCH_LOG.md).
+The workbench has a verified two-ring roster, a high-frequency workspace skill pack, source-first prompt compression, daily health autopilot scaffolding, an automatic review sweeper, a flight recorder that has passed live QA/Supervisor review, a source-level skill curator protocol, a controlled VM lane, and a Multica 0.2.21 project-bound repo anchor. Current operational truth lives in [SYNTHESIS.md](SYNTHESIS.md); historical details live in [WORKBENCH_LOG.md](WORKBENCH_LOG.md).
 
-当前工作台已经具备经过验证的双环 roster、高频 workspace skill pack、source-first prompt compression、daily health autopilot scaffold、automatic review sweeper、通过 live QA/Supervisor review 的 flight recorder，以及 source-level skill curator protocol。当前事实看 [SYNTHESIS.md](SYNTHESIS.md)，历史过程看 [WORKBENCH_LOG.md](WORKBENCH_LOG.md)。
+当前工作台已经具备经过验证的双环 roster、高频 workspace skill pack、source-first prompt compression、daily health autopilot scaffold、automatic review sweeper、通过 live QA/Supervisor review 的 flight recorder、source-level skill curator protocol、受控 VM lane，以及 Multica 0.2.21 project-bound repo anchor。当前事实看 [SYNTHESIS.md](SYNTHESIS.md)，历史过程看 [WORKBENCH_LOG.md](WORKBENCH_LOG.md)。
