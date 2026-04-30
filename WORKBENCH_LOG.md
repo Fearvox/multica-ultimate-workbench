@@ -57,3 +57,9 @@
 - Created `DAS-5` (`57c3e1d7-3171-459c-b1ed-d9683d8c6717`) as a fresh-task smoke issue assigned to `Workbench Admin` to verify skill visibility after the core-pack installation.
 - `Workbench Admin` completed `DAS-5` run `7cbadc0d-b8e0-4982-98d1-df369afecba7`, saw `workbench-conductor` and `workbench-sdd` in task context, checked out the workbench repo at commit `2812d01`, verified `skills/README.md`, and posted PASS comment `ee351c22-5394-49a8-919f-abdaf162c632`.
 - Closed `DAS-5` to `done`; the workspace skill layer is now installed, bound, and smoke-verified for new tasks.
+- Created `DAS-9` (`f6aa0e0d-8f97-452e-b299-df061638aa9b`) to run an SDD-gated expansion of the workbench skill system.
+- Captured pre-mutation skill and agent-binding backups under `artifacts/das-9-skill-sync-backup`; `Codex Developer` posted `STAGE5_T1_BACKUP_READY` comment `db5c6deb-9517-41ef-a138-ffca72dcf888`.
+- Committed expanded local skill source in `9c82f69` and added 8 high-frequency skills: debug investigation, code review, frontend design QA, browser proofshot QA, docs release, token/context discipline, product brainstorming, and GSD tasking.
+- Updated the existing 7 live Multica skills, created the 8 new live skills, verified `multica skill list --output json` returned 15 skills, and committed live ID docs sync in `3d9fe18`.
+- Applied the expanded role-specific attachment map to the 12 target workbench agents, verified every binding by `agent skills list`, and confirmed `Workbench Max` remained unmodified with zero skills.
+- Created `DAS-10` (`c572f2d2-b902-42bf-85ea-82ce71457c83`) as a fresh Workbench Admin smoke issue; run `5dfe420e-0f0b-4d7d-84e5-d56e6e44ad30` posted PASS comment `7e3f1946-d016-460b-b2d6-743c95c45393`, saw the expected expanded Admin skill grammar, and confirmed no mutations.

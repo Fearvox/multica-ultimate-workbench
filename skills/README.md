@@ -83,6 +83,6 @@ DAS-9 source expansion verification:
 - New 8 live skills were created on 2026-04-30 UTC and their IDs are recorded above.
 - `multica skill list --output json` returned 15 skills after sync.
 - `multica skill get <id> --output json` returned non-empty content for all 15 skills after sync.
-- The attachment map above still needs to be applied to the 12 target workbench agents.
+- The attachment map above was applied to the 12 target workbench agents and independently verified against `agent skills list`.
 - `Workbench Max` remains unmodified with zero skill assignments.
-- A final smoke issue still needs to verify that at least one fresh workbench task sees the expanded skill grammar.
+- `DAS-10` fresh Workbench Admin smoke run `5dfe420e-0f0b-4d7d-84e5-d56e6e44ad30` posted PASS comment `7e3f1946-d016-460b-b2d6-743c95c45393`, seeing the expected 5 Admin skills and confirming no mutation.

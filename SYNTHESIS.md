@@ -108,7 +108,7 @@ Use `issue-templates/sdd-workflow.md` for non-trivial SDD-gated work. Workbench 
 
 Created in Multica workspace `DASH` on 2026-04-29 and attached to the 12 target workbench agents. `Workbench Max` was intentionally preserved and not modified. `DAS-5` verified that a fresh Workbench Admin task can see `workbench-conductor` and `workbench-sdd` and can check out the local skill source at commit `2812d01`.
 
-DAS-9 expands the pack from 7 core skills to 15 high-frequency skills. The expansion keeps the same principle: local source first, live sync after backup, role-specific bindings, and `Workbench Max` untouched.
+DAS-9 expanded the pack from 7 core skills to 15 high-frequency skills. The expansion kept the same principle: local source first, live sync after backup, role-specific bindings, and `Workbench Max` untouched. `DAS-10` fresh Workbench Admin smoke run `5dfe420e-0f0b-4d7d-84e5-d56e6e44ad30` posted PASS comment `7e3f1946-d016-460b-b2d6-743c95c45393`.
 
 | Skill | Live ID | Purpose |
 | --- | --- | --- |
@@ -130,4 +130,4 @@ DAS-9 expands the pack from 7 core skills to 15 high-frequency skills. The expan
 
 ## Next Immediate Action
 
-Complete DAS-9 Stage 5: apply role-specific agent bindings, verify `Workbench Max` remains unmodified, then run a final smoke issue against the expanded skill grammar.
+Use the expanded skill pack in the next real SDD issue, then optimize only from observed run evidence: token/context usage, duplicated skill behavior, missing role grammar, or reviewer findings.
