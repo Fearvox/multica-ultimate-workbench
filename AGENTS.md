@@ -46,7 +46,7 @@ Use the two-ring model.
 | Inner Ring | Workbench Admin, Workbench Supervisor, Workbench Synthesizer | Route work, review evidence, preserve memory, and keep the system coherent. |
 | Outer Ring | Developer, Researcher, Architect, Docs, QA, Ops, Curator | Execute bounded specialist work. Do not take over orchestration unless assigned. |
 
-Direct chat is for fuzzy thought. Issues are for executable work. Mentions are for narrow review or advice. Autopilots create recurring review issues.
+Direct chat is for fuzzy thought. Issues are for executable work. Mentions are for narrow review or advice. Autopilots create recurring review issues. The Auto Review Sweeper is the automatic `in_review` handoff: Workbench Supervisor scans completed agent work on a schedule, posts `AUTO_REVIEW`, and may close PASS targets to `done`.
 
 ## SDD Protocol
 
@@ -69,6 +69,7 @@ Rules:
 Reviewer output must be evidence-backed.
 
 - End with exact `PASS`, `FLAG`, or `BLOCK` when the issue asks for a review verdict.
+- Auto-review comments must include `AUTO_REVIEW`, `TARGET`, `VERDICT`, `VERDICT_SUMMARY`, `EVIDENCE`, `STATUS_ACTION`, and `NEXT_ACTION`.
 - If the task asks for a scaffold, use: `What was verified / Evidence or proposed evidence / Residual risk / Next action`.
 - `PASS` means the goal is achieved and residual risk is acceptable.
 - `FLAG` means the path is usable but has a concrete risk or missing proof.

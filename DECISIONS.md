@@ -69,3 +69,11 @@ Decision: Add a Workbench Skill Curator protocol inspired by Hermes Agent's Cura
 The curator may classify skills and bindings as `active`, `stale`, `archived`, or `pinned`, and may propose patches, consolidation, archive candidates, or live-sync needs. It must not delete local skill files, rewrite live Multica skills, detach skill bindings, or modify preserved agents without explicit human approval and Supervisor review.
 
 Rationale: Hermes Curator's lifecycle, pinning, usage telemetry, recoverable archival, and report pattern match the workbench's skill-bloat problem. The workbench has a stronger safety requirement because its skills and agents are part of a live collaboration system, so v1 should create review evidence and patch plans before any mutation.
+
+## 2026-04-30 - Add Auto Review Sweeper For In-Review Handoffs
+
+Decision: Add a live `Auto Review Sweeper` autopilot assigned to Workbench Supervisor.
+
+The sweeper runs every 30 minutes and creates a high-priority review controller issue. Supervisor scans `in_review` targets, excludes the sweep controller itself, reviews at most three targets per sweep, posts an `AUTO_REVIEW` block on each target, and may set PASS targets to `done`, leave FLAG targets in `in_review`, or set BLOCK targets to `blocked`.
+
+Rationale: Agent execution already moves work into `in_review`, but relying on the human to manually reassign every finished issue makes the review gate a bottleneck. A scheduled sweeper preserves Multica's current autopilot model while turning completed agent work into an automatic Supervisor review queue.

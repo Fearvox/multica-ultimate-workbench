@@ -75,6 +75,7 @@ Existing companion agent:
 | Specialist execution | Complete bounded implementation, analysis, or research tasks. | Does not assign work to other Outer Ring agents. |
 | Parallel advice | Provide narrow review or options through mentions. | Does not become the owner of the work unless explicitly assigned. |
 | Scheduled checks | Use autopilots to create review issues on a cadence. | Does not silently perform high-risk work. |
+| Auto review sweeps | Workbench Supervisor scans `in_review` issues created by completed agent work. | Reviews at most three targets per sweep and closes only through explicit PASS. |
 
 ## SDD Operating Flow
 
@@ -99,6 +100,7 @@ Use `issue-templates/sdd-workflow.md` for non-trivial SDD-gated work. Workbench 
 | Automation silently performing unsafe changes | Loss of human control over high-risk work. | Autopilots create issues for approval-driven execution. |
 | Outer Ring agents coordinating each other | Confused ownership and unreviewed delegation chains. | Outer Ring agents only execute assigned bounded tasks. |
 | Done claims without evidence | False completion and broken trust. | Every completion must include verification evidence. |
+| Completed tasks wait for manual review assignment | Work piles up in `in_review` and the human becomes the review router. | `Auto Review Sweeper` (`3908843d-69e5-487c-85e3-56775882c4fb`) creates scheduled Supervisor review sweeps every 30 minutes. |
 | Autopilot-created issues lack the local workbench repo | Agents cannot verify this repository's docs/specs from their assigned workdir. | Mitigated on 2026-04-29 by linking `file:///Users/0xvox/multica-ultimate-workbench` into workspace `DASH`; keep the repo link visible in `workspace get`. |
 | Agent roster and human member counts get conflated | Health cards can under-report the actual agent roster. | Health autopilot must run `agent list` and `workspace members` separately and report counts/names separately. |
 | Workspace skills drift from local source | Agents may run stale or invisible operating protocols. | Keep canonical skill source in `skills/`, record live IDs, and verify `skill list` plus agent bindings after changes. |
@@ -183,4 +185,4 @@ New source entries:
 
 ## Next Immediate Action
 
-DAS-15 live smoke passed after adding the Workbench Flight Recorder. The next strong workbench upgrade is to run a first read-only Skill Curator issue against the current 15-skill pack and prompt-compressed roster, then decide whether any stale/overlap findings deserve a bounded patch issue.
+The workbench now has a live auto-review handoff: `Auto Review Sweeper` creates a Supervisor sweep every 30 minutes and lets PASS targets move to `done` without manual reassignment. The next strong hardening pass is to fix burn-in findings: skill YAML frontmatter, stale MCP auth noise, Max roster/ring classification, verdict scaffold strictness, and objective stale-skill indicators.

@@ -131,11 +131,11 @@ See [docs/skill-curator.md](docs/skill-curator.md) and [issue-templates/curator-
 
 ## Autopilots / 自动巡检
 
-Autopilots create issues for recurring checks. They do not silently perform high-risk work. Daily health, dependency review, stale-memory checks, skill-curator checks, and benchmark-artifact checks are treated as scheduled prompts for reviewed execution.
+Autopilots create issues for recurring checks. They do not silently perform high-risk work. Daily health, auto-review sweeps, dependency review, stale-memory checks, skill-curator checks, and benchmark-artifact checks are treated as scheduled prompts for reviewed execution.
 
-Autopilots 用来定期创建检查 issue，而不是偷偷执行高风险操作。Daily health、dependency review、stale-memory checks、skill-curator checks、benchmark-artifact checks 都是进入 review 流程的入口。
+Autopilots 用来定期创建检查 issue，而不是偷偷执行高风险操作。Daily health、auto-review sweeps、dependency review、stale-memory checks、skill-curator checks、benchmark-artifact checks 都是进入 review 流程的入口。
 
-See [autopilots/daily-health.md](autopilots/daily-health.md) for the current health-check pattern.
+See [autopilots/daily-health.md](autopilots/daily-health.md) for the health-check pattern and [autopilots/auto-review-sweeper.md](autopilots/auto-review-sweeper.md) for the automatic `in_review` review gate.
 
 ## Commands / 常用命令
 
@@ -198,6 +198,6 @@ The workbench is intentionally conservative:
 
 ## Current Status / 当前状态
 
-The workbench has a verified two-ring roster, a high-frequency workspace skill pack, source-first prompt compression, daily health autopilot scaffolding, a flight recorder that has passed live QA/Supervisor review, and a source-level skill curator protocol. Current operational truth lives in [SYNTHESIS.md](SYNTHESIS.md); historical details live in [WORKBENCH_LOG.md](WORKBENCH_LOG.md).
+The workbench has a verified two-ring roster, a high-frequency workspace skill pack, source-first prompt compression, daily health autopilot scaffolding, an automatic review sweeper, a flight recorder that has passed live QA/Supervisor review, and a source-level skill curator protocol. Current operational truth lives in [SYNTHESIS.md](SYNTHESIS.md); historical details live in [WORKBENCH_LOG.md](WORKBENCH_LOG.md).
 
-当前工作台已经具备经过验证的双环 roster、高频 workspace skill pack、source-first prompt compression、daily health autopilot scaffold、通过 live QA/Supervisor review 的 flight recorder，以及 source-level skill curator protocol。当前事实看 [SYNTHESIS.md](SYNTHESIS.md)，历史过程看 [WORKBENCH_LOG.md](WORKBENCH_LOG.md)。
+当前工作台已经具备经过验证的双环 roster、高频 workspace skill pack、source-first prompt compression、daily health autopilot scaffold、automatic review sweeper、通过 live QA/Supervisor review 的 flight recorder，以及 source-level skill curator protocol。当前事实看 [SYNTHESIS.md](SYNTHESIS.md)，历史过程看 [WORKBENCH_LOG.md](WORKBENCH_LOG.md)。
