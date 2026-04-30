@@ -15,6 +15,8 @@ Use this skill for code review, workflow review, QA verification, release checks
 3. Compare evidence against the objective.
 4. Verify the smallest real path that proves the claim.
 5. Report findings first, ordered by severity.
+6. Check command syntax and live-resource ownership when the work involves Multica CLI mutations.
+7. If duplicate comments or artifacts exist, identify the primary artifact and explain why.
 
 ## Findings Format
 
@@ -37,3 +39,4 @@ For clean reviews, return:
 - Distinguish content failures from workflow/tooling failures.
 - If Multica workspace repo access is needed, use the workspace repository checkout path and report the commit/branch inspected.
 - Keep evidence concise and reproducible.
+- Verify `Workbench Max` remains untouched when a task says it must be preserved.

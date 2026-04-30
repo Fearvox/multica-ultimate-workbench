@@ -19,6 +19,8 @@ The workbench has an Inner Ring for command, review, and synthesis, and an Outer
 3. Mention secondary agents only for narrow advice, review, or verification.
 4. Require evidence for every completion claim.
 5. Move status only when the issue has the right evidence for that status.
+6. Attach only the role-relevant skills needed for the task; broad skill fanout creates prompt noise.
+7. If duplicate artifacts exist, prefer the agent-authored complete artifact and cite any proxy artifact only as recovery evidence.
 
 ## Comment Discipline
 
@@ -42,3 +44,4 @@ Do not post long generic strategy essays inside execution issues. Put durable st
 - Do not store secrets, OAuth material, tokens, or private credentials in comments or repo files.
 - Prefer issue creation over silent automation for scheduled work.
 - Preserve existing agents, runtimes, and stable routes.
+- Preserve `Workbench Max` unless an issue explicitly assigns changes to it.

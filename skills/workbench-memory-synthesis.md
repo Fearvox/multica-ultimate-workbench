@@ -9,6 +9,8 @@ Use this skill for durable memory, session summaries, decision logs, issue close
 - Record decisions separately from logs.
 - Keep strategy in synthesis documents and execution evidence in logs or issue comments.
 - Preserve IDs that matter for recovery: issue IDs, run IDs, comment IDs, agent IDs, autopilot IDs, commit IDs.
+- When a run stalls and a conductor proxy posts evidence, record both the proxy ID and the later agent-authored artifact ID if it appears.
+- Record live resource IDs only after post-sync verification confirms them.
 
 ## Synthesis Method
 

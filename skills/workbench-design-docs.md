@@ -17,6 +17,8 @@ Use this skill for product design, technical design documents, user-facing copy,
 - Separate strategy, decisions, logs, issue templates, and automation specs.
 - Include IDs, commands, schedules, and evidence only when they help future recovery.
 - Do not include secrets or private credentials.
+- Keep `skills/README.md` aligned with live skill IDs and agent attachment maps.
+- For SDD work, keep stage artifacts scannable and avoid burying the actual artifact in discussion replies.
 
 ## Output Contract
 

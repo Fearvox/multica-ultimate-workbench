@@ -29,3 +29,13 @@ Decision: SDD stages live as structured Multica issue comments, not as issue sta
 The issue status model remains coarse: `todo`, `in_progress`, `in_review`, `done`, and `blocked`. The SDD pipeline records Raw Requirement, Product Design, Technical Design, Task List, and Execution And Verification as comments with `SDD_STAGE` headers and Supervisor PASS/FLAG/BLOCK gates.
 
 Rationale: Five SDD stages do not map cleanly onto the existing status set. Keeping SDD at the comment layer preserves current routing, autopilot, and review behavior while adding a verifiable planning trail.
+
+## 2026-04-30 - Expand Workbench Skills Through Role-Specific High-Frequency Pack
+
+Decision: Expand the Multica workspace skill pack from 7 core skills to 15 role-specific high-frequency skills during DAS-9.
+
+The added skills are `workbench-debug-investigate`, `workbench-code-review`, `workbench-frontend-design-qa`, `workbench-browser-proofshot-qa`, `workbench-docs-release`, `workbench-token-context-discipline`, `workbench-product-brainstorming`, and `workbench-gsd-tasking`.
+
+The live rollout must remain source-first and reversible: back up current live skills and bindings, patch local source, commit the source batch, synchronize live skills, update bindings by role, verify every binding, and keep `Workbench Max` untouched.
+
+Rationale: The original 7-skill pack gave agents a shared operating grammar, but the workbench now repeatedly needs debugging, code review, visual/browser QA, docs release, context discipline, brainstorming, and tasking behavior. Adding compact role-specific skills gives agents the missing high-frequency habits without importing every local skill or bloating every prompt.

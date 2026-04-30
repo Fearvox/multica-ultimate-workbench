@@ -33,6 +33,8 @@ Move work through these stages:
 - If a stage is already answered by issue text or prior comments, cite that evidence and move forward.
 - If the task is blocked by a missing decision, state the smallest decision needed.
 - If the task is low-risk and obvious, compress the stages into a short SDD card instead of creating ceremony.
+- If the user says "go", "continue", or an equivalent approval after a reviewed stage, record that as the gate approval context before proceeding.
+- When a stage has both proxy and agent-authored artifacts, use the complete agent-authored artifact as primary and keep the proxy comment as trace evidence.
 
 ## Comment Structure
 
@@ -69,6 +71,7 @@ Put the stage-specific artifact after the header. Keep discussion replies separa
 - Execution owners implement only their assigned slice and do not create follow-on work unless explicitly requested.
 - T8 or smoke-test work remains separate when the task list says it depends on a committed repo batch.
 - Completion reports include changed files, verification output, residual risks, commit hash or artifact link, work directory, and branch.
+- Live skill or agent-binding changes must have a backup and post-change verification before final PASS.
 
 ## Output Contract
 

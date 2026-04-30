@@ -1,6 +1,7 @@
 # Synthesis
 
 Date: 2026-04-29
+Last updated: 2026-04-30 UTC during DAS-9 skill expansion.
 
 ## Current Strategy
 
@@ -101,10 +102,13 @@ Use `issue-templates/sdd-workflow.md` for non-trivial SDD-gated work. Workbench 
 | Autopilot-created issues lack the local workbench repo | Agents cannot verify this repository's docs/specs from their assigned workdir. | Mitigated on 2026-04-29 by linking `file:///Users/0xvox/multica-ultimate-workbench` into workspace `DASH`; keep the repo link visible in `workspace get`. |
 | Agent roster and human member counts get conflated | Health cards can under-report the actual agent roster. | Health autopilot must run `agent list` and `workspace members` separately and report counts/names separately. |
 | Workspace skills drift from local source | Agents may run stale or invisible operating protocols. | Keep canonical skill source in `skills/`, record live IDs, and verify `skill list` plus agent bindings after changes. |
+| Prompt bloat from over-attached skills | Agents waste context and quota on irrelevant operating protocols. | Attach skills by role, keep high-frequency skills compact, and use `workbench-token-context-discipline` for large histories/docs. |
 
-## Workspace Skill Core Pack
+## Workspace Skill Pack
 
 Created in Multica workspace `DASH` on 2026-04-29 and attached to the 12 target workbench agents. `Workbench Max` was intentionally preserved and not modified. `DAS-5` verified that a fresh Workbench Admin task can see `workbench-conductor` and `workbench-sdd` and can check out the local skill source at commit `2812d01`.
+
+DAS-9 expands the pack from 7 core skills to 15 high-frequency skills. The expansion keeps the same principle: local source first, live sync after backup, role-specific bindings, and `Workbench Max` untouched.
 
 | Skill | Live ID | Purpose |
 | --- | --- | --- |
@@ -115,7 +119,15 @@ Created in Multica workspace `DASH` on 2026-04-29 and attached to the 12 target 
 | `workbench-implementation` | `b4bf2dce-9acc-4082-ab6b-7fcb1383950a` | Minimal-patch implementation and ops discipline. |
 | `workbench-design-docs` | `66f04cd9-f62d-42b9-be2b-24ded62484bc` | Product design, technical design, copy, and docs. |
 | `workbench-memory-synthesis` | `8d80f2f9-46cf-4d1e-a0bb-63c7064907eb` | Durable memory, decision logging, and handoffs. |
+| `workbench-debug-investigate` | `TBD after DAS-9 live sync` | Root-cause investigation for bugs, regressions, quota anomalies, and runtime failures. |
+| `workbench-code-review` | `TBD after DAS-9 live sync` | Findings-first review discipline for diffs, live changes, and evidence quality. |
+| `workbench-frontend-design-qa` | `TBD after DAS-9 live sync` | Visual/UI QA for responsive surfaces, text fit, hierarchy, and interaction states. |
+| `workbench-browser-proofshot-qa` | `TBD after DAS-9 live sync` | Browser verification with screenshots, traces, console/network checks, and repro steps. |
+| `workbench-docs-release` | `TBD after DAS-9 live sync` | Documentation sync after behavior, roster, skill, or release changes. |
+| `workbench-token-context-discipline` | `TBD after DAS-9 live sync` | Compact context, cache-aware execution, and role-specific skill attachment discipline. |
+| `workbench-product-brainstorming` | `TBD after DAS-9 live sync` | Bounded product ideation with options, tradeoffs, recommendation, and smallest test. |
+| `workbench-gsd-tasking` | `TBD after DAS-9 live sync` | Owner-scoped tasks with gates, rollback, verification, and smoke tests. |
 
 ## Next Immediate Action
 
-After the SDD workflow repo batch is reviewed, run the separate T8 smoke issue: create one SDD-gated issue from `issue-templates/sdd-workflow.md`, verify all five stage comments and Supervisor gates, and only then consider high-frequency skill optimization.
+Complete DAS-9 Stage 5: commit the expanded skill source batch, synchronize the 15 live Multica skills, apply role-specific agent bindings, verify `Workbench Max` remains unmodified, then run a final smoke issue against the expanded skill grammar.
