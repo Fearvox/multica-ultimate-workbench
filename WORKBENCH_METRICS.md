@@ -77,7 +77,7 @@ After DAS-14, the workbench should treat token/context discipline as part of nor
 - role prompts are compressed source-first with `.original.md` backups
 - high-frequency skills are attached by role, not globally
 - agents should start from compact handoffs before broad reads
-- tasks needing repo docs should run `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench`
+- tasks needing repo docs should resolve the `Ultimate Workbench` project-bound GitHub repo resource first; `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` is local-only fallback evidence and must include branch/commit verification
 - completion claims need concrete evidence and a review label
 
 ## Curator Metrics
