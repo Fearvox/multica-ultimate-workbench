@@ -72,3 +72,4 @@
 - Live-synced the DAS-11 policy into four workspace skills only: `workbench-sdd`, `workbench-conductor`, `workbench-token-context-discipline`, and `workbench-review-qa`; `skill_count` remained 15 and `Workbench Max` remained at zero skills.
 - `DAS-12` live smoke confirmed scoped reading and no mutation, but Supervisor returned FLAG because Admin used semantic sections instead of literal `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` field names.
 - Tightened `workbench-sdd` and `workbench-conductor` source wording so exact compact field names are mandatory in SDD stage headers.
+- Live-synced the exact-field wording into `workbench-sdd` and `workbench-conductor`; `skill_count` remained 15 and `Workbench Max` remained at zero skills.

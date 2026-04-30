@@ -130,4 +130,4 @@ DAS-9 expanded the pack from 7 core skills to 15 high-frequency skills. The expa
 
 ## Next Immediate Action
 
-DAS-11 live-synced the compact handoff policy into `workbench-sdd`, `workbench-conductor`, `workbench-token-context-discipline`, and `workbench-review-qa`. Next: run DAS-12 as a live-behavior smoke to verify fresh agents use `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, `ANTI_OVER_READ`, and `VERDICT_SUMMARY` without being spoon-fed the source template.
+DAS-12 live smoke proved scoped reading and no mutation, but flagged that Admin used semantic sections instead of exact field names. The exact-field wording is now live-synced into `workbench-sdd` and `workbench-conductor`. Next: rerun a fresh compact-handoff smoke and require literal `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` headers.
