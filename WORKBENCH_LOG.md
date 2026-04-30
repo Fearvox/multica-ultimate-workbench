@@ -67,3 +67,6 @@
 - Workbench Admin run `6b6319e8-95c2-48fa-b51e-64aeca7ac086` produced SDD artifact `17fd38d7-6045-4d1e-bad6-2ad403a4402b`; a conductor proxy artifact `c4bfcc99-a4d4-42fd-824c-7ad53a040255` captured latency/recovery evidence.
 - Workbench Supervisor posted PASS comment `764b50db-4e82-4308-84c1-245c573c3ffb`, accepting the Admin artifact as primary and approving a source-only compact handoff patch before any live skill sync.
 - Added `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` policy to the SDD template and relevant skills so future SDD stages start from scoped evidence instead of broad issue/agent history reads.
+- Workbench Supervisor posted implementation PASS comment `7982cd9a-c122-47f6-ad71-6f5287cdc4ab` for commit `7a4520b`, with one follow-up to align review output around `VERDICT_SUMMARY`.
+- Added `VERDICT_SUMMARY` to `issue-templates/review.md` and `skills/workbench-review-qa.md` in commit `496a437`.
+- Live-synced the DAS-11 policy into four workspace skills only: `workbench-sdd`, `workbench-conductor`, `workbench-token-context-discipline`, and `workbench-review-qa`; `skill_count` remained 15 and `Workbench Max` remained at zero skills.

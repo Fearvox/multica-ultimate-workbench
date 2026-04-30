@@ -130,4 +130,4 @@ DAS-9 expanded the pack from 7 core skills to 15 high-frequency skills. The expa
 
 ## Next Immediate Action
 
-Run DAS-11 source-only efficiency patch through review, then use DAS-12 to smoke-test whether `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` reduce first-pass SDD over-reading before any live skill sync.
+DAS-11 live-synced the compact handoff policy into `workbench-sdd`, `workbench-conductor`, `workbench-token-context-discipline`, and `workbench-review-qa`. Next: run DAS-12 as a live-behavior smoke to verify fresh agents use `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, `ANTI_OVER_READ`, and `VERDICT_SUMMARY` without being spoon-fed the source template.
