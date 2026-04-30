@@ -73,3 +73,6 @@
 - `DAS-12` live smoke confirmed scoped reading and no mutation, but Supervisor returned FLAG because Admin used semantic sections instead of literal `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` field names.
 - Tightened `workbench-sdd` and `workbench-conductor` source wording so exact compact field names are mandatory in SDD stage headers.
 - Live-synced the exact-field wording into `workbench-sdd` and `workbench-conductor`; `skill_count` remained 15 and `Workbench Max` remained at zero skills.
+- Created `DAS-13` (`21a3a0aa-0faa-42ad-8c73-94306e5fe598`) as the fresh exact-field live retest.
+- Workbench Admin run `6bcdab5c-8e7b-495c-afdb-783eb3899399` loaded live `workbench-sdd`, avoided parent/deep reads, and posted Raw Requirement comment `60742f18-d8fe-4b75-88d6-fd3ef0911794` with literal `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` fields.
+- Workbench Supervisor posted PASS comment `f0ee6548-555c-4d2f-83ba-76a08322fbc6`, accepting the exact compact SDD header path; minor issue noted: `SCOPED_EVIDENCE` used "this comment" before the platform UUID existed.

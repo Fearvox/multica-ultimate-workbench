@@ -130,4 +130,4 @@ DAS-9 expanded the pack from 7 core skills to 15 high-frequency skills. The expa
 
 ## Next Immediate Action
 
-DAS-12 live smoke proved scoped reading and no mutation, but flagged that Admin used semantic sections instead of exact field names. The exact-field wording is now live-synced into `workbench-sdd` and `workbench-conductor`. Next: rerun a fresh compact-handoff smoke and require literal `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` headers.
+DAS-13 live retest passed: a fresh Workbench Admin run used live `workbench-sdd`, avoided parent/deep reads, emitted literal `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` headers, and Supervisor accepted the result. Next: use compact SDD handoffs in the next real multi-stage issue and watch whether Product Design / Technical Design stages also avoid broad history reads.
