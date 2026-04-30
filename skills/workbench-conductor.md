@@ -38,6 +38,8 @@ Use compact structured comments:
 
 For SDD-tracked issues, `SDD_STAGE` marks comment-level milestones from `workbench-sdd`. SDD stages are not issue statuses; keep status changes coarse and use structured comments for Raw Requirement, Product Design, Technical Design, Task List, and Execution And Verification gates.
 
+SDD stage artifacts must use the exact compact field names from `workbench-sdd`. Do not accept "Evidence" or "Skipped" sections as replacements for `SCOPED_EVIDENCE` and `ANTI_OVER_READ`; those sections may appear in the body only after the required header fields.
+
 Conductor notes must list exact evidence IDs, not vague directions like "read the issue". Agents should use handoff summaries when available and avoid re-reading full issue history. The phrase "read the issue" in a conductor note is a process smell unless paired with exact comment or run IDs.
 
 If an agent run reaches evidence-ready state but does not publish a stage artifact, post a compact proxy artifact from `issue run-messages` evidence, label it as proxy/recovery evidence, and let Supervisor choose the primary artifact when the agent-authored version appears.

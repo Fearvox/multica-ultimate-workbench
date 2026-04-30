@@ -70,3 +70,5 @@
 - Workbench Supervisor posted implementation PASS comment `7982cd9a-c122-47f6-ad71-6f5287cdc4ab` for commit `7a4520b`, with one follow-up to align review output around `VERDICT_SUMMARY`.
 - Added `VERDICT_SUMMARY` to `issue-templates/review.md` and `skills/workbench-review-qa.md` in commit `496a437`.
 - Live-synced the DAS-11 policy into four workspace skills only: `workbench-sdd`, `workbench-conductor`, `workbench-token-context-discipline`, and `workbench-review-qa`; `skill_count` remained 15 and `Workbench Max` remained at zero skills.
+- `DAS-12` live smoke confirmed scoped reading and no mutation, but Supervisor returned FLAG because Admin used semantic sections instead of literal `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` field names.
+- Tightened `workbench-sdd` and `workbench-conductor` source wording so exact compact field names are mandatory in SDD stage headers.

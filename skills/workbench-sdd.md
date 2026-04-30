@@ -53,7 +53,7 @@ ANTI_OVER_READ: [sources to skip unless needed, such as full issue lists or full
 
 Put the stage-specific artifact after the header. Keep discussion replies separate from stage artifacts so the comment history remains scannable.
 
-Every SDD stage comment must include `HANDOFF_SUMMARY`. Every SDD review comment must include `VERDICT_SUMMARY`. The next agent should be able to start from the handoff summary alone and deep-read only the listed `SCOPED_EVIDENCE`.
+Every SDD stage comment must literally include the exact uppercase field names `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` in the header. Do not substitute semantic equivalents such as "Evidence", "Skipped", "Context", or prose bullets. Every SDD review comment must literally include `VERDICT_SUMMARY`. The next agent should be able to start from the handoff summary alone and deep-read only the listed `SCOPED_EVIDENCE`.
 
 ## Stage Gate Mechanics
 
