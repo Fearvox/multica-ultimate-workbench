@@ -1,3 +1,8 @@
+---
+name: workbench-gsd-tasking
+description: Owner-scoped task decomposition with gates, rollback, verification commands, and smoke tests.
+---
+
 # Workbench GSD Tasking
 
 Use this skill to turn approved requirements, product designs, or technical designs into executable tasks.

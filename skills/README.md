@@ -45,6 +45,8 @@ Target map after DAS-9 expansion:
 
 `Workbench Max` is intentionally preserved and not modified by the DAS-9 expansion.
 
+`Workbench Max` is a preserved Special bench rather than a normal Inner or Outer Ring routing target. It should keep zero broad workbench skill assignments unless the human explicitly assigns a change.
+
 ## Live IDs
 
 Created in the Multica `DASH` workspace on 2026-04-29:
@@ -79,6 +81,7 @@ Verified after creation:
 DAS-9 source expansion verification:
 
 - All 15 local skill files exist and stay compact enough for role-specific attachment.
+- All 15 local skill files include Codex-compatible YAML frontmatter (`name` and `description`) as of DAS-31.
 - Existing 7 live skills were updated from local source on 2026-04-30 UTC.
 - New 8 live skills were created on 2026-04-30 UTC and their IDs are recorded above.
 - `multica skill list --output json` returned 15 skills after sync.
@@ -92,3 +95,5 @@ DAS-9 source expansion verification:
 Skill maintenance follows [../docs/skill-curator.md](../docs/skill-curator.md).
 
 Default rule: review first, mutate later. The curator can classify skills and bindings as `active`, `stale`, `archived`, or `pinned`, but v1 must not delete files, rewrite live skills, or detach live bindings without explicit human approval and Supervisor review.
+
+Stale classification should use objective indicators from [../docs/skill-curator.md](../docs/skill-curator.md), not vibes. Two indicators produce a `FLAG`; three or more can justify a stale proposal, still without automatic deletion or detachment.

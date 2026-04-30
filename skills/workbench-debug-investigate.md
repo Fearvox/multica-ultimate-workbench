@@ -1,3 +1,8 @@
+---
+name: workbench-debug-investigate
+description: Root-cause investigation for bugs, regressions, suspicious runtime behavior, failed automations, and unexpected outcomes.
+---
+
 # Workbench Debug Investigate
 
 Use this skill for bugs, regressions, suspicious runtime behavior, failed automations, and "this should not happen" reports.

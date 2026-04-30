@@ -1,3 +1,8 @@
+---
+name: workbench-memory-synthesis
+description: Durable memory, session summaries, decision logs, issue closeout synthesis, and compact handoffs.
+---
+
 # Workbench Memory Synthesis
 
 Use this skill for durable memory, session summaries, decision logs, issue closeout synthesis, and handoffs.

@@ -1,3 +1,8 @@
+---
+name: workbench-research
+description: Evidence-first research, architecture discovery, vendor documentation review, benchmark reading, and unknown-system analysis.
+---
+
 # Workbench Research
 
 Use this skill for research, architecture discovery, vendor docs, benchmark reading, and unknown-system analysis.

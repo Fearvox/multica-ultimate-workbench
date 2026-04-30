@@ -1,3 +1,8 @@
+---
+name: workbench-docs-release
+description: Post-change documentation sync for decisions, synthesis, skill maps, release notes, and durable handoffs.
+---
+
 # Workbench Docs Release
 
 Use this skill after behavior changes, live skill updates, agent roster changes, SDD milestones, or releases that need durable documentation.

@@ -1,3 +1,8 @@
+---
+name: workbench-browser-proofshot-qa
+description: Browser verification, proof screenshots, traces, console and network checks, and reproducible UI evidence for Workbench QA.
+---
+
 # Workbench Browser Proofshot QA
 
 Use this skill for browser-based verification, Playwright checks, proof screenshots, local web app dogfooding, and reproducible UI evidence.

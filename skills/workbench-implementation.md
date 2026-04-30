@@ -1,3 +1,8 @@
+---
+name: workbench-implementation
+description: Minimal-patch implementation, ops changes, scripts, automation specs, and local repository edits.
+---
+
 # Workbench Implementation
 
 Use this skill for coding, ops changes, scripts, automation specs, and local repository edits.

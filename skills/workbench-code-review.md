@@ -1,3 +1,8 @@
+---
+name: workbench-code-review
+description: Findings-first review discipline for code, diffs, task plans, live workflow changes, and implementation evidence.
+---
+
 # Workbench Code Review
 
 Use this skill for reviewing code, diffs, task plans, live workflow changes, and implementation evidence before merge or closure.

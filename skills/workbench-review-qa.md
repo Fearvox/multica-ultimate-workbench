@@ -1,3 +1,8 @@
+---
+name: workbench-review-qa
+description: PASS, FLAG, and BLOCK review discipline for workflow review, QA verification, release checks, and issue closeout.
+---
+
 # Workbench Review QA
 
 Use this skill for code review, workflow review, QA verification, release checks, and issue closeout.
@@ -35,6 +40,25 @@ For clean reviews, return:
 - residual risk or test gap.
 
 Every SDD review should include `VERDICT_SUMMARY` so the next agent can continue from the review header without re-reading the full review body.
+
+## Auto Review Sweeper
+
+For automatic `in_review` handoffs, use this exact block on each reviewed target:
+
+```text
+AUTO_REVIEW
+TARGET: <identifier>
+VERDICT: PASS | FLAG | BLOCK
+VERDICT_SUMMARY: three lines or fewer
+EVIDENCE: concrete issue/comment/run IDs, commands, or file paths checked
+STATUS_ACTION: done | kept in_review | blocked | no_change
+NEXT_ACTION: exact next owner/action, or none
+```
+
+- `PASS` may move the target issue to `done` only when the original goal is satisfied and no required follow-up remains.
+- `FLAG` leaves the issue in `in_review` with a bounded next action.
+- `BLOCK` sets the issue to `blocked` with blocking evidence.
+- If evidence is still arriving, leave the issue unchanged and mark it pending in the sweep summary.
 
 ## QA Rules
 

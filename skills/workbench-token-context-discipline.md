@@ -1,3 +1,8 @@
+---
+name: workbench-token-context-discipline
+description: Compact context, cache-aware execution, scoped evidence reads, and role-specific skill attachment discipline.
+---
+
 # Workbench Token Context Discipline
 
 Use this skill when a task may pull large docs, long issue histories, many skills, big logs, or expensive model context.

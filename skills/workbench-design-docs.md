@@ -1,3 +1,8 @@
+---
+name: workbench-design-docs
+description: Product design, technical design documents, user-facing copy, specs, diagrams, and handoff documentation.
+---
+
 # Workbench Design Docs
 
 Use this skill for product design, technical design documents, user-facing copy, specs, diagrams, and handoff docs.

@@ -1,3 +1,8 @@
+---
+name: workbench-product-brainstorming
+description: Bounded product ideation, workflow design, ambition checks, tradeoffs, and smallest-test shaping.
+---
+
 # Workbench Product Brainstorming
 
 Use this skill for fuzzy product ideas, workflow design, "go crazy" exploration, feature shaping, and ambition checks before implementation.

@@ -77,3 +77,11 @@ Decision: Add a live `Auto Review Sweeper` autopilot assigned to Workbench Super
 The sweeper runs every 30 minutes and creates a high-priority review controller issue. Supervisor scans `in_review` targets, excludes the sweep controller itself, reviews at most three targets per sweep, posts an `AUTO_REVIEW` block on each target, and may set PASS targets to `done`, leave FLAG targets in `in_review`, or set BLOCK targets to `blocked`.
 
 Rationale: Agent execution already moves work into `in_review`, but relying on the human to manually reassign every finished issue makes the review gate a bottleneck. A scheduled sweeper preserves Multica's current autopilot model while turning completed agent work into an automatic Supervisor review queue.
+
+## 2026-04-30 - Harden Workbench Skills For Codex Loading
+
+Decision: Add YAML frontmatter to all local Workbench skill source files and sync the same content to live Multica skills.
+
+`Workbench Max` is also canonicalized as a preserved Special bench rather than a normal Inner or Outer Ring member. The hardening pass does not modify Max instructions, skill bindings, or global Codex MCP OAuth configuration.
+
+Rationale: DAS-16 burn-in showed Codex runtime logs rejecting several workbench skills because their live `SKILL.md` content lacked YAML frontmatter. Frontmatter is a low-risk compatibility fix. Max classification removes routing ambiguity without changing the preserved companion agent.

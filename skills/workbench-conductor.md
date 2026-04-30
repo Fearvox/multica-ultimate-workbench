@@ -1,3 +1,8 @@
+---
+name: workbench-conductor
+description: Two-ring orchestration, routing, issue and comment discipline, and role boundaries for the Multica Workbench.
+---
+
 # Workbench Conductor
 
 Use this skill when coordinating the Hybrid Multica Two-Ring Workbench.
@@ -53,3 +58,4 @@ Do not post long generic strategy essays inside execution issues. Put durable st
 - Prefer issue creation over silent automation for scheduled work.
 - Preserve existing agents, runtimes, and stable routes.
 - Preserve `Workbench Max` unless an issue explicitly assigns changes to it.
+- Treat `Workbench Max` as a preserved Special bench, not a default Inner or Outer Ring routing target.

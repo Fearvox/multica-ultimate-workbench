@@ -48,6 +48,26 @@ Out of scope:
 
 The first workbench implementation should treat this table as review vocabulary, not as an automated filesystem state machine.
 
+## Staleness Indicators
+
+Use objective indicators before calling a skill stale. One weak signal is not enough.
+
+Candidate stale signals:
+
+- no current agent binding in `skills/README.md`;
+- no issue, decision, or synthesis reference in the last 30 days of `WORKBENCH_LOG.md` or `DECISIONS.md`;
+- duplicated purpose with another active skill;
+- superseded by a newer skill or autopilot protocol;
+- repeated token/context complaints with little role-specific value.
+
+Default rule:
+
+- `0-1` signals: keep active.
+- `2` signals: mark `FLAG` and propose a small patch or binding review.
+- `3+` signals: propose stale classification, but do not delete, detach, or archive without explicit human approval and Supervisor review.
+
+Pinned items, safety protocols, review protocols, and `Workbench Max` related records cannot be auto-transitioned even if they match stale signals.
+
 ## Curator Inputs
 
 A curator pass may inspect:

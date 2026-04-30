@@ -1,3 +1,8 @@
+---
+name: workbench-frontend-design-qa
+description: Frontend and visual QA for responsive surfaces, screenshots, text fit, hierarchy, and interaction states.
+---
+
 # Workbench Frontend Design QA
 
 Use this skill for frontend UI, desktop/web surfaces, screenshots, responsive checks, interaction polish, and design-system consistency.

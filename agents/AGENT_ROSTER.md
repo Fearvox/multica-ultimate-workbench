@@ -14,3 +14,11 @@
 | Benchmark Scout | Outer | Hermes or Codex | private | 1 | Assigned benchmark review issue |
 | Ops Mechanic | Outer | Codex | private | 1 | Assigned ops issue |
 | Memory Curator | Outer | Claude Code or Hermes | private | 1 | Assigned synthesis/memory issue |
+
+## Preserved Special Bench
+
+| Agent | Ring | Preferred Runtime | Visibility | Max Concurrent Tasks | Primary Trigger |
+| --- | --- | --- | --- | ---: | --- |
+| Workbench Max | Special | Codex | private | 6 | Human-explicit assignment only |
+
+`Workbench Max` is a preserved companion workbench, not part of the default Inner or Outer Ring routing pool. Do not modify its instructions, bindings, or role unless the human explicitly asks.

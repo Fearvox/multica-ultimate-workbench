@@ -1,3 +1,8 @@
+---
+name: workbench-sdd
+description: Specification-driven development from raw requirement to product design, technical design, task list, execution, and verification.
+---
+
 # Workbench SDD
 
 Use this skill when a task needs to move from a fuzzy request into executable work.
