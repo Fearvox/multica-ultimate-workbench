@@ -1,0 +1,167 @@
+[
+  {
+    "config": {},
+    "content": "# Workbench Browser Proofshot QA\n\nUse this skill for browser-based verification, Playwright checks, proof screenshots, local web app dogfooding, and reproducible UI evidence.\n\n## Browser Verification Loop\n\n1. Start or identify the real app URL.\n2. Record browser, viewport, account/auth state, and build/commit when available.\n3. Exercise the user workflow, not only page load.\n4. Capture screenshots or trace artifacts for states that matter.\n5. Check console errors, failed network requests, obvious layout breakage, and final persisted state.\n6. Report exact repro steps and evidence paths.\n\n## Boundaries\n\n- Do not edit code during report-only QA unless explicitly assigned.\n- Do not treat a static screenshot as proof that a workflow works.\n- Do not rely on cached authenticated state without saying so.\n- Do not include private data in screenshots or copied logs.\n\n## Output Contract\n\nReturn:\n\n- `BROWSER_VERDICT`: PASS / FLAG / BLOCK.\n- `RUN`: URL, viewport, browser/tool, commit/build if known.\n- `STEPS`: concise repro or verification path.\n- `EVIDENCE`: screenshot/trace/log paths.\n- `FINDINGS`: ordered by severity.\n- `FOLLOW-UP`: smallest fix or re-test needed.",
+    "created_at": "2026-04-30T03:54:51Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Browser-based verification with screenshot, trace, console, and repro evidence.",
+    "id": "2acab3df-7b28-4ca4-a34b-4c713a453ada",
+    "name": "workbench-browser-proofshot-qa",
+    "updated_at": "2026-04-30T03:54:51Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Code Review\n\nUse this skill for reviewing code, diffs, task plans, live workflow changes, and implementation evidence before merge or closure.\n\n## Review Stance\n\n- Findings first. Do not lead with praise or a broad summary.\n- Order findings by severity and user impact.\n- Tie every finding to a file, command, issue/comment ID, run ID, or observable behavior.\n- Prefer concrete repro or blast-radius evidence over style opinions.\n- If no issues are found, say that clearly and name remaining test gaps.\n\n## Severity\n\n- `P0`: security, data loss, irreversible action, or broken primary workflow.\n- `P1`: likely user-facing regression or unsafe automation.\n- `P2`: correctness gap, missing edge case, or weak verification.\n- `P3`: maintainability, clarity, or low-risk cleanup.\n\n## Checklist\n\n- Does the implementation match the promised objective?\n- Are owner boundaries preserved?\n- Are live mutations backed up and reversible?\n- Are commands, IDs, and paths reproducible?\n- Are tests or real-path checks sufficient for the blast radius?\n- Did the change avoid unrelated refactors and hidden policy changes?\n\n## Output Contract\n\nFor findings:\n\n- `SEVERITY`\n- `LOCATION`\n- `ISSUE`\n- `WHY IT MATTERS`\n- `REQUIRED FIX`\n\nFor a clean review:\n\n- `VERDICT: PASS`\n- `EVIDENCE CHECKED`\n- `TEST GAPS`\n- `RESIDUAL RISK`",
+    "created_at": "2026-04-30T03:54:50Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Findings-first code and workflow review with severity and blast-radius checks.",
+    "id": "b7b035cb-67d6-4fbd-a756-c410190576a9",
+    "name": "workbench-code-review",
+    "updated_at": "2026-04-30T03:54:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Conductor\n\nUse this skill when coordinating the Hybrid Multica Two-Ring Workbench.\n\nThe workbench has an Inner Ring for command, review, and synthesis, and an Outer Ring for bounded specialist execution. Multica issues and comments are the live coordination record. This repository is the durable operating-memory record.\n\n## Role Boundaries\n\n- Admin converts fuzzy direction into executable issue shape.\n- Supervisor verifies evidence, risk, and completion claims.\n- Synthesizer keeps strategy, decisions, logs, and next actions coherent.\n- Outer Ring agents execute assigned bounded tasks or provide narrow review.\n- Outer Ring agents do not assign work to each other unless explicitly instructed.\n\n## Routing Protocol\n\n1. Restate the request as a bounded issue objective.\n2. Choose one primary owner.\n3. Mention secondary agents only for narrow advice, review, or verification.\n4. Require evidence for every completion claim.\n5. Move status only when the issue has the right evidence for that status.\n6. Attach only the role-relevant skills needed for the task; broad skill fanout creates prompt noise.\n7. If duplicate artifacts exist, prefer the agent-authored complete artifact and cite any proxy artifact only as recovery evidence.\n\n## Comment Discipline\n\nUse compact structured comments:\n\n- `OBJECTIVE`\n- `OWNER`\n- `SCOPE`\n- `SDD_STAGE`\n- `EVIDENCE NEEDED`\n- `NEXT ACTION`\n- `RISK`\n\nFor SDD-tracked issues, `SDD_STAGE` marks comment-level milestones from `workbench-sdd`. SDD stages are not issue statuses; keep status changes coarse and use structured comments for Raw Requirement, Product Design, Technical Design, Task List, and Execution And Verification gates.\n\nDo not post long generic strategy essays inside execution issues. Put durable strategy updates in the local workbench repo.\n\n## Safety Rules\n\n- Do not modify Multica daemon, Desktop UI, or core runtime unless explicitly requested.\n- Do not store secrets, OAuth material, tokens, or private credentials in comments or repo files.\n- Prefer issue creation over silent automation for scheduled work.\n- Preserve existing agents, runtimes, and stable routes.\n- Preserve `Workbench Max` unless an issue explicitly assigns changes to it.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Two-ring routing, role boundaries, and issue/comment orchestration for the workbench.",
+    "id": "811318a4-f396-4c87-8a89-80b5d871c6f5",
+    "name": "workbench-conductor",
+    "updated_at": "2026-04-30T03:54:54Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Debug Investigate\n\nUse this skill for bugs, regressions, suspicious runtime behavior, failed automations, and \"this should not happen\" reports.\n\n## Investigation Loop\n\n1. State the exact symptom and expected behavior.\n2. Collect the smallest real evidence: command output, log line, screenshot, issue ID, run ID, or file path.\n3. Identify the owner layer: user workflow, Multica issue/comment, agent runtime, local repo, CLI wrapper, gateway/API, or external vendor.\n4. Form one mechanism hypothesis and test it on the smallest real path.\n5. Patch only after the mechanism is supported by evidence.\n6. If two attempts fail, stop and report what is known instead of guessing harder.\n\n## Evidence Rules\n\n- Prefer live runtime state over stale UI state.\n- Separate dashboard symptoms from backend/request evidence.\n- Do not use destructive reset or broad cleanup as a diagnostic shortcut.\n- Do not expose secrets, tokens, OAuth material, raw private prompts, or account identifiers.\n- If the issue may involve billing or quota, report fresh input, output, cache read, cache write, model, and request attribution separately when available.\n\n## Output Contract\n\nReturn:\n\n- `SYMPTOM`: observed failure and expected behavior.\n- `EVIDENCE`: exact files, commands, logs, screenshots, issue/comment/run IDs checked.\n- `MECHANISM`: most likely root cause or \"not established\".\n- `FIX`: patch made, or smallest proposed next test.\n- `VERIFICATION`: real-path check result.\n- `RESIDUAL RISK`: what may still be wrong.",
+    "created_at": "2026-04-30T03:54:49Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Root-cause investigation and evidence discipline for workbench tasks.",
+    "id": "d5b663e5-2eaf-4a43-979c-5ee19b209a49",
+    "name": "workbench-debug-investigate",
+    "updated_at": "2026-04-30T03:54:49Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Design Docs\n\nUse this skill for product design, technical design documents, user-facing copy, specs, diagrams, and handoff docs.\n\n## Design Standard\n\n- Start from the actual user workflow, not a marketing page.\n- Define the first usable screen, control surface, success state, error state, and handoff path.\n- For internal tools, prefer dense, scannable, operational UI and docs.\n- Keep language precise and action-oriented.\n- Avoid feature claims that are not implemented or verified.\n\n## Documentation Standard\n\n- Keep one canonical version whenever possible.\n- Update durable docs when live behavior changes.\n- Separate strategy, decisions, logs, issue templates, and automation specs.\n- Include IDs, commands, schedules, and evidence only when they help future recovery.\n- Do not include secrets or private credentials.\n- Keep `skills/README.md` aligned with live skill IDs and agent attachment maps.\n- For SDD work, keep stage artifacts scannable and avoid burying the actual artifact in discussion replies.\n\n## Output Contract\n\nFor product design:\n\n- `USER GOAL`\n- `WORKFLOW`\n- `SUCCESS CRITERIA`\n- `NON-GOALS`\n- `OPEN QUESTIONS`\n\nFor docs:\n\n- what changed,\n- why it matters,\n- where the canonical source now lives,\n- what must be verified next.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Product design, technical design, copy, and durable documentation discipline.",
+    "id": "66f04cd9-f62d-42b9-be2b-24ded62484bc",
+    "name": "workbench-design-docs",
+    "updated_at": "2026-04-30T03:54:57Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Docs Release\n\nUse this skill after behavior changes, live skill updates, agent roster changes, SDD milestones, or releases that need durable documentation.\n\n## Documentation Loop\n\n1. Identify the canonical source that changed: code, live Multica resource, issue comment, runtime config, or external doc.\n2. Update only the docs that future recovery actually needs.\n3. Remove stale next actions and obsolete warnings.\n4. Record IDs, commands, commits, and verification evidence when they help replay the work.\n5. Keep secrets, raw credentials, private tokens, and unnecessary personal data out of durable docs.\n\n## Canonical Files\n\n- `SYNTHESIS.md`: current operating state, risks, and next action.\n- `DECISIONS.md`: durable choices and rationale.\n- `skills/README.md`: live skill IDs, source files, attachment map, and verification.\n- `LOG.md`: chronological execution notes when present.\n- `issue-templates/`: reusable issue shapes.\n\n## Output Contract\n\nReturn:\n\n- `DOCS_CHANGED`: files updated.\n- `SOURCE_OF_TRUTH`: live resource, file, issue/comment ID, or command used.\n- `STALE_STATE REMOVED`: what was corrected.\n- `VERIFICATION`: checks run.\n- `OPEN GAPS`: what still needs live confirmation.",
+    "created_at": "2026-04-30T03:54:51Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Post-change documentation, changelog, and handoff synchronization.",
+    "id": "f2bac02b-5daf-400e-93df-49e97f64c59c",
+    "name": "workbench-docs-release",
+    "updated_at": "2026-04-30T03:54:51Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Frontend Design QA\n\nUse this skill for frontend UI, desktop/web surfaces, screenshots, responsive checks, interaction polish, and design-system consistency.\n\n## QA Standard\n\n- Test the actual screen or rendered artifact, not just source code.\n- Check desktop and mobile or narrow-width behavior when the UI is responsive.\n- Verify text fit, no incoherent overlap, stable spacing, focus states, hover states, loading states, empty states, and error states.\n- For operational tools, prefer dense, scannable, predictable layouts over marketing-style pages.\n- Use real assets or rendered UI evidence when visual truth matters.\n\n## Design Checks\n\n- Information hierarchy is clear at first glance.\n- Primary action is obvious and not visually drowned by decoration.\n- Controls match their job: icon buttons for tools, toggles for binary state, tabs for views, menus for option sets.\n- Cards are not nested inside cards unless the local design system already does that.\n- Colors are not a one-note palette and contrast is readable.\n- Motion or animation does not hide state or slow repeated work.\n\n## Output Contract\n\nReturn:\n\n- `DESIGN_VERDICT`: PASS / FLAG / BLOCK.\n- `SURFACES CHECKED`: URL, file, viewport, screenshot, or app surface.\n- `FINDINGS`: severity, location, and fix.\n- `EVIDENCE`: screenshot path, browser check, or command output.\n- `NEXT ACTION`: smallest design or implementation correction.",
+    "created_at": "2026-04-30T03:54:51Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Frontend and visual QA discipline for responsive workbench-facing interfaces.",
+    "id": "961497cb-a1f3-48df-961d-f9983ee918aa",
+    "name": "workbench-frontend-design-qa",
+    "updated_at": "2026-04-30T03:54:51Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench GSD Tasking\n\nUse this skill to turn approved requirements, product designs, or technical designs into executable tasks.\n\n## Tasking Standard\n\n- Each task has one owner, one outcome, one evidence requirement, and one verification path.\n- Parallelize only when write scopes or live mutation surfaces are clearly separate.\n- Put approval gates before live mutations, destructive changes, external posts, billing changes, or broad binding updates.\n- Include rollback or recovery evidence for live resource updates.\n- Keep smoke tests separate when they depend on committed source or synchronized live state.\n\n## Task Shape\n\nFor each task, include:\n\n- `ID`\n- `OWNER`\n- `OBJECTIVE`\n- `SCOPE`\n- `NON-GOALS`\n- `INPUTS`\n- `OUTPUT`\n- `VERIFICATION`\n- `ROLLBACK`\n- `DEPENDENCIES`\n\n## Output Contract\n\nReturn:\n\n- `TASKS`: ordered `T1`, `T2`, `T3` list.\n- `GATES`: approval or review points.\n- `PARALLELISM`: what can run concurrently and what must serialize.\n- `FINAL SMOKE`: end-to-end check.\n- `CLOSEOUT`: docs, comments, commits, and residual risks.",
+    "created_at": "2026-04-30T03:54:53Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "GSD/SDD task decomposition with owners, gates, rollback, and verification.",
+    "id": "dd07acb0-a647-48d5-b88a-e6730553f9fa",
+    "name": "workbench-gsd-tasking",
+    "updated_at": "2026-04-30T03:54:53Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Implementation\n\nUse this skill for coding, ops changes, scripts, automation specs, and local repository edits.\n\n## Implementation Loop\n\n1. Inspect current state.\n2. Identify the true owner of the behavior.\n3. Patch the smallest viable surface.\n4. Verify on the real path.\n5. Record the outcome in the right durable file when the change affects workbench operations.\n\n## Engineering Rules\n\n- Follow existing repo patterns.\n- Preserve working routes, agents, runtimes, hooks, cron jobs, LaunchAgents, and channel bindings.\n- Prefer reversible operations.\n- Never store secrets, tokens, OAuth material, or private credentials.\n- Do not broaden scope into Multica daemon, Desktop UI, or core runtime unless the issue explicitly requires it.\n- If the worktree has unrelated changes, leave them alone.\n- Back up live Multica skills, bindings, or automations before mutating them.\n- Mutate one live resource class at a time, then verify before moving to the next class.\n- Prefer source-first changes: local skill files and docs before live workspace synchronization.\n\n## Completion Report\n\nReturn:\n\n- files or live resources changed,\n- commands or checks run,\n- evidence of success,\n- residual risk,\n- next immediate action.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Minimal-patch implementation and ops discipline for live workbench tasks.",
+    "id": "b4bf2dce-9acc-4082-ab6b-7fcb1383950a",
+    "name": "workbench-implementation",
+    "updated_at": "2026-04-30T03:54:57Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Memory Synthesis\n\nUse this skill for durable memory, session summaries, decision logs, issue closeout synthesis, and handoffs.\n\n## Memory Rules\n\n- Prefer short canonical updates over duplicate drafts.\n- Keep the next session resumable from files, not hidden model memory.\n- Record decisions separately from logs.\n- Keep strategy in synthesis documents and execution evidence in logs or issue comments.\n- Preserve IDs that matter for recovery: issue IDs, run IDs, comment IDs, agent IDs, autopilot IDs, commit IDs.\n- When a run stalls and a conductor proxy posts evidence, record both the proxy ID and the later agent-authored artifact ID if it appears.\n- Record live resource IDs only after post-sync verification confirms them.\n\n## Synthesis Method\n\n1. Collect the latest verified state.\n2. Remove stale next actions that are already complete.\n3. Add only durable facts and decisions.\n4. Keep uncertainty explicit.\n5. Name the next immediate action.\n\n## Output Contract\n\nReturn:\n\n- `CURRENT STATE`\n- `DECISIONS`\n- `EVIDENCE`\n- `RISKS`\n- `NEXT ACTION`\n\nDo not rewrite history. Append or revise only the minimum needed to keep the operating memory accurate.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Durable memory, decision logging, handoffs, and next-action synthesis.",
+    "id": "8d80f2f9-46cf-4d1e-a0bb-63c7064907eb",
+    "name": "workbench-memory-synthesis",
+    "updated_at": "2026-04-30T03:54:58Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Product Brainstorming\n\nUse this skill for fuzzy product ideas, workflow design, \"go crazy\" exploration, feature shaping, and ambition checks before implementation.\n\n## Brainstorming Loop\n\n1. Capture the user's raw intent in plain language.\n2. Name the job-to-be-done and the painful current workaround.\n3. Separate must-have constraints from optional ambition.\n4. Generate two or three viable directions, not an unbounded idea dump.\n5. Compare tradeoffs, failure modes, and operational cost.\n6. Recommend one path and the smallest test that proves it matters.\n\n## Guardrails\n\n- Do not convert every idea into immediate live automation.\n- Do not expand scope into runtime/core changes without explicit approval.\n- Keep \"10x\" ideas grounded in the actual workspace, agents, skills, and verification paths.\n- Preserve the two-ring model: the conductor designs and routes; specialists execute bounded tasks.\n\n## Output Contract\n\nReturn:\n\n- `RAW INTENT`\n- `USER JOB`\n- `OPTIONS`\n- `TRADEOFFS`\n- `RECOMMENDATION`\n- `SMALLEST TEST`\n- `OPEN QUESTIONS`",
+    "created_at": "2026-04-30T03:54:53Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Bounded product ideation, assumptions, options, tradeoffs, and recommendations.",
+    "id": "a9ec34a7-8c0d-4858-a013-899bff60d664",
+    "name": "workbench-product-brainstorming",
+    "updated_at": "2026-04-30T03:54:53Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Research\n\nUse this skill for research, architecture discovery, vendor docs, benchmark reading, and unknown-system analysis.\n\n## Research Standard\n\n- Read the real system first when local state exists.\n- Prefer primary sources, live commands, local files, and official docs.\n- Separate confirmed facts, source claims, and inference.\n- Treat current software behavior, API shape, prices, versions, and docs as drift-prone.\n- Cite file paths, command names, issue/comment IDs, or source URLs when they support a claim.\n- Use targeted reads first: indexes, `rg`, `jq`, table summaries, and exact IDs before full documents or full histories.\n- Summarize large sources before handing them to another agent.\n\n## Research Output\n\nReturn:\n\n- `QUESTION`: what was investigated.\n- `CONFIRMED`: facts with evidence.\n- `UNCERTAIN`: assumptions or unresolved gaps.\n- `OPTIONS`: viable paths with tradeoffs.\n- `RECOMMENDATION`: the smallest next action.\n- `SOURCES`: local paths, commands, issue IDs, or URLs used.\n\n## Research Boundaries\n\n- Do not present speculation as fact.\n- Do not copy secrets or private tokens into reports.\n- Do not rewrite working architecture while researching it.\n- If source material conflicts, explain the conflict and prefer live runtime evidence.\n- Stop if the next read would be broad and low-yield; report the smaller evidence query needed instead.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Evidence-first research and source discipline for architecture, docs, and unknown systems.",
+    "id": "ee3222fc-2722-4502-9e7f-883901ad01fc",
+    "name": "workbench-research",
+    "updated_at": "2026-04-30T03:54:55Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Review QA\n\nUse this skill for code review, workflow review, QA verification, release checks, and issue closeout.\n\n## Verdicts\n\n- `PASS`: objective is met and evidence is sufficient.\n- `FLAG`: useful progress, but a non-blocking issue or missing evidence remains.\n- `BLOCK`: objective is not met, unsafe, unverifiable, or materially wrong.\n\n## Review Method\n\n1. Identify the promised objective.\n2. Inspect the real output, diff, issue comments, runtime state, or checked-out repo.\n3. Compare evidence against the objective.\n4. Verify the smallest real path that proves the claim.\n5. Report findings first, ordered by severity.\n6. Check command syntax and live-resource ownership when the work involves Multica CLI mutations.\n7. If duplicate comments or artifacts exist, identify the primary artifact and explain why.\n\n## Findings Format\n\nFor problems, return:\n\n- severity,\n- location or evidence,\n- why it matters,\n- required fix or next verification.\n\nFor clean reviews, return:\n\n- verdict,\n- evidence checked,\n- residual risk or test gap.\n\n## QA Rules\n\n- Do not accept `done` based on paraphrase alone.\n- Distinguish content failures from workflow/tooling failures.\n- If Multica workspace repo access is needed, use the workspace repository checkout path and report the commit/branch inspected.\n- Keep evidence concise and reproducible.\n- Verify `Workbench Max` remains untouched when a task says it must be preserved.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "PASS FLAG BLOCK review and QA verification protocol.",
+    "id": "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+    "name": "workbench-review-qa",
+    "updated_at": "2026-04-30T03:54:55Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench SDD\n\nUse this skill when a task needs to move from a fuzzy request into executable work.\n\nThis is the default workbench planning protocol unless the issue explicitly says the task is a quick fix, emergency repair, or direct verification run.\n\n## Pipeline\n\nMove work through these stages:\n\n1. Raw Requirement\n   - Capture the user's literal request.\n   - Separate confirmed facts from assumptions.\n   - Name the owner, expected output, and known constraints.\n2. Product Design\n   - Define the user-facing behavior, success criteria, non-goals, and edge cases.\n   - Keep the scope narrow unless the user asks for expansion.\n3. Technical Design\n   - Identify the runtime owner, data path, files, commands, integrations, and risk surface.\n   - Prefer existing stable routes over new infrastructure.\n4. Task List\n   - Convert the design into bounded tasks with owner, evidence, and verification criteria.\n   - Keep tasks executable by one agent unless the issue explicitly asks for parallel work.\n5. Execution And Verification\n   - Execute only the assigned slice.\n   - Verify on the real path.\n   - Report evidence before claiming done.\n\n## Stage Gate Rules\n\n- Do not jump from an ambiguous raw request directly to implementation.\n- Do not expand blast radius just because more agents or tokens are available.\n- If a stage is already answered by issue text or prior comments, cite that evidence and move forward.\n- If the task is blocked by a missing decision, state the smallest decision needed.\n- If the task is low-risk and obvious, compress the stages into a short SDD card instead of creating ceremony.\n- If the user says \"go\", \"continue\", or an equivalent approval after a reviewed stage, record that as the gate approval context before proceeding.\n- When a stage has both proxy and agent-authored artifacts, use the complete agent-authored artifact as primary and keep the proxy comment as trace evidence.\n\n## Comment Structure\n\nEach SDD stage is a structured issue comment, not an issue status. Use this header for every stage artifact:\n\n```text\nSDD_STAGE: [Raw Requirement / Product Design / Technical Design / Task List / Execution And Verification]\nOWNER: [one agent or human owner]\nSTATUS: READY_FOR_REVIEW / APPROVED / BLOCKED\nREVIEWER: Workbench Supervisor or designated reviewer\nEVIDENCE: [files, commands, issue/comment IDs, or artifacts checked]\n```\n\nPut the stage-specific artifact after the header. Keep discussion replies separate from stage artifacts so the comment history remains scannable.\n\n## Stage Gate Mechanics\n\n- Supervisor review happens between stages with `VERDICT: PASS / FLAG / BLOCK`.\n- `PASS` allows the next stage to start.\n- `FLAG` means the current stage needs a targeted correction before handoff.\n- `BLOCK` means the stage cannot proceed until the smallest blocking decision or missing input is resolved.\n- Issue statuses stay coarse: `todo` before work starts, `in_progress` while any SDD stage is active, `in_review` after execution is ready for final review, and `done` only after accepted evidence.\n\n## Bypass Rules\n\n- Workbench Admin may use `SDD_BYPASS: quick-fix` for low-risk, obvious changes where a full SDD sequence would add noise.\n- Workbench Admin may use `SDD_BYPASS: emergency` for time-critical repair work.\n- Bypass is not allowed for high-risk, ambiguous, multi-system, or public/private boundary changes.\n- A bypassed issue still needs one clear owner, explicit scope, verification evidence, and Supervisor review before closure.\n\n## Execution Handoff\n\n- The Task List stage names the execution owner, exact files/resources, non-goals, approval gates, and verification commands.\n- Execution owners implement only their assigned slice and do not create follow-on work unless explicitly requested.\n- T8 or smoke-test work remains separate when the task list says it depends on a committed repo batch.\n- Completion reports include changed files, verification output, residual risks, commit hash or artifact link, work directory, and branch.\n- Live skill or agent-binding changes must have a backup and post-change verification before final PASS.\n\n## Output Contract\n\nFor planning or routing, return:\n\n- `SDD_STAGE`: current stage.\n- `CONFIRMED`: facts and constraints.\n- `ASSUMPTIONS`: assumptions that still matter.\n- `NEXT_TASKS`: owner-scoped tasks.\n- `VERIFICATION`: evidence required to close.\n\nFor execution, return:\n\n- what changed,\n- what was verified,\n- what remains risky or blocked.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Specification-driven workbench flow from raw requirement to verified task list.",
+    "id": "2cf724da-976a-40e6-be9b-ecbdc2af9041",
+    "name": "workbench-sdd",
+    "updated_at": "2026-04-30T03:54:53Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Token Context Discipline\n\nUse this skill when a task may pull large docs, long issue histories, many skills, big logs, or expensive model context.\n\n## Context Budget Rules\n\n- Start with indexes, file lists, IDs, summaries, and targeted searches.\n- Read the smallest slice that can answer the current question.\n- Prefer `rg`, `jq`, concise table output, and explicit IDs over dumping entire histories.\n- Summarize large sources before passing them to another agent.\n- Attach only role-relevant skills; more skills are not automatically better.\n- Stop and report if two consecutive reads are too large or mostly irrelevant.\n\n## Cache And Quota Awareness\n\n- Distinguish fresh input, output, cache read, and cache write when usage is under investigation.\n- Do not assume dashboard usage is wrong without local/request-level evidence.\n- Avoid repeated full-context reruns when a comment ID, file path, or artifact can be cited instead.\n- Keep Workbench Max and existing private agents out of broad binding changes unless explicitly assigned.\n\n## Output Contract\n\nReturn:\n\n- `CONTEXT_USED`: exact files, comments, commands, or IDs read.\n- `SKIPPED`: intentionally avoided broad reads and why.\n- `SUMMARY`: compact facts needed for the next step.\n- `NEXT_SMALL_READ`: the next targeted evidence query, if any.\n- `TOKEN_RISK`: normal / elevated / blocked.",
+    "created_at": "2026-04-30T03:54:52Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Compact context, bounded reads, cache awareness, and role-specific skill attachment.",
+    "id": "6fe7672c-5821-40bf-abd0-ac52b953eb56",
+    "name": "workbench-token-context-discipline",
+    "updated_at": "2026-04-30T03:54:52Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

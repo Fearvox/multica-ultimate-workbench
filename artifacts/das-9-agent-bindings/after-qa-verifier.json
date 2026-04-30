@@ -1,0 +1,46 @@
+[
+  {
+    "config": {},
+    "content": "# Workbench Browser Proofshot QA\n\nUse this skill for browser-based verification, Playwright checks, proof screenshots, local web app dogfooding, and reproducible UI evidence.\n\n## Browser Verification Loop\n\n1. Start or identify the real app URL.\n2. Record browser, viewport, account/auth state, and build/commit when available.\n3. Exercise the user workflow, not only page load.\n4. Capture screenshots or trace artifacts for states that matter.\n5. Check console errors, failed network requests, obvious layout breakage, and final persisted state.\n6. Report exact repro steps and evidence paths.\n\n## Boundaries\n\n- Do not edit code during report-only QA unless explicitly assigned.\n- Do not treat a static screenshot as proof that a workflow works.\n- Do not rely on cached authenticated state without saying so.\n- Do not include private data in screenshots or copied logs.\n\n## Output Contract\n\nReturn:\n\n- `BROWSER_VERDICT`: PASS / FLAG / BLOCK.\n- `RUN`: URL, viewport, browser/tool, commit/build if known.\n- `STEPS`: concise repro or verification path.\n- `EVIDENCE`: screenshot/trace/log paths.\n- `FINDINGS`: ordered by severity.\n- `FOLLOW-UP`: smallest fix or re-test needed.",
+    "created_at": "2026-04-30T03:54:51Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Browser-based verification with screenshot, trace, console, and repro evidence.",
+    "id": "2acab3df-7b28-4ca4-a34b-4c713a453ada",
+    "name": "workbench-browser-proofshot-qa",
+    "updated_at": "2026-04-30T03:54:51Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Code Review\n\nUse this skill for reviewing code, diffs, task plans, live workflow changes, and implementation evidence before merge or closure.\n\n## Review Stance\n\n- Findings first. Do not lead with praise or a broad summary.\n- Order findings by severity and user impact.\n- Tie every finding to a file, command, issue/comment ID, run ID, or observable behavior.\n- Prefer concrete repro or blast-radius evidence over style opinions.\n- If no issues are found, say that clearly and name remaining test gaps.\n\n## Severity\n\n- `P0`: security, data loss, irreversible action, or broken primary workflow.\n- `P1`: likely user-facing regression or unsafe automation.\n- `P2`: correctness gap, missing edge case, or weak verification.\n- `P3`: maintainability, clarity, or low-risk cleanup.\n\n## Checklist\n\n- Does the implementation match the promised objective?\n- Are owner boundaries preserved?\n- Are live mutations backed up and reversible?\n- Are commands, IDs, and paths reproducible?\n- Are tests or real-path checks sufficient for the blast radius?\n- Did the change avoid unrelated refactors and hidden policy changes?\n\n## Output Contract\n\nFor findings:\n\n- `SEVERITY`\n- `LOCATION`\n- `ISSUE`\n- `WHY IT MATTERS`\n- `REQUIRED FIX`\n\nFor a clean review:\n\n- `VERDICT: PASS`\n- `EVIDENCE CHECKED`\n- `TEST GAPS`\n- `RESIDUAL RISK`",
+    "created_at": "2026-04-30T03:54:50Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Findings-first code and workflow review with severity and blast-radius checks.",
+    "id": "b7b035cb-67d6-4fbd-a756-c410190576a9",
+    "name": "workbench-code-review",
+    "updated_at": "2026-04-30T03:54:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Frontend Design QA\n\nUse this skill for frontend UI, desktop/web surfaces, screenshots, responsive checks, interaction polish, and design-system consistency.\n\n## QA Standard\n\n- Test the actual screen or rendered artifact, not just source code.\n- Check desktop and mobile or narrow-width behavior when the UI is responsive.\n- Verify text fit, no incoherent overlap, stable spacing, focus states, hover states, loading states, empty states, and error states.\n- For operational tools, prefer dense, scannable, predictable layouts over marketing-style pages.\n- Use real assets or rendered UI evidence when visual truth matters.\n\n## Design Checks\n\n- Information hierarchy is clear at first glance.\n- Primary action is obvious and not visually drowned by decoration.\n- Controls match their job: icon buttons for tools, toggles for binary state, tabs for views, menus for option sets.\n- Cards are not nested inside cards unless the local design system already does that.\n- Colors are not a one-note palette and contrast is readable.\n- Motion or animation does not hide state or slow repeated work.\n\n## Output Contract\n\nReturn:\n\n- `DESIGN_VERDICT`: PASS / FLAG / BLOCK.\n- `SURFACES CHECKED`: URL, file, viewport, screenshot, or app surface.\n- `FINDINGS`: severity, location, and fix.\n- `EVIDENCE`: screenshot path, browser check, or command output.\n- `NEXT ACTION`: smallest design or implementation correction.",
+    "created_at": "2026-04-30T03:54:51Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Frontend and visual QA discipline for responsive workbench-facing interfaces.",
+    "id": "961497cb-a1f3-48df-961d-f9983ee918aa",
+    "name": "workbench-frontend-design-qa",
+    "updated_at": "2026-04-30T03:54:51Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Review QA\n\nUse this skill for code review, workflow review, QA verification, release checks, and issue closeout.\n\n## Verdicts\n\n- `PASS`: objective is met and evidence is sufficient.\n- `FLAG`: useful progress, but a non-blocking issue or missing evidence remains.\n- `BLOCK`: objective is not met, unsafe, unverifiable, or materially wrong.\n\n## Review Method\n\n1. Identify the promised objective.\n2. Inspect the real output, diff, issue comments, runtime state, or checked-out repo.\n3. Compare evidence against the objective.\n4. Verify the smallest real path that proves the claim.\n5. Report findings first, ordered by severity.\n6. Check command syntax and live-resource ownership when the work involves Multica CLI mutations.\n7. If duplicate comments or artifacts exist, identify the primary artifact and explain why.\n\n## Findings Format\n\nFor problems, return:\n\n- severity,\n- location or evidence,\n- why it matters,\n- required fix or next verification.\n\nFor clean reviews, return:\n\n- verdict,\n- evidence checked,\n- residual risk or test gap.\n\n## QA Rules\n\n- Do not accept `done` based on paraphrase alone.\n- Distinguish content failures from workflow/tooling failures.\n- If Multica workspace repo access is needed, use the workspace repository checkout path and report the commit/branch inspected.\n- Keep evidence concise and reproducible.\n- Verify `Workbench Max` remains untouched when a task says it must be preserved.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "PASS FLAG BLOCK review and QA verification protocol.",
+    "id": "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+    "name": "workbench-review-qa",
+    "updated_at": "2026-04-30T03:54:55Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

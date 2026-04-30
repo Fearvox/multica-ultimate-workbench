@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Browser Proofshot QA\n\nUse this skill for browser-based verification, Playwright checks, proof screenshots, local web app dogfooding, and reproducible UI evidence.\n\n## Browser Verification Loop\n\n1. Start or identify the real app URL.\n2. Record browser, viewport, account/auth state, and build/commit when available.\n3. Exercise the user workflow, not only page load.\n4. Capture screenshots or trace artifacts for states that matter.\n5. Check console errors, failed network requests, obvious layout breakage, and final persisted state.\n6. Report exact repro steps and evidence paths.\n\n## Boundaries\n\n- Do not edit code during report-only QA unless explicitly assigned.\n- Do not treat a static screenshot as proof that a workflow works.\n- Do not rely on cached authenticated state without saying so.\n- Do not include private data in screenshots or copied logs.\n\n## Output Contract\n\nReturn:\n\n- `BROWSER_VERDICT`: PASS / FLAG / BLOCK.\n- `RUN`: URL, viewport, browser/tool, commit/build if known.\n- `STEPS`: concise repro or verification path.\n- `EVIDENCE`: screenshot/trace/log paths.\n- `FINDINGS`: ordered by severity.\n- `FOLLOW-UP`: smallest fix or re-test needed.",
+  "created_at": "2026-04-30T03:54:51Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "Browser-based verification with screenshot, trace, console, and repro evidence.",
+  "files": [],
+  "id": "2acab3df-7b28-4ca4-a34b-4c713a453ada",
+  "name": "workbench-browser-proofshot-qa",
+  "updated_at": "2026-04-30T03:54:51Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

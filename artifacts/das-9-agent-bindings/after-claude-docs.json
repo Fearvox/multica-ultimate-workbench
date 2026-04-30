@@ -1,0 +1,46 @@
+[
+  {
+    "config": {},
+    "content": "# Workbench Design Docs\n\nUse this skill for product design, technical design documents, user-facing copy, specs, diagrams, and handoff docs.\n\n## Design Standard\n\n- Start from the actual user workflow, not a marketing page.\n- Define the first usable screen, control surface, success state, error state, and handoff path.\n- For internal tools, prefer dense, scannable, operational UI and docs.\n- Keep language precise and action-oriented.\n- Avoid feature claims that are not implemented or verified.\n\n## Documentation Standard\n\n- Keep one canonical version whenever possible.\n- Update durable docs when live behavior changes.\n- Separate strategy, decisions, logs, issue templates, and automation specs.\n- Include IDs, commands, schedules, and evidence only when they help future recovery.\n- Do not include secrets or private credentials.\n- Keep `skills/README.md` aligned with live skill IDs and agent attachment maps.\n- For SDD work, keep stage artifacts scannable and avoid burying the actual artifact in discussion replies.\n\n## Output Contract\n\nFor product design:\n\n- `USER GOAL`\n- `WORKFLOW`\n- `SUCCESS CRITERIA`\n- `NON-GOALS`\n- `OPEN QUESTIONS`\n\nFor docs:\n\n- what changed,\n- why it matters,\n- where the canonical source now lives,\n- what must be verified next.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Product design, technical design, copy, and durable documentation discipline.",
+    "id": "66f04cd9-f62d-42b9-be2b-24ded62484bc",
+    "name": "workbench-design-docs",
+    "updated_at": "2026-04-30T03:54:57Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Docs Release\n\nUse this skill after behavior changes, live skill updates, agent roster changes, SDD milestones, or releases that need durable documentation.\n\n## Documentation Loop\n\n1. Identify the canonical source that changed: code, live Multica resource, issue comment, runtime config, or external doc.\n2. Update only the docs that future recovery actually needs.\n3. Remove stale next actions and obsolete warnings.\n4. Record IDs, commands, commits, and verification evidence when they help replay the work.\n5. Keep secrets, raw credentials, private tokens, and unnecessary personal data out of durable docs.\n\n## Canonical Files\n\n- `SYNTHESIS.md`: current operating state, risks, and next action.\n- `DECISIONS.md`: durable choices and rationale.\n- `skills/README.md`: live skill IDs, source files, attachment map, and verification.\n- `LOG.md`: chronological execution notes when present.\n- `issue-templates/`: reusable issue shapes.\n\n## Output Contract\n\nReturn:\n\n- `DOCS_CHANGED`: files updated.\n- `SOURCE_OF_TRUTH`: live resource, file, issue/comment ID, or command used.\n- `STALE_STATE REMOVED`: what was corrected.\n- `VERIFICATION`: checks run.\n- `OPEN GAPS`: what still needs live confirmation.",
+    "created_at": "2026-04-30T03:54:51Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Post-change documentation, changelog, and handoff synchronization.",
+    "id": "f2bac02b-5daf-400e-93df-49e97f64c59c",
+    "name": "workbench-docs-release",
+    "updated_at": "2026-04-30T03:54:51Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Memory Synthesis\n\nUse this skill for durable memory, session summaries, decision logs, issue closeout synthesis, and handoffs.\n\n## Memory Rules\n\n- Prefer short canonical updates over duplicate drafts.\n- Keep the next session resumable from files, not hidden model memory.\n- Record decisions separately from logs.\n- Keep strategy in synthesis documents and execution evidence in logs or issue comments.\n- Preserve IDs that matter for recovery: issue IDs, run IDs, comment IDs, agent IDs, autopilot IDs, commit IDs.\n- When a run stalls and a conductor proxy posts evidence, record both the proxy ID and the later agent-authored artifact ID if it appears.\n- Record live resource IDs only after post-sync verification confirms them.\n\n## Synthesis Method\n\n1. Collect the latest verified state.\n2. Remove stale next actions that are already complete.\n3. Add only durable facts and decisions.\n4. Keep uncertainty explicit.\n5. Name the next immediate action.\n\n## Output Contract\n\nReturn:\n\n- `CURRENT STATE`\n- `DECISIONS`\n- `EVIDENCE`\n- `RISKS`\n- `NEXT ACTION`\n\nDo not rewrite history. Append or revise only the minimum needed to keep the operating memory accurate.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Durable memory, decision logging, handoffs, and next-action synthesis.",
+    "id": "8d80f2f9-46cf-4d1e-a0bb-63c7064907eb",
+    "name": "workbench-memory-synthesis",
+    "updated_at": "2026-04-30T03:54:58Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Token Context Discipline\n\nUse this skill when a task may pull large docs, long issue histories, many skills, big logs, or expensive model context.\n\n## Context Budget Rules\n\n- Start with indexes, file lists, IDs, summaries, and targeted searches.\n- Read the smallest slice that can answer the current question.\n- Prefer `rg`, `jq`, concise table output, and explicit IDs over dumping entire histories.\n- Summarize large sources before passing them to another agent.\n- Attach only role-relevant skills; more skills are not automatically better.\n- Stop and report if two consecutive reads are too large or mostly irrelevant.\n\n## Cache And Quota Awareness\n\n- Distinguish fresh input, output, cache read, and cache write when usage is under investigation.\n- Do not assume dashboard usage is wrong without local/request-level evidence.\n- Avoid repeated full-context reruns when a comment ID, file path, or artifact can be cited instead.\n- Keep Workbench Max and existing private agents out of broad binding changes unless explicitly assigned.\n\n## Output Contract\n\nReturn:\n\n- `CONTEXT_USED`: exact files, comments, commands, or IDs read.\n- `SKIPPED`: intentionally avoided broad reads and why.\n- `SUMMARY`: compact facts needed for the next step.\n- `NEXT_SMALL_READ`: the next targeted evidence query, if any.\n- `TOKEN_RISK`: normal / elevated / blocked.",
+    "created_at": "2026-04-30T03:54:52Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Compact context, bounded reads, cache awareness, and role-specific skill attachment.",
+    "id": "6fe7672c-5821-40bf-abd0-ac52b953eb56",
+    "name": "workbench-token-context-discipline",
+    "updated_at": "2026-04-30T03:54:52Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

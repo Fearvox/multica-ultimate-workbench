@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Code Review\n\nUse this skill for reviewing code, diffs, task plans, live workflow changes, and implementation evidence before merge or closure.\n\n## Review Stance\n\n- Findings first. Do not lead with praise or a broad summary.\n- Order findings by severity and user impact.\n- Tie every finding to a file, command, issue/comment ID, run ID, or observable behavior.\n- Prefer concrete repro or blast-radius evidence over style opinions.\n- If no issues are found, say that clearly and name remaining test gaps.\n\n## Severity\n\n- `P0`: security, data loss, irreversible action, or broken primary workflow.\n- `P1`: likely user-facing regression or unsafe automation.\n- `P2`: correctness gap, missing edge case, or weak verification.\n- `P3`: maintainability, clarity, or low-risk cleanup.\n\n## Checklist\n\n- Does the implementation match the promised objective?\n- Are owner boundaries preserved?\n- Are live mutations backed up and reversible?\n- Are commands, IDs, and paths reproducible?\n- Are tests or real-path checks sufficient for the blast radius?\n- Did the change avoid unrelated refactors and hidden policy changes?\n\n## Output Contract\n\nFor findings:\n\n- `SEVERITY`\n- `LOCATION`\n- `ISSUE`\n- `WHY IT MATTERS`\n- `REQUIRED FIX`\n\nFor a clean review:\n\n- `VERDICT: PASS`\n- `EVIDENCE CHECKED`\n- `TEST GAPS`\n- `RESIDUAL RISK`",
+  "created_at": "2026-04-30T03:54:50Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "Findings-first code and workflow review with severity and blast-radius checks.",
+  "files": [],
+  "id": "b7b035cb-67d6-4fbd-a756-c410190576a9",
+  "name": "workbench-code-review",
+  "updated_at": "2026-04-30T03:54:50Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

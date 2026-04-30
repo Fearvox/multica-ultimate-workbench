@@ -1,0 +1,46 @@
+[
+  {
+    "config": {},
+    "content": "# Workbench Conductor\n\nUse this skill when coordinating the Hybrid Multica Two-Ring Workbench.\n\nThe workbench has an Inner Ring for command, review, and synthesis, and an Outer Ring for bounded specialist execution. Multica issues and comments are the live coordination record. This repository is the durable operating-memory record.\n\n## Role Boundaries\n\n- Admin converts fuzzy direction into executable issue shape.\n- Supervisor verifies evidence, risk, and completion claims.\n- Synthesizer keeps strategy, decisions, logs, and next actions coherent.\n- Outer Ring agents execute assigned bounded tasks or provide narrow review.\n- Outer Ring agents do not assign work to each other unless explicitly instructed.\n\n## Routing Protocol\n\n1. Restate the request as a bounded issue objective.\n2. Choose one primary owner.\n3. Mention secondary agents only for narrow advice, review, or verification.\n4. Require evidence for every completion claim.\n5. Move status only when the issue has the right evidence for that status.\n6. Attach only the role-relevant skills needed for the task; broad skill fanout creates prompt noise.\n7. If duplicate artifacts exist, prefer the agent-authored complete artifact and cite any proxy artifact only as recovery evidence.\n\n## Comment Discipline\n\nUse compact structured comments:\n\n- `OBJECTIVE`\n- `OWNER`\n- `SCOPE`\n- `SDD_STAGE`\n- `EVIDENCE NEEDED`\n- `NEXT ACTION`\n- `RISK`\n\nFor SDD-tracked issues, `SDD_STAGE` marks comment-level milestones from `workbench-sdd`. SDD stages are not issue statuses; keep status changes coarse and use structured comments for Raw Requirement, Product Design, Technical Design, Task List, and Execution And Verification gates.\n\nDo not post long generic strategy essays inside execution issues. Put durable strategy updates in the local workbench repo.\n\n## Safety Rules\n\n- Do not modify Multica daemon, Desktop UI, or core runtime unless explicitly requested.\n- Do not store secrets, OAuth material, tokens, or private credentials in comments or repo files.\n- Prefer issue creation over silent automation for scheduled work.\n- Preserve existing agents, runtimes, and stable routes.\n- Preserve `Workbench Max` unless an issue explicitly assigns changes to it.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Two-ring routing, role boundaries, and issue/comment orchestration for the workbench.",
+    "id": "811318a4-f396-4c87-8a89-80b5d871c6f5",
+    "name": "workbench-conductor",
+    "updated_at": "2026-04-30T03:54:54Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Docs Release\n\nUse this skill after behavior changes, live skill updates, agent roster changes, SDD milestones, or releases that need durable documentation.\n\n## Documentation Loop\n\n1. Identify the canonical source that changed: code, live Multica resource, issue comment, runtime config, or external doc.\n2. Update only the docs that future recovery actually needs.\n3. Remove stale next actions and obsolete warnings.\n4. Record IDs, commands, commits, and verification evidence when they help replay the work.\n5. Keep secrets, raw credentials, private tokens, and unnecessary personal data out of durable docs.\n\n## Canonical Files\n\n- `SYNTHESIS.md`: current operating state, risks, and next action.\n- `DECISIONS.md`: durable choices and rationale.\n- `skills/README.md`: live skill IDs, source files, attachment map, and verification.\n- `LOG.md`: chronological execution notes when present.\n- `issue-templates/`: reusable issue shapes.\n\n## Output Contract\n\nReturn:\n\n- `DOCS_CHANGED`: files updated.\n- `SOURCE_OF_TRUTH`: live resource, file, issue/comment ID, or command used.\n- `STALE_STATE REMOVED`: what was corrected.\n- `VERIFICATION`: checks run.\n- `OPEN GAPS`: what still needs live confirmation.",
+    "created_at": "2026-04-30T03:54:51Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Post-change documentation, changelog, and handoff synchronization.",
+    "id": "f2bac02b-5daf-400e-93df-49e97f64c59c",
+    "name": "workbench-docs-release",
+    "updated_at": "2026-04-30T03:54:51Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Memory Synthesis\n\nUse this skill for durable memory, session summaries, decision logs, issue closeout synthesis, and handoffs.\n\n## Memory Rules\n\n- Prefer short canonical updates over duplicate drafts.\n- Keep the next session resumable from files, not hidden model memory.\n- Record decisions separately from logs.\n- Keep strategy in synthesis documents and execution evidence in logs or issue comments.\n- Preserve IDs that matter for recovery: issue IDs, run IDs, comment IDs, agent IDs, autopilot IDs, commit IDs.\n- When a run stalls and a conductor proxy posts evidence, record both the proxy ID and the later agent-authored artifact ID if it appears.\n- Record live resource IDs only after post-sync verification confirms them.\n\n## Synthesis Method\n\n1. Collect the latest verified state.\n2. Remove stale next actions that are already complete.\n3. Add only durable facts and decisions.\n4. Keep uncertainty explicit.\n5. Name the next immediate action.\n\n## Output Contract\n\nReturn:\n\n- `CURRENT STATE`\n- `DECISIONS`\n- `EVIDENCE`\n- `RISKS`\n- `NEXT ACTION`\n\nDo not rewrite history. Append or revise only the minimum needed to keep the operating memory accurate.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Durable memory, decision logging, handoffs, and next-action synthesis.",
+    "id": "8d80f2f9-46cf-4d1e-a0bb-63c7064907eb",
+    "name": "workbench-memory-synthesis",
+    "updated_at": "2026-04-30T03:54:58Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Token Context Discipline\n\nUse this skill when a task may pull large docs, long issue histories, many skills, big logs, or expensive model context.\n\n## Context Budget Rules\n\n- Start with indexes, file lists, IDs, summaries, and targeted searches.\n- Read the smallest slice that can answer the current question.\n- Prefer `rg`, `jq`, concise table output, and explicit IDs over dumping entire histories.\n- Summarize large sources before passing them to another agent.\n- Attach only role-relevant skills; more skills are not automatically better.\n- Stop and report if two consecutive reads are too large or mostly irrelevant.\n\n## Cache And Quota Awareness\n\n- Distinguish fresh input, output, cache read, and cache write when usage is under investigation.\n- Do not assume dashboard usage is wrong without local/request-level evidence.\n- Avoid repeated full-context reruns when a comment ID, file path, or artifact can be cited instead.\n- Keep Workbench Max and existing private agents out of broad binding changes unless explicitly assigned.\n\n## Output Contract\n\nReturn:\n\n- `CONTEXT_USED`: exact files, comments, commands, or IDs read.\n- `SKIPPED`: intentionally avoided broad reads and why.\n- `SUMMARY`: compact facts needed for the next step.\n- `NEXT_SMALL_READ`: the next targeted evidence query, if any.\n- `TOKEN_RISK`: normal / elevated / blocked.",
+    "created_at": "2026-04-30T03:54:52Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Compact context, bounded reads, cache awareness, and role-specific skill attachment.",
+    "id": "6fe7672c-5821-40bf-abd0-ac52b953eb56",
+    "name": "workbench-token-context-discipline",
+    "updated_at": "2026-04-30T03:54:52Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

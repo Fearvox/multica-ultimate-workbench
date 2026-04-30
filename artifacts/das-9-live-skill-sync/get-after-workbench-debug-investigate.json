@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Debug Investigate\n\nUse this skill for bugs, regressions, suspicious runtime behavior, failed automations, and \"this should not happen\" reports.\n\n## Investigation Loop\n\n1. State the exact symptom and expected behavior.\n2. Collect the smallest real evidence: command output, log line, screenshot, issue ID, run ID, or file path.\n3. Identify the owner layer: user workflow, Multica issue/comment, agent runtime, local repo, CLI wrapper, gateway/API, or external vendor.\n4. Form one mechanism hypothesis and test it on the smallest real path.\n5. Patch only after the mechanism is supported by evidence.\n6. If two attempts fail, stop and report what is known instead of guessing harder.\n\n## Evidence Rules\n\n- Prefer live runtime state over stale UI state.\n- Separate dashboard symptoms from backend/request evidence.\n- Do not use destructive reset or broad cleanup as a diagnostic shortcut.\n- Do not expose secrets, tokens, OAuth material, raw private prompts, or account identifiers.\n- If the issue may involve billing or quota, report fresh input, output, cache read, cache write, model, and request attribution separately when available.\n\n## Output Contract\n\nReturn:\n\n- `SYMPTOM`: observed failure and expected behavior.\n- `EVIDENCE`: exact files, commands, logs, screenshots, issue/comment/run IDs checked.\n- `MECHANISM`: most likely root cause or \"not established\".\n- `FIX`: patch made, or smallest proposed next test.\n- `VERIFICATION`: real-path check result.\n- `RESIDUAL RISK`: what may still be wrong.",
+  "created_at": "2026-04-30T03:54:49Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "Root-cause investigation and evidence discipline for workbench tasks.",
+  "files": [],
+  "id": "d5b663e5-2eaf-4a43-979c-5ee19b209a49",
+  "name": "workbench-debug-investigate",
+  "updated_at": "2026-04-30T03:54:49Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

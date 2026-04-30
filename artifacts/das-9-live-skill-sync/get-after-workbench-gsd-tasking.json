@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench GSD Tasking\n\nUse this skill to turn approved requirements, product designs, or technical designs into executable tasks.\n\n## Tasking Standard\n\n- Each task has one owner, one outcome, one evidence requirement, and one verification path.\n- Parallelize only when write scopes or live mutation surfaces are clearly separate.\n- Put approval gates before live mutations, destructive changes, external posts, billing changes, or broad binding updates.\n- Include rollback or recovery evidence for live resource updates.\n- Keep smoke tests separate when they depend on committed source or synchronized live state.\n\n## Task Shape\n\nFor each task, include:\n\n- `ID`\n- `OWNER`\n- `OBJECTIVE`\n- `SCOPE`\n- `NON-GOALS`\n- `INPUTS`\n- `OUTPUT`\n- `VERIFICATION`\n- `ROLLBACK`\n- `DEPENDENCIES`\n\n## Output Contract\n\nReturn:\n\n- `TASKS`: ordered `T1`, `T2`, `T3` list.\n- `GATES`: approval or review points.\n- `PARALLELISM`: what can run concurrently and what must serialize.\n- `FINAL SMOKE`: end-to-end check.\n- `CLOSEOUT`: docs, comments, commits, and residual risks.",
+  "created_at": "2026-04-30T03:54:53Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "GSD/SDD task decomposition with owners, gates, rollback, and verification.",
+  "files": [],
+  "id": "dd07acb0-a647-48d5-b88a-e6730553f9fa",
+  "name": "workbench-gsd-tasking",
+  "updated_at": "2026-04-30T03:54:53Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

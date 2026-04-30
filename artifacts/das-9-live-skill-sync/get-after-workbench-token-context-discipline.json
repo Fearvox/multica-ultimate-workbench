@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Token Context Discipline\n\nUse this skill when a task may pull large docs, long issue histories, many skills, big logs, or expensive model context.\n\n## Context Budget Rules\n\n- Start with indexes, file lists, IDs, summaries, and targeted searches.\n- Read the smallest slice that can answer the current question.\n- Prefer `rg`, `jq`, concise table output, and explicit IDs over dumping entire histories.\n- Summarize large sources before passing them to another agent.\n- Attach only role-relevant skills; more skills are not automatically better.\n- Stop and report if two consecutive reads are too large or mostly irrelevant.\n\n## Cache And Quota Awareness\n\n- Distinguish fresh input, output, cache read, and cache write when usage is under investigation.\n- Do not assume dashboard usage is wrong without local/request-level evidence.\n- Avoid repeated full-context reruns when a comment ID, file path, or artifact can be cited instead.\n- Keep Workbench Max and existing private agents out of broad binding changes unless explicitly assigned.\n\n## Output Contract\n\nReturn:\n\n- `CONTEXT_USED`: exact files, comments, commands, or IDs read.\n- `SKIPPED`: intentionally avoided broad reads and why.\n- `SUMMARY`: compact facts needed for the next step.\n- `NEXT_SMALL_READ`: the next targeted evidence query, if any.\n- `TOKEN_RISK`: normal / elevated / blocked.",
+  "created_at": "2026-04-30T03:54:52Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "Compact context, bounded reads, cache awareness, and role-specific skill attachment.",
+  "files": [],
+  "id": "6fe7672c-5821-40bf-abd0-ac52b953eb56",
+  "name": "workbench-token-context-discipline",
+  "updated_at": "2026-04-30T03:54:52Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Docs Release\n\nUse this skill after behavior changes, live skill updates, agent roster changes, SDD milestones, or releases that need durable documentation.\n\n## Documentation Loop\n\n1. Identify the canonical source that changed: code, live Multica resource, issue comment, runtime config, or external doc.\n2. Update only the docs that future recovery actually needs.\n3. Remove stale next actions and obsolete warnings.\n4. Record IDs, commands, commits, and verification evidence when they help replay the work.\n5. Keep secrets, raw credentials, private tokens, and unnecessary personal data out of durable docs.\n\n## Canonical Files\n\n- `SYNTHESIS.md`: current operating state, risks, and next action.\n- `DECISIONS.md`: durable choices and rationale.\n- `skills/README.md`: live skill IDs, source files, attachment map, and verification.\n- `LOG.md`: chronological execution notes when present.\n- `issue-templates/`: reusable issue shapes.\n\n## Output Contract\n\nReturn:\n\n- `DOCS_CHANGED`: files updated.\n- `SOURCE_OF_TRUTH`: live resource, file, issue/comment ID, or command used.\n- `STALE_STATE REMOVED`: what was corrected.\n- `VERIFICATION`: checks run.\n- `OPEN GAPS`: what still needs live confirmation.",
+  "created_at": "2026-04-30T03:54:51Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "Post-change documentation, changelog, and handoff synchronization.",
+  "files": [],
+  "id": "f2bac02b-5daf-400e-93df-49e97f64c59c",
+  "name": "workbench-docs-release",
+  "updated_at": "2026-04-30T03:54:51Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "config": {},
+    "content": "# Workbench Debug Investigate\n\nUse this skill for bugs, regressions, suspicious runtime behavior, failed automations, and \"this should not happen\" reports.\n\n## Investigation Loop\n\n1. State the exact symptom and expected behavior.\n2. Collect the smallest real evidence: command output, log line, screenshot, issue ID, run ID, or file path.\n3. Identify the owner layer: user workflow, Multica issue/comment, agent runtime, local repo, CLI wrapper, gateway/API, or external vendor.\n4. Form one mechanism hypothesis and test it on the smallest real path.\n5. Patch only after the mechanism is supported by evidence.\n6. If two attempts fail, stop and report what is known instead of guessing harder.\n\n## Evidence Rules\n\n- Prefer live runtime state over stale UI state.\n- Separate dashboard symptoms from backend/request evidence.\n- Do not use destructive reset or broad cleanup as a diagnostic shortcut.\n- Do not expose secrets, tokens, OAuth material, raw private prompts, or account identifiers.\n- If the issue may involve billing or quota, report fresh input, output, cache read, cache write, model, and request attribution separately when available.\n\n## Output Contract\n\nReturn:\n\n- `SYMPTOM`: observed failure and expected behavior.\n- `EVIDENCE`: exact files, commands, logs, screenshots, issue/comment/run IDs checked.\n- `MECHANISM`: most likely root cause or \"not established\".\n- `FIX`: patch made, or smallest proposed next test.\n- `VERIFICATION`: real-path check result.\n- `RESIDUAL RISK`: what may still be wrong.",
+    "created_at": "2026-04-30T03:54:49Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Root-cause investigation and evidence discipline for workbench tasks.",
+    "id": "d5b663e5-2eaf-4a43-979c-5ee19b209a49",
+    "name": "workbench-debug-investigate",
+    "updated_at": "2026-04-30T03:54:49Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Implementation\n\nUse this skill for coding, ops changes, scripts, automation specs, and local repository edits.\n\n## Implementation Loop\n\n1. Inspect current state.\n2. Identify the true owner of the behavior.\n3. Patch the smallest viable surface.\n4. Verify on the real path.\n5. Record the outcome in the right durable file when the change affects workbench operations.\n\n## Engineering Rules\n\n- Follow existing repo patterns.\n- Preserve working routes, agents, runtimes, hooks, cron jobs, LaunchAgents, and channel bindings.\n- Prefer reversible operations.\n- Never store secrets, tokens, OAuth material, or private credentials.\n- Do not broaden scope into Multica daemon, Desktop UI, or core runtime unless the issue explicitly requires it.\n- If the worktree has unrelated changes, leave them alone.\n- Back up live Multica skills, bindings, or automations before mutating them.\n- Mutate one live resource class at a time, then verify before moving to the next class.\n- Prefer source-first changes: local skill files and docs before live workspace synchronization.\n\n## Completion Report\n\nReturn:\n\n- files or live resources changed,\n- commands or checks run,\n- evidence of success,\n- residual risk,\n- next immediate action.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Minimal-patch implementation and ops discipline for live workbench tasks.",
+    "id": "b4bf2dce-9acc-4082-ab6b-7fcb1383950a",
+    "name": "workbench-implementation",
+    "updated_at": "2026-04-30T03:54:57Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Review QA\n\nUse this skill for code review, workflow review, QA verification, release checks, and issue closeout.\n\n## Verdicts\n\n- `PASS`: objective is met and evidence is sufficient.\n- `FLAG`: useful progress, but a non-blocking issue or missing evidence remains.\n- `BLOCK`: objective is not met, unsafe, unverifiable, or materially wrong.\n\n## Review Method\n\n1. Identify the promised objective.\n2. Inspect the real output, diff, issue comments, runtime state, or checked-out repo.\n3. Compare evidence against the objective.\n4. Verify the smallest real path that proves the claim.\n5. Report findings first, ordered by severity.\n6. Check command syntax and live-resource ownership when the work involves Multica CLI mutations.\n7. If duplicate comments or artifacts exist, identify the primary artifact and explain why.\n\n## Findings Format\n\nFor problems, return:\n\n- severity,\n- location or evidence,\n- why it matters,\n- required fix or next verification.\n\nFor clean reviews, return:\n\n- verdict,\n- evidence checked,\n- residual risk or test gap.\n\n## QA Rules\n\n- Do not accept `done` based on paraphrase alone.\n- Distinguish content failures from workflow/tooling failures.\n- If Multica workspace repo access is needed, use the workspace repository checkout path and report the commit/branch inspected.\n- Keep evidence concise and reproducible.\n- Verify `Workbench Max` remains untouched when a task says it must be preserved.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "PASS FLAG BLOCK review and QA verification protocol.",
+    "id": "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+    "name": "workbench-review-qa",
+    "updated_at": "2026-04-30T03:54:55Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Token Context Discipline\n\nUse this skill when a task may pull large docs, long issue histories, many skills, big logs, or expensive model context.\n\n## Context Budget Rules\n\n- Start with indexes, file lists, IDs, summaries, and targeted searches.\n- Read the smallest slice that can answer the current question.\n- Prefer `rg`, `jq`, concise table output, and explicit IDs over dumping entire histories.\n- Summarize large sources before passing them to another agent.\n- Attach only role-relevant skills; more skills are not automatically better.\n- Stop and report if two consecutive reads are too large or mostly irrelevant.\n\n## Cache And Quota Awareness\n\n- Distinguish fresh input, output, cache read, and cache write when usage is under investigation.\n- Do not assume dashboard usage is wrong without local/request-level evidence.\n- Avoid repeated full-context reruns when a comment ID, file path, or artifact can be cited instead.\n- Keep Workbench Max and existing private agents out of broad binding changes unless explicitly assigned.\n\n## Output Contract\n\nReturn:\n\n- `CONTEXT_USED`: exact files, comments, commands, or IDs read.\n- `SKIPPED`: intentionally avoided broad reads and why.\n- `SUMMARY`: compact facts needed for the next step.\n- `NEXT_SMALL_READ`: the next targeted evidence query, if any.\n- `TOKEN_RISK`: normal / elevated / blocked.",
+    "created_at": "2026-04-30T03:54:52Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Compact context, bounded reads, cache awareness, and role-specific skill attachment.",
+    "id": "6fe7672c-5821-40bf-abd0-ac52b953eb56",
+    "name": "workbench-token-context-discipline",
+    "updated_at": "2026-04-30T03:54:52Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

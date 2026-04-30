@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Product Brainstorming\n\nUse this skill for fuzzy product ideas, workflow design, \"go crazy\" exploration, feature shaping, and ambition checks before implementation.\n\n## Brainstorming Loop\n\n1. Capture the user's raw intent in plain language.\n2. Name the job-to-be-done and the painful current workaround.\n3. Separate must-have constraints from optional ambition.\n4. Generate two or three viable directions, not an unbounded idea dump.\n5. Compare tradeoffs, failure modes, and operational cost.\n6. Recommend one path and the smallest test that proves it matters.\n\n## Guardrails\n\n- Do not convert every idea into immediate live automation.\n- Do not expand scope into runtime/core changes without explicit approval.\n- Keep \"10x\" ideas grounded in the actual workspace, agents, skills, and verification paths.\n- Preserve the two-ring model: the conductor designs and routes; specialists execute bounded tasks.\n\n## Output Contract\n\nReturn:\n\n- `RAW INTENT`\n- `USER JOB`\n- `OPTIONS`\n- `TRADEOFFS`\n- `RECOMMENDATION`\n- `SMALLEST TEST`\n- `OPEN QUESTIONS`",
+  "created_at": "2026-04-30T03:54:53Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "Bounded product ideation, assumptions, options, tradeoffs, and recommendations.",
+  "files": [],
+  "id": "a9ec34a7-8c0d-4858-a013-899bff60d664",
+  "name": "workbench-product-brainstorming",
+  "updated_at": "2026-04-30T03:54:53Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

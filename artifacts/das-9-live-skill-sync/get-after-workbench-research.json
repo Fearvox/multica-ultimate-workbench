@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Research\n\nUse this skill for research, architecture discovery, vendor docs, benchmark reading, and unknown-system analysis.\n\n## Research Standard\n\n- Read the real system first when local state exists.\n- Prefer primary sources, live commands, local files, and official docs.\n- Separate confirmed facts, source claims, and inference.\n- Treat current software behavior, API shape, prices, versions, and docs as drift-prone.\n- Cite file paths, command names, issue/comment IDs, or source URLs when they support a claim.\n- Use targeted reads first: indexes, `rg`, `jq`, table summaries, and exact IDs before full documents or full histories.\n- Summarize large sources before handing them to another agent.\n\n## Research Output\n\nReturn:\n\n- `QUESTION`: what was investigated.\n- `CONFIRMED`: facts with evidence.\n- `UNCERTAIN`: assumptions or unresolved gaps.\n- `OPTIONS`: viable paths with tradeoffs.\n- `RECOMMENDATION`: the smallest next action.\n- `SOURCES`: local paths, commands, issue IDs, or URLs used.\n\n## Research Boundaries\n\n- Do not present speculation as fact.\n- Do not copy secrets or private tokens into reports.\n- Do not rewrite working architecture while researching it.\n- If source material conflicts, explain the conflict and prefer live runtime evidence.\n- Stop if the next read would be broad and low-yield; report the smaller evidence query needed instead.",
+  "created_at": "2026-04-29T22:53:03Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "Evidence-first research and source discipline for architecture, docs, and unknown systems.",
+  "files": [],
+  "id": "ee3222fc-2722-4502-9e7f-883901ad01fc",
+  "name": "workbench-research",
+  "updated_at": "2026-04-30T03:54:55Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

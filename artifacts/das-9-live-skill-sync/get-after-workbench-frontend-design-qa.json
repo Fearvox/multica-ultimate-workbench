@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Frontend Design QA\n\nUse this skill for frontend UI, desktop/web surfaces, screenshots, responsive checks, interaction polish, and design-system consistency.\n\n## QA Standard\n\n- Test the actual screen or rendered artifact, not just source code.\n- Check desktop and mobile or narrow-width behavior when the UI is responsive.\n- Verify text fit, no incoherent overlap, stable spacing, focus states, hover states, loading states, empty states, and error states.\n- For operational tools, prefer dense, scannable, predictable layouts over marketing-style pages.\n- Use real assets or rendered UI evidence when visual truth matters.\n\n## Design Checks\n\n- Information hierarchy is clear at first glance.\n- Primary action is obvious and not visually drowned by decoration.\n- Controls match their job: icon buttons for tools, toggles for binary state, tabs for views, menus for option sets.\n- Cards are not nested inside cards unless the local design system already does that.\n- Colors are not a one-note palette and contrast is readable.\n- Motion or animation does not hide state or slow repeated work.\n\n## Output Contract\n\nReturn:\n\n- `DESIGN_VERDICT`: PASS / FLAG / BLOCK.\n- `SURFACES CHECKED`: URL, file, viewport, screenshot, or app surface.\n- `FINDINGS`: severity, location, and fix.\n- `EVIDENCE`: screenshot path, browser check, or command output.\n- `NEXT ACTION`: smallest design or implementation correction.",
+  "created_at": "2026-04-30T03:54:51Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "Frontend and visual QA discipline for responsive workbench-facing interfaces.",
+  "files": [],
+  "id": "961497cb-a1f3-48df-961d-f9983ee918aa",
+  "name": "workbench-frontend-design-qa",
+  "updated_at": "2026-04-30T03:54:51Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}
