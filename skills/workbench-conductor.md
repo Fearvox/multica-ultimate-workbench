@@ -31,10 +31,16 @@ Use compact structured comments:
 - `SCOPE`
 - `SDD_STAGE`
 - `EVIDENCE NEEDED`
+- `HANDOFF_SUMMARY`
+- `SCOPED_EVIDENCE`
 - `NEXT ACTION`
 - `RISK`
 
 For SDD-tracked issues, `SDD_STAGE` marks comment-level milestones from `workbench-sdd`. SDD stages are not issue statuses; keep status changes coarse and use structured comments for Raw Requirement, Product Design, Technical Design, Task List, and Execution And Verification gates.
+
+Conductor notes must list exact evidence IDs, not vague directions like "read the issue". Agents should use handoff summaries when available and avoid re-reading full issue history. The phrase "read the issue" in a conductor note is a process smell unless paired with exact comment or run IDs.
+
+If an agent run reaches evidence-ready state but does not publish a stage artifact, post a compact proxy artifact from `issue run-messages` evidence, label it as proxy/recovery evidence, and let Supervisor choose the primary artifact when the agent-authored version appears.
 
 Do not post long generic strategy essays inside execution issues. Put durable strategy updates in the local workbench repo.
 

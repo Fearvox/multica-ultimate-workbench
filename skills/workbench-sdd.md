@@ -46,9 +46,14 @@ OWNER: [one agent or human owner]
 STATUS: READY_FOR_REVIEW / APPROVED / BLOCKED
 REVIEWER: Workbench Supervisor or designated reviewer
 EVIDENCE: [files, commands, issue/comment IDs, or artifacts checked]
+HANDOFF_SUMMARY: [five lines or fewer: what the next agent needs without rereading full history]
+SCOPED_EVIDENCE: [exact comment IDs, run IDs, commit hashes, files, or artifact paths to inspect]
+ANTI_OVER_READ: [sources to skip unless needed, such as full issue lists or full comment history]
 ```
 
 Put the stage-specific artifact after the header. Keep discussion replies separate from stage artifacts so the comment history remains scannable.
+
+Every SDD stage comment must include `HANDOFF_SUMMARY`. Every SDD review comment must include `VERDICT_SUMMARY`. The next agent should be able to start from the handoff summary alone and deep-read only the listed `SCOPED_EVIDENCE`.
 
 ## Stage Gate Mechanics
 
@@ -72,6 +77,7 @@ Put the stage-specific artifact after the header. Keep discussion replies separa
 - T8 or smoke-test work remains separate when the task list says it depends on a committed repo batch.
 - Completion reports include changed files, verification output, residual risks, commit hash or artifact link, work directory, and branch.
 - Live skill or agent-binding changes must have a backup and post-change verification before final PASS.
+- If a run reaches evidence-ready state but does not post a stage artifact, the conductor may post a proxy artifact using run-message evidence and mark it as proxy/recovery evidence.
 
 ## Output Contract
 

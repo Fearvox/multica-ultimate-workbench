@@ -130,4 +130,4 @@ DAS-9 expanded the pack from 7 core skills to 15 high-frequency skills. The expa
 
 ## Next Immediate Action
 
-Use the expanded skill pack in the next real SDD issue, then optimize only from observed run evidence: token/context usage, duplicated skill behavior, missing role grammar, or reviewer findings.
+Run DAS-11 source-only efficiency patch through review, then use DAS-12 to smoke-test whether `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` reduce first-pass SDD over-reading before any live skill sync.

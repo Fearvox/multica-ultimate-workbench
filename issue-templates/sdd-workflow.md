@@ -37,6 +37,13 @@ Use full SDD for non-trivial work. Workbench Admin may mark `SDD_BYPASS: quick-f
 - Patches requiring confirmation:
 - Data transmission requiring confirmation:
 
+## Evidence Budget
+
+- Every stage must name exact evidence IDs: comment IDs, run IDs, commit hashes, artifact paths, or file paths.
+- Prefer the prior stage `HANDOFF_SUMMARY` plus named `SCOPED_EVIDENCE` before reading full comment history.
+- Do not read full issue lists, full agent rosters, or unrelated docs unless the stage explains why.
+- If the artifact cannot fit in one reviewable comment, compress it before posting instead of splitting it.
+
 ## Raw Requirement
 
 ```text
@@ -45,6 +52,9 @@ OWNER:
 STATUS: READY_FOR_REVIEW
 REVIEWER: Workbench Supervisor
 EVIDENCE:
+HANDOFF_SUMMARY:
+SCOPED_EVIDENCE:
+ANTI_OVER_READ:
 ```
 
 - Literal request:
@@ -61,6 +71,9 @@ OWNER:
 STATUS: READY_FOR_REVIEW
 REVIEWER: Workbench Supervisor
 EVIDENCE:
+HANDOFF_SUMMARY:
+SCOPED_EVIDENCE:
+ANTI_OVER_READ:
 ```
 
 - User-facing behavior:
@@ -77,6 +90,9 @@ OWNER:
 STATUS: READY_FOR_REVIEW
 REVIEWER: Workbench Supervisor
 EVIDENCE:
+HANDOFF_SUMMARY:
+SCOPED_EVIDENCE:
+ANTI_OVER_READ:
 ```
 
 - Runtime owner:
@@ -94,6 +110,9 @@ OWNER:
 STATUS: READY_FOR_REVIEW
 REVIEWER: Workbench Supervisor
 EVIDENCE:
+HANDOFF_SUMMARY:
+SCOPED_EVIDENCE:
+ANTI_OVER_READ:
 ```
 
 - Tasks:
@@ -111,6 +130,9 @@ OWNER:
 STATUS: READY_FOR_REVIEW
 REVIEWER: Workbench Supervisor
 EVIDENCE:
+HANDOFF_SUMMARY:
+SCOPED_EVIDENCE:
+ANTI_OVER_READ:
 ```
 
 1. What changed.

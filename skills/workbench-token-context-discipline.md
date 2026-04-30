@@ -11,6 +11,16 @@ Use this skill when a task may pull large docs, long issue histories, many skill
 - Attach only role-relevant skills; more skills are not automatically better.
 - Stop and report if two consecutive reads are too large or mostly irrelevant.
 
+## SDD Handoff Compact Mode
+
+When entering an SDD-gated issue:
+
+1. Check whether the prior stage comment includes `HANDOFF_SUMMARY`.
+2. If it exists, read the summary header and the listed `SCOPED_EVIDENCE` before reading any wider history.
+3. If no handoff exists, read at most the latest three relevant comments, request or create a compact handoff, then stop broad scanning.
+4. Never read full issue lists, full agent rosters, or unrelated repo docs for a single-stage task unless the stage explains why.
+5. Output must fit in one reviewable comment. If it does not, compress rather than split.
+
 ## Cache And Quota Awareness
 
 - Distinguish fresh input, output, cache read, and cache write when usage is under investigation.

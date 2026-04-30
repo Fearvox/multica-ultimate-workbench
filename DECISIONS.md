@@ -39,3 +39,11 @@ The added skills are `workbench-debug-investigate`, `workbench-code-review`, `wo
 The live rollout must remain source-first and reversible: back up current live skills and bindings, patch local source, commit the source batch, synchronize live skills, update bindings by role, verify every binding, and keep `Workbench Max` untouched.
 
 Rationale: The original 7-skill pack gave agents a shared operating grammar, but the workbench now repeatedly needs debugging, code review, visual/browser QA, docs release, context discipline, brainstorming, and tasking behavior. Adding compact role-specific skills gives agents the missing high-frequency habits without importing every local skill or bloating every prompt.
+
+## 2026-04-30 - Compact SDD Handoffs Before Broad Reads
+
+Decision: Every SDD stage should include `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` fields before the stage body.
+
+Agents must start from the prior handoff and exact evidence IDs before reading wider issue history, full issue lists, full agent rosters, or unrelated docs. If a run reaches evidence-ready state but does not publish an artifact promptly, the conductor may post a clearly labeled proxy artifact from run-message evidence and let Supervisor decide the primary artifact.
+
+Rationale: DAS-11 showed the expanded skill pack works, but first-pass SDD still over-read DAS-9 history and created latency/proxy friction. Compact handoffs preserve enough context for the next owner while reducing repeated full-history scans and token spend.

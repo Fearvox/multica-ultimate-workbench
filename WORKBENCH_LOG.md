@@ -63,3 +63,7 @@
 - Updated the existing 7 live Multica skills, created the 8 new live skills, verified `multica skill list --output json` returned 15 skills, and committed live ID docs sync in `3d9fe18`.
 - Applied the expanded role-specific attachment map to the 12 target workbench agents, verified every binding by `agent skills list`, and confirmed `Workbench Max` remained unmodified with zero skills.
 - Created `DAS-10` (`c572f2d2-b902-42bf-85ea-82ce71457c83`) as a fresh Workbench Admin smoke issue; run `5dfe420e-0f0b-4d7d-84e5-d56e6e44ad30` posted PASS comment `7e3f1946-d016-460b-b2d6-743c95c45393`, saw the expected expanded Admin skill grammar, and confirmed no mutations.
+- Created `DAS-11` (`6f33d903-b9e9-4ad5-8da1-b957efde339b`) as the first real post-expansion optimization issue, focused on DAS-9/DAS-10 evidence rather than another smoke.
+- Workbench Admin run `6b6319e8-95c2-48fa-b51e-64aeca7ac086` produced SDD artifact `17fd38d7-6045-4d1e-bad6-2ad403a4402b`; a conductor proxy artifact `c4bfcc99-a4d4-42fd-824c-7ad53a040255` captured latency/recovery evidence.
+- Workbench Supervisor posted PASS comment `764b50db-4e82-4308-84c1-245c573c3ffb`, accepting the Admin artifact as primary and approving a source-only compact handoff patch before any live skill sync.
+- Added `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` policy to the SDD template and relevant skills so future SDD stages start from scoped evidence instead of broad issue/agent history reads.
