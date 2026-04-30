@@ -85,3 +85,11 @@ Decision: Add YAML frontmatter to all local Workbench skill source files and syn
 `Workbench Max` is also canonicalized as a preserved Special bench rather than a normal Inner or Outer Ring member. The hardening pass does not modify Max instructions, skill bindings, or global Codex MCP OAuth configuration.
 
 Rationale: DAS-16 burn-in showed Codex runtime logs rejecting several workbench skills because their live `SKILL.md` content lacked YAML frontmatter. Frontmatter is a low-risk compatibility fix. Max classification removes routing ambiguity without changing the preserved companion agent.
+
+## 2026-04-30 - Capy VM Lane Is A Capability Lease, Not A Scheduler
+
+Decision: add a controlled VM/Computer execution lane for GUI, browser, sandbox, and screenshot-backed tasks.
+
+Reason: some workbench tasks need disposable desktop state and visual proof, but Multica should remain the routing, review, issue, and evidence source of truth.
+
+Consequence: VM sessions must be declared through SDD fields, owned by one issue and one agent, artifact-backed, and destroyed by default. The lane must not become an autonomous scheduler or a replacement for Multica.

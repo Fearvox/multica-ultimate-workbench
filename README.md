@@ -121,6 +121,18 @@ Flight Recorder 是 issue 级别的轻量摘要。它检查 issue metadata、com
 
 See [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) and [docs/flight-recorder.md](docs/flight-recorder.md).
 
+## Capy VM Lane / VM 执行通道
+
+The Capy VM Lane is a controlled execution path for GUI, browser, sandbox, and screenshot-backed tasks. It does not replace Multica routing or Supervisor review; it gives assigned agents a disposable execution cell when shell-only work is not enough.
+
+Capy VM Lane 是一个受控的 VM/Computer 执行通道，用来处理 GUI、浏览器、隔离沙盒和截图证据任务。它不替代 Multica 的派工与复核，只在 shell-only 工作不够时给指定 agent 一个一次性的执行空间。
+
+```bash
+./scripts/vm-smoke.sh
+```
+
+See [docs/capy-vm-lane.md](docs/capy-vm-lane.md).
+
 ## Skill Curator / 技能策展
 
 The Skill Curator is the maintenance protocol for keeping workbench skills useful over time. It reviews stale skills, overlapping instructions, role-binding drift, token/context risk, and recoverable archive candidates. Version 1 is review-only: it proposes changes through issues instead of silently deleting or rewriting skills.
@@ -190,6 +202,7 @@ The workbench is intentionally conservative:
 | Decision log / 决策记录 | [DECISIONS.md](DECISIONS.md) |
 | Historical rollout log / 历史流水账 | [WORKBENCH_LOG.md](WORKBENCH_LOG.md) |
 | Flight recorder contract / Flight Recorder 契约 | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
+| VM execution lane / VM 执行通道 | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
 | Skill curator protocol / Skill Curator 协议 | [docs/skill-curator.md](docs/skill-curator.md) |
 | Workspace skill map / Skill 映射 | [skills/README.md](skills/README.md) |
 | Agent roster / Agent 名册 | [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) |
