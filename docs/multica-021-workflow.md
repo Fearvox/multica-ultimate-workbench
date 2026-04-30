@@ -34,15 +34,21 @@ flowchart LR
 
 ## Project-Bound Repo Rule
 
-When a Multica issue belongs to this workbench, the issue should attach or name the `Ultimate Workbench` project. Agents should prefer the project repo resource before guessing a checkout path.
+When a Multica issue belongs to this workbench, the issue should attach or name the `Ultimate Workbench` project. Agents should prefer the project-bound GitHub repo resource before guessing a checkout path.
 
-If repo files are needed inside a runtime workdir, run:
+Primary repo anchor:
+
+```text
+Ultimate Workbench project -> https://github.com/Fearvox/multica-ultimate-workbench
+```
+
+If repo files are needed inside a runtime workdir and the project-bound resource is unavailable, use the local path only as an explicit fallback:
 
 ```bash
 multica repo checkout file:///Users/0xvox/multica-ultimate-workbench
 ```
 
-Then verify the branch or commit before citing file evidence.
+Then label the evidence as local fallback and verify the branch or commit before citing file evidence.
 
 ## Fresh Rerun Rule
 

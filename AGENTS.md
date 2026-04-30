@@ -29,8 +29,8 @@ Do not treat this repo as the Multica runtime itself.
 - Do not modify Multica daemon, Desktop UI, or core runtime unless the human explicitly asks.
 - Do not store secrets, OAuth material, private tokens, raw request payloads, or raw run transcripts.
 - Do not claim completion without evidence.
-- Run `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` before making claims about repo-local files from a Multica runtime.
 - Prefer the `Ultimate Workbench` Multica Project and its GitHub repo resource before guessing repository context.
+- From a Multica runtime, use the issue's project-bound repo resource first; only use `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` as a local-only fallback, and label that fallback in evidence.
 - Use `scripts/collect-flight-recorder.sh <issue-id>` for review summaries when relevant.
 - Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
 - Autopilots create issues; they do not silently perform high-risk work.
