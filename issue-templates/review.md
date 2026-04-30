@@ -15,6 +15,14 @@
 
 ## Findings Format
 
+Start every review with:
+
+```text
+VERDICT: PASS / FLAG / BLOCK
+VERDICT_SUMMARY: three lines or fewer; what passed, what is risky, and the next action
+EVIDENCE:
+```
+
 List findings first, ordered by severity.
 
 For each finding:

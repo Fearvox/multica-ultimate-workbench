@@ -30,8 +30,11 @@ For problems, return:
 For clean reviews, return:
 
 - verdict,
+- `VERDICT_SUMMARY`: three lines or fewer,
 - evidence checked,
 - residual risk or test gap.
+
+Every SDD review should include `VERDICT_SUMMARY` so the next agent can continue from the review header without re-reading the full review body.
 
 ## QA Rules
 
