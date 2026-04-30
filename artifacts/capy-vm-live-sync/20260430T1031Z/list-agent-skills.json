@@ -1,0 +1,13 @@
+[
+  {
+    "config": {},
+    "content": "---\nname: workbench-capy-vm-lane\ndescription: Controlled VM/Computer execution lane for GUI, browser, sandbox, and screenshot-backed tasks.\n---\n\n# Workbench Capy VM Lane\n\nUse this skill only when an issue declares `EXECUTION_TARGET: capy-vm` or asks for isolated GUI/browser/sandbox execution.\n\n## Required Checks\n\nBefore execution:\n\n1. Confirm the issue has `VM_LEASE`.\n2. Confirm `secrets_policy`.\n3. Confirm `network_policy`.\n4. Confirm `ARTIFACTS_REQUIRED`.\n5. Confirm `TEARDOWN`.\n\nIf any field is missing, return `BLOCKED` with the smallest missing field list.\n\n## Default Policy\n\n- `secrets_policy: none`\n- `network_policy: localhost-only` for smoke tests\n- `TEARDOWN: destroy`\n- artifact root: `artifacts/`\n\n## Computer API Pattern\n\nThe local smoke path uses a Scrapybara-compatible Computer API:\n\n```bash\ncurl -fsS -X POST \"http://127.0.0.1:${CAPY_API_PORT}/computer\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"action\":\"take_screenshot\"}'\n```\n\nThe response must be saved before summarizing.\n\n## Report Contract\n\nAlways report:\n\n- issue id,\n- owner agent,\n- execution target,\n- lease fields,\n- commands and exit codes,\n- artifact paths,\n- teardown state,\n- residual risks,\n- `VERDICT: PASS / FLAG / BLOCK`.\n\nNever paste base64 screenshots, raw cookies, OAuth codes, private tokens, API keys, or unrelated screen content into comments.",
+    "created_at": "2026-04-30T10:31:47Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Controlled VM/Computer execution lane for GUI, browser, sandbox, and screenshot-backed tasks.",
+    "id": "23205bad-177e-4937-8934-d0ea5b8b1a4e",
+    "name": "workbench-capy-vm-lane",
+    "updated_at": "2026-04-30T10:31:47Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

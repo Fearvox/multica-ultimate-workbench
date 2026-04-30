@@ -66,6 +66,7 @@ Created in the Multica `DASH` workspace on 2026-04-29:
 | `workbench-code-review` | `b7b035cb-67d6-4fbd-a756-c410190576a9` |
 | `workbench-frontend-design-qa` | `961497cb-a1f3-48df-961d-f9983ee918aa` |
 | `workbench-browser-proofshot-qa` | `2acab3df-7b28-4ca4-a34b-4c713a453ada` |
+| `workbench-capy-vm-lane` | `23205bad-177e-4937-8934-d0ea5b8b1a4e` |
 | `workbench-docs-release` | `f2bac02b-5daf-400e-93df-49e97f64c59c` |
 | `workbench-token-context-discipline` | `6fe7672c-5821-40bf-abd0-ac52b953eb56` |
 | `workbench-product-brainstorming` | `a9ec34a7-8c0d-4858-a013-899bff60d664` |
@@ -91,6 +92,13 @@ DAS-9 source expansion verification:
 - The attachment map above was applied to the 12 target workbench agents and independently verified against `agent skills list`.
 - `Workbench Max` remains unmodified with zero skill assignments.
 - `DAS-10` fresh Workbench Admin smoke run `5dfe420e-0f0b-4d7d-84e5-d56e6e44ad30` posted PASS comment `7e3f1946-d016-460b-b2d6-743c95c45393`, seeing the expected 5 Admin skills and confirming no mutation.
+
+Capy VM Lane live sync verification:
+
+- `workbench-capy-vm-lane` was created on 2026-04-30 UTC as live skill `23205bad-177e-4937-8934-d0ea5b8b1a4e`.
+- `Workbench VM Runner` was created on the Codex runtime as private agent `e42ff104-7ff2-41d8-936d-fe18448c2e1c` with max concurrency 1.
+- `multica agent skills list e42ff104-7ff2-41d8-936d-fe18448c2e1c --output json` returned the expected 4-skill VM Runner binding: `workbench-capy-vm-lane`, `workbench-browser-proofshot-qa`, `workbench-token-context-discipline`, and `workbench-review-qa`.
+- Live evidence is stored under `artifacts/capy-vm-live-sync/20260430T1031Z`.
 
 ## Curator Maintenance
 
