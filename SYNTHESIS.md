@@ -106,6 +106,7 @@ Use `issue-templates/sdd-workflow.md` for non-trivial SDD-gated work. Workbench 
 | Runtime workdir lacks checked-out repo files unless agents explicitly checkout | Agents may not find `SYNTHESIS.md` or `issue-templates/sdd-workflow.md` even when those files exist in the source repo. | For tasks requiring repo-local docs or templates, require `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` before file verification. |
 | Review cannot explain token/context cost from issue history alone | High run cost or cache-read behavior can look mysterious and hard to triage. | Use `scripts/collect-flight-recorder.sh <issue-id>` to produce compact `RUN_DIGEST` summaries; use UI/API billing evidence when CLI run JSON does not expose token fields. |
 | Evidence artifacts can consume disk or leak raw payloads | Low disk headroom and durable docs can become polluted with unnecessary raw logs. | Default flight-recorder mode is stdout only; persistent mode writes summary files only and should stay under `artifacts/flight-recorder/<issue-id>` when explicitly needed. |
+| Workspace skills decay or overlap over time | Prompt bloat, duplicated rules, stale bindings, and unsafe maintenance edits. | Use `docs/skill-curator.md` and `autopilots/skill-curator.md`; v1 curator is review-only and requires approval before deletion, archive moves, live sync, or attachment changes. |
 
 ## Workspace Skill Pack
 
@@ -160,6 +161,26 @@ DAS-15 live verification:
 | Temp artifact size | 20K |
 | Residual risk | Multica CLI run JSON did not expose token fields; quota attribution still needs UI/API billing evidence. |
 
+## Skill Curator
+
+Inspired by Hermes Agent's Curator feature, the workbench now has a source-level Skill Curator protocol in `docs/skill-curator.md`.
+
+The workbench adaptation keeps the useful maintenance shape while staying conservative:
+
+| Concept | Workbench interpretation |
+| --- | --- |
+| `active -> stale -> archived` | Review vocabulary first; no automatic filesystem state machine in v1. |
+| pinned skills | Hard fence for canonical or hand-authored workbench instructions. |
+| usage-aware review | Inspect local catalog, prompts, and optional live skill maps before proposing changes. |
+| per-run reports | Curator issues report `CATALOG_STATE`, `OVERLAPS`, `DRIFT`, `TOKEN_RISK`, `PATCH_PLAN`, `LIVE_SYNC_NEEDED`, and `RESIDUAL_RISK`. |
+| recoverable archive | Any archive/detach/delete action needs explicit human approval and Supervisor review. |
+
+New source entries:
+
+- `docs/skill-curator.md`
+- `autopilots/skill-curator.md`
+- `issue-templates/curator-review.md`
+
 ## Next Immediate Action
 
-DAS-15 live smoke passed after adding the Workbench Flight Recorder. Next: use `RUN_DIGEST` in daily health and the next non-trivial SDD issue, then decide whether to add a tiny daily-health wrapper that automatically appends digest highlights without storing raw payloads.
+DAS-15 live smoke passed after adding the Workbench Flight Recorder. The next strong workbench upgrade is to run a first read-only Skill Curator issue against the current 15-skill pack and prompt-compressed roster, then decide whether any stale/overlap findings deserve a bounded patch issue.

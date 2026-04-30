@@ -12,6 +12,7 @@
 ![Claude Code](https://img.shields.io/badge/runtime-Claude_Code-d97706?style=flat-square)
 ![Hermes](https://img.shields.io/badge/runtime-Hermes-0f766e?style=flat-square)
 ![Flight Recorder](https://img.shields.io/badge/observability-flight_recorder-0369a1?style=flat-square)
+![Curator](https://img.shields.io/badge/maintenance-skill_curator-9333ea?style=flat-square)
 ![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)
 
 **Jump / 跳转:** [Overview](#overview--总览) · [Architecture](#architecture--架构) · [SDD](#sdd-workflow--规范驱动开发流程) · [Commands](#commands--常用命令) · [Docs](#documentation-map--文档地图)
@@ -120,11 +121,19 @@ Flight Recorder 是 issue 级别的轻量摘要。它检查 issue metadata、com
 
 See [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) and [docs/flight-recorder.md](docs/flight-recorder.md).
 
+## Skill Curator / 技能策展
+
+The Skill Curator is the maintenance protocol for keeping workbench skills useful over time. It reviews stale skills, overlapping instructions, role-binding drift, token/context risk, and recoverable archive candidates. Version 1 is review-only: it proposes changes through issues instead of silently deleting or rewriting skills.
+
+Skill Curator 是工作台的 skill 维护协议。它检查 stale skills、重复规则、role-binding drift、token/context risk，以及可恢复 archive 候选项。v1 只做 review：通过 issue 提出修改建议，不静默删除或重写 skill。
+
+See [docs/skill-curator.md](docs/skill-curator.md) and [issue-templates/curator-review.md](issue-templates/curator-review.md).
+
 ## Autopilots / 自动巡检
 
-Autopilots create issues for recurring checks. They do not silently perform high-risk work. Daily health, dependency review, stale-memory checks, and benchmark-artifact checks are treated as scheduled prompts for reviewed execution.
+Autopilots create issues for recurring checks. They do not silently perform high-risk work. Daily health, dependency review, stale-memory checks, skill-curator checks, and benchmark-artifact checks are treated as scheduled prompts for reviewed execution.
 
-Autopilots 用来定期创建检查 issue，而不是偷偷执行高风险操作。Daily health、dependency review、stale-memory checks、benchmark-artifact checks 都是进入 review 流程的入口。
+Autopilots 用来定期创建检查 issue，而不是偷偷执行高风险操作。Daily health、dependency review、stale-memory checks、skill-curator checks、benchmark-artifact checks 都是进入 review 流程的入口。
 
 See [autopilots/daily-health.md](autopilots/daily-health.md) for the current health-check pattern.
 
@@ -181,6 +190,7 @@ The workbench is intentionally conservative:
 | Decision log / 决策记录 | [DECISIONS.md](DECISIONS.md) |
 | Historical rollout log / 历史流水账 | [WORKBENCH_LOG.md](WORKBENCH_LOG.md) |
 | Flight recorder contract / Flight Recorder 契约 | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
+| Skill curator protocol / Skill Curator 协议 | [docs/skill-curator.md](docs/skill-curator.md) |
 | Workspace skill map / Skill 映射 | [skills/README.md](skills/README.md) |
 | Agent roster / Agent 名册 | [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) |
 | Issue templates / Issue 模板 | [issue-templates/](issue-templates/) |
@@ -188,6 +198,6 @@ The workbench is intentionally conservative:
 
 ## Current Status / 当前状态
 
-The workbench has a verified two-ring roster, a high-frequency workspace skill pack, source-first prompt compression, daily health autopilot scaffolding, and a flight recorder that has passed live QA/Supervisor review. Current operational truth lives in [SYNTHESIS.md](SYNTHESIS.md); historical details live in [WORKBENCH_LOG.md](WORKBENCH_LOG.md).
+The workbench has a verified two-ring roster, a high-frequency workspace skill pack, source-first prompt compression, daily health autopilot scaffolding, a flight recorder that has passed live QA/Supervisor review, and a source-level skill curator protocol. Current operational truth lives in [SYNTHESIS.md](SYNTHESIS.md); historical details live in [WORKBENCH_LOG.md](WORKBENCH_LOG.md).
 
-当前工作台已经具备经过验证的双环 roster、高频 workspace skill pack、source-first prompt compression、daily health autopilot scaffold，以及通过 live QA/Supervisor review 的 flight recorder。当前事实看 [SYNTHESIS.md](SYNTHESIS.md)，历史过程看 [WORKBENCH_LOG.md](WORKBENCH_LOG.md)。
+当前工作台已经具备经过验证的双环 roster、高频 workspace skill pack、source-first prompt compression、daily health autopilot scaffold、通过 live QA/Supervisor review 的 flight recorder，以及 source-level skill curator protocol。当前事实看 [SYNTHESIS.md](SYNTHESIS.md)，历史过程看 [WORKBENCH_LOG.md](WORKBENCH_LOG.md)。

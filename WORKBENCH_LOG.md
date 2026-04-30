@@ -92,3 +92,7 @@
 - Created `DAS-15` (`b546ef9d-c2b7-418a-a794-595b891aa019`) as a live QA smoke for the flight recorder. `QA Verifier` run `3aad98a1-a642-4953-a8ed-ce772ef5591a` posted PASS comment `172489c1-ad24-4cfc-8968-c31619142379`.
 - `Workbench Supervisor` reviewed `DAS-15` in run `17b9e14d-f37a-49ac-b92c-6371c45dcc34` and posted PASS comment `0a6b53c7-46d1-4c29-8e8f-d88b1e2da183`: checkout reached commit `f32861e`, script syntax passed, stdout digest and temp artifact mode worked, temp output was cleaned, no persistent repo flight artifacts remained, and token usage fields remained invisible in run JSON as an INFO-level residual risk.
 - Closed `DAS-15` to `done`.
+- Reviewed Hermes Agent's Curator documentation and adapted the concept into a conservative Workbench Skill Curator protocol.
+- Added `docs/skill-curator.md`, `autopilots/skill-curator.md`, and `issue-templates/curator-review.md`.
+- Updated README, AGENTS, `WORKBENCH_METRICS.md`, `SYNTHESIS.md`, `DECISIONS.md`, `autopilots/stale-memory.md`, and `skills/README.md` so skill maintenance is discoverable but remains review-only in v1.
+- Curator rule: classify/propose first; do not delete, archive, detach, live-sync, or rewrite skills without explicit human approval and Supervisor review.

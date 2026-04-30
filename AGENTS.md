@@ -12,9 +12,10 @@ Read only as deep as the task requires:
 2. [SYNTHESIS.md](SYNTHESIS.md) - current strategy, architecture, risks, and live operating model.
 3. [DECISIONS.md](DECISIONS.md) - durable decisions and rationale.
 4. [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) - flight recorder and token/context review contract.
-5. [skills/README.md](skills/README.md) - workspace skill map and attachments.
-6. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
-7. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
+5. [docs/skill-curator.md](docs/skill-curator.md) - skill lifecycle, stale/archive/pin review protocol.
+6. [skills/README.md](skills/README.md) - workspace skill map and attachments.
+7. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
+8. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
 
 ## Repository Role
 
@@ -29,6 +30,7 @@ Do not treat this repo as the Multica runtime itself.
 - Do not claim completion without evidence.
 - Run `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` before making claims about repo-local files from a Multica runtime.
 - Use `scripts/collect-flight-recorder.sh <issue-id>` for review summaries when relevant.
+- Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
 - Autopilots create issues; they do not silently perform high-risk work.
 - Outer Ring agents do not assign work to each other.
 - Preserve `Workbench Max` unless the human explicitly asks to modify it.
@@ -93,6 +95,24 @@ Artifact mode writes summary files only. Do not store raw issue descriptions, fu
 
 Token fields may be absent from Multica CLI run JSON. Treat that as an INFO residual risk and use UI/API billing evidence when quota attribution matters.
 
+## Skill Curator Protocol
+
+Use the skill curator for maintenance of workbench skills, prompts, and role bindings:
+
+```text
+active -> stale -> archived
+```
+
+Rules:
+
+- Treat v1 as review-only. Propose changes; do not silently delete or rewrite skills.
+- Respect pinned/canonical items. If a pinned item looks wrong, propose a human-approved patch issue.
+- Check local source before live state: `skills/README.md`, relevant `skills/*.md`, relevant `agents/**/*.md`, then `SYNTHESIS.md` and `DECISIONS.md`.
+- Use live `multica skill list` or `multica agent skills list` only when the issue asks for live verification.
+- Curator output should include `CATALOG_STATE`, `OVERLAPS`, `DRIFT`, `TOKEN_RISK`, `PATCH_PLAN`, `LIVE_SYNC_NEEDED`, `RESIDUAL_RISK`, and a final `PASS` / `FLAG` / `BLOCK`.
+
+See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md](autopilots/skill-curator.md), and [issue-templates/curator-review.md](issue-templates/curator-review.md).
+
 ## File Map
 
 | Need | File |
@@ -103,6 +123,7 @@ Token fields may be absent from Multica CLI run JSON. Treat that as an INFO resi
 | Rollout history | [WORKBENCH_LOG.md](WORKBENCH_LOG.md) |
 | Flight recorder contract | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
 | Flight recorder usage | [docs/flight-recorder.md](docs/flight-recorder.md) |
+| Skill curator protocol | [docs/skill-curator.md](docs/skill-curator.md) |
 | Agent roster | [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) |
 | Workspace skills | [skills/README.md](skills/README.md) |
 | Issue templates | [issue-templates/](issue-templates/) |
@@ -127,7 +148,7 @@ git diff -- README.md AGENTS.md
 ```
 
 ```bash
-for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md skills/README.md agents/AGENT_ROSTER.md; do
+for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/skill-curator.md skills/README.md agents/AGENT_ROSTER.md; do
   test -f "$path" || exit 1
 done
 echo "link-targets-ok"

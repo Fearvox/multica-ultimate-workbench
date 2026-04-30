@@ -71,3 +71,16 @@ After DAS-14, the workbench should treat token/context discipline as part of nor
 - agents should start from compact handoffs before broad reads
 - tasks needing repo docs should run `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench`
 - completion claims need concrete evidence and a review label
+
+## Curator Metrics
+
+The Skill Curator uses review signals rather than automatic mutation in v1:
+
+- `CATALOG_STATE`: active, stale, archived, or pinned recommendation.
+- `OVERLAPS`: repeated instructions across skills or prompts.
+- `DRIFT`: mismatch between local source, live skill map, and role prompts.
+- `TOKEN_RISK`: normal, elevated, or blocked context impact.
+- `PATCH_PLAN`: exact local patch proposal, or `none`.
+- `LIVE_SYNC_NEEDED`: yes/no, with explicit targets if yes.
+
+Curator reports are maintenance evidence. They are not permission to delete files, detach live skills, or rewrite live Multica records.

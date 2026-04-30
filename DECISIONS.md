@@ -61,3 +61,11 @@ Decision: Add `scripts/collect-flight-recorder.sh` and `WORKBENCH_METRICS.md` as
 The collector defaults to stdout-only `RUN_DIGEST` output. Persistent mode is opt-in and writes only summary JSON plus `run-digest.md`; it must not persist raw issue descriptions, full comment bodies, run-message transcripts, screenshots, traces, OAuth material, private tokens, or request payloads.
 
 Rationale: The workbench needs enough observability to catch missing evidence, failed runs, oversized comments, long run traces, and invisible token attribution without creating a new disk or privacy problem. DAS-15 proved the helper works in a live Multica QA/Supervisor loop while leaving no persistent repo artifacts.
+
+## 2026-04-30 - Adapt Hermes Curator As A Review-Only Skill Curator
+
+Decision: Add a Workbench Skill Curator protocol inspired by Hermes Agent's Curator feature, but keep the first workbench version review-only.
+
+The curator may classify skills and bindings as `active`, `stale`, `archived`, or `pinned`, and may propose patches, consolidation, archive candidates, or live-sync needs. It must not delete local skill files, rewrite live Multica skills, detach skill bindings, or modify preserved agents without explicit human approval and Supervisor review.
+
+Rationale: Hermes Curator's lifecycle, pinning, usage telemetry, recoverable archival, and report pattern match the workbench's skill-bloat problem. The workbench has a stronger safety requirement because its skills and agents are part of a live collaboration system, so v1 should create review evidence and patch plans before any mutation.
