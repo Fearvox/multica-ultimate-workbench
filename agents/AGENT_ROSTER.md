@@ -11,6 +11,7 @@
 | Claude Architect | Outer | Claude Code + Mimo | private | 2 | @mention architecture review |
 | Claude Docs | Outer | Claude Code + Mimo | private | 2 | Assigned docs issue |
 | QA Verifier | Outer | Codex | private | 2 | @mention verification, assigned QA issue |
+| Workbench VM Runner | Outer | Codex | private | 1 | Assigned `capy-vm` issue |
 | Benchmark Scout | Outer | Hermes or Codex | private | 1 | Assigned benchmark review issue |
 | Ops Mechanic | Outer | Codex | private | 1 | Assigned ops issue |
 | Memory Curator | Outer | Claude Code or Hermes | private | 1 | Assigned synthesis/memory issue |

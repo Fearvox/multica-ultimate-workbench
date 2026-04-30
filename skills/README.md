@@ -19,6 +19,7 @@ The live Multica workspace stores skills in the workspace cloud layer. These fil
 | `workbench-code-review` | Findings-first review discipline for diffs, live changes, and evidence quality. |
 | `workbench-frontend-design-qa` | Visual/UI QA for responsive surfaces, text fit, hierarchy, and interaction states. |
 | `workbench-browser-proofshot-qa` | Browser-based verification with screenshots, traces, console/network checks, and repro steps. |
+| `workbench-capy-vm-lane` | Controlled VM/Computer execution for GUI, browser, sandbox, screenshots, lease discipline, and teardown evidence. |
 | `workbench-docs-release` | Post-change documentation sync for decisions, synthesis, skill maps, and release handoffs. |
 | `workbench-token-context-discipline` | Compact context, cache-aware execution, and role-specific skill attachment discipline. |
 | `workbench-product-brainstorming` | Bounded product ideation with options, tradeoffs, recommendation, and smallest test. |
@@ -31,14 +32,15 @@ Target map after DAS-9 expansion:
 | Agent | Skills |
 | --- | --- |
 | Workbench Admin | `workbench-conductor`, `workbench-sdd`, `workbench-product-brainstorming`, `workbench-token-context-discipline`, `workbench-gsd-tasking` |
-| Workbench Supervisor | `workbench-review-qa`, `workbench-code-review`, `workbench-conductor`, `workbench-sdd`, `workbench-token-context-discipline` |
+| Workbench Supervisor | `workbench-review-qa`, `workbench-code-review`, `workbench-conductor`, `workbench-sdd`, `workbench-token-context-discipline`, `workbench-capy-vm-lane` |
 | Workbench Synthesizer | `workbench-memory-synthesis`, `workbench-docs-release`, `workbench-conductor`, `workbench-token-context-discipline` |
 | Codex Guardian | `workbench-implementation`, `workbench-debug-investigate`, `workbench-code-review`, `workbench-token-context-discipline` |
 | Codex Developer | `workbench-implementation`, `workbench-debug-investigate`, `workbench-code-review`, `workbench-gsd-tasking` |
 | Hermes Researcher | `workbench-research`, `workbench-product-brainstorming`, `workbench-token-context-discipline` |
 | Claude Architect | `workbench-sdd`, `workbench-research`, `workbench-design-docs`, `workbench-frontend-design-qa`, `workbench-gsd-tasking` |
 | Claude Docs | `workbench-design-docs`, `workbench-docs-release`, `workbench-memory-synthesis`, `workbench-token-context-discipline` |
-| QA Verifier | `workbench-review-qa`, `workbench-browser-proofshot-qa`, `workbench-frontend-design-qa`, `workbench-code-review` |
+| QA Verifier | `workbench-review-qa`, `workbench-browser-proofshot-qa`, `workbench-frontend-design-qa`, `workbench-code-review`, `workbench-capy-vm-lane` |
+| Workbench VM Runner | `workbench-capy-vm-lane`, `workbench-browser-proofshot-qa`, `workbench-token-context-discipline`, `workbench-review-qa` |
 | Benchmark Scout | `workbench-research`, `workbench-review-qa`, `workbench-token-context-discipline` |
 | Ops Mechanic | `workbench-implementation`, `workbench-debug-investigate`, `workbench-review-qa`, `workbench-token-context-discipline` |
 | Memory Curator | `workbench-memory-synthesis`, `workbench-docs-release`, `workbench-token-context-discipline` |
