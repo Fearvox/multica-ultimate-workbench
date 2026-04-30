@@ -47,3 +47,9 @@ Decision: Every SDD stage should include `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, a
 Agents must start from the prior handoff and exact evidence IDs before reading wider issue history, full issue lists, full agent rosters, or unrelated docs. If a run reaches evidence-ready state but does not publish an artifact promptly, the conductor may post a clearly labeled proxy artifact from run-message evidence and let Supervisor decide the primary artifact.
 
 Rationale: DAS-11 showed the expanded skill pack works, but first-pass SDD still over-read DAS-9 history and created latency/proxy friction. Compact handoffs preserve enough context for the next owner while reducing repeated full-history scans and token spend.
+
+## 2026-04-30 - Compress Agent Prompts Source-First With Live Smoke
+
+Decision: Active Multica workbench agent prompts may be caveman-compressed, but only through the source-first, reversible path: keep `.original.md` backups, validate compressed files locally, commit source changes, live-sync with `multica agent update --instructions`, verify metadata drift did not occur, and run a fresh live smoke issue.
+
+Rationale: Prompt compression can reduce cache/input overhead, but it changes the exact operating text agents receive. Treat prompt compression like a runtime behavior change: preserve rollback files, keep `Workbench Max` untouched, and require live evidence before calling it done.

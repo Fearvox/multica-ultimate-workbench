@@ -1,7 +1,7 @@
 # Synthesis
 
 Date: 2026-04-29
-Last updated: 2026-04-30 UTC during DAS-9 skill expansion.
+Last updated: 2026-04-30 UTC during DAS-14 agent prompt compression.
 
 ## Current Strategy
 
@@ -103,6 +103,7 @@ Use `issue-templates/sdd-workflow.md` for non-trivial SDD-gated work. Workbench 
 | Agent roster and human member counts get conflated | Health cards can under-report the actual agent roster. | Health autopilot must run `agent list` and `workspace members` separately and report counts/names separately. |
 | Workspace skills drift from local source | Agents may run stale or invisible operating protocols. | Keep canonical skill source in `skills/`, record live IDs, and verify `skill list` plus agent bindings after changes. |
 | Prompt bloat from over-attached skills | Agents waste context and quota on irrelevant operating protocols. | Attach skills by role, keep high-frequency skills compact, and use `workbench-token-context-discipline` for large histories/docs. |
+| Runtime workdir lacks checked-out repo files unless agents explicitly checkout | Agents may not find `SYNTHESIS.md` or `issue-templates/sdd-workflow.md` even when those files exist in the source repo. | For tasks requiring repo-local docs or templates, require `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` before file verification. |
 
 ## Workspace Skill Pack
 
@@ -130,4 +131,4 @@ DAS-9 expanded the pack from 7 core skills to 15 high-frequency skills. The expa
 
 ## Next Immediate Action
 
-DAS-13 live retest passed: a fresh Workbench Admin run used live `workbench-sdd`, avoided parent/deep reads, emitted literal `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` headers, and Supervisor accepted the result. Next: use compact SDD handoffs in the next real multi-stage issue and watch whether Product Design / Technical Design stages also avoid broad history reads.
+DAS-14 live smoke passed after compressing the 12 active workbench agent prompts: Workbench Admin preserved SDD routing, bounded owner selection, Chinese status, and no uncontrolled fan-out. Next: use the compressed live roster in the next real multi-stage issue and ensure repo-local docs/templates are checked out before agents treat them as missing.

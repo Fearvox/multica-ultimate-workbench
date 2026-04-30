@@ -76,3 +76,13 @@
 - Created `DAS-13` (`21a3a0aa-0faa-42ad-8c73-94306e5fe598`) as the fresh exact-field live retest.
 - Workbench Admin run `6bcdab5c-8e7b-495c-afdb-783eb3899399` loaded live `workbench-sdd`, avoided parent/deep reads, and posted Raw Requirement comment `60742f18-d8fe-4b75-88d6-fd3ef0911794` with literal `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` fields.
 - Workbench Supervisor posted PASS comment `f0ee6548-555c-4d2f-83ba-76a08322fbc6`, accepting the exact compact SDD header path; minor issue noted: `SCOPED_EVIDENCE` used "this comment" before the platform UUID existed.
+
+## 2026-04-30
+
+- Created Superpowers implementation plan `docs/superpowers/plans/2026-04-30-caveman-compress-agent-settings.md` for cache-aware compression of active workbench agent settings.
+- Ran `caveman-compress` pilot on `agents/inner/workbench-admin.md`; the tool produced a valid original backup but included explanatory wrapper text in the active file, so the wrapper was removed and the remaining compression pass was applied manually according to the same rules.
+- Committed compressed source prompts and original backups in `d4795a2`: 12 active agent prompt files now have `.original.md` backups; active prompt word count changed from 2,576 to 2,181 words.
+- Verified all 12 compressed active prompts with `scripts/validate.py` from `caveman-compress`; no validation errors, no wrapper/Insight text remained, and key rules such as `BLOCKED`, SDD, `PASS`/`FLAG`, runtime/ring, no secrets, and explicit confirmation remained findable.
+- Live-synced compressed instructions to the 12 target Multica workbench agents with `multica agent update --instructions`; `Workbench Max` was separately verified untouched.
+- Created `DAS-14` (`8a197445-e3ff-4c8c-9fe3-ef6eed3107bd`) as a Workbench Admin smoke test after live sync. Admin run `e6111566-4f6e-40aa-bd0a-f3b5b8519cad` completed, posted comment `d71379a8-51f8-496e-b05f-64df674b59ad`, moved the issue to `in_review`, and the conductor closed it to `done` after verifying the result.
+- `DAS-14` smoke result: compressed Admin prompt preserved SDD routing, bounded owner selection, Chinese status, and no uncontrolled fan-out. Residual risk: the runtime workdir did not contain checked-out repo files, so `SYNTHESIS.md` and `issue-templates/sdd-workflow.md` were unavailable unless the agent runs `multica repo checkout`.
