@@ -58,14 +58,14 @@ Created in the Multica `DASH` workspace on 2026-04-29:
 | `workbench-implementation` | `b4bf2dce-9acc-4082-ab6b-7fcb1383950a` |
 | `workbench-design-docs` | `66f04cd9-f62d-42b9-be2b-24ded62484bc` |
 | `workbench-memory-synthesis` | `8d80f2f9-46cf-4d1e-a0bb-63c7064907eb` |
-| `workbench-debug-investigate` | `TBD after DAS-9 live sync` |
-| `workbench-code-review` | `TBD after DAS-9 live sync` |
-| `workbench-frontend-design-qa` | `TBD after DAS-9 live sync` |
-| `workbench-browser-proofshot-qa` | `TBD after DAS-9 live sync` |
-| `workbench-docs-release` | `TBD after DAS-9 live sync` |
-| `workbench-token-context-discipline` | `TBD after DAS-9 live sync` |
-| `workbench-product-brainstorming` | `TBD after DAS-9 live sync` |
-| `workbench-gsd-tasking` | `TBD after DAS-9 live sync` |
+| `workbench-debug-investigate` | `d5b663e5-2eaf-4a43-979c-5ee19b209a49` |
+| `workbench-code-review` | `b7b035cb-67d6-4fbd-a756-c410190576a9` |
+| `workbench-frontend-design-qa` | `961497cb-a1f3-48df-961d-f9983ee918aa` |
+| `workbench-browser-proofshot-qa` | `2acab3df-7b28-4ca4-a34b-4c713a453ada` |
+| `workbench-docs-release` | `f2bac02b-5daf-400e-93df-49e97f64c59c` |
+| `workbench-token-context-discipline` | `6fe7672c-5821-40bf-abd0-ac52b953eb56` |
+| `workbench-product-brainstorming` | `a9ec34a7-8c0d-4858-a013-899bff60d664` |
+| `workbench-gsd-tasking` | `dd07acb0-a647-48d5-b88a-e6730553f9fa` |
 
 ## Verification
 
@@ -76,11 +76,13 @@ Verified after creation:
 - `Workbench Max` remained unmodified with no skill assignments.
 - `DAS-5` fresh Workbench Admin task saw `workbench-conductor` and `workbench-sdd`, checked out commit `2812d01`, and posted PASS comment `ee351c22-5394-49a8-919f-abdaf162c632`.
 
-DAS-9 source expansion verification target:
+DAS-9 source expansion verification:
 
 - All 15 local skill files exist and stay compact enough for role-specific attachment.
-- Existing 7 live skills are updated from local source.
-- New 8 live skills are created and their IDs replace the `TBD` rows above.
-- The attachment map above is applied to the 12 target workbench agents.
+- Existing 7 live skills were updated from local source on 2026-04-30 UTC.
+- New 8 live skills were created on 2026-04-30 UTC and their IDs are recorded above.
+- `multica skill list --output json` returned 15 skills after sync.
+- `multica skill get <id> --output json` returned non-empty content for all 15 skills after sync.
+- The attachment map above still needs to be applied to the 12 target workbench agents.
 - `Workbench Max` remains unmodified with zero skill assignments.
-- A final smoke issue verifies that at least one fresh workbench task sees the expanded skill grammar.
+- A final smoke issue still needs to verify that at least one fresh workbench task sees the expanded skill grammar.

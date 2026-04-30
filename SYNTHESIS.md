@@ -119,15 +119,15 @@ DAS-9 expands the pack from 7 core skills to 15 high-frequency skills. The expan
 | `workbench-implementation` | `b4bf2dce-9acc-4082-ab6b-7fcb1383950a` | Minimal-patch implementation and ops discipline. |
 | `workbench-design-docs` | `66f04cd9-f62d-42b9-be2b-24ded62484bc` | Product design, technical design, copy, and docs. |
 | `workbench-memory-synthesis` | `8d80f2f9-46cf-4d1e-a0bb-63c7064907eb` | Durable memory, decision logging, and handoffs. |
-| `workbench-debug-investigate` | `TBD after DAS-9 live sync` | Root-cause investigation for bugs, regressions, quota anomalies, and runtime failures. |
-| `workbench-code-review` | `TBD after DAS-9 live sync` | Findings-first review discipline for diffs, live changes, and evidence quality. |
-| `workbench-frontend-design-qa` | `TBD after DAS-9 live sync` | Visual/UI QA for responsive surfaces, text fit, hierarchy, and interaction states. |
-| `workbench-browser-proofshot-qa` | `TBD after DAS-9 live sync` | Browser verification with screenshots, traces, console/network checks, and repro steps. |
-| `workbench-docs-release` | `TBD after DAS-9 live sync` | Documentation sync after behavior, roster, skill, or release changes. |
-| `workbench-token-context-discipline` | `TBD after DAS-9 live sync` | Compact context, cache-aware execution, and role-specific skill attachment discipline. |
-| `workbench-product-brainstorming` | `TBD after DAS-9 live sync` | Bounded product ideation with options, tradeoffs, recommendation, and smallest test. |
-| `workbench-gsd-tasking` | `TBD after DAS-9 live sync` | Owner-scoped tasks with gates, rollback, verification, and smoke tests. |
+| `workbench-debug-investigate` | `d5b663e5-2eaf-4a43-979c-5ee19b209a49` | Root-cause investigation for bugs, regressions, quota anomalies, and runtime failures. |
+| `workbench-code-review` | `b7b035cb-67d6-4fbd-a756-c410190576a9` | Findings-first review discipline for diffs, live changes, and evidence quality. |
+| `workbench-frontend-design-qa` | `961497cb-a1f3-48df-961d-f9983ee918aa` | Visual/UI QA for responsive surfaces, text fit, hierarchy, and interaction states. |
+| `workbench-browser-proofshot-qa` | `2acab3df-7b28-4ca4-a34b-4c713a453ada` | Browser verification with screenshots, traces, console/network checks, and repro steps. |
+| `workbench-docs-release` | `f2bac02b-5daf-400e-93df-49e97f64c59c` | Documentation sync after behavior, roster, skill, or release changes. |
+| `workbench-token-context-discipline` | `6fe7672c-5821-40bf-abd0-ac52b953eb56` | Compact context, cache-aware execution, and role-specific skill attachment discipline. |
+| `workbench-product-brainstorming` | `a9ec34a7-8c0d-4858-a013-899bff60d664` | Bounded product ideation with options, tradeoffs, recommendation, and smallest test. |
+| `workbench-gsd-tasking` | `dd07acb0-a647-48d5-b88a-e6730553f9fa` | Owner-scoped tasks with gates, rollback, verification, and smoke tests. |
 
 ## Next Immediate Action
 
-Complete DAS-9 Stage 5: commit the expanded skill source batch, synchronize the 15 live Multica skills, apply role-specific agent bindings, verify `Workbench Max` remains unmodified, then run a final smoke issue against the expanded skill grammar.
+Complete DAS-9 Stage 5: apply role-specific agent bindings, verify `Workbench Max` remains unmodified, then run a final smoke issue against the expanded skill grammar.
