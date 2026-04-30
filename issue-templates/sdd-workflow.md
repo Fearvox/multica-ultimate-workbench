@@ -96,9 +96,18 @@ ANTI_OVER_READ:
 ```
 
 - Runtime owner:
+- Execution target: `local-worktree` / `agent-cli` / `capy-vm` / `human-desktop`
 - Data path:
 - Files/resources to modify:
 - Integration points:
+- VM lease, if `capy-vm`:
+  - owner issue id:
+  - owner agent:
+  - image:
+  - ttl minutes:
+  - network policy:
+  - secrets policy:
+  - artifact dir:
 - Risk surface:
 - Verification approach:
 
@@ -118,7 +127,10 @@ ANTI_OVER_READ:
 - Tasks:
 - Dependencies:
 - Execution owner:
+- Execution target:
 - Approval gates:
+- Artifacts required:
+- Teardown rule:
 - Verification commands:
 - Reporting format:
 
