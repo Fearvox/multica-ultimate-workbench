@@ -1,0 +1,24 @@
+[
+  {
+    "config": {},
+    "content": "# Workbench Implementation\n\nUse this skill for coding, ops changes, scripts, automation specs, and local repository edits.\n\n## Implementation Loop\n\n1. Inspect current state.\n2. Identify the true owner of the behavior.\n3. Patch the smallest viable surface.\n4. Verify on the real path.\n5. Record the outcome in the right durable file when the change affects workbench operations.\n\n## Engineering Rules\n\n- Follow existing repo patterns.\n- Preserve working routes, agents, runtimes, hooks, cron jobs, LaunchAgents, and channel bindings.\n- Prefer reversible operations.\n- Never store secrets, tokens, OAuth material, or private credentials.\n- Do not broaden scope into Multica daemon, Desktop UI, or core runtime unless the issue explicitly requires it.\n- If the worktree has unrelated changes, leave them alone.\n\n## Completion Report\n\nReturn:\n\n- files or live resources changed,\n- commands or checks run,\n- evidence of success,\n- residual risk,\n- next immediate action.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Minimal-patch implementation and ops discipline for live workbench tasks.",
+    "id": "b4bf2dce-9acc-4082-ab6b-7fcb1383950a",
+    "name": "workbench-implementation",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench SDD\n\nUse this skill when a task needs to move from a fuzzy request into executable work.\n\nThis is the default workbench planning protocol unless the issue explicitly says the task is a quick fix, emergency repair, or direct verification run.\n\n## Pipeline\n\nMove work through these stages:\n\n1. Raw Requirement\n   - Capture the user's literal request.\n   - Separate confirmed facts from assumptions.\n   - Name the owner, expected output, and known constraints.\n2. Product Design\n   - Define the user-facing behavior, success criteria, non-goals, and edge cases.\n   - Keep the scope narrow unless the user asks for expansion.\n3. Technical Design\n   - Identify the runtime owner, data path, files, commands, integrations, and risk surface.\n   - Prefer existing stable routes over new infrastructure.\n4. Task List\n   - Convert the design into bounded tasks with owner, evidence, and verification criteria.\n   - Keep tasks executable by one agent unless the issue explicitly asks for parallel work.\n5. Execution And Verification\n   - Execute only the assigned slice.\n   - Verify on the real path.\n   - Report evidence before claiming done.\n\n## Stage Gate Rules\n\n- Do not jump from an ambiguous raw request directly to implementation.\n- Do not expand blast radius just because more agents or tokens are available.\n- If a stage is already answered by issue text or prior comments, cite that evidence and move forward.\n- If the task is blocked by a missing decision, state the smallest decision needed.\n- If the task is low-risk and obvious, compress the stages into a short SDD card instead of creating ceremony.\n\n## Output Contract\n\nFor planning or routing, return:\n\n- `SDD_STAGE`: current stage.\n- `CONFIRMED`: facts and constraints.\n- `ASSUMPTIONS`: assumptions that still matter.\n- `NEXT_TASKS`: owner-scoped tasks.\n- `VERIFICATION`: evidence required to close.\n\nFor execution, return:\n\n- what changed,\n- what was verified,\n- what remains risky or blocked.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Specification-driven workbench flow from raw requirement to verified task list.",
+    "id": "2cf724da-976a-40e6-be9b-ecbdc2af9041",
+    "name": "workbench-sdd",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

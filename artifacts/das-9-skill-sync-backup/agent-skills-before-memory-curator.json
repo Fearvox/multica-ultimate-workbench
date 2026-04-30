@@ -1,0 +1,24 @@
+[
+  {
+    "config": {},
+    "content": "# Workbench Memory Synthesis\n\nUse this skill for durable memory, session summaries, decision logs, issue closeout synthesis, and handoffs.\n\n## Memory Rules\n\n- Prefer short canonical updates over duplicate drafts.\n- Keep the next session resumable from files, not hidden model memory.\n- Record decisions separately from logs.\n- Keep strategy in synthesis documents and execution evidence in logs or issue comments.\n- Preserve IDs that matter for recovery: issue IDs, run IDs, comment IDs, agent IDs, autopilot IDs, commit IDs.\n\n## Synthesis Method\n\n1. Collect the latest verified state.\n2. Remove stale next actions that are already complete.\n3. Add only durable facts and decisions.\n4. Keep uncertainty explicit.\n5. Name the next immediate action.\n\n## Output Contract\n\nReturn:\n\n- `CURRENT STATE`\n- `DECISIONS`\n- `EVIDENCE`\n- `RISKS`\n- `NEXT ACTION`\n\nDo not rewrite history. Append or revise only the minimum needed to keep the operating memory accurate.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Durable memory, decision logging, handoffs, and next-action synthesis.",
+    "id": "8d80f2f9-46cf-4d1e-a0bb-63c7064907eb",
+    "name": "workbench-memory-synthesis",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Review QA\n\nUse this skill for code review, workflow review, QA verification, release checks, and issue closeout.\n\n## Verdicts\n\n- `PASS`: objective is met and evidence is sufficient.\n- `FLAG`: useful progress, but a non-blocking issue or missing evidence remains.\n- `BLOCK`: objective is not met, unsafe, unverifiable, or materially wrong.\n\n## Review Method\n\n1. Identify the promised objective.\n2. Inspect the real output, diff, issue comments, runtime state, or checked-out repo.\n3. Compare evidence against the objective.\n4. Verify the smallest real path that proves the claim.\n5. Report findings first, ordered by severity.\n\n## Findings Format\n\nFor problems, return:\n\n- severity,\n- location or evidence,\n- why it matters,\n- required fix or next verification.\n\nFor clean reviews, return:\n\n- verdict,\n- evidence checked,\n- residual risk or test gap.\n\n## QA Rules\n\n- Do not accept `done` based on paraphrase alone.\n- Distinguish content failures from workflow/tooling failures.\n- If Multica workspace repo access is needed, use the workspace repository checkout path and report the commit/branch inspected.\n- Keep evidence concise and reproducible.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "PASS FLAG BLOCK review and QA verification protocol.",
+    "id": "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+    "name": "workbench-review-qa",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

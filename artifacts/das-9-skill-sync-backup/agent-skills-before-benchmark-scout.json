@@ -1,0 +1,24 @@
+[
+  {
+    "config": {},
+    "content": "# Workbench Research\n\nUse this skill for research, architecture discovery, vendor docs, benchmark reading, and unknown-system analysis.\n\n## Research Standard\n\n- Read the real system first when local state exists.\n- Prefer primary sources, live commands, local files, and official docs.\n- Separate confirmed facts, source claims, and inference.\n- Treat current software behavior, API shape, prices, versions, and docs as drift-prone.\n- Cite file paths, command names, issue/comment IDs, or source URLs when they support a claim.\n\n## Research Output\n\nReturn:\n\n- `QUESTION`: what was investigated.\n- `CONFIRMED`: facts with evidence.\n- `UNCERTAIN`: assumptions or unresolved gaps.\n- `OPTIONS`: viable paths with tradeoffs.\n- `RECOMMENDATION`: the smallest next action.\n- `SOURCES`: local paths, commands, issue IDs, or URLs used.\n\n## Research Boundaries\n\n- Do not present speculation as fact.\n- Do not copy secrets or private tokens into reports.\n- Do not rewrite working architecture while researching it.\n- If source material conflicts, explain the conflict and prefer live runtime evidence.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Evidence-first research and source discipline for architecture, docs, and unknown systems.",
+    "id": "ee3222fc-2722-4502-9e7f-883901ad01fc",
+    "name": "workbench-research",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Review QA\n\nUse this skill for code review, workflow review, QA verification, release checks, and issue closeout.\n\n## Verdicts\n\n- `PASS`: objective is met and evidence is sufficient.\n- `FLAG`: useful progress, but a non-blocking issue or missing evidence remains.\n- `BLOCK`: objective is not met, unsafe, unverifiable, or materially wrong.\n\n## Review Method\n\n1. Identify the promised objective.\n2. Inspect the real output, diff, issue comments, runtime state, or checked-out repo.\n3. Compare evidence against the objective.\n4. Verify the smallest real path that proves the claim.\n5. Report findings first, ordered by severity.\n\n## Findings Format\n\nFor problems, return:\n\n- severity,\n- location or evidence,\n- why it matters,\n- required fix or next verification.\n\nFor clean reviews, return:\n\n- verdict,\n- evidence checked,\n- residual risk or test gap.\n\n## QA Rules\n\n- Do not accept `done` based on paraphrase alone.\n- Distinguish content failures from workflow/tooling failures.\n- If Multica workspace repo access is needed, use the workspace repository checkout path and report the commit/branch inspected.\n- Keep evidence concise and reproducible.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "PASS FLAG BLOCK review and QA verification protocol.",
+    "id": "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+    "name": "workbench-review-qa",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

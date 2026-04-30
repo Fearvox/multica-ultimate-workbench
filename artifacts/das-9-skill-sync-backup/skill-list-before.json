@@ -1,0 +1,79 @@
+[
+  {
+    "config": {},
+    "content": "# Workbench Conductor\n\nUse this skill when coordinating the Hybrid Multica Two-Ring Workbench.\n\nThe workbench has an Inner Ring for command, review, and synthesis, and an Outer Ring for bounded specialist execution. Multica issues and comments are the live coordination record. This repository is the durable operating-memory record.\n\n## Role Boundaries\n\n- Admin converts fuzzy direction into executable issue shape.\n- Supervisor verifies evidence, risk, and completion claims.\n- Synthesizer keeps strategy, decisions, logs, and next actions coherent.\n- Outer Ring agents execute assigned bounded tasks or provide narrow review.\n- Outer Ring agents do not assign work to each other unless explicitly instructed.\n\n## Routing Protocol\n\n1. Restate the request as a bounded issue objective.\n2. Choose one primary owner.\n3. Mention secondary agents only for narrow advice, review, or verification.\n4. Require evidence for every completion claim.\n5. Move status only when the issue has the right evidence for that status.\n\n## Comment Discipline\n\nUse compact structured comments:\n\n- `OBJECTIVE`\n- `OWNER`\n- `SCOPE`\n- `EVIDENCE NEEDED`\n- `NEXT ACTION`\n- `RISK`\n\nDo not post long generic strategy essays inside execution issues. Put durable strategy updates in the local workbench repo.\n\n## Safety Rules\n\n- Do not modify Multica daemon, Desktop UI, or core runtime unless explicitly requested.\n- Do not store secrets, OAuth material, tokens, or private credentials in comments or repo files.\n- Prefer issue creation over silent automation for scheduled work.\n- Preserve existing agents, runtimes, and stable routes.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Two-ring routing, role boundaries, and issue/comment orchestration for the workbench.",
+    "id": "811318a4-f396-4c87-8a89-80b5d871c6f5",
+    "name": "workbench-conductor",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Design Docs\n\nUse this skill for product design, technical design documents, user-facing copy, specs, diagrams, and handoff docs.\n\n## Design Standard\n\n- Start from the actual user workflow, not a marketing page.\n- Define the first usable screen, control surface, success state, error state, and handoff path.\n- For internal tools, prefer dense, scannable, operational UI and docs.\n- Keep language precise and action-oriented.\n- Avoid feature claims that are not implemented or verified.\n\n## Documentation Standard\n\n- Keep one canonical version whenever possible.\n- Update durable docs when live behavior changes.\n- Separate strategy, decisions, logs, issue templates, and automation specs.\n- Include IDs, commands, schedules, and evidence only when they help future recovery.\n- Do not include secrets or private credentials.\n\n## Output Contract\n\nFor product design:\n\n- `USER GOAL`\n- `WORKFLOW`\n- `SUCCESS CRITERIA`\n- `NON-GOALS`\n- `OPEN QUESTIONS`\n\nFor docs:\n\n- what changed,\n- why it matters,\n- where the canonical source now lives,\n- what must be verified next.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Product design, technical design, copy, and durable documentation discipline.",
+    "id": "66f04cd9-f62d-42b9-be2b-24ded62484bc",
+    "name": "workbench-design-docs",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Implementation\n\nUse this skill for coding, ops changes, scripts, automation specs, and local repository edits.\n\n## Implementation Loop\n\n1. Inspect current state.\n2. Identify the true owner of the behavior.\n3. Patch the smallest viable surface.\n4. Verify on the real path.\n5. Record the outcome in the right durable file when the change affects workbench operations.\n\n## Engineering Rules\n\n- Follow existing repo patterns.\n- Preserve working routes, agents, runtimes, hooks, cron jobs, LaunchAgents, and channel bindings.\n- Prefer reversible operations.\n- Never store secrets, tokens, OAuth material, or private credentials.\n- Do not broaden scope into Multica daemon, Desktop UI, or core runtime unless the issue explicitly requires it.\n- If the worktree has unrelated changes, leave them alone.\n\n## Completion Report\n\nReturn:\n\n- files or live resources changed,\n- commands or checks run,\n- evidence of success,\n- residual risk,\n- next immediate action.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Minimal-patch implementation and ops discipline for live workbench tasks.",
+    "id": "b4bf2dce-9acc-4082-ab6b-7fcb1383950a",
+    "name": "workbench-implementation",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Memory Synthesis\n\nUse this skill for durable memory, session summaries, decision logs, issue closeout synthesis, and handoffs.\n\n## Memory Rules\n\n- Prefer short canonical updates over duplicate drafts.\n- Keep the next session resumable from files, not hidden model memory.\n- Record decisions separately from logs.\n- Keep strategy in synthesis documents and execution evidence in logs or issue comments.\n- Preserve IDs that matter for recovery: issue IDs, run IDs, comment IDs, agent IDs, autopilot IDs, commit IDs.\n\n## Synthesis Method\n\n1. Collect the latest verified state.\n2. Remove stale next actions that are already complete.\n3. Add only durable facts and decisions.\n4. Keep uncertainty explicit.\n5. Name the next immediate action.\n\n## Output Contract\n\nReturn:\n\n- `CURRENT STATE`\n- `DECISIONS`\n- `EVIDENCE`\n- `RISKS`\n- `NEXT ACTION`\n\nDo not rewrite history. Append or revise only the minimum needed to keep the operating memory accurate.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Durable memory, decision logging, handoffs, and next-action synthesis.",
+    "id": "8d80f2f9-46cf-4d1e-a0bb-63c7064907eb",
+    "name": "workbench-memory-synthesis",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Research\n\nUse this skill for research, architecture discovery, vendor docs, benchmark reading, and unknown-system analysis.\n\n## Research Standard\n\n- Read the real system first when local state exists.\n- Prefer primary sources, live commands, local files, and official docs.\n- Separate confirmed facts, source claims, and inference.\n- Treat current software behavior, API shape, prices, versions, and docs as drift-prone.\n- Cite file paths, command names, issue/comment IDs, or source URLs when they support a claim.\n\n## Research Output\n\nReturn:\n\n- `QUESTION`: what was investigated.\n- `CONFIRMED`: facts with evidence.\n- `UNCERTAIN`: assumptions or unresolved gaps.\n- `OPTIONS`: viable paths with tradeoffs.\n- `RECOMMENDATION`: the smallest next action.\n- `SOURCES`: local paths, commands, issue IDs, or URLs used.\n\n## Research Boundaries\n\n- Do not present speculation as fact.\n- Do not copy secrets or private tokens into reports.\n- Do not rewrite working architecture while researching it.\n- If source material conflicts, explain the conflict and prefer live runtime evidence.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Evidence-first research and source discipline for architecture, docs, and unknown systems.",
+    "id": "ee3222fc-2722-4502-9e7f-883901ad01fc",
+    "name": "workbench-research",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Review QA\n\nUse this skill for code review, workflow review, QA verification, release checks, and issue closeout.\n\n## Verdicts\n\n- `PASS`: objective is met and evidence is sufficient.\n- `FLAG`: useful progress, but a non-blocking issue or missing evidence remains.\n- `BLOCK`: objective is not met, unsafe, unverifiable, or materially wrong.\n\n## Review Method\n\n1. Identify the promised objective.\n2. Inspect the real output, diff, issue comments, runtime state, or checked-out repo.\n3. Compare evidence against the objective.\n4. Verify the smallest real path that proves the claim.\n5. Report findings first, ordered by severity.\n\n## Findings Format\n\nFor problems, return:\n\n- severity,\n- location or evidence,\n- why it matters,\n- required fix or next verification.\n\nFor clean reviews, return:\n\n- verdict,\n- evidence checked,\n- residual risk or test gap.\n\n## QA Rules\n\n- Do not accept `done` based on paraphrase alone.\n- Distinguish content failures from workflow/tooling failures.\n- If Multica workspace repo access is needed, use the workspace repository checkout path and report the commit/branch inspected.\n- Keep evidence concise and reproducible.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "PASS FLAG BLOCK review and QA verification protocol.",
+    "id": "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+    "name": "workbench-review-qa",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench SDD\n\nUse this skill when a task needs to move from a fuzzy request into executable work.\n\nThis is the default workbench planning protocol unless the issue explicitly says the task is a quick fix, emergency repair, or direct verification run.\n\n## Pipeline\n\nMove work through these stages:\n\n1. Raw Requirement\n   - Capture the user's literal request.\n   - Separate confirmed facts from assumptions.\n   - Name the owner, expected output, and known constraints.\n2. Product Design\n   - Define the user-facing behavior, success criteria, non-goals, and edge cases.\n   - Keep the scope narrow unless the user asks for expansion.\n3. Technical Design\n   - Identify the runtime owner, data path, files, commands, integrations, and risk surface.\n   - Prefer existing stable routes over new infrastructure.\n4. Task List\n   - Convert the design into bounded tasks with owner, evidence, and verification criteria.\n   - Keep tasks executable by one agent unless the issue explicitly asks for parallel work.\n5. Execution And Verification\n   - Execute only the assigned slice.\n   - Verify on the real path.\n   - Report evidence before claiming done.\n\n## Stage Gate Rules\n\n- Do not jump from an ambiguous raw request directly to implementation.\n- Do not expand blast radius just because more agents or tokens are available.\n- If a stage is already answered by issue text or prior comments, cite that evidence and move forward.\n- If the task is blocked by a missing decision, state the smallest decision needed.\n- If the task is low-risk and obvious, compress the stages into a short SDD card instead of creating ceremony.\n\n## Output Contract\n\nFor planning or routing, return:\n\n- `SDD_STAGE`: current stage.\n- `CONFIRMED`: facts and constraints.\n- `ASSUMPTIONS`: assumptions that still matter.\n- `NEXT_TASKS`: owner-scoped tasks.\n- `VERIFICATION`: evidence required to close.\n\nFor execution, return:\n\n- what changed,\n- what was verified,\n- what remains risky or blocked.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Specification-driven workbench flow from raw requirement to verified task list.",
+    "id": "2cf724da-976a-40e6-be9b-ecbdc2af9041",
+    "name": "workbench-sdd",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

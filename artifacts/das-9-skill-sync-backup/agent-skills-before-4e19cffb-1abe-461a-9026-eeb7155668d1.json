@@ -1,0 +1,35 @@
+[
+  {
+    "config": {},
+    "content": "# Workbench Conductor\n\nUse this skill when coordinating the Hybrid Multica Two-Ring Workbench.\n\nThe workbench has an Inner Ring for command, review, and synthesis, and an Outer Ring for bounded specialist execution. Multica issues and comments are the live coordination record. This repository is the durable operating-memory record.\n\n## Role Boundaries\n\n- Admin converts fuzzy direction into executable issue shape.\n- Supervisor verifies evidence, risk, and completion claims.\n- Synthesizer keeps strategy, decisions, logs, and next actions coherent.\n- Outer Ring agents execute assigned bounded tasks or provide narrow review.\n- Outer Ring agents do not assign work to each other unless explicitly instructed.\n\n## Routing Protocol\n\n1. Restate the request as a bounded issue objective.\n2. Choose one primary owner.\n3. Mention secondary agents only for narrow advice, review, or verification.\n4. Require evidence for every completion claim.\n5. Move status only when the issue has the right evidence for that status.\n\n## Comment Discipline\n\nUse compact structured comments:\n\n- `OBJECTIVE`\n- `OWNER`\n- `SCOPE`\n- `EVIDENCE NEEDED`\n- `NEXT ACTION`\n- `RISK`\n\nDo not post long generic strategy essays inside execution issues. Put durable strategy updates in the local workbench repo.\n\n## Safety Rules\n\n- Do not modify Multica daemon, Desktop UI, or core runtime unless explicitly requested.\n- Do not store secrets, OAuth material, tokens, or private credentials in comments or repo files.\n- Prefer issue creation over silent automation for scheduled work.\n- Preserve existing agents, runtimes, and stable routes.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Two-ring routing, role boundaries, and issue/comment orchestration for the workbench.",
+    "id": "811318a4-f396-4c87-8a89-80b5d871c6f5",
+    "name": "workbench-conductor",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench Review QA\n\nUse this skill for code review, workflow review, QA verification, release checks, and issue closeout.\n\n## Verdicts\n\n- `PASS`: objective is met and evidence is sufficient.\n- `FLAG`: useful progress, but a non-blocking issue or missing evidence remains.\n- `BLOCK`: objective is not met, unsafe, unverifiable, or materially wrong.\n\n## Review Method\n\n1. Identify the promised objective.\n2. Inspect the real output, diff, issue comments, runtime state, or checked-out repo.\n3. Compare evidence against the objective.\n4. Verify the smallest real path that proves the claim.\n5. Report findings first, ordered by severity.\n\n## Findings Format\n\nFor problems, return:\n\n- severity,\n- location or evidence,\n- why it matters,\n- required fix or next verification.\n\nFor clean reviews, return:\n\n- verdict,\n- evidence checked,\n- residual risk or test gap.\n\n## QA Rules\n\n- Do not accept `done` based on paraphrase alone.\n- Distinguish content failures from workflow/tooling failures.\n- If Multica workspace repo access is needed, use the workspace repository checkout path and report the commit/branch inspected.\n- Keep evidence concise and reproducible.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "PASS FLAG BLOCK review and QA verification protocol.",
+    "id": "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+    "name": "workbench-review-qa",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench SDD\n\nUse this skill when a task needs to move from a fuzzy request into executable work.\n\nThis is the default workbench planning protocol unless the issue explicitly says the task is a quick fix, emergency repair, or direct verification run.\n\n## Pipeline\n\nMove work through these stages:\n\n1. Raw Requirement\n   - Capture the user's literal request.\n   - Separate confirmed facts from assumptions.\n   - Name the owner, expected output, and known constraints.\n2. Product Design\n   - Define the user-facing behavior, success criteria, non-goals, and edge cases.\n   - Keep the scope narrow unless the user asks for expansion.\n3. Technical Design\n   - Identify the runtime owner, data path, files, commands, integrations, and risk surface.\n   - Prefer existing stable routes over new infrastructure.\n4. Task List\n   - Convert the design into bounded tasks with owner, evidence, and verification criteria.\n   - Keep tasks executable by one agent unless the issue explicitly asks for parallel work.\n5. Execution And Verification\n   - Execute only the assigned slice.\n   - Verify on the real path.\n   - Report evidence before claiming done.\n\n## Stage Gate Rules\n\n- Do not jump from an ambiguous raw request directly to implementation.\n- Do not expand blast radius just because more agents or tokens are available.\n- If a stage is already answered by issue text or prior comments, cite that evidence and move forward.\n- If the task is blocked by a missing decision, state the smallest decision needed.\n- If the task is low-risk and obvious, compress the stages into a short SDD card instead of creating ceremony.\n\n## Output Contract\n\nFor planning or routing, return:\n\n- `SDD_STAGE`: current stage.\n- `CONFIRMED`: facts and constraints.\n- `ASSUMPTIONS`: assumptions that still matter.\n- `NEXT_TASKS`: owner-scoped tasks.\n- `VERIFICATION`: evidence required to close.\n\nFor execution, return:\n\n- what changed,\n- what was verified,\n- what remains risky or blocked.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Specification-driven workbench flow from raw requirement to verified task list.",
+    "id": "2cf724da-976a-40e6-be9b-ecbdc2af9041",
+    "name": "workbench-sdd",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Conductor\n\nUse this skill when coordinating the Hybrid Multica Two-Ring Workbench.\n\nThe workbench has an Inner Ring for command, review, and synthesis, and an Outer Ring for bounded specialist execution. Multica issues and comments are the live coordination record. This repository is the durable operating-memory record.\n\n## Role Boundaries\n\n- Admin converts fuzzy direction into executable issue shape.\n- Supervisor verifies evidence, risk, and completion claims.\n- Synthesizer keeps strategy, decisions, logs, and next actions coherent.\n- Outer Ring agents execute assigned bounded tasks or provide narrow review.\n- Outer Ring agents do not assign work to each other unless explicitly instructed.\n\n## Routing Protocol\n\n1. Restate the request as a bounded issue objective.\n2. Choose one primary owner.\n3. Mention secondary agents only for narrow advice, review, or verification.\n4. Require evidence for every completion claim.\n5. Move status only when the issue has the right evidence for that status.\n\n## Comment Discipline\n\nUse compact structured comments:\n\n- `OBJECTIVE`\n- `OWNER`\n- `SCOPE`\n- `EVIDENCE NEEDED`\n- `NEXT ACTION`\n- `RISK`\n\nDo not post long generic strategy essays inside execution issues. Put durable strategy updates in the local workbench repo.\n\n## Safety Rules\n\n- Do not modify Multica daemon, Desktop UI, or core runtime unless explicitly requested.\n- Do not store secrets, OAuth material, tokens, or private credentials in comments or repo files.\n- Prefer issue creation over silent automation for scheduled work.\n- Preserve existing agents, runtimes, and stable routes.",
+  "created_at": "2026-04-29T22:53:03Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "Two-ring routing, role boundaries, and issue/comment orchestration for the workbench.",
+  "files": [],
+  "id": "811318a4-f396-4c87-8a89-80b5d871c6f5",
+  "name": "workbench-conductor",
+  "updated_at": "2026-04-29T22:53:50Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

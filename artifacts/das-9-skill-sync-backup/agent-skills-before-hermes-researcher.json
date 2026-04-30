@@ -1,0 +1,24 @@
+[
+  {
+    "config": {},
+    "content": "# Workbench Research\n\nUse this skill for research, architecture discovery, vendor docs, benchmark reading, and unknown-system analysis.\n\n## Research Standard\n\n- Read the real system first when local state exists.\n- Prefer primary sources, live commands, local files, and official docs.\n- Separate confirmed facts, source claims, and inference.\n- Treat current software behavior, API shape, prices, versions, and docs as drift-prone.\n- Cite file paths, command names, issue/comment IDs, or source URLs when they support a claim.\n\n## Research Output\n\nReturn:\n\n- `QUESTION`: what was investigated.\n- `CONFIRMED`: facts with evidence.\n- `UNCERTAIN`: assumptions or unresolved gaps.\n- `OPTIONS`: viable paths with tradeoffs.\n- `RECOMMENDATION`: the smallest next action.\n- `SOURCES`: local paths, commands, issue IDs, or URLs used.\n\n## Research Boundaries\n\n- Do not present speculation as fact.\n- Do not copy secrets or private tokens into reports.\n- Do not rewrite working architecture while researching it.\n- If source material conflicts, explain the conflict and prefer live runtime evidence.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Evidence-first research and source discipline for architecture, docs, and unknown systems.",
+    "id": "ee3222fc-2722-4502-9e7f-883901ad01fc",
+    "name": "workbench-research",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  },
+  {
+    "config": {},
+    "content": "# Workbench SDD\n\nUse this skill when a task needs to move from a fuzzy request into executable work.\n\nThis is the default workbench planning protocol unless the issue explicitly says the task is a quick fix, emergency repair, or direct verification run.\n\n## Pipeline\n\nMove work through these stages:\n\n1. Raw Requirement\n   - Capture the user's literal request.\n   - Separate confirmed facts from assumptions.\n   - Name the owner, expected output, and known constraints.\n2. Product Design\n   - Define the user-facing behavior, success criteria, non-goals, and edge cases.\n   - Keep the scope narrow unless the user asks for expansion.\n3. Technical Design\n   - Identify the runtime owner, data path, files, commands, integrations, and risk surface.\n   - Prefer existing stable routes over new infrastructure.\n4. Task List\n   - Convert the design into bounded tasks with owner, evidence, and verification criteria.\n   - Keep tasks executable by one agent unless the issue explicitly asks for parallel work.\n5. Execution And Verification\n   - Execute only the assigned slice.\n   - Verify on the real path.\n   - Report evidence before claiming done.\n\n## Stage Gate Rules\n\n- Do not jump from an ambiguous raw request directly to implementation.\n- Do not expand blast radius just because more agents or tokens are available.\n- If a stage is already answered by issue text or prior comments, cite that evidence and move forward.\n- If the task is blocked by a missing decision, state the smallest decision needed.\n- If the task is low-risk and obvious, compress the stages into a short SDD card instead of creating ceremony.\n\n## Output Contract\n\nFor planning or routing, return:\n\n- `SDD_STAGE`: current stage.\n- `CONFIRMED`: facts and constraints.\n- `ASSUMPTIONS`: assumptions that still matter.\n- `NEXT_TASKS`: owner-scoped tasks.\n- `VERIFICATION`: evidence required to close.\n\nFor execution, return:\n\n- what changed,\n- what was verified,\n- what remains risky or blocked.",
+    "created_at": "2026-04-29T22:53:03Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "description": "Specification-driven workbench flow from raw requirement to verified task list.",
+    "id": "2cf724da-976a-40e6-be9b-ecbdc2af9041",
+    "name": "workbench-sdd",
+    "updated_at": "2026-04-29T22:53:50Z",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Review QA\n\nUse this skill for code review, workflow review, QA verification, release checks, and issue closeout.\n\n## Verdicts\n\n- `PASS`: objective is met and evidence is sufficient.\n- `FLAG`: useful progress, but a non-blocking issue or missing evidence remains.\n- `BLOCK`: objective is not met, unsafe, unverifiable, or materially wrong.\n\n## Review Method\n\n1. Identify the promised objective.\n2. Inspect the real output, diff, issue comments, runtime state, or checked-out repo.\n3. Compare evidence against the objective.\n4. Verify the smallest real path that proves the claim.\n5. Report findings first, ordered by severity.\n\n## Findings Format\n\nFor problems, return:\n\n- severity,\n- location or evidence,\n- why it matters,\n- required fix or next verification.\n\nFor clean reviews, return:\n\n- verdict,\n- evidence checked,\n- residual risk or test gap.\n\n## QA Rules\n\n- Do not accept `done` based on paraphrase alone.\n- Distinguish content failures from workflow/tooling failures.\n- If Multica workspace repo access is needed, use the workspace repository checkout path and report the commit/branch inspected.\n- Keep evidence concise and reproducible.",
+  "created_at": "2026-04-29T22:53:03Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "PASS FLAG BLOCK review and QA verification protocol.",
+  "files": [],
+  "id": "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+  "name": "workbench-review-qa",
+  "updated_at": "2026-04-29T22:53:50Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

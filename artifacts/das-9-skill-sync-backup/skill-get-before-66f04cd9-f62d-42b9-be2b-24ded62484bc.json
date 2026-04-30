@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Design Docs\n\nUse this skill for product design, technical design documents, user-facing copy, specs, diagrams, and handoff docs.\n\n## Design Standard\n\n- Start from the actual user workflow, not a marketing page.\n- Define the first usable screen, control surface, success state, error state, and handoff path.\n- For internal tools, prefer dense, scannable, operational UI and docs.\n- Keep language precise and action-oriented.\n- Avoid feature claims that are not implemented or verified.\n\n## Documentation Standard\n\n- Keep one canonical version whenever possible.\n- Update durable docs when live behavior changes.\n- Separate strategy, decisions, logs, issue templates, and automation specs.\n- Include IDs, commands, schedules, and evidence only when they help future recovery.\n- Do not include secrets or private credentials.\n\n## Output Contract\n\nFor product design:\n\n- `USER GOAL`\n- `WORKFLOW`\n- `SUCCESS CRITERIA`\n- `NON-GOALS`\n- `OPEN QUESTIONS`\n\nFor docs:\n\n- what changed,\n- why it matters,\n- where the canonical source now lives,\n- what must be verified next.",
+  "created_at": "2026-04-29T22:53:03Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "Product design, technical design, copy, and durable documentation discipline.",
+  "files": [],
+  "id": "66f04cd9-f62d-42b9-be2b-24ded62484bc",
+  "name": "workbench-design-docs",
+  "updated_at": "2026-04-29T22:53:50Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

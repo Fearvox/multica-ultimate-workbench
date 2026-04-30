@@ -1,0 +1,12 @@
+{
+  "config": {},
+  "content": "# Workbench Memory Synthesis\n\nUse this skill for durable memory, session summaries, decision logs, issue closeout synthesis, and handoffs.\n\n## Memory Rules\n\n- Prefer short canonical updates over duplicate drafts.\n- Keep the next session resumable from files, not hidden model memory.\n- Record decisions separately from logs.\n- Keep strategy in synthesis documents and execution evidence in logs or issue comments.\n- Preserve IDs that matter for recovery: issue IDs, run IDs, comment IDs, agent IDs, autopilot IDs, commit IDs.\n\n## Synthesis Method\n\n1. Collect the latest verified state.\n2. Remove stale next actions that are already complete.\n3. Add only durable facts and decisions.\n4. Keep uncertainty explicit.\n5. Name the next immediate action.\n\n## Output Contract\n\nReturn:\n\n- `CURRENT STATE`\n- `DECISIONS`\n- `EVIDENCE`\n- `RISKS`\n- `NEXT ACTION`\n\nDo not rewrite history. Append or revise only the minimum needed to keep the operating memory accurate.",
+  "created_at": "2026-04-29T22:53:03Z",
+  "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "description": "Durable memory, decision logging, handoffs, and next-action synthesis.",
+  "files": [],
+  "id": "8d80f2f9-46cf-4d1e-a0bb-63c7064907eb",
+  "name": "workbench-memory-synthesis",
+  "updated_at": "2026-04-29T22:53:50Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}
