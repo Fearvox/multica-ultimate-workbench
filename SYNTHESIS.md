@@ -1,7 +1,7 @@
 # Synthesis
 
 Date: 2026-04-29
-Last updated: 2026-04-30 UTC during DAS-14 agent prompt compression.
+Last updated: 2026-04-30 UTC during DAS-15 flight recorder rollout.
 
 ## Current Strategy
 
@@ -104,6 +104,8 @@ Use `issue-templates/sdd-workflow.md` for non-trivial SDD-gated work. Workbench 
 | Workspace skills drift from local source | Agents may run stale or invisible operating protocols. | Keep canonical skill source in `skills/`, record live IDs, and verify `skill list` plus agent bindings after changes. |
 | Prompt bloat from over-attached skills | Agents waste context and quota on irrelevant operating protocols. | Attach skills by role, keep high-frequency skills compact, and use `workbench-token-context-discipline` for large histories/docs. |
 | Runtime workdir lacks checked-out repo files unless agents explicitly checkout | Agents may not find `SYNTHESIS.md` or `issue-templates/sdd-workflow.md` even when those files exist in the source repo. | For tasks requiring repo-local docs or templates, require `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` before file verification. |
+| Review cannot explain token/context cost from issue history alone | High run cost or cache-read behavior can look mysterious and hard to triage. | Use `scripts/collect-flight-recorder.sh <issue-id>` to produce compact `RUN_DIGEST` summaries; use UI/API billing evidence when CLI run JSON does not expose token fields. |
+| Evidence artifacts can consume disk or leak raw payloads | Low disk headroom and durable docs can become polluted with unnecessary raw logs. | Default flight-recorder mode is stdout only; persistent mode writes summary files only and should stay under `artifacts/flight-recorder/<issue-id>` when explicitly needed. |
 
 ## Workspace Skill Pack
 
@@ -129,6 +131,35 @@ DAS-9 expanded the pack from 7 core skills to 15 high-frequency skills. The expa
 | `workbench-product-brainstorming` | `a9ec34a7-8c0d-4858-a013-899bff60d664` | Bounded product ideation with options, tradeoffs, recommendation, and smallest test. |
 | `workbench-gsd-tasking` | `dd07acb0-a647-48d5-b88a-e6730553f9fa` | Owner-scoped tasks with gates, rollback, verification, and smoke tests. |
 
+## Flight Recorder
+
+DAS-15 added a compact issue-level flight recorder:
+
+```bash
+scripts/collect-flight-recorder.sh <issue-id>
+```
+
+Default behavior prints a Markdown `RUN_DIGEST` to stdout and writes no persistent files. Optional summary mode:
+
+```bash
+scripts/collect-flight-recorder.sh <issue-id> --artifact-dir artifacts/flight-recorder/<issue-id>
+```
+
+The artifact mode stores only summary JSON and `run-digest.md`. It must not store raw issue descriptions, full comment bodies, run-message transcripts, screenshots, traces, OAuth material, private tokens, or request payloads.
+
+DAS-15 live verification:
+
+| Check | Result |
+| --- | --- |
+| Commit | `f32861e` |
+| QA run | `3aad98a1-a642-4953-a8ed-ce772ef5591a` |
+| QA comment | `172489c1-ad24-4cfc-8968-c31619142379` / PASS |
+| Supervisor run | `17b9e14d-f37a-49ac-b92c-6371c45dcc34` |
+| Supervisor comment | `0a6b53c7-46d1-4c29-8e8f-d88b1e2da183` / PASS |
+| Persistent repo artifacts | none |
+| Temp artifact size | 20K |
+| Residual risk | Multica CLI run JSON did not expose token fields; quota attribution still needs UI/API billing evidence. |
+
 ## Next Immediate Action
 
-DAS-14 live smoke passed after compressing the 12 active workbench agent prompts: Workbench Admin preserved SDD routing, bounded owner selection, Chinese status, and no uncontrolled fan-out. Next: use the compressed live roster in the next real multi-stage issue and ensure repo-local docs/templates are checked out before agents treat them as missing.
+DAS-15 live smoke passed after adding the Workbench Flight Recorder. Next: use `RUN_DIGEST` in daily health and the next non-trivial SDD issue, then decide whether to add a tiny daily-health wrapper that automatically appends digest highlights without storing raw payloads.

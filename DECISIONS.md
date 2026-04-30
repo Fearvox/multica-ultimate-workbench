@@ -53,3 +53,11 @@ Rationale: DAS-11 showed the expanded skill pack works, but first-pass SDD still
 Decision: Active Multica workbench agent prompts may be caveman-compressed, but only through the source-first, reversible path: keep `.original.md` backups, validate compressed files locally, commit source changes, live-sync with `multica agent update --instructions`, verify metadata drift did not occur, and run a fresh live smoke issue.
 
 Rationale: Prompt compression can reduce cache/input overhead, but it changes the exact operating text agents receive. Treat prompt compression like a runtime behavior change: preserve rollback files, keep `Workbench Max` untouched, and require live evidence before calling it done.
+
+## 2026-04-30 - Add A Compact Flight Recorder Before More Automation
+
+Decision: Add `scripts/collect-flight-recorder.sh` and `WORKBENCH_METRICS.md` as the workbench's compact run-review layer before adding heavier dashboards or automatic artifact capture.
+
+The collector defaults to stdout-only `RUN_DIGEST` output. Persistent mode is opt-in and writes only summary JSON plus `run-digest.md`; it must not persist raw issue descriptions, full comment bodies, run-message transcripts, screenshots, traces, OAuth material, private tokens, or request payloads.
+
+Rationale: The workbench needs enough observability to catch missing evidence, failed runs, oversized comments, long run traces, and invisible token attribution without creating a new disk or privacy problem. DAS-15 proved the helper works in a live Multica QA/Supervisor loop while leaving no persistent repo artifacts.
