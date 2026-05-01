@@ -24,7 +24,7 @@ Target selection:
 - Exclude the current sweep controller issue.
 - Exclude issues whose title contains `Auto Review Sweep` unless reviewing a previous failed sweep explicitly matters.
 - Prefer issues whose latest non-member agent comment or completed run is newer than the latest Supervisor/QA review comment.
-- Review at most three target issues per sweep, oldest `updated_at` first.
+- Review at most six target issues per sweep, oldest `updated_at` first.
 - If no targets exist, post `NO_TARGETS` on the sweep issue and set the sweep issue to `done`.
 
 Required target evidence:

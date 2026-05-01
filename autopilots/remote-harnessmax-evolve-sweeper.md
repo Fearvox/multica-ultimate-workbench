@@ -31,7 +31,7 @@ Target selection:
 - Exclude this controller issue and prior sweep controller issues unless a prior
   failed sweep is the target.
 - Exclude preserved `Workbench Max` unless the human explicitly assigned it.
-- Review at most five targets per sweep.
+- Review at most six targets per sweep.
 - Prefer targets with missing `RV_PRESSURE_CHECK`, missing repo-anchor proof,
   missing VM proof, or stale review evidence.
 
