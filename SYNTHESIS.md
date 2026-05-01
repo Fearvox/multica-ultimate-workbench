@@ -138,7 +138,6 @@ The next useful upgrades are:
 - automatic review sweep hardening
 - remote HarnessMax evolve sweeper with L2 Pressure
 - remote Research Vault MCP preflight and read-only contract
-- live sync of `workbench-self-awareness-infra` to relevant skills and agents
 - live sync of `workbench-goal-mode` to the relevant Multica skills and agents
 - VM lane smoke tests with temp-only evidence
 - README and docs polish that stays public-safe

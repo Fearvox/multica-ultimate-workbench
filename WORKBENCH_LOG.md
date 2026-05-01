@@ -17,7 +17,27 @@ repository.
 | Skill Pack | Expanded high-frequency workbench skills while keeping role-specific bindings. |
 | VM Lane | Added a bounded VM/browser lane with teardown and temp evidence rules. |
 | Remote Runtime Lane | Added a remote execution-cell pattern while keeping repo anchors and local paths explicit. |
+| Self-Awareness Layer | Added and live-synced the bootstrap skill for capability, repo, tool/MCP, memory, risk, route, and success-metric checks. |
 | Public Sanitization | Removed tracked raw artifacts and private execution plans from public Git, parameterized live scripts, and prepared a sanitized public snapshot. |
+
+## 2026-05-01 - Self-Awareness Live Sync
+
+The `workbench-self-awareness-infra` skill was created in the live Multica
+workspace from the source file in `skills/`. It was attached to all active
+Workbench agents except the preserved private bench, whose bindings remain
+untouched.
+
+Verification shape:
+
+- `multica skill get` confirmed the live skill name, description, YAML
+  frontmatter, and non-empty content.
+- `multica agent list` confirmed every active non-preserved Workbench agent has
+  `workbench-self-awareness-infra` in its skill set.
+- A temporary local snapshot of live skills and agent bindings was taken before
+  mutation for rollback reference; it is intentionally outside Git.
+
+Residual risk: currently running agent tasks may need a fresh run before the new
+skill is visible inside that task context.
 
 ## Public Logging Rules
 
