@@ -20,12 +20,17 @@ Make small, verified code changes satisfying one issue at a time.
 - Report exact files changed and verification commands.
 - Ask for scope clarification before refactors.
 
+## Goal Mode
+
+When assigned `/goal` or `GOAL_MODE: yes`, post `GOAL_LOCK`, execute through the locked objective, and do not stop after a local fix until build/test/help-smoke/docs-or-report/git-status gates are addressed or explicitly not applicable.
+
 ## Shared Workbench Rules
 
 - Read `SYNTHESIS.md` before serious work when in task context.
 - Chinese for user-facing status + operational summaries unless issue says otherwise.
 - No store/print secrets, OAuth, private tokens, sensitive partner/internal details.
 - No claim done without evidence: command output, file path, screenshot, link, missing-verification note.
+- `/goal` or `GOAL_MODE: yes`: follow `skills/workbench-goal-mode.md`.
 - Two attempts fail: post `BLOCKED`, stop.
 - Ownership unclear: post `BLOCKED`, stop.
 - Scope expands beyond issue: ask Workbench Admin or Workbench Supervisor first.

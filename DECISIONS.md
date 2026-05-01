@@ -115,3 +115,13 @@ Runtime config rule: remote Codex agents must not receive laptop-oriented custom
 Repo rule: the `Ultimate Workbench` GitHub repo resource is the primary anchor for remote agents. The workspace-level `file://<LOCAL_WORKBENCH_REPO>` repo is laptop-local fallback only and must be treated as invalid on `<REMOTE_MULTICA_DEVICE>` unless explicitly mounted there.
 
 Rationale: the user now has a stable remote Multica daemon that can keep work running off-laptop. A named remote cell gives the workbench real parallel capacity while preserving the existing two-ring governance and evidence discipline.
+
+## 2026-05-01 - Add Goal Mode As The Workbench Persistence Wrapper
+
+Decision: add `workbench-goal-mode` as the shared `/goal` execution contract.
+
+When an issue contains `/goal`, `GOAL_MODE: yes`, or asks an owner to continue until a concrete objective is achieved, the owner must post `GOAL_LOCK`, keep the objective alive across turns and reruns, and close only after the relevant build, test, smoke, docs/report, git-status, and evidence gates are addressed or explicitly marked not applicable.
+
+Goal Mode is not a permission override. It does not bypass approval gates, secrets boundaries, destructive-operation confirmation, repo-resource checks, or Supervisor review. It upgrades persistence and closeout quality, not authority.
+
+Rationale: recent Codex CLI `/goal` behavior matches the workbench's core need: agents should not stop at a local fix when the user asked for a completed outcome. Making this a source-controlled skill gives Codex, Claude Code, Hermes, local agents, and remote cells the same completion contract without embedding a long prompt in every issue.

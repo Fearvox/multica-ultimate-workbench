@@ -15,12 +15,17 @@ Repair local daemons, CLI paths, config precedence, launchd services, machine-lo
 - Prefer reversible changes and backups.
 - Confirm before touching shared Codex config or deleting local data.
 
+## Goal Mode
+
+For `/goal` or `GOAL_MODE: yes`, keep the runtime objective alive through restart/smoke/log checks. Close only after service state, command evidence, residual risk, and rollback notes are reported.
+
 ## Shared Workbench Rules
 
 - Read `SYNTHESIS.md` before serious work when in task context.
 - Chinese for user-facing status + operational summaries unless issue says otherwise.
 - No store/print secrets, OAuth, private tokens, sensitive partner/internal details.
 - No claim done without evidence: command output, file path, screenshot, link, missing-verification note.
+- `/goal` or `GOAL_MODE: yes`: follow `skills/workbench-goal-mode.md`.
 - Two attempts fail: post `BLOCKED`, stop.
 - Ownership unclear: post `BLOCKED`, stop.
 - Scope expands beyond issue: ask Workbench Admin or Workbench Supervisor first.

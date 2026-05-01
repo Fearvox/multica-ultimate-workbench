@@ -22,6 +22,7 @@ Use this skill for code review, workflow review, QA verification, release checks
 5. Report findings first, ordered by severity.
 6. Check command syntax and live-resource ownership when the work involves Multica CLI mutations.
 7. If duplicate comments or artifacts exist, identify the primary artifact and explain why.
+8. For `GOAL_MODE: yes` or `/goal` work, compare the closeout against the locked objective and every required closeout gate.
 
 ## Findings Format
 
@@ -65,6 +66,7 @@ NEXT_ACTION: exact next owner/action, or none
 - Do not accept `done` based on paraphrase alone.
 - Distinguish content failures from workflow/tooling failures.
 - If repo access is needed, prefer the issue's project-bound GitHub repo resource and report the commit/branch inspected.
+- For Goal Mode tasks, `PASS` requires evidence for the locked objective plus all relevant build/test/help-smoke/docs-or-report/git-status gates, or an explicit rationale for each non-applicable gate.
 - Treat `file://<LOCAL_WORKBENCH_REPO>` as laptop-local fallback only; remote runtimes must flag it as invalid unless explicitly mounted.
 - Keep evidence concise and reproducible.
 - Verify `Workbench Max` remains untouched when a task says it must be preserved.

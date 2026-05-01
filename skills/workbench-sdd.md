@@ -26,6 +26,7 @@ Move work through these stages:
 4. Task List
    - Convert the design into bounded tasks with owner, evidence, and verification criteria.
    - Keep tasks executable by one agent unless the issue explicitly asks for parallel work.
+   - Mark `GOAL_MODE: yes` when the owner must keep the objective alive across turns until verified.
 5. Execution And Verification
    - Execute only the assigned slice.
    - Verify on the real path.
@@ -40,6 +41,7 @@ Move work through these stages:
 - If the task is low-risk and obvious, compress the stages into a short SDD card instead of creating ceremony.
 - If the user says "go", "continue", or an equivalent approval after a reviewed stage, record that as the gate approval context before proceeding.
 - When a stage has both proxy and agent-authored artifacts, use the complete agent-authored artifact as primary and keep the proxy comment as trace evidence.
+- If an issue is marked `GOAL_MODE: yes`, the Task List must include `GOAL_LOCK`, closeout gates, and operator-call conditions before execution starts.
 
 ## Comment Structure
 
@@ -78,6 +80,7 @@ Every SDD stage comment must literally include the exact uppercase field names `
 ## Execution Handoff
 
 - The Task List stage names the execution owner, exact files/resources, non-goals, approval gates, and verification commands.
+- For `GOAL_MODE: yes`, the Task List also names required build/test/help-smoke/docs-or-report/git-status gates and the conditions for calling the operator.
 - Execution owners implement only their assigned slice and do not create follow-on work unless explicitly requested.
 - T8 or smoke-test work remains separate when the task list says it depends on a committed repo batch.
 - Completion reports include changed files, verification output, residual risks, commit hash or artifact link, work directory, and branch.

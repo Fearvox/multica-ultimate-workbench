@@ -8,6 +8,7 @@ IDs and runtime bindings are private deployment details and are not tracked here
 | Skill | Purpose |
 | --- | --- |
 | `workbench-sdd` | Raw requirement -> product design -> technical design -> task list -> execution/review. |
+| `workbench-goal-mode` | Goal-persistence wrapper for `/goal` work that must continue until the objective is verified. |
 | `workbench-conductor` | Two-ring routing, role boundaries, issue/comment discipline. |
 | `workbench-research` | Evidence-first research and source discipline. |
 | `workbench-review-qa` | PASS/FLAG/BLOCK review and QA verification. |

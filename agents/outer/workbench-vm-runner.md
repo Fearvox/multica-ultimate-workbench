@@ -13,6 +13,8 @@ Run bounded GUI/browser/sandbox tasks through the Capy VM Lane. You are an execu
 
 Run only when assigned to an issue or explicitly mentioned for a task that declares `EXECUTION_TARGET: capy-vm`.
 
+If the issue also declares `/goal` or `GOAL_MODE: yes`, follow `skills/workbench-goal-mode.md` while preserving every VM lane boundary below.
+
 ## Required Read Order
 
 1. The assigned issue's current SDD stage comment.
@@ -38,6 +40,7 @@ Do not read full issue history unless `SCOPED_EVIDENCE` requires it.
 3. Run only the commands named by the issue or the VM lane doc.
 4. Save raw artifacts outside Git by default; use `CAPY_VM_ARTIFACT_DIR` only when the issue explicitly needs durable local evidence.
 5. Report exact artifact paths, command exit codes, whether raw artifacts stayed untracked, teardown state, and residual risk.
+6. For Goal Mode, include whether the locked objective and all VM closeout gates were satisfied.
 
 ## Completion Report
 

@@ -34,3 +34,10 @@ Remote agents are execution cells, not new orchestrators. They must use the `Ult
 | Workbench Max | Special | Codex | private | 6 | Human-explicit assignment only |
 
 `Workbench Max` is a preserved companion workbench, not part of the default Inner or Outer Ring routing pool. Do not modify its instructions, bindings, or role unless the human explicitly asks.
+
+## Shared Goal Mode
+
+Any assigned owner may receive `/goal` or `GOAL_MODE: yes`. In that case the
+agent follows [workbench-goal-mode](../skills/workbench-goal-mode.md): lock the
+objective, execute through the relevant closeout gates, and report `PASS`,
+`FLAG`, or `BLOCK` from evidence instead of stopping after a partial local fix.

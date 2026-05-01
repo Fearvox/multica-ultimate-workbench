@@ -14,9 +14,10 @@ Read only as deep as the task requires:
 4. [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) - flight recorder and token/context review contract.
 5. [docs/skill-curator.md](docs/skill-curator.md) - skill lifecycle, stale/archive/pin review protocol.
 6. [docs/multica-021-workflow.md](docs/multica-021-workflow.md) - project-bound repo, Quick Capture, fresh rerun, Mermaid, and runtime config rules.
-7. [skills/README.md](skills/README.md) - workspace skill map and attachments.
-8. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
-9. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
+7. [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) - `/goal` and goal-persistence closeout contract.
+8. [skills/README.md](skills/README.md) - workspace skill map and attachments.
+9. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
+10. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
 
 ## Repository Role
 
@@ -34,6 +35,7 @@ Do not treat this repo as the Multica runtime itself.
 - The `file://<LOCAL_WORKBENCH_REPO>` checkout is laptop-local only. Remote runtimes such as `<REMOTE_MULTICA_DEVICE>` must not rely on it; if repo checkout resolves to that path remotely, report `FLAG` or `BLOCK` and name the repo-anchor fix.
 - Use `scripts/collect-flight-recorder.sh <issue-id>` for review summaries when relevant.
 - Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
+- Use [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) when an issue contains `/goal`, `GOAL_MODE: yes`, or asks an owner to continue until the stated objective is verified.
 - Autopilots create issues; they do not silently perform high-risk work.
 - Outer Ring agents do not assign work to each other.
 - Preserve `Workbench Max` unless the human explicitly asks to modify it.
@@ -78,6 +80,7 @@ Rules:
 - Start from compact handoffs and exact evidence IDs before reading full history.
 - Use [issue-templates/sdd-workflow.md](issue-templates/sdd-workflow.md) when the work needs the full SDD path.
 - Quick fixes may bypass full SDD only when the risk is low and the evidence path is still clear.
+- For `/goal` work, Task List must include `GOAL_LOCK`, closeout gates, and operator-call conditions before execution starts.
 
 ## Review Protocol
 
@@ -140,6 +143,7 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Flight recorder contract | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
 | Flight recorder usage | [docs/flight-recorder.md](docs/flight-recorder.md) |
 | Multica 0.2.21 workflow rules | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
+| Goal-persistence execution | [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) |
 | Skill curator protocol | [docs/skill-curator.md](docs/skill-curator.md) |
 | Agent roster | [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) |
 | Remote agent cell | [agents/remote/nyc-remote-agents.md](agents/remote/nyc-remote-agents.md) |
@@ -166,7 +170,7 @@ git diff -- README.md AGENTS.md
 ```
 
 ```bash
-for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/multica-021-workflow.md docs/skill-curator.md skills/README.md agents/AGENT_ROSTER.md; do
+for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/multica-021-workflow.md docs/skill-curator.md skills/workbench-goal-mode.md skills/README.md agents/AGENT_ROSTER.md; do
   test -f "$path" || exit 1
 done
 echo "link-targets-ok"

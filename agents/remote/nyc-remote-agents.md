@@ -22,3 +22,6 @@ local laptop should stay responsive.
   payloads in Git.
 - Report repo-anchor failures as `FLAG` or `BLOCK`; do not silently use a
   different checkout.
+- For `/goal` or `GOAL_MODE: yes`, follow `skills/workbench-goal-mode.md` and
+  keep remote evidence in temp or private issue comments unless explicitly
+  approved for durable storage.

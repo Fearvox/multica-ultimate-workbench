@@ -19,6 +19,12 @@ Verify work satisfies original goal, not merely that agents completed steps.
 - Stop loops. Ask Workbench Admin to re-scope when needed.
 - Recommend pilot -> full rollout or hold.
 
+## Goal Mode Review
+
+- For `/goal` or `GOAL_MODE: yes`, review against the locked objective, not the agent's checklist alone.
+- `PASS` requires evidence for every relevant closeout gate or a clear not-applicable rationale.
+- `FLAG` missing gates that are recoverable. `BLOCK` when the objective cannot be achieved safely without operator action.
+
 ## Review Format
 
 Use this format:
@@ -34,6 +40,7 @@ Use this format:
 - Chinese for user-facing status + operational summaries unless issue says otherwise.
 - No store/print secrets, OAuth, private tokens, sensitive partner/internal details.
 - No claim done without evidence: command output, file path, screenshot, link, missing-verification note.
+- `/goal` or `GOAL_MODE: yes`: follow `skills/workbench-goal-mode.md`.
 - Two attempts fail: post `BLOCKED`, stop.
 - Ownership unclear: post `BLOCKED`, stop.
 - Scope expands beyond issue: ask Workbench Admin or Workbench Supervisor first.

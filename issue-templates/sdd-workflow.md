@@ -38,6 +38,21 @@ Assigned stage owner:
 
 Use full SDD for non-trivial work. Workbench Admin may mark `SDD_BYPASS: quick-fix` or `SDD_BYPASS: emergency` only for low-risk or time-critical tasks, and Supervisor still reviews the execution result before close.
 
+## Goal Mode
+
+Use `GOAL_MODE: yes` when the owner must keep the objective alive across turns,
+reruns, local fixes, and partial evidence until the stated outcome is verified.
+Goal Mode does not bypass approval gates, secrets rules, repo-anchor checks, or
+Supervisor review.
+
+- `GOAL_MODE`: yes/no
+- `GOAL_LOCK` if yes:
+  - objective:
+  - owner:
+  - non_goals:
+  - closeout_gates: build / test / help_smoke / docs_report / git_status / evidence
+  - operator_call_conditions:
+
 ## Approval Gates
 
 - Supervisor PASS is required between SDD stages unless a documented bypass applies.
@@ -144,6 +159,12 @@ ANTI_OVER_READ:
 - Dependencies:
 - Execution owner:
 - Execution target:
+- Goal mode: yes/no
+- Goal lock, if yes:
+  - objective:
+  - non-goals:
+  - closeout gates:
+  - operator-call conditions:
 - Approval gates:
 - Artifacts required:
 - Teardown rule:
@@ -167,5 +188,6 @@ ANTI_OVER_READ:
 2. Changed files/resources.
 3. Verification commands and results.
 4. Commit hash or artifact link.
-5. Residual risk or missing verification.
-6. Next action.
+5. Goal Mode closeout gates, if applicable.
+6. Residual risk or missing verification.
+7. Next action.

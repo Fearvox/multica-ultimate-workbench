@@ -11,8 +11,8 @@ The workbench is a two-ring operating system for agentic software work:
 - **Inner Ring**: intake, routing, supervision, synthesis, and final judgment.
 - **Outer Ring**: implementation, research, design, QA, debugging, ops, VM work,
   and documentation.
-- **Governance Layer**: SDD, review gates, flight recorder summaries, and
-  explicit PASS / FLAG / BLOCK closeout.
+- **Governance Layer**: SDD, Goal Mode, review gates, flight recorder summaries,
+  and explicit PASS / FLAG / BLOCK closeout.
 
 The goal is not "more agents." The goal is higher throughput without losing
 traceability, role boundaries, or operator control.
@@ -25,6 +25,8 @@ flowchart LR
   B --> C["Technical Design"]
   C --> D["Task List"]
   D --> E["Specialist Execution"]
+  D --> J["Goal Mode if /goal"]
+  J --> E
   E --> F["Review Gate"]
   F -->|PASS| G["Done"]
   F -->|FLAG| H["Revise / Clarify"]
@@ -43,6 +45,16 @@ flowchart LR
 | Outer | Designer / Docs | Improve product shape, README quality, and user-facing docs. |
 | Outer | QA / Reviewer | Run independent checks and report residual risk. |
 | Outer | Ops / VM | Handle runtimes, daemon health, VM/browser execution, and cleanup. |
+
+## Goal Mode
+
+`/goal` or `GOAL_MODE: yes` marks work that must persist until the stated
+objective is verified, not merely until one local fix lands. The owner posts a
+`GOAL_LOCK`, executes against closeout gates, investigates failed gates before
+calling the operator, and reports `PASS`, `FLAG`, or `BLOCK` from evidence.
+
+Goal Mode does not override approval, privacy, repo-anchor, destructive-action,
+or Supervisor-review rules.
 
 ## Public Artifact Boundary
 
@@ -93,5 +105,6 @@ The next useful upgrades are:
 - stronger public/private artifact split
 - remote runtime handoff contracts
 - automatic review sweep hardening
+- live sync of `workbench-goal-mode` to the relevant Multica skills and agents
 - VM lane smoke tests with temp-only evidence
 - README and docs polish that stays public-safe

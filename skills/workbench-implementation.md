@@ -15,6 +15,16 @@ Use this skill for coding, ops changes, scripts, automation specs, and local rep
 4. Verify on the real path.
 5. Record the outcome in the right durable file when the change affects workbench operations.
 
+## Goal Mode
+
+When an issue contains `/goal` or `GOAL_MODE: yes`, use `workbench-goal-mode`
+before editing:
+
+- post `GOAL_LOCK` with objective, owner, non-goals, closeout gates, and operator-call conditions;
+- keep working after local fixes until the locked objective is verified;
+- investigate failed build/test/smoke steps before asking for help;
+- close only after build/test/help-smoke/docs-or-report/git-status gates are addressed or explicitly marked not applicable.
+
 ## Engineering Rules
 
 - Follow existing repo patterns.
