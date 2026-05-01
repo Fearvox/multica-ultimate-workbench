@@ -11,8 +11,9 @@ The workbench is a two-ring operating system for agentic software work:
 - **Inner Ring**: intake, routing, supervision, synthesis, and final judgment.
 - **Outer Ring**: implementation, research, design, QA, debugging, ops, VM work,
   and documentation.
-- **Governance Layer**: SDD, Goal Mode, review gates, flight recorder summaries,
-  L2 Pressure, and explicit PASS / FLAG / BLOCK closeout.
+- **Governance Layer**: Self-Awareness bootstrap, SDD, Goal Mode, review gates,
+  flight recorder summaries, L2 Pressure, and explicit PASS / FLAG / BLOCK
+  closeout.
 
 The goal is not "more agents." The goal is higher throughput without losing
 traceability, role boundaries, or operator control.
@@ -21,7 +22,8 @@ traceability, role boundaries, or operator control.
 
 ```mermaid
 flowchart LR
-  A["Raw Requirement"] --> B["Product Design"]
+  Z["Self-Awareness Bootstrap"] --> A["Raw Requirement"]
+  A --> B["Product Design"]
   B --> C["Technical Design"]
   C --> D["Task List"]
   D --> E["Specialist Execution"]
@@ -47,6 +49,19 @@ flowchart LR
 | Outer | Designer / Docs | Improve product shape, README quality, and user-facing docs. |
 | Outer | QA / Reviewer | Run independent checks and report residual risk. |
 | Outer | Ops / VM | Handle runtimes, daemon health, VM/browser execution, and cleanup. |
+
+## Self-Awareness
+
+Self-Awareness is the preflight layer for non-trivial work. The owner posts
+`SELF_AWARENESS_BOOTSTRAP` before SDD, Goal Mode, L2 Pressure, remote execution,
+VM work, or repo-changing work. The block verifies runtime identity, role
+boundary, repo anchor, tool and MCP envelope, memory sources, current-state
+proof, risk boundary, route, success metric, operator-call conditions, and a
+`READY` / `FLAG` / `BLOCK` verdict.
+
+This keeps current evidence ahead of old memory. It also prevents a scheduled
+job start, stale tool assumption, or wrong checkout from being mistaken for
+progress.
 
 ## Goal Mode
 
@@ -123,6 +138,7 @@ The next useful upgrades are:
 - automatic review sweep hardening
 - remote HarnessMax evolve sweeper with L2 Pressure
 - remote Research Vault MCP preflight and read-only contract
+- live sync of `workbench-self-awareness-infra` to relevant skills and agents
 - live sync of `workbench-goal-mode` to the relevant Multica skills and agents
 - VM lane smoke tests with temp-only evidence
 - README and docs polish that stays public-safe

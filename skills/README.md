@@ -7,6 +7,7 @@ IDs and runtime bindings are private deployment details and are not tracked here
 
 | Skill | Purpose |
 | --- | --- |
+| `workbench-self-awareness-infra` | Capability discovery and current-state verification before SDD, Goal Mode, L2 Pressure, or execution. |
 | `workbench-sdd` | Raw requirement -> product design -> technical design -> task list -> execution/review. |
 | `workbench-goal-mode` | Goal-persistence wrapper for `/goal` work that must continue until the objective is verified. |
 | `workbench-l2-pressure-gate` | Research Vault pressure gate for remote Hermes, VM, HarnessMax, and autonomous evolution sweeps. |

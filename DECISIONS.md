@@ -137,3 +137,11 @@ The Remote HarnessMax Evolve Sweeper runs at a high cadence during active 24h wi
 Remote Research Vault MCP is read-only by default. The approved first surface is `vault_status`, `vault_search`, `vault_taxonomy`, and `vault_get`. Writes, ingest, deletion, maintenance, or broad raw export require a separate issue, explicit approval, and Supervisor review.
 
 Rationale: remote capacity only compounds if it carries durable memory pressure into every route. The goal is not more agents or more sweeps; it is faster convergence toward the best verified path while preserving safety, repo anchors, and public/private boundaries.
+
+## 2026-05-01 - Add Self-Awareness As The First Workbench Infra Layer
+
+Decision: add `workbench-self-awareness-infra`, `docs/self-awareness-infra-layer.md`, and `issue-templates/self-awareness-bootstrap.md` as the first boot layer before SDD, Goal Mode, L2 Pressure, remote execution, VM routing, or repo-changing work.
+
+Owners must post `SELF_AWARENESS_BOOTSTRAP` with runtime identity, role boundary, repo anchor, tool and MCP envelope, memory sources checked, current-state proof, risk boundary, routing decision, success metric, operator-call conditions, and a `READY` / `FLAG` / `BLOCK` verdict.
+
+Rationale: the workbench now runs across local agents, remote cells, VM lanes, Research Vault grounding, and high-pressure autonomous loops. Capability discovery must happen before ambition. This layer prevents stale memory, wrong checkout, missing MCP/tool assumptions, and "started a job" from being mistaken for verified progress while keeping public artifacts free of secrets, raw logs, live IDs, and private infrastructure details.

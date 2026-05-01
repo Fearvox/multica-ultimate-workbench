@@ -12,14 +12,16 @@ Read only as deep as the task requires:
 2. [SYNTHESIS.md](SYNTHESIS.md) - current strategy, architecture, risks, and live operating model.
 3. [DECISIONS.md](DECISIONS.md) - durable decisions and rationale.
 4. [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) - flight recorder and token/context review contract.
-5. [docs/skill-curator.md](docs/skill-curator.md) - skill lifecycle, stale/archive/pin review protocol.
-6. [docs/multica-021-workflow.md](docs/multica-021-workflow.md) - project-bound repo, Quick Capture, fresh rerun, Mermaid, and runtime config rules.
-7. [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) - `/goal` and goal-persistence closeout contract.
-8. [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) - Research Vault pressure gate for remote/HarnessMax work.
-9. [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) - read-only remote Research Vault MCP contract.
-10. [skills/README.md](skills/README.md) - workspace skill map and attachments.
-11. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
-12. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
+5. [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) - capability discovery, repo anchor, risk, and routing bootstrap.
+6. [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md) - executable bootstrap block and verdict rules.
+7. [docs/skill-curator.md](docs/skill-curator.md) - skill lifecycle, stale/archive/pin review protocol.
+8. [docs/multica-021-workflow.md](docs/multica-021-workflow.md) - project-bound repo, Quick Capture, fresh rerun, Mermaid, and runtime config rules.
+9. [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) - `/goal` and goal-persistence closeout contract.
+10. [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) - Research Vault pressure gate for remote/HarnessMax work.
+11. [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) - read-only remote Research Vault MCP contract.
+12. [skills/README.md](skills/README.md) - workspace skill map and attachments.
+13. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
+14. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
 
 ## Repository Role
 
@@ -36,6 +38,7 @@ Do not treat this repo as the Multica runtime itself.
 - From a Multica runtime, use the issue's project-bound GitHub repo resource first.
 - The `file://<LOCAL_WORKBENCH_REPO>` checkout is laptop-local only. Remote runtimes such as `<REMOTE_MULTICA_DEVICE>` must not rely on it; if repo checkout resolves to that path remotely, report `FLAG` or `BLOCK` and name the repo-anchor fix.
 - Use `scripts/collect-flight-recorder.sh <issue-id>` for review summaries when relevant.
+- Use [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md) before SDD, Goal Mode, L2 Pressure, VM routing, remote execution, or other non-trivial work.
 - Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
 - Use [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) when an issue contains `/goal`, `GOAL_MODE: yes`, or asks an owner to continue until the stated objective is verified.
 - Use [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) when a task asks for HarnessMax, remote evolution, remote Hermes, remote VM, leaderboard pressure, or Research Vault grounding.
@@ -56,7 +59,7 @@ Use the two-ring model.
 | Remote Cell | NYC Codex Builder, NYC Hermes Researcher, NYC Ops Mechanic, NYC VM Runner | Execute longer tasks on `<REMOTE_MULTICA_DEVICE>`. Treat laptop file paths as invalid unless explicitly verified on that host. |
 | Special | Workbench Max | Preserved private workbench. Use only when the human explicitly assigns it. |
 
-Direct chat is for fuzzy thought. Issues are for executable work. Mentions are for narrow review or advice. Autopilots create recurring review issues. The Auto Review Sweeper is the automatic `in_review` handoff: Workbench Supervisor scans completed agent work on a schedule, posts `AUTO_REVIEW`, and may close PASS targets to `done`. The Remote HarnessMax Evolve Sweeper is the high-rate pressure controller for remote Hermes, remote VM, and Research Vault grounded routing; it creates issues and routes evidence, but does not silently mutate runtime state.
+Direct chat is for fuzzy thought. Issues are for executable work. Mentions are for narrow review or advice. Autopilots create recurring review issues. Before a non-trivial issue routes or executes, the owner posts `SELF_AWARENESS_BOOTSTRAP` so role, repo, tool/MCP, memory, risk, route, and success metric are explicit. The Auto Review Sweeper is the automatic `in_review` handoff: Workbench Supervisor scans completed agent work on a schedule, posts `AUTO_REVIEW`, and may close PASS targets to `done`. The Remote HarnessMax Evolve Sweeper is the high-rate pressure controller for remote Hermes, remote VM, and Research Vault grounded routing; it creates issues and routes evidence, but does not silently mutate runtime state.
 
 ## Multica 0.2.21 Protocol
 
@@ -67,6 +70,36 @@ Use [docs/multica-021-workflow.md](docs/multica-021-workflow.md) when a task tou
 - Fresh rerun: use a new run when context is stale, poisoned, or bound to the wrong repo/branch.
 - Mermaid: use compact diagrams for routing, handoff, and state flows when they reduce ambiguity.
 - Runtime config: prefer Multica `--model`, `--custom-env-file`, or `--custom-env-stdin` over prompt text for agent-specific runtime configuration.
+
+## Self-Awareness Protocol
+
+Use Self-Awareness before SDD, Goal Mode, L2 Pressure, remote work, VM work, repo-changing work, or any issue that depends on current runtime capability:
+
+```text
+SELF_AWARENESS_BOOTSTRAP
+runtime_identity:
+role_boundary:
+repo_anchor:
+tool_envelope:
+mcp_envelope:
+memory_sources_checked:
+current_state_proof:
+risk_envelope:
+routing_decision:
+success_metric:
+operator_call_conditions:
+verdict: READY | FLAG | BLOCK
+```
+
+Rules:
+
+- Current issue, repo, branch, run, and tool evidence beats historical memory.
+- Missing tools or MCP surfaces must be labeled missing, not inferred from another runtime.
+- The bootstrap may route to SDD, Goal Mode, L2 Pressure, VM lane, child issues, inline execution, QA, or Supervisor review.
+- Public docs must not contain raw env dumps, secrets, live IDs, request payloads, or raw transcripts.
+- `READY` means proceed; `FLAG` means proceed with a named caveat; `BLOCK` means a real external blocker must be fixed first.
+
+See [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md), [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md), and [issue-templates/self-awareness-bootstrap.md](issue-templates/self-awareness-bootstrap.md).
 
 ## SDD Protocol
 
@@ -168,6 +201,8 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Rollout history | [WORKBENCH_LOG.md](WORKBENCH_LOG.md) |
 | Flight recorder contract | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
 | Flight recorder usage | [docs/flight-recorder.md](docs/flight-recorder.md) |
+| Self-awareness protocol | [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) |
+| Self-awareness skill | [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md) |
 | Multica 0.2.21 workflow rules | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
 | Goal-persistence execution | [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) |
 | L2 pressure execution | [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) |
@@ -198,7 +233,7 @@ git diff -- README.md AGENTS.md
 ```
 
 ```bash
-for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/multica-021-workflow.md docs/skill-curator.md skills/workbench-goal-mode.md skills/README.md agents/AGENT_ROSTER.md; do
+for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/skill-curator.md skills/workbench-self-awareness-infra.md skills/workbench-goal-mode.md skills/README.md agents/AGENT_ROSTER.md; do
   test -f "$path" || exit 1
 done
 echo "link-targets-ok"

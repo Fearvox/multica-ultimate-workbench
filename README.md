@@ -5,6 +5,7 @@
 [![Status](https://img.shields.io/badge/status-operational-2f855a?style=flat-square)](WORKBENCH_LOG.md)
 [![Multica](https://img.shields.io/badge/Multica-0.2.22-111827?style=flat-square)](https://github.com/Fearvox/multica-ultimate-workbench)
 [![Two Ring](https://img.shields.io/badge/system-two--ring-2563eb?style=flat-square)](#two-ring-system)
+[![Self-Awareness](https://img.shields.io/badge/workflow-self_awareness-155e75?style=flat-square)](#self-awareness)
 [![SDD](https://img.shields.io/badge/workflow-SDD-7c3aed?style=flat-square)](#sdd-workflow)
 [![Goal Mode](https://img.shields.io/badge/workflow-goal_mode-0f766e?style=flat-square)](#goal-mode)
 [![L2 Pressure](https://img.shields.io/badge/workflow-L2_pressure-9f1239?style=flat-square)](#l2-pressure)
@@ -15,7 +16,7 @@
 [![Curator](https://img.shields.io/badge/maintenance-skill_curator-9333ea?style=flat-square)](docs/skill-curator.md)
 [![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)](#documentation-map)
 
-**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Two-Ring System](#two-ring-system) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
+**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
 
 ## Overview
 
@@ -45,6 +46,20 @@ The system uses two rings instead of a flat swarm to keep agent coordination man
 | Outer Ring | Developer, Researcher, Architect, Docs, QA, Ops, Curator | Execute bounded specialist work without taking over routing. |
 
 See [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) for the full role map and ring assignments.
+
+## Self-Awareness
+
+Self-Awareness is the workbench's first bootstrap layer. Before non-trivial
+work, an agent posts `SELF_AWARENESS_BOOTSTRAP`: runtime identity, role
+boundary, repo anchor, tool/MCP envelope, memory sources checked, current-state
+proof, risk boundary, route, success metric, and operator-call conditions.
+
+It keeps current evidence ahead of old memory, prevents wrong-runtime/tool
+assumptions, and routes work into SDD, Goal Mode, L2 Pressure, VM execution,
+child issues, or Supervisor review as needed. It is public-safe by design: no
+raw environment dumps, secrets, live IDs, request payloads, or raw transcripts.
+
+See [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md) and [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md).
 
 ## SDD Workflow
 
@@ -166,6 +181,8 @@ Human approval required before running:
 | Decision log | [DECISIONS.md](DECISIONS.md) |
 | Historical rollout log | [WORKBENCH_LOG.md](WORKBENCH_LOG.md) |
 | Flight recorder contract | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
+| Self-awareness bootstrap | [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) |
+| Self-awareness skill | [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md) |
 | Goal-persistence contract | [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) |
 | L2 pressure gate | [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) |
 | Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
@@ -200,6 +217,7 @@ Multica Ultimate Workbench 是建立在 Multica 之上的多 agent 工作台持�
 | 概念 | 说明 | 详见 |
 | --- | --- | --- |
 | 双环系统 | Inner Ring（Admin/Supervisor/Synthesizer）负责任务拆解与审核；Outer Ring 执行边界清楚的专项任务 | [AGENT_ROSTER](agents/AGENT_ROSTER.md) |
+| 自我感知层 | 非平凡任务先确认 runtime、role、repo anchor、tool/MCP、memory、risk、route 和 success metric，避免错上下文开工 | [self-awareness-infra-layer](docs/self-awareness-infra-layer.md) |
 | SDD 流程 | 原始需求 → 产品设计 → 技术设计 → 任务列表 → 执行/复核，每阶段作为 issue comment 留痕 | [SYNTHESIS](SYNTHESIS.md) |
 | Goal Mode | `/goal` 任务的目标保活协议：锁定目标、持续推进、按 build/test/smoke/docs/report/git-status/evidence gate 收尾 | [workbench-goal-mode](skills/workbench-goal-mode.md) |
 | L2 Pressure | 远端 Hermes/VM/HarnessMax 的 Research Vault 压力层：先读历史约束，再决定最高收益路径 | [workbench-l2-pressure-gate](skills/workbench-l2-pressure-gate.md) |
