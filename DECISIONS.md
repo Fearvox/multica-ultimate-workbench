@@ -1,0 +1,117 @@
+# Decisions
+
+## 2026-04-29 - Hybrid Workbench Architecture
+
+Decision: Use a Hybrid Multica Two-Ring Workbench.
+
+The Inner Ring owns command, review, and synthesis. The Outer Ring owns bounded specialist execution, narrow analysis, and parallel advice. Direct chat remains available for fuzzy thinking, while issues carry executable work. Autopilots should create issues for scheduled checks rather than silently performing high-risk actions.
+
+Rationale: This keeps collaboration native to Multica while giving the system a durable, versioned operating memory that can be reviewed, updated, and resumed.
+
+## 2026-04-29 - Keep Codex Approval Inside Codex
+
+Decision: Codex command approval and patch approval remain configured through Codex CLI, profiles, and runtime arguments rather than through Multica workbench files.
+
+Rationale: Approval policy belongs to the runtime that enforces it. Keeping Codex approval inside Codex avoids duplicating authority, prevents stale policy drift, and keeps the workbench focused on operating memory instead of pretending to enforce runtime permissions.
+
+## 2026-04-29 - Install Workspace Skill Core Pack
+
+Decision: Add a small high-frequency workspace skill core pack to Multica before optimizing the full SDD/two-ring workflow.
+
+The core pack is `workbench-sdd`, `workbench-conductor`, `workbench-research`, `workbench-review-qa`, `workbench-implementation`, `workbench-design-docs`, and `workbench-memory-synthesis`. The source files live in `skills/`, while the live Multica IDs and attachment map are recorded in `skills/README.md`.
+
+Rationale: The workspace had no skills configured. Installing a compact shared operating layer gives every important agent the same execution grammar without blindly importing every local skill and creating prompt noise.
+
+## 2026-04-29 - SDD Stages Are Comment-Level Milestones
+
+Decision: SDD stages live as structured Multica issue comments, not as issue statuses.
+
+The issue status model remains coarse: `todo`, `in_progress`, `in_review`, `done`, and `blocked`. The SDD pipeline records Raw Requirement, Product Design, Technical Design, Task List, and Execution And Verification as comments with `SDD_STAGE` headers and Supervisor PASS/FLAG/BLOCK gates.
+
+Rationale: Five SDD stages do not map cleanly onto the existing status set. Keeping SDD at the comment layer preserves current routing, autopilot, and review behavior while adding a verifiable planning trail.
+
+## 2026-04-30 - Expand Workbench Skills Through Role-Specific High-Frequency Pack
+
+Decision: Expand the Multica workspace skill pack from 7 core skills to 15 role-specific high-frequency skills during DAS-9.
+
+The added skills are `workbench-debug-investigate`, `workbench-code-review`, `workbench-frontend-design-qa`, `workbench-browser-proofshot-qa`, `workbench-docs-release`, `workbench-token-context-discipline`, `workbench-product-brainstorming`, and `workbench-gsd-tasking`.
+
+The live rollout must remain source-first and reversible: back up current live skills and bindings, patch local source, commit the source batch, synchronize live skills, update bindings by role, verify every binding, and keep `Workbench Max` untouched.
+
+Rationale: The original 7-skill pack gave agents a shared operating grammar, but the workbench now repeatedly needs debugging, code review, visual/browser QA, docs release, context discipline, brainstorming, and tasking behavior. Adding compact role-specific skills gives agents the missing high-frequency habits without importing every local skill or bloating every prompt.
+
+## 2026-04-30 - Compact SDD Handoffs Before Broad Reads
+
+Decision: Every SDD stage should include `HANDOFF_SUMMARY`, `SCOPED_EVIDENCE`, and `ANTI_OVER_READ` fields before the stage body.
+
+Agents must start from the prior handoff and exact evidence IDs before reading wider issue history, full issue lists, full agent rosters, or unrelated docs. If a run reaches evidence-ready state but does not publish an artifact promptly, the conductor may post a clearly labeled proxy artifact from run-message evidence and let Supervisor decide the primary artifact.
+
+Rationale: DAS-11 showed the expanded skill pack works, but first-pass SDD still over-read DAS-9 history and created latency/proxy friction. Compact handoffs preserve enough context for the next owner while reducing repeated full-history scans and token spend.
+
+## 2026-04-30 - Compress Agent Prompts Source-First With Live Smoke
+
+Decision: Active Multica workbench agent prompts may be caveman-compressed, but only through the source-first, reversible path: keep `.original.md` backups, validate compressed files locally, commit source changes, live-sync with `multica agent update --instructions`, verify metadata drift did not occur, and run a fresh live smoke issue.
+
+Rationale: Prompt compression can reduce cache/input overhead, but it changes the exact operating text agents receive. Treat prompt compression like a runtime behavior change: preserve rollback files, keep `Workbench Max` untouched, and require live evidence before calling it done.
+
+## 2026-04-30 - Add A Compact Flight Recorder Before More Automation
+
+Decision: Add `scripts/collect-flight-recorder.sh` and `WORKBENCH_METRICS.md` as the workbench's compact run-review layer before adding heavier dashboards or automatic artifact capture.
+
+The collector defaults to stdout-only `RUN_DIGEST` output. Persistent mode is opt-in and writes only summary JSON plus `run-digest.md`; it must not persist raw issue descriptions, full comment bodies, run-message transcripts, screenshots, traces, OAuth material, private tokens, or request payloads.
+
+Rationale: The workbench needs enough observability to catch missing evidence, failed runs, oversized comments, long run traces, and invisible token attribution without creating a new disk or privacy problem. DAS-15 proved the helper works in a live Multica QA/Supervisor loop while leaving no persistent repo artifacts.
+
+## 2026-04-30 - Adapt Hermes Curator As A Review-Only Skill Curator
+
+Decision: Add a Workbench Skill Curator protocol inspired by Hermes Agent's Curator feature, but keep the first workbench version review-only.
+
+The curator may classify skills and bindings as `active`, `stale`, `archived`, or `pinned`, and may propose patches, consolidation, archive candidates, or live-sync needs. It must not delete local skill files, rewrite live Multica skills, detach skill bindings, or modify preserved agents without explicit human approval and Supervisor review.
+
+Rationale: Hermes Curator's lifecycle, pinning, usage telemetry, recoverable archival, and report pattern match the workbench's skill-bloat problem. The workbench has a stronger safety requirement because its skills and agents are part of a live collaboration system, so v1 should create review evidence and patch plans before any mutation.
+
+## 2026-04-30 - Add Auto Review Sweeper For In-Review Handoffs
+
+Decision: Add a live `Auto Review Sweeper` autopilot assigned to Workbench Supervisor.
+
+The sweeper runs every 30 minutes and creates a high-priority review controller issue. Supervisor scans `in_review` targets, excludes the sweep controller itself, reviews at most three targets per sweep, posts an `AUTO_REVIEW` block on each target, and may set PASS targets to `done`, leave FLAG targets in `in_review`, or set BLOCK targets to `blocked`.
+
+Rationale: Agent execution already moves work into `in_review`, but relying on the human to manually reassign every finished issue makes the review gate a bottleneck. A scheduled sweeper preserves Multica's current autopilot model while turning completed agent work into an automatic Supervisor review queue.
+
+## 2026-04-30 - Harden Workbench Skills For Codex Loading
+
+Decision: Add YAML frontmatter to all local Workbench skill source files and sync the same content to live Multica skills.
+
+`Workbench Max` is also canonicalized as a preserved Special bench rather than a normal Inner or Outer Ring member. The hardening pass does not modify Max instructions, skill bindings, or global Codex MCP OAuth configuration.
+
+Rationale: DAS-16 burn-in showed Codex runtime logs rejecting several workbench skills because their live `SKILL.md` content lacked YAML frontmatter. Frontmatter is a low-risk compatibility fix. Max classification removes routing ambiguity without changing the preserved companion agent.
+
+## 2026-04-30 - Capy VM Lane Is A Capability Lease, Not A Scheduler
+
+Decision: add a controlled VM/Computer execution lane for GUI, browser, sandbox, and screenshot-backed tasks.
+
+Reason: some workbench tasks need disposable desktop state and visual proof, but Multica should remain the routing, review, issue, and evidence source of truth.
+
+Consequence: VM sessions must be declared through SDD fields, owned by one issue and one agent, artifact-backed, and destroyed by default. The lane must not become an autonomous scheduler or a replacement for Multica.
+
+## 2026-04-30 - Adopt Multica 0.2.21 Project-Bound Workflow Rails
+
+Decision: use Multica 0.2.21 features as workbench workflow rails: project-bound repo resources, Quick Capture intake, fresh reruns, Mermaid diagrams, and per-agent runtime config.
+
+The live `Ultimate Workbench` project is the default project anchor for this repo. It binds the GitHub repository resource and is led by Workbench Admin. Non-trivial intake still flows through SDD comments and Supervisor review; the project binding only reduces repo ambiguity.
+
+Runtime-specific choices should move toward Multica agent config (`--model`, `--custom-env-file`, `--custom-env-stdin`) before being duplicated in prompts. Fresh reruns are preferred when a run inherits stale context, wrong repo/branch state, changed auth/runtime configuration, or incomplete evidence publishing.
+
+Rationale: 0.2.21 gives native product support for patterns the workbench had been enforcing manually. Adopting those rails reduces checkout mistakes, stale retries, prompt bloat, and diagram-free ambiguity while preserving the existing source-first and review-first discipline.
+
+## 2026-05-01 - Add NYC Remote Execution Cell
+
+Decision: add four private remote agents on `<REMOTE_MULTICA_DEVICE>`: `NYC Codex Builder`, `NYC Hermes Researcher`, `NYC Ops Mechanic`, and `NYC VM Runner`.
+
+The remote cell extends the Outer Ring. It does not replace Workbench Admin, Supervisor, Synthesizer, local Developer/QA/Ops roles, or preserved `Workbench Max`. Remote agents are for long repo/build/benchmark work, long-context research, remote runtime hygiene, and bounded VM/browser/sandbox tasks.
+
+Runtime config rule: remote Codex agents must not receive laptop-oriented custom args such as `--ask-for-approval`, because `codex app-server` rejected that flag during `DAS-94`. Approval policy stays in issue-level constraints and human gates until Multica exposes a remote-compatible approval surface.
+
+Repo rule: the `Ultimate Workbench` GitHub repo resource is the primary anchor for remote agents. The workspace-level `file://<LOCAL_WORKBENCH_REPO>` repo is laptop-local fallback only and must be treated as invalid on `<REMOTE_MULTICA_DEVICE>` unless explicitly mounted there.
+
+Rationale: the user now has a stable remote Multica daemon that can keep work running off-laptop. A named remote cell gives the workbench real parallel capacity while preserving the existing two-ring governance and evidence discipline.

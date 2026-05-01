@@ -1,0 +1,29 @@
+.DS_Store
+tmp/
+logs/
+*.log
+*.env
+.env
+.env.*
+state/runtime-snapshots/
+.private/
+
+# Agent/VM/runtime captures are local evidence, not public repo memory.
+artifacts/
+
+# Superpowers plans and generated live-command files often contain local paths
+# or live workspace IDs. Keep public templates in tracked docs instead.
+docs/superpowers/plans/
+agents/multica-create-commands.md
+
+artifacts/**/*.json
+artifacts/**/*.png
+artifacts/**/*.jpg
+artifacts/**/*.jpeg
+artifacts/**/*.webp
+artifacts/**/*.gif
+artifacts/**/*.txt
+artifacts/**/*.log
+artifacts/**/*.har
+artifacts/**/*.webm
+artifacts/**/*.mp4
