@@ -12,7 +12,7 @@ The workbench is a two-ring operating system for agentic software work:
 - **Outer Ring**: implementation, research, design, QA, debugging, ops, VM work,
   and documentation.
 - **Governance Layer**: SDD, Goal Mode, review gates, flight recorder summaries,
-  and explicit PASS / FLAG / BLOCK closeout.
+  L2 Pressure, and explicit PASS / FLAG / BLOCK closeout.
 
 The goal is not "more agents." The goal is higher throughput without losing
 traceability, role boundaries, or operator control.
@@ -26,7 +26,9 @@ flowchart LR
   C --> D["Task List"]
   D --> E["Specialist Execution"]
   D --> J["Goal Mode if /goal"]
+  D --> K["L2 Pressure if remote/HarnessMax"]
   J --> E
+  K --> E
   E --> F["Review Gate"]
   F -->|PASS| G["Done"]
   F -->|FLAG| H["Revise / Clarify"]
@@ -55,6 +57,20 @@ calling the operator, and reports `PASS`, `FLAG`, or `BLOCK` from evidence.
 
 Goal Mode does not override approval, privacy, repo-anchor, destructive-action,
 or Supervisor-review rules.
+
+## L2 Pressure
+
+`L2_PRESSURE: yes` or `RV_PRESSURE: required` means the owner must consult
+Research Vault or the closest durable memory source before routing, reviewing, or
+claiming a high-pressure autonomous path. The required output is
+`RV_PRESSURE_CHECK`: vault source, bounded queries, relevant prior failures,
+proven patterns, applied pressure, rejected pressure, next best action, and
+`PASS` / `FLAG` / `BLOCK`.
+
+Remote Hermes and remote VM tasks use Research Vault read-only first. The
+approved remote MCP tool surface is `vault_status`, `vault_search`,
+`vault_taxonomy`, and `vault_get`. Write, ingest, delete, maintenance, and raw
+export are separate approval events.
 
 ## Public Artifact Boundary
 
@@ -105,6 +121,8 @@ The next useful upgrades are:
 - stronger public/private artifact split
 - remote runtime handoff contracts
 - automatic review sweep hardening
+- remote HarnessMax evolve sweeper with L2 Pressure
+- remote Research Vault MCP preflight and read-only contract
 - live sync of `workbench-goal-mode` to the relevant Multica skills and agents
 - VM lane smoke tests with temp-only evidence
 - README and docs polish that stays public-safe

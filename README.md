@@ -7,6 +7,7 @@
 [![Two Ring](https://img.shields.io/badge/system-two--ring-2563eb?style=flat-square)](#two-ring-system)
 [![SDD](https://img.shields.io/badge/workflow-SDD-7c3aed?style=flat-square)](#sdd-workflow)
 [![Goal Mode](https://img.shields.io/badge/workflow-goal_mode-0f766e?style=flat-square)](#goal-mode)
+[![L2 Pressure](https://img.shields.io/badge/workflow-L2_pressure-9f1239?style=flat-square)](#l2-pressure)
 [![Codex](https://img.shields.io/badge/runtime-Codex-111827?style=flat-square)](agents/AGENT_ROSTER.md)
 [![Claude Code](https://img.shields.io/badge/runtime-Claude_Code-d97706?style=flat-square)](agents/AGENT_ROSTER.md)
 [![Hermes](https://img.shields.io/badge/runtime-Hermes-0f766e?style=flat-square)](agents/AGENT_ROSTER.md)
@@ -14,7 +15,7 @@
 [![Curator](https://img.shields.io/badge/maintenance-skill_curator-9333ea?style=flat-square)](docs/skill-curator.md)
 [![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)](#documentation-map)
 
-**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Two-Ring System](#two-ring-system) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
+**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Two-Ring System](#two-ring-system) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
 
 ## Overview
 
@@ -63,6 +64,14 @@ It is not a permission override. Destructive actions, credentials, public/privat
 
 See [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md).
 
+## L2 Pressure
+
+L2 Pressure is the Research Vault grounding layer for remote Hermes, VM, and HarnessMax work. Before routing or claiming a high-pressure autonomous path, the owner posts `RV_PRESSURE_CHECK`: what vault source was checked, which prior failures or proven patterns matter, how they changed the route, and whether the result is `PASS`, `FLAG`, or `BLOCK`.
+
+Remote runtimes start read-only. The approved remote RV MCP surface is `vault_status`, `vault_search`, `vault_taxonomy`, and `vault_get`; writes, ingest, deletion, maintenance, and broad raw export require separate approval and Supervisor review.
+
+See [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) and [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md).
+
 ## Agent + Runtime Model
 
 Codex, Claude Code, and Hermes are assigned by role, not treated as interchangeable text boxes:
@@ -75,7 +84,7 @@ Codex, Claude Code, and Hermes are assigned by role, not treated as interchangea
 
 ## Workspace Skills
 
-Workspace skills are the shared grammar of the workbench. They make high-frequency behavior explicit — SDD, conductor routing, research, implementation, review, docs release, browser proofshot QA, token/context discipline, and memory synthesis.
+Workspace skills are the shared grammar of the workbench. They make high-frequency behavior explicit — SDD, conductor routing, research, implementation, review, docs release, browser proofshot QA, token/context discipline, L2 pressure, and memory synthesis.
 
 See [skills/README.md](skills/README.md) for the live skill map and attachment design.
 
@@ -122,9 +131,9 @@ See [docs/skill-curator.md](docs/skill-curator.md) and [issue-templates/curator-
 
 ## Autopilots
 
-Autopilots create issues for recurring checks — daily health, auto-review sweeps, dependency review, stale-memory checks, skill-curator checks, benchmark-artifact checks. They are scheduled entry points into the review pipeline; they do not silently execute high-risk work.
+Autopilots create issues for recurring checks — daily health, auto-review sweeps, remote HarnessMax evolve sweeps, dependency review, stale-memory checks, skill-curator checks, benchmark-artifact checks. They are scheduled entry points into the review pipeline; they do not silently execute high-risk work.
 
-See [autopilots/daily-health.md](autopilots/daily-health.md) and [autopilots/auto-review-sweeper.md](autopilots/auto-review-sweeper.md).
+See [autopilots/daily-health.md](autopilots/daily-health.md), [autopilots/auto-review-sweeper.md](autopilots/auto-review-sweeper.md), and [autopilots/remote-harnessmax-evolve-sweeper.md](autopilots/remote-harnessmax-evolve-sweeper.md).
 
 ## Commands
 
@@ -158,6 +167,8 @@ Human approval required before running:
 | Historical rollout log | [WORKBENCH_LOG.md](WORKBENCH_LOG.md) |
 | Flight recorder contract | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
 | Goal-persistence contract | [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) |
+| L2 pressure gate | [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) |
+| Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
 | VM execution lane | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
 | Platform workflow (0.2.22) | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
 | Skill curator protocol | [docs/skill-curator.md](docs/skill-curator.md) |
@@ -191,12 +202,13 @@ Multica Ultimate Workbench 是建立在 Multica 之上的多 agent 工作台持�
 | 双环系统 | Inner Ring（Admin/Supervisor/Synthesizer）负责任务拆解与审核；Outer Ring 执行边界清楚的专项任务 | [AGENT_ROSTER](agents/AGENT_ROSTER.md) |
 | SDD 流程 | 原始需求 → 产品设计 → 技术设计 → 任务列表 → 执行/复核，每阶段作为 issue comment 留痕 | [SYNTHESIS](SYNTHESIS.md) |
 | Goal Mode | `/goal` 任务的目标保活协议：锁定目标、持续推进、按 build/test/smoke/docs/report/git-status/evidence gate 收尾 | [workbench-goal-mode](skills/workbench-goal-mode.md) |
+| L2 Pressure | 远端 Hermes/VM/HarnessMax 的 Research Vault 压力层：先读历史约束，再决定最高收益路径 | [workbench-l2-pressure-gate](skills/workbench-l2-pressure-gate.md) |
 | Runtime 分工 | Codex（实现/审查）、Claude Code（架构/文档/规划）、Hermes（研究/记忆整理） | [AGENT_ROSTER](agents/AGENT_ROSTER.md) |
 | Workspace Skills | 共享语法，固化 SDD、routing、review、proofshot QA、token discipline、memory synthesis 等高频行为 | [skills/README](skills/README.md) |
 | Flight Recorder | Issue 级轻量摘要，输出 RUN_DIGEST，不做完整 telemetry | [flight-recorder](docs/flight-recorder.md) |
 | Capy VM Lane | 受控 VM 执行通道，处理 GUI/浏览器/沙盒任务 | [capy-vm-lane](docs/capy-vm-lane.md) |
 | Skill Curator | Skill 维护协议，v1 只 review 不静默修改 | [skill-curator](docs/skill-curator.md) |
-| Autopilots | 定期创建检查 issue，不静默执行高风险操作 | [autopilots/](autopilots/) |
+| Autopilots | 定期创建检查 issue，不静默执行高风险操作，包括 review sweep 与 remote evolve sweep | [autopilots/](autopilots/) |
 
 ### 安全边界
 

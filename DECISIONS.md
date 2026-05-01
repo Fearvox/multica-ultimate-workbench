@@ -125,3 +125,15 @@ When an issue contains `/goal`, `GOAL_MODE: yes`, or asks an owner to continue u
 Goal Mode is not a permission override. It does not bypass approval gates, secrets boundaries, destructive-operation confirmation, repo-resource checks, or Supervisor review. It upgrades persistence and closeout quality, not authority.
 
 Rationale: recent Codex CLI `/goal` behavior matches the workbench's core need: agents should not stop at a local fix when the user asked for a completed outcome. Making this a source-controlled skill gives Codex, Claude Code, Hermes, local agents, and remote cells the same completion contract without embedding a long prompt in every issue.
+
+## 2026-05-01 - Add Remote HarnessMax Evolve Sweeper And L2 Pressure Gate
+
+Decision: add `workbench-l2-pressure-gate`, a Remote HarnessMax Evolve Sweeper autopilot source, remote evolve issue templates, and a read-only remote Research Vault MCP contract.
+
+Remote Hermes, remote VM, HarnessMax, and leaderboard-pressure tasks must post `RV_PRESSURE_CHECK` before routing or claiming the highest-yield path. The pressure check names the vault source, bounded queries, relevant prior failures, proven patterns, how the pressure changed the plan, and a PASS/FLAG/BLOCK verdict.
+
+The Remote HarnessMax Evolve Sweeper runs at a high cadence during active 24h windows. It scans review, blocked, and high-priority in-progress work; identifies missing RV pressure, repo-anchor proof, VM proof, or synthesis; and creates bounded follow-up issues. It is a controller, not an implementer.
+
+Remote Research Vault MCP is read-only by default. The approved first surface is `vault_status`, `vault_search`, `vault_taxonomy`, and `vault_get`. Writes, ingest, deletion, maintenance, or broad raw export require a separate issue, explicit approval, and Supervisor review.
+
+Rationale: remote capacity only compounds if it carries durable memory pressure into every route. The goal is not more agents or more sweeps; it is faster convergence toward the best verified path while preserving safety, repo anchors, and public/private boundaries.

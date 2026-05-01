@@ -25,3 +25,8 @@ local laptop should stay responsive.
 - For `/goal` or `GOAL_MODE: yes`, follow `skills/workbench-goal-mode.md` and
   keep remote evidence in temp or private issue comments unless explicitly
   approved for durable storage.
+- For `L2_PRESSURE: yes`, `RV_PRESSURE: required`, HarnessMax, remote evolve,
+  or leaderboard-pressure work, follow `skills/workbench-l2-pressure-gate.md`.
+- Remote Research Vault access is read-only until proven otherwise. Prefer
+  `vault_status`, `vault_search`, `vault_taxonomy`, and `vault_get`; route to RV
+  MCP Remote Preflight if those tools are not available.

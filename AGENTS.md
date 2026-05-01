@@ -15,9 +15,11 @@ Read only as deep as the task requires:
 5. [docs/skill-curator.md](docs/skill-curator.md) - skill lifecycle, stale/archive/pin review protocol.
 6. [docs/multica-021-workflow.md](docs/multica-021-workflow.md) - project-bound repo, Quick Capture, fresh rerun, Mermaid, and runtime config rules.
 7. [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) - `/goal` and goal-persistence closeout contract.
-8. [skills/README.md](skills/README.md) - workspace skill map and attachments.
-9. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
-10. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
+8. [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) - Research Vault pressure gate for remote/HarnessMax work.
+9. [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) - read-only remote Research Vault MCP contract.
+10. [skills/README.md](skills/README.md) - workspace skill map and attachments.
+11. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
+12. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
 
 ## Repository Role
 
@@ -36,6 +38,7 @@ Do not treat this repo as the Multica runtime itself.
 - Use `scripts/collect-flight-recorder.sh <issue-id>` for review summaries when relevant.
 - Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
 - Use [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) when an issue contains `/goal`, `GOAL_MODE: yes`, or asks an owner to continue until the stated objective is verified.
+- Use [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) when a task asks for HarnessMax, remote evolution, remote Hermes, remote VM, leaderboard pressure, or Research Vault grounding.
 - Autopilots create issues; they do not silently perform high-risk work.
 - Outer Ring agents do not assign work to each other.
 - Preserve `Workbench Max` unless the human explicitly asks to modify it.
@@ -53,7 +56,7 @@ Use the two-ring model.
 | Remote Cell | NYC Codex Builder, NYC Hermes Researcher, NYC Ops Mechanic, NYC VM Runner | Execute longer tasks on `<REMOTE_MULTICA_DEVICE>`. Treat laptop file paths as invalid unless explicitly verified on that host. |
 | Special | Workbench Max | Preserved private workbench. Use only when the human explicitly assigns it. |
 
-Direct chat is for fuzzy thought. Issues are for executable work. Mentions are for narrow review or advice. Autopilots create recurring review issues. The Auto Review Sweeper is the automatic `in_review` handoff: Workbench Supervisor scans completed agent work on a schedule, posts `AUTO_REVIEW`, and may close PASS targets to `done`.
+Direct chat is for fuzzy thought. Issues are for executable work. Mentions are for narrow review or advice. Autopilots create recurring review issues. The Auto Review Sweeper is the automatic `in_review` handoff: Workbench Supervisor scans completed agent work on a schedule, posts `AUTO_REVIEW`, and may close PASS targets to `done`. The Remote HarnessMax Evolve Sweeper is the high-rate pressure controller for remote Hermes, remote VM, and Research Vault grounded routing; it creates issues and routes evidence, but does not silently mutate runtime state.
 
 ## Multica 0.2.21 Protocol
 
@@ -114,6 +117,29 @@ Artifact mode writes summary files only. Do not store raw issue descriptions, fu
 
 Token fields may be absent from Multica CLI run JSON. Treat that as an INFO residual risk and use UI/API billing evidence when quota attribution matters.
 
+## L2 Pressure Protocol
+
+Use L2 Pressure before high-pressure remote or HarnessMax routing:
+
+```text
+RV_PRESSURE_CHECK
+objective:
+owner:
+vault_source:
+queries_or_indexes_checked:
+relevant_prior_failures:
+proven_patterns:
+l2_pressure_applied:
+not_applied_and_why:
+next_best_action:
+verdict: PASS | FLAG | BLOCK
+```
+
+Remote Research Vault access is read-only by default. Allowed tools are
+`vault_status`, `vault_search`, `vault_taxonomy`, and `vault_get`. Do not enable
+vault writes, ingest, delete, maintenance, or broad raw export without a separate
+issue, approval, and Supervisor review.
+
 ## Skill Curator Protocol
 
 Use the skill curator for maintenance of workbench skills, prompts, and role bindings:
@@ -144,6 +170,8 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Flight recorder usage | [docs/flight-recorder.md](docs/flight-recorder.md) |
 | Multica 0.2.21 workflow rules | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
 | Goal-persistence execution | [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) |
+| L2 pressure execution | [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) |
+| Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
 | Skill curator protocol | [docs/skill-curator.md](docs/skill-curator.md) |
 | Agent roster | [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) |
 | Remote agent cell | [agents/remote/nyc-remote-agents.md](agents/remote/nyc-remote-agents.md) |

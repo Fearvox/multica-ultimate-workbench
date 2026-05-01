@@ -27,6 +27,12 @@
 
 Remote agents are execution cells, not new orchestrators. They must use the `Ultimate Workbench` GitHub repo resource as the primary source. The laptop-only `file://<LOCAL_WORKBENCH_REPO>` workspace repo is not a valid checkout anchor on `<REMOTE_MULTICA_DEVICE>`.
 
+Remote Hermes and remote VM work may also receive `L2_PRESSURE: yes` or
+`RV_PRESSURE: required`. In that case the assigned owner follows
+[workbench-l2-pressure-gate](../skills/workbench-l2-pressure-gate.md): verify
+Research Vault access, post `RV_PRESSURE_CHECK`, apply prior failures and proven
+patterns to the route, and avoid raw vault dumps.
+
 ## Preserved Special Bench
 
 | Agent | Ring | Preferred Runtime | Visibility | Max Concurrent Tasks | Primary Trigger |

@@ -9,6 +9,7 @@ IDs and runtime bindings are private deployment details and are not tracked here
 | --- | --- |
 | `workbench-sdd` | Raw requirement -> product design -> technical design -> task list -> execution/review. |
 | `workbench-goal-mode` | Goal-persistence wrapper for `/goal` work that must continue until the objective is verified. |
+| `workbench-l2-pressure-gate` | Research Vault pressure gate for remote Hermes, VM, HarnessMax, and autonomous evolution sweeps. |
 | `workbench-conductor` | Two-ring routing, role boundaries, issue/comment discipline. |
 | `workbench-research` | Evidence-first research and source discipline. |
 | `workbench-review-qa` | PASS/FLAG/BLOCK review and QA verification. |
