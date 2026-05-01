@@ -14,6 +14,14 @@ The workbench is a two-ring operating system for agentic software work:
 - **Governance Layer**: Self-Awareness bootstrap, SDD, Goal Mode, review gates,
   flight recorder summaries, L2 Pressure, and explicit PASS / FLAG / BLOCK
   closeout.
+- **Context Layer**: Sanity stores sanitized structured context for agents,
+  runtimes, skills, evidence events, decisions, handoffs, and Capy process
+  checks.
+- **Distribution Layer**: agent-install syncs reviewed skills, MCP definitions,
+  and AGENTS.md sections across coding agents.
+- **Packaging Lanes**: Capy VM for disposable GUI/browser execution and Flue for
+  deployable agent harnesses when a mature workflow should become HTTP, CI,
+  Node, Cloudflare, or sandbox-backed code.
 
 The goal is not "more agents." The goal is higher throughput without losing
 traceability, role boundaries, or operator control.
@@ -29,9 +37,15 @@ flowchart LR
   D --> E["Specialist Execution"]
   D --> J["Goal Mode if /goal"]
   D --> K["L2 Pressure if remote/HarnessMax"]
+  D --> M["Capy Process Check if live UI state matters"]
   J --> E
   K --> E
+  M --> E
   E --> F["Review Gate"]
+  E --> N["Sanity sanitized context update if useful"]
+  E --> L["Flue Harness Lane if deployable agent"]
+  N --> F
+  L --> F
   F -->|PASS| G["Done"]
   F -->|FLAG| H["Revise / Clarify"]
   F -->|BLOCK| I["Operator Decision"]
@@ -87,6 +101,51 @@ approved remote MCP tool surface is `vault_status`, `vault_search`,
 `vault_taxonomy`, and `vault_get`. Write, ingest, delete, maintenance, and raw
 export are separate approval events.
 
+## Flue Agent Harness Lane
+
+Flue is the workbench's deployable agent harness outlet. Use it when a stable
+workflow should become a reusable HTTP agent, CI reviewer, Node service,
+Cloudflare Worker, or sandbox-backed coding/support agent.
+
+The required artifact is `FLUE_AGENT_CONTRACT`: purpose, project directory,
+workspace layout, agent file, deploy target, exact model ID, sandbox mode,
+trigger, secrets policy, validation command, and public artifact policy.
+
+Flue does not replace Multica routing, SDD planning, Goal Mode persistence, L2
+Pressure, or Supervisor review. It packages proven behavior after the workbench
+has already decided the workflow is stable enough to export.
+
+## Capy Process Check Lane
+
+Capy Process Check is the real-time Brave/Computer Use observation lane for
+Capy task, thread, PR, and review panels. Its required output is
+`CAPY_PROCESS_CHECK`: observed UI state, primary CLI/repo evidence, source of
+truth, action taken, residual risk, and a PASS/FLAG/BLOCK verdict.
+
+This lane is intentionally lower authority than GitHub CLI, git state, CI, and
+review evidence. It helps agents see whether Capy is still running, ready, or
+stale, but it cannot by itself justify merge, done, or release.
+
+## Sanity Unified Context Lane
+
+Sanity is the cross-CLI context registry. The first schema set is
+`agentProfile`, `runtimeSurface`, `skillContract`, `evidenceEvent`,
+`decisionRecord`, `handoff`, and `capyProcessCheck`.
+
+Sanity stores sanitized summaries and pointers. It must not store secrets, raw
+logs, OAuth material, raw transcripts, raw request payloads, or private
+screenshots. Current repo and issue evidence still beat Sanity memory.
+
+## Agent-Install Unifier Lane
+
+agent-install is the config distribution lane for reviewed skills, MCP servers,
+and AGENTS.md sections. It can keep Codex, Claude Code, Cursor, OpenCode, and
+other coding agents aligned without hand-editing every native config format.
+
+The required contract is `AGENT_INSTALL_SYNC_CONTRACT`: operation, source,
+target agents, config scope, secrets policy, dry-run requirement, readback
+requirement, and rollback plan.
+
 ## Public Artifact Boundary
 
 Tracked docs may include:
@@ -139,6 +198,8 @@ Evidence should be compact and reviewable:
 - residual risk
 - commit subjects, PR titles/descriptions, and review comments when external
   Git dialogue is part of the loop
+- Capy UI observation when paired with primary CLI or repo evidence
+- Sanity records when they are sanitized summaries or pointers
 
 Large artifacts belong in local temp storage or private issue comments, not in
 public Git history.
@@ -152,6 +213,10 @@ The next useful upgrades are:
 - automatic review sweep hardening
 - remote HarnessMax evolve sweeper with L2 Pressure
 - remote Research Vault MCP preflight and read-only contract
+- Capy Process Check live-observation reports for Capy PR/thread panels
+- Sanity context registry read/write discipline and MCP readback
+- agent-install dry-run/readback sync for shared skill and MCP config
+- Flue agent harness lane pilots for CI review and HTTP agent packaging
 - live sync of `workbench-goal-mode` to the relevant Multica skills and agents
 - VM lane smoke tests with temp-only evidence
 - README and docs polish that stays public-safe

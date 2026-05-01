@@ -1,5 +1,30 @@
 # Decisions
 
+## 2026-05-01 - Add Capy, Sanity, And Agent-Install Infra Lanes
+
+Decision: add three separate workbench lanes:
+`Capy Process Check`, `Sanity Unified Context`, and
+`Agent-Install Unifier`.
+
+Capy Process Check uses Brave and Computer Use to observe live Capy task, PR,
+thread, and review state. Its output is `CAPY_PROCESS_CHECK`. Capy UI is
+supporting evidence only; GitHub CLI, git state, CI, and review evidence remain
+the source of truth for merge and done claims.
+
+Sanity Unified Context stores sanitized structured records for cross-CLI
+context: agent profiles, runtime surfaces, skill contracts, evidence events,
+decisions, handoffs, and Capy process checks. It must not store secrets, OAuth
+material, raw logs, raw request payloads, private screenshots, or full
+transcripts.
+
+Agent-Install Unifier uses `agent-install` to distribute reviewed skills, MCP
+definitions, and AGENTS.md sections across coding agents. It requires readback,
+rollback, scoped targets, and a secrets policy before config mutation.
+
+Rationale: the workbench now spans Multica, Capy, GitHub, Sanity, local CLIs,
+and remote cells. These lanes make the new surfaces useful without letting any
+one of them become an unreviewed authority layer.
+
 ## 2026-05-01 - Add Capy Git Dialogue Lane As A Public Review Surface
 
 Decision: recognize a `Capy Git Dialogue Lane` for Captain Capy and other
@@ -165,3 +190,29 @@ Decision: add `workbench-self-awareness-infra`, `docs/self-awareness-infra-layer
 Owners must post `SELF_AWARENESS_BOOTSTRAP` with runtime identity, role boundary, repo anchor, tool and MCP envelope, memory sources checked, current-state proof, risk boundary, routing decision, success metric, operator-call conditions, and a `READY` / `FLAG` / `BLOCK` verdict.
 
 Rationale: the workbench now runs across local agents, remote cells, VM lanes, Research Vault grounding, and high-pressure autonomous loops. Capability discovery must happen before ambition. This layer prevents stale memory, wrong checkout, missing MCP/tool assumptions, and "started a job" from being mistaken for verified progress while keeping public artifacts free of secrets, raw logs, live IDs, and private infrastructure details.
+
+## 2026-05-01 - Add Flue As A Deployable Agent Harness Lane
+
+Decision: add `docs/flue-agent-harness-lane.md`,
+`skills/workbench-flue-agent-harness.md`, and
+`issue-templates/flue-agent-scaffold.md` as the Workbench lane for packaging
+mature workflows into deployable Flue agents.
+
+Flue is treated as an output layer, not a governance layer. Multica continues to
+own live routing, issue state, comments, agents, runtimes, skills, and
+autopilots. The workbench still owns SDD, Goal Mode, L2 Pressure, review gates,
+public/private boundaries, and durable operating memory. Flue owns the
+deployable harness once a workflow is stable enough to become HTTP, CI, Node,
+Cloudflare, or sandbox-backed code.
+
+Every Flue scaffold must declare `FLUE_AGENT_CONTRACT`: purpose, project
+directory, workspace layout, agent file, deploy target, exact model ID, sandbox
+mode, trigger, secrets policy, validation command, and public artifact policy.
+Existing non-empty projects use `.flue/`; new or empty projects use root
+`agents/` and `roles/`.
+
+Rationale: Flue's `Agent = Model + Harness` model fits the workbench's next
+stage: turning proven workflows into callable agents without collapsing live
+coordination into another runtime. Keeping it as a lane preserves the current
+two-ring governance while giving the system a clean path to deployable agent
+products.

@@ -18,7 +18,62 @@ repository.
 | VM Lane | Added a bounded VM/browser lane with teardown and temp evidence rules. |
 | Remote Runtime Lane | Added a remote execution-cell pattern while keeping repo anchors and local paths explicit. |
 | Self-Awareness Layer | Added and live-synced the bootstrap skill for capability, repo, tool/MCP, memory, risk, route, and success-metric checks. |
+| Capy Process Check | Added a Brave/Computer Use observation lane for Capy task and PR status with primary evidence readback. |
+| Sanity Context | Added a structured context-registry lane for sanitized cross-CLI records. |
+| Agent-Install Unifier | Added a distribution lane for skills, MCP configs, and AGENTS.md sections across coding agents. |
+| Flue Harness Lane | Added a deployable agent-harness outlet for mature HTTP, CI, Node, Cloudflare, and sandbox-backed workflows. |
 | Public Sanitization | Removed tracked raw artifacts and private execution plans from public Git, parameterized live scripts, and prepared a sanitized public snapshot. |
+
+## 2026-05-01 - Capy, Sanity, And Agent-Install Lanes
+
+The workbench added three infra lanes:
+
+- `Capy Process Check`: observes live Capy thread, task, PR, and review state
+  through Brave/Computer Use, then compares it with GitHub CLI and repo
+  evidence.
+- `Sanity Unified Context`: defines the sanitized context registry shape for
+  agent profiles, runtime surfaces, skill contracts, evidence events,
+  decisions, handoffs, and Capy checks.
+- `Agent-Install Unifier`: records the sync contract for using `agent-install`
+  to distribute skills, MCP definitions, and AGENTS.md sections across coding
+  agents.
+
+Verification shape:
+
+- Capy PR #3 was observed live as clean and merge-ready, then merged through
+  GitHub CLI.
+- Local workbench state was stashed, fast-forwarded, and restored without
+  conflict.
+- Sanity Studio schema was prepared as a separate local project update.
+
+Residual risk: live Sanity MCP authorization and live multi-agent config sync
+remain operational actions that should be reported with readback after they run.
+
+## 2026-05-01 - Flue Harness Lane
+
+The workbench adopted Flue as a deployable agent harness lane, not as a
+replacement for Multica or the existing governance layers.
+
+Source added:
+
+- `docs/flue-agent-harness-lane.md`
+- `skills/workbench-flue-agent-harness.md`
+- `issue-templates/flue-agent-scaffold.md`
+
+The lane requires `FLUE_AGENT_CONTRACT` before scaffold work: purpose, project
+directory, workspace layout, agent file, deploy target, exact model ID, sandbox
+mode, trigger, secrets policy, validation command, and public artifact policy.
+
+Verification shape:
+
+- skill frontmatter check passed;
+- required link targets exist;
+- diff whitespace check passed;
+- public safety scan found only generic safety-rule mentions, not real secrets.
+
+Residual risk: no live Multica skill sync or actual Flue app scaffold was run in
+this source-only pass. Live sync and first pilot should be separate reviewed
+issues.
 
 ## 2026-05-01 - Self-Awareness Live Sync
 

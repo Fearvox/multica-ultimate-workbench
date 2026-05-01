@@ -14,9 +14,13 @@
 [![Hermes](https://img.shields.io/badge/runtime-Hermes-0f766e?style=flat-square)](agents/AGENT_ROSTER.md)
 [![Flight Recorder](https://img.shields.io/badge/observability-flight_recorder-0369a1?style=flat-square)](docs/flight-recorder.md)
 [![Curator](https://img.shields.io/badge/maintenance-skill_curator-9333ea?style=flat-square)](docs/skill-curator.md)
+[![Capy Check](https://img.shields.io/badge/lane-Capy_process_check-0891b2?style=flat-square)](docs/capy-process-check-lane.md)
+[![Sanity Context](https://img.shields.io/badge/context-Sanity-ef4444?style=flat-square)](docs/sanity-unified-context-lane.md)
+[![Agent Install](https://img.shields.io/badge/sync-agent--install-111827?style=flat-square)](docs/agent-install-unifier-lane.md)
+[![Flue Harness](https://img.shields.io/badge/lane-Flue_harness-f97316?style=flat-square)](docs/flue-agent-harness-lane.md)
 [![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)](#documentation-map)
 
-**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
+**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
 
 ## Overview
 
@@ -34,6 +38,9 @@ The workbench separates live execution from durable operating memory:
 | --- | --- | --- |
 | Multica | Live agents, issues, comments, runtimes, skills, autopilots | Multica workspace |
 | This repo | Strategy, roles, templates, review rules, logs, helper scripts | Git |
+| Sanity context | Sanitized structured context for CLIs | Sanity Studio / GROQ / MCP |
+| Agent-install lane | Skills, MCPs, AGENTS.md distribution | Native agent config |
+| Flue lane | Deployable agent harnesses for mature workflows | Flue project source |
 | Human operator | Scope, approval, taste, final judgment | You |
 
 The workbench also accepts a small external review surface: the `Capy Git
@@ -145,6 +152,36 @@ A controlled VM/Computer execution path for GUI, browser, sandbox, and screensho
 
 See [docs/capy-vm-lane.md](docs/capy-vm-lane.md).
 
+## Capy Process Check Lane
+
+Capy Process Check is the lightweight Brave/Computer Use lane for observing Capy task, thread, PR, and review state in real time. It is deliberately simple: read the UI, compare it against GitHub CLI or repo evidence, and publish a compact `CAPY_PROCESS_CHECK`.
+
+Capy UI is supporting evidence, not the source of truth. Merge, done, and release claims still require GitHub, CI, repo, or review evidence.
+
+See [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md), [skills/workbench-capy-process-check.md](skills/workbench-capy-process-check.md), and [issue-templates/capy-process-check.md](issue-templates/capy-process-check.md).
+
+## Sanity Unified Context Lane
+
+Sanity is the structured context registry for cross-CLI workbench state. It stores sanitized records such as agent profiles, runtime surfaces, skill contracts, evidence events, decisions, handoffs, and Capy process checks so different CLIs can query the same context without loading the same long prompt.
+
+Sanity does not store secrets, raw logs, OAuth material, raw transcripts, raw request payloads, private screenshots, or unreviewed memory overrides.
+
+See [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md), [skills/workbench-sanity-context.md](skills/workbench-sanity-context.md), and [issue-templates/sanity-context-schema.md](issue-templates/sanity-context-schema.md).
+
+## Agent-Install Unifier Lane
+
+The agent-install lane distributes reviewed skills, MCP server definitions, and AGENTS.md sections across supported coding agents. It is a sync layer, not a governance layer: Multica and this repo still own routing, SDD, review gates, and final acceptance.
+
+See [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md), [skills/workbench-agent-install-unifier.md](skills/workbench-agent-install-unifier.md), and [issue-templates/agent-install-unifier.md](issue-templates/agent-install-unifier.md).
+
+## Flue Agent Harness Lane
+
+Flue is the deployable agent harness outlet for mature workbench workflows. When a workflow should become a reusable HTTP agent, CI reviewer, Node service, Cloudflare Worker, or sandbox-backed coding/support agent, the owner writes a `FLUE_AGENT_CONTRACT` and packages the smallest useful Flue scaffold.
+
+The lane does not replace Multica, SDD, Goal Mode, L2 Pressure, or Supervisor review. It turns stable workbench behavior into deployable agent code while keeping live routing and evidence gates in Multica.
+
+See [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md), [skills/workbench-flue-agent-harness.md](skills/workbench-flue-agent-harness.md), and [issue-templates/flue-agent-scaffold.md](issue-templates/flue-agent-scaffold.md).
+
 ## Skill Curator
 
 The maintenance protocol for keeping workbench skills useful over time. It reviews stale skills, overlapping instructions, role-binding drift, token/context risk, and recoverable archive candidates. Version 1 is review-only — it proposes changes through issues instead of silently deleting or rewriting skills.
@@ -194,6 +231,10 @@ Human approval required before running:
 | L2 pressure gate | [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) |
 | Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
 | VM execution lane | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
+| Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
+| Sanity unified context lane | [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) |
+| Agent-install unifier lane | [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) |
+| Flue agent harness lane | [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) |
 | Platform workflow (0.2.22) | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
 | Skill curator protocol | [docs/skill-curator.md](docs/skill-curator.md) |
 | Workspace skill map | [skills/README.md](skills/README.md) |
@@ -237,19 +278,24 @@ Multica Ultimate Workbench 是建立在 Multica 之上的多 agent 工作台持�
 | Workspace Skills | 共享语法，固化 SDD、routing、review、proofshot QA、token discipline、memory synthesis 等高频行为 | [skills/README](skills/README.md) |
 | Flight Recorder | Issue 级轻量摘要，输出 RUN_DIGEST，不做完整 telemetry | [flight-recorder](docs/flight-recorder.md) |
 | Capy VM Lane | 受控 VM 执行通道，处理 GUI/浏览器/沙盒任务 | [capy-vm-lane](docs/capy-vm-lane.md) |
+| Capy Process Check | 通过 Brave/Computer Use 实时观察 Capy 任务与 PR 状态，但以 GitHub/CI/repo 证据为准 | [capy-process-check-lane](docs/capy-process-check-lane.md) |
+| Sanity Context | 跨 CLI 的结构化上下文注册表，只存去敏摘要、handoff、evidence 和决策 | [sanity-unified-context-lane](docs/sanity-unified-context-lane.md) |
+| agent-install Unifier | 跨 Codex/Claude/Cursor/OpenCode 等分发 skills、MCP、AGENTS.md 配置 | [agent-install-unifier-lane](docs/agent-install-unifier-lane.md) |
+| Flue Harness Lane | 将成熟 workflow 打包成可部署 HTTP/CI/Node/Cloudflare/sandbox agent 的出口层 | [flue-agent-harness-lane](docs/flue-agent-harness-lane.md) |
 | Skill Curator | Skill 维护协议，v1 只 review 不静默修改 | [skill-curator](docs/skill-curator.md) |
 | Autopilots | 定期创建检查 issue，不静默执行高风险操作，包括 review sweep 与 remote evolve sweep | [autopilots/](autopilots/) |
 
 ### 安全边界
 
 - 不替代 Multica，不修改其 daemon、Desktop UI 或 core runtime。
-- 不存储 secrets、credential、raw payloads 或 raw run transcripts。
+- 不存储 secrets、credential、raw payloads、OAuth material 或 raw run transcripts。
+- Sanity 只存去敏结构化上下文，不作为未复核记忆覆盖源。
 - 没有证据不能 claim done。
 - Outer Ring agents 不互相派活。
 - Autopilots 只创建 issue，不静默执行高风险任务。
 
 ### 当前状态
 
-工作台已具备：经过验证的双环 roster、高频 workspace skill pack、source-first prompt compression、daily health autopilot、automatic review sweeper、通过 live QA/Supervisor review 的 flight recorder、skill curator protocol、受控 VM lane、Multica 0.2.22 project-bound repo anchor、在线 NYC remote execution cell。
+工作台已具备：经过验证的双环 roster、高频 workspace skill pack、source-first prompt compression、daily health autopilot、automatic review sweeper、通过 live QA/Supervisor review 的 flight recorder、skill curator protocol、受控 VM lane、Capy process check lane、Sanity context registry、agent-install unifier lane、Flue deployable agent harness lane、Multica 0.2.22 project-bound repo anchor、在线 NYC remote execution cell。
 
 当前事实看 [SYNTHESIS.md](SYNTHESIS.md)，历史流水账看 [WORKBENCH_LOG.md](WORKBENCH_LOG.md)。

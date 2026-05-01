@@ -22,6 +22,10 @@ IDs and runtime bindings are private deployment details and are not tracked here
 | `workbench-frontend-design-qa` | UI QA for hierarchy, fit, responsive behavior, and interaction states. |
 | `workbench-browser-proofshot-qa` | Browser verification with screenshots/traces kept outside public Git. |
 | `workbench-capy-vm-lane` | Controlled VM/browser/sandbox execution and teardown evidence. |
+| `workbench-capy-process-check` | Real-time Capy task and PR observation through Brave/Computer Use with primary evidence readback. |
+| `workbench-sanity-context` | Sanity schema and context-registry work for cross-CLI sanitized workbench memory. |
+| `workbench-agent-install-unifier` | Skills, MCP, and AGENTS.md distribution across coding agents with readback and rollback. |
+| `workbench-flue-agent-harness` | Deployable Flue agent harness lane for HTTP, CI, Node, Cloudflare, and sandbox-backed agents. |
 | `workbench-docs-release` | Documentation sync after behavior, roster, skill, or release changes. |
 | `workbench-token-context-discipline` | Compact context, cache-aware execution, and role-specific skill attachment. |
 | `workbench-product-brainstorming` | Bounded product ideation with tradeoffs and smallest tests. |
