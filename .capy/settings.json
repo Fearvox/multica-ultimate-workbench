@@ -1,0 +1,62 @@
+{
+  "$schema": "https://capy.ai/schemas/settings.json",
+  "project": {
+    "name": "Multica Ultimate Workbench",
+    "sourceOfTruth": [
+      "git",
+      "github",
+      "ci",
+      "review-comments"
+    ],
+    "supportingContext": [
+      "capy-ui",
+      "multica",
+      "sanity"
+    ]
+  },
+  "mcpServers": {
+    "Sanity": {
+      "type": "http",
+      "url": "https://mcp.sanity.io",
+      "description": "Sanitized shared context registry for workbench roles, skills, evidence pointers, decisions, handoffs, and Capy checks. Authorize through Capy/Sanity OAuth when prompted; do not store bearer tokens here."
+    }
+  },
+  "contextPolicy": {
+    "authoritativeEvidence": [
+      "git diff",
+      "git commits",
+      "github pull requests",
+      "github review comments",
+      "ci checks",
+      "local verification commands"
+    ],
+    "supportingEvidence": [
+      "Capy UI",
+      "Sanity context records",
+      "Multica comments",
+      "agent self-reports"
+    ],
+    "forbiddenData": [
+      "api keys",
+      "oauth material",
+      "bearer tokens",
+      "cookies",
+      "passwords",
+      "raw request payloads",
+      "raw response payloads",
+      "raw transcripts",
+      "private screenshots",
+      "private browser traces",
+      "unrelated private UI"
+    ]
+  },
+  "closeout": {
+    "requiredEvidence": [
+      "files changed",
+      "verification commands",
+      "residual risk",
+      "next action",
+      "PASS | FLAG | BLOCK verdict"
+    ]
+  }
+}

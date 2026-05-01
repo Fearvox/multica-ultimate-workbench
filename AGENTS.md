@@ -21,15 +21,20 @@ Read only as deep as the task requires:
 11. [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) - read-only remote Research Vault MCP contract.
 12. [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) - Brave/Computer Use observation for Capy task and PR state.
 13. [skills/workbench-capy-process-check.md](skills/workbench-capy-process-check.md) - Capy process check report contract.
-14. [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) - Sanity context registry boundary.
-15. [skills/workbench-sanity-context.md](skills/workbench-sanity-context.md) - Sanity schema and data-policy rules.
-16. [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) - agent-install sync boundary.
-17. [skills/workbench-agent-install-unifier.md](skills/workbench-agent-install-unifier.md) - agent-install report contract.
-18. [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) - deployable Flue agent harness lane.
-19. [skills/workbench-flue-agent-harness.md](skills/workbench-flue-agent-harness.md) - Flue scaffold contract and report rules.
-20. [skills/README.md](skills/README.md) - workspace skill map and attachments.
-21. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
-22. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
+14. [CLAUDE.md](CLAUDE.md) - Claude-compatible compact bridge for external tools.
+15. [.capy/CAPTAIN.md](.capy/CAPTAIN.md) - Capy routing and task-splitting rules.
+16. [.capy/BUILD.md](.capy/BUILD.md) - Capy implementation loop and closeout format.
+17. [.capy/REVIEW.md](.capy/REVIEW.md) - Capy review stance and verdict format.
+18. [.capy/settings.json](.capy/settings.json) - Capy MCP and project settings.
+19. [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) - Sanity context registry boundary.
+20. [skills/workbench-sanity-context.md](skills/workbench-sanity-context.md) - Sanity schema and data-policy rules.
+21. [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) - agent-install sync boundary.
+22. [skills/workbench-agent-install-unifier.md](skills/workbench-agent-install-unifier.md) - agent-install report contract.
+23. [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) - deployable Flue agent harness lane.
+24. [skills/workbench-flue-agent-harness.md](skills/workbench-flue-agent-harness.md) - Flue scaffold contract and report rules.
+25. [skills/README.md](skills/README.md) - workspace skill map and attachments.
+26. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
+27. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
 
 ## Repository Role
 
@@ -51,6 +56,7 @@ Do not treat this repo as the Multica runtime itself.
 - Use [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) when an issue contains `/goal`, `GOAL_MODE: yes`, or asks an owner to continue until the stated objective is verified.
 - Use [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) when a task asks for HarnessMax, remote evolution, remote Hermes, remote VM, leaderboard pressure, or Research Vault grounding.
 - Use [skills/workbench-capy-process-check.md](skills/workbench-capy-process-check.md) when a task asks to inspect Capy live state through Brave, Computer Use, a Capy thread, a Capy task, or a Capy PR panel.
+- Use [.capy/CAPTAIN.md](.capy/CAPTAIN.md), [.capy/BUILD.md](.capy/BUILD.md), [.capy/REVIEW.md](.capy/REVIEW.md), and [.capy/settings.json](.capy/settings.json) as the Capy project context pack; these files make Capy use repo, PR, CI, and review evidence before self-reporting success.
 - Use [skills/workbench-sanity-context.md](skills/workbench-sanity-context.md) when a task touches Sanity schema, Studio, MCP, or the shared context registry.
 - Use [skills/workbench-agent-install-unifier.md](skills/workbench-agent-install-unifier.md) when a task uses `agent-install` to sync skills, MCP definitions, or AGENTS.md sections across coding agents.
 - Use [skills/workbench-flue-agent-harness.md](skills/workbench-flue-agent-harness.md) when an issue declares `FLUE_AGENT_CONTRACT` or asks to package a workflow as a deployable Flue agent.

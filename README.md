@@ -158,6 +158,8 @@ Capy Process Check is the lightweight Brave/Computer Use lane for observing Capy
 
 Capy UI is supporting evidence, not the source of truth. Merge, done, and release claims still require GitHub, CI, repo, or review evidence.
 
+Capy project context lives in [CLAUDE.md](CLAUDE.md), [.capy/CAPTAIN.md](.capy/CAPTAIN.md), [.capy/BUILD.md](.capy/BUILD.md), [.capy/REVIEW.md](.capy/REVIEW.md), and [.capy/settings.json](.capy/settings.json). The settings file registers the Sanity MCP endpoint as sanitized supporting context only.
+
 See [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md), [skills/workbench-capy-process-check.md](skills/workbench-capy-process-check.md), and [issue-templates/capy-process-check.md](issue-templates/capy-process-check.md).
 
 ## Sanity Unified Context Lane
