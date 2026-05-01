@@ -36,6 +36,13 @@ The workbench separates live execution from durable operating memory:
 | This repo | Strategy, roles, templates, review rules, logs, helper scripts | Git |
 | Human operator | Scope, approval, taste, final judgment | You |
 
+The workbench also accepts a small external review surface: the `Capy Git
+Dialogue Lane`. Captain Capy and other external coding agents should use commit
+subjects, PR titles/descriptions, and review comments as durable, reviewable
+signals back into the workbench. Those artifacts complement Multica's live
+coordination; they do not replace it, and they do not authorize daemon, Desktop
+UI, or core runtime mutation.
+
 ## Two-Ring System
 
 The system uses two rings instead of a flat swarm to keep agent coordination manageable.
@@ -202,7 +209,12 @@ The workbench is intentionally conservative:
 - It does **not** replace Multica.
 - It does **not** modify Multica daemon, Desktop UI, or core runtime.
 - It does **not** store secrets, credential material, raw request payloads, or raw run transcripts.
+- The `Capy Git Dialogue Lane` stays compact and public-safe: no live IDs,
+  private payloads, or noisy run logs in committed docs, commit bodies, PR
+  descriptions, or review comments.
 - No agent may claim done without evidence.
+- PRs are proposed dialogue artifacts; merge or acceptance remains a human or
+  Supervisor review decision.
 - Outer Ring agents do not assign work to each other.
 - Autopilots create issues; they do not silently execute high-risk work.
 
