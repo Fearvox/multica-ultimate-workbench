@@ -1,0 +1,25 @@
+[
+  {
+    "agent_id": "7a5ee651-22bb-48a5-9c2b-48e6cb1f1328",
+    "attempt": 1,
+    "completed_at": "2026-05-01T03:27:03Z",
+    "created_at": "2026-05-01T03:25:16Z",
+    "dispatched_at": "2026-05-01T03:25:16Z",
+    "error": null,
+    "id": "19a80b37-647f-43fd-ad20-fdbe15c711a5",
+    "issue_id": "25217770-9d18-44c8-a1a9-ef799cf699d0",
+    "kind": "direct",
+    "max_attempts": 2,
+    "priority": 3,
+    "result": {
+      "output": "我会先按工单流程读取 issue 本体和完整评论历史，再把状态切到 `in_progress`，避免基于不完整上下文行动。工单要求是只读运行时健康检查，重点是内存/磁盘/进程压力、Multica daemon、tmux 状态和远程 agent 可见性。我现在读取评论历史，然后只执行不改变系统状态的检查命令。我会使用 `workbench-review-qa` 技能来做 PASS/FLAG/BLOCK 判定；当前任务是只读 QA/运行时 burn-in，不需要代码实现技能。下一步检查会严格只读：系统身份/资源、daemon 状态、按进程名汇总的压力、tmux 会话列表，以及 `multica agent list` 的可见性。进程命令只取 `comm` 字段，不读取完整 argv。已拿到主要证据：主机是 `hermes-nyc1`，内存可用约 1.7GiB，磁盘当前工作目录所在卷 60% 使用；Multica daemon 正在运行。`agent list` 原始输出很大，我会再做一次只保留名称/状态的 JSON 读取过滤，用于最终报告。检查已经完成，证据覆盖了工单列出的 5 类必查项。现在我会按要求把结果用指定 `REMOTE_BURNIN_REPORT` 形状发回 issue，然后切到 `in_review`。已完成只读 burn-in 检查，并已把 `REMOTE_BURNIN_REPORT` 发到 issue 评论里。\n\n结论：`VERDICT: PASS`。未见明显内存/磁盘压力，Multica daemon 正常运行。唯一备注是 tmux 仍有 Hermes 命名会话，其中一个显示 attached；我只做了列表检查，没有 attach 或清理。Issue 已切到 `in_review`。",
+      "pr_url": "",
+      "session_id": "019de191-c72b-7083-a276-d014d2a70f80",
+      "work_dir": "/root/multica_workspaces/5470ee5d-0791-4713-beb4-fd6a187d6523/19a80b37/workdir"
+    },
+    "runtime_id": "950bed98-fc63-406d-b1cf-51c54f1c6b25",
+    "started_at": "2026-05-01T03:25:16Z",
+    "status": "completed",
+    "workspace_id": ""
+  }
+]

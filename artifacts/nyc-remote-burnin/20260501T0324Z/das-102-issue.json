@@ -1,0 +1,21 @@
+{
+  "assignee_id": "1d473c40-8bbe-47ee-8420-441ec75a9c0e",
+  "assignee_type": "agent",
+  "created_at": "2026-05-01T03:25:17Z",
+  "creator_id": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "creator_type": "member",
+  "description": "BURN_IN_TARGET: NYC Hermes Researcher\nPARENT: DAS-98 / 1be2d0ce-2921-473e-b543-1ecced3155ac\nSTATUS: todo\nPROJECT: Ultimate Workbench\nREPO_RESOURCE: https://github.com/Fearvox/multica-ultimate-workbench\n\nObjective: verify remote Hermes can perform bounded research/synthesis work after the user's tmux Hermes session was closed.\n\nHard constraints:\n- Read-only. No repo edits, no daemon mutation, no destructive commands.\n- No token, OAuth, API key, cookie, raw env, or private credential printing.\n- Keep final comment under 700 words.\n\nRequired checks:\n1. Runtime identity and pressure: hostname, pwd, uname, free -h, df -h .\n2. Read DAS-94 and DAS-95 comments only; do not read broad issue history.\n3. Summarize what passed, what flagged, and what should be fixed before heavy remote repo-backed work.\n4. Include whether Hermes runtime update lag appears relevant to this burn-in.\n\nCompletion report exact shape:\nREMOTE_BURNIN_REPORT\nAGENT:\nRUNTIME:\nCOMMANDS:\nSOURCES:\nCHECK_RESULT:\nFAILURE_MODE:\nTOKEN_RISK:\nNEXT_ACTION:\nVERDICT: PASS / FLAG / BLOCK",
+  "due_date": null,
+  "id": "6763b50a-0113-490f-95f7-624b629e27ff",
+  "identifier": "DAS-102",
+  "labels": [],
+  "number": 102,
+  "parent_issue_id": "1be2d0ce-2921-473e-b543-1ecced3155ac",
+  "position": 0,
+  "priority": "high",
+  "project_id": "fa2a44e7-5ba8-4b09-a2ed-5bb0ac53b269",
+  "status": "done",
+  "title": "NYC burn-in B: Hermes research synthesis probe",
+  "updated_at": "2026-05-01T03:28:44Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

@@ -1,0 +1,21 @@
+{
+  "assignee_id": "0c567b7b-34dd-4026-a390-251f2d713086",
+  "assignee_type": "agent",
+  "created_at": "2026-05-01T03:25:16Z",
+  "creator_id": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "creator_type": "member",
+  "description": "BURN_IN_TARGET: NYC Codex Builder\nPARENT: DAS-98 / 1be2d0ce-2921-473e-b543-1ecced3155ac\nSTATUS: todo\nPROJECT: Ultimate Workbench\nREPO_RESOURCE: https://github.com/Fearvox/multica-ultimate-workbench\n\nObjective: verify the remote Codex lane under real task load after the custom_args fix.\n\nHard constraints:\n- Read-only. No repo edits, no workspace config mutation, no destructive commands.\n- No token, OAuth, API key, cookie, raw env, or private credential printing.\n- Keep final comment under 700 words.\n- On hermes-nyc1-multica, treat file:///Users/0xvox/multica-ultimate-workbench as invalid unless explicitly mounted.\n\nRequired checks:\n1. Runtime identity and pressure: hostname, pwd, uname, free -h, df -h .\n2. Confirm this issue can be read and commented from the remote runtime.\n3. Repo-anchor probe:\n   - Try: multica repo checkout https://github.com/Fearvox/multica-ultimate-workbench\n   - If success: report branch/commit and inspect only AGENTS.md plus agents/remote/nyc-remote-agents.md.\n   - If failure mentions laptop-local file:// metadata or inaccessible repo anchor, do not fallback; report FLAG with the summarized error.\n4. No live config changes.\n\nCompletion report exact shape:\nREMOTE_BURNIN_REPORT\nAGENT:\nRUNTIME:\nCOMMANDS:\nRESOURCE:\nCHECK_RESULT:\nFAILURE_MODE:\nTOKEN_RISK:\nNEXT_ACTION:\nVERDICT: PASS / FLAG / BLOCK",
+  "due_date": null,
+  "id": "391ce387-61df-4a56-81aa-a00cb437bb54",
+  "identifier": "DAS-99",
+  "labels": [],
+  "number": 99,
+  "parent_issue_id": "1be2d0ce-2921-473e-b543-1ecced3155ac",
+  "position": 0,
+  "priority": "high",
+  "project_id": "fa2a44e7-5ba8-4b09-a2ed-5bb0ac53b269",
+  "status": "in_review",
+  "title": "NYC burn-in A: Codex repo-anchor probe",
+  "updated_at": "2026-05-01T03:26:44Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

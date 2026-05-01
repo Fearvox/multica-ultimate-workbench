@@ -1,0 +1,18 @@
+[
+  {
+    "id": "950bed98-fc63-406d-b1cf-51c54f1c6b25",
+    "name": "Codex (hermes-nyc1-multica)",
+    "provider": "codex",
+    "status": "online",
+    "last_seen_at": "2026-05-01T03:29:09Z",
+    "device_info": "hermes-nyc1-multica · codex-cli 0.125.0"
+  },
+  {
+    "id": "cac02d4a-3372-48b5-8867-9d5649db7448",
+    "name": "Hermes (hermes-nyc1-multica)",
+    "provider": "hermes",
+    "status": "online",
+    "last_seen_at": "2026-05-01T03:29:09Z",
+    "device_info": "hermes-nyc1-multica · Hermes Agent v0.11.0 (2026.4.23)\nProject: /root/.hermes/hermes-agent\nPython: 3.11.15\nOpenAI SDK: 2.32.0\nUpdate available: 1135 commits behind — run 'hermes update'"
+  }
+]

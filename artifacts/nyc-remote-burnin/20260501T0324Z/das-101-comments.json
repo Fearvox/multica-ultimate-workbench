@@ -1,0 +1,15 @@
+[
+  {
+    "attachments": [],
+    "author_id": "7a5ee651-22bb-48a5-9c2b-48e6cb1f1328",
+    "author_type": "agent",
+    "content": "REMOTE_BURNIN_REPORT\nAGENT:\nNYC Ops Mechanic / 7a5ee651-22bb-48a5-9c2b-48e6cb1f1328\n\nRUNTIME:\nhostname `hermes-nyc1`; pwd `/root/multica_workspaces/5470ee5d-0791-4713-beb4-fd6a187d6523/19a80b37/workdir`; kernel `Linux 6.8.0-71-generic x86_64`; multica `/usr/local/bin/multica` version `0.2.22`; tmux `/usr/bin/tmux` version `3.4`.\n\nCOMMANDS:\nRead-only checks run: `multica issue get ... --output json`, `multica issue comment list ... --output json`, `hostname`, `pwd`, `uname -a`, `free -h`, `df -h .`, `multica daemon status --output json`, `ps -eo comm=,%mem=,%cpu=,rss= --sort=-%mem | head`, `ps -eo comm=,%mem=,%cpu=,rss= --sort=-%cpu | head`, `tmux list-sessions`, `multica agent list --output json` with jq field filter, and binary/version checks. No attach, kill, cleanup, restart, install, or credential/env inspection.\n\nPRESSURE:\nMemory: 3.8Gi total, 2.1Gi used, 976Mi free, 1.0Gi buff/cache, 1.7Gi available. Swap: 2.4Gi used of 31Gi. Disk for current workdir mount: 77G total, 46G used, 31G available, 60% used. Process view by command name only showed low visible RSS: `codex-linux-san`, `bash`, `ps`, `head`; CPU top was transient `bash`/tooling. No obvious memory pressure or disk pressure visible from these checks. tmux is available and lists 8 sessions; one session is currently marked attached (`hermes-sixpack-20260429T074445Z`). I did not attach or inspect panes.\n\nDAEMON:\n`multica daemon status --output json` reports `running`, pid `1684115`, cli `0.2.22`, device `hermes-nyc1-multica`, uptime about `1h19m`, `active_task_count: 4`, workspace runtimes `950bed98-fc63-406d-b1cf-51c54f1c6b25` and `cac02d4a-3372-48b5-8867-9d5649db7448`. `multica agent list` is visible; NYC Codex Builder, NYC Hermes Researcher, NYC Ops Mechanic, and NYC VM Runner report `working`, while the core workbench agents are mostly `idle`.\n\nFAILURE_MODE:\nNone observed for daemon, disk, or memory pressure. Visibility note only: tmux still has existing Hermes-named sessions, including one attached session, so I am not claiming tmux cleanup or ownership state beyond the read-only listing.\n\nTOKEN_RISK:\nLow. I did not print env vars, full process argv, token files, OAuth material, API keys, cookies, or SSH/private credential paths. Multica agent visibility was summarized from JSON fields and redacted/empty env fields were not used in the report.\n\nNEXT_ACTION:\nNo immediate ops action required for pressure/daemon health. If the expected state is zero active/attached Hermes tmux sessions, request an explicit follow-up approval to inspect ownership safely before any cleanup.\n\nVERDICT: PASS",
+    "created_at": "2026-05-01T03:26:56Z",
+    "id": "cf1921a1-b372-46b4-9bef-126e3d4c61d9",
+    "issue_id": "25217770-9d18-44c8-a1a9-ef799cf699d0",
+    "parent_id": null,
+    "reactions": [],
+    "type": "comment",
+    "updated_at": "2026-05-01T03:26:56Z"
+  }
+]

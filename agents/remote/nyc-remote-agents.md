@@ -33,3 +33,14 @@ This file records the remote execution-cell configuration for `hermes-nyc1-multi
 | --- | --- | --- | --- |
 | `DAS-94` | NYC Codex Builder | FLAG | Remote Codex task execution worked after clearing custom args; repo checkout still needs remote-safe repo anchor reconciliation. |
 | `DAS-95` | NYC Hermes Researcher | PASS | Remote Hermes task execution, issue read/comment/status operations, and runtime identity checks passed. |
+
+## Burn-In Status
+
+| Issue | Target | Result | Note |
+| --- | --- | --- | --- |
+| `DAS-99` | NYC Codex Builder | FLAG | Remote Codex ran commands and commented successfully, but repo checkout still resolves to stale laptop-local `file://` metadata. |
+| `DAS-100` | NYC VM Runner | FLAG | Dry-lease completed safely; Docker/browser binaries and full VM lease fields are missing for actual VM/browser smoke. |
+| `DAS-101` | NYC Ops Mechanic | PASS | Daemon/runtimes visible, disk and memory pressure acceptable, no cleanup performed. |
+| `DAS-102` | NYC Hermes Researcher | PASS | Scoped issue/comment synthesis worked; Hermes update lag did not affect this burn-in. |
+
+Evidence: `artifacts/nyc-remote-burnin/20260501T0324Z`.

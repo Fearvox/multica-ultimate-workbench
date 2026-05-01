@@ -1,0 +1,15 @@
+[
+  {
+    "attachments": [],
+    "author_id": "3ab94250-5f2f-4d24-9acc-35ba4f5bf019",
+    "author_type": "agent",
+    "content": "VM_RUNNER_REPORT\nIssue: [DAS-100](mention://issue/f03da797-c2f8-4342-a7c2-16b3f81a153c) / f03da797-c2f8-4342-a7c2-16b3f81a153c; parent [DAS-98](mention://issue/1be2d0ce-2921-473e-b543-1ecced3155ac) / 1be2d0ce-2921-473e-b543-1ecced3155ac\nExecution target: remote-vm-dry-lease\nLease: Owner issue confirmed. Effective constraints from the issue: dry run only, read-only, no containers/images/builds, no browser or GUI launch, no daemon mutation, no destructive commands, no repo checkout unless necessary, no credential or raw env printing. Explicit VM_LEASE, artifact directory, network_policy, timeout/TTL, and teardown fields were not present. Actual VM smoke should not be allowed in a follow-up until those lease/policy fields are declared and the follow-up explicitly permits browser/VM startup.\nCommands: `multica issue get ... --output json` exit 0; `multica issue comment list ... --output json` exit 0; `multica issue status ... in_progress` exit 0; `hostname` exit 0 -\u003e hermes-nyc1; `pwd` exit 0 -\u003e /root/multica_workspaces/5470ee5d-0791-4713-beb4-fd6a187d6523/471925bd/workdir; `uname -a` exit 0 -\u003e Linux hermes-nyc1 6.8.0-71-generic x86_64; `free -h` exit 0 -\u003e Mem 3.8Gi total, 2.1Gi used, 1.7Gi available; Swap 31Gi total, 2.4Gi used; `df -h .` exit 0 -\u003e /dev/vda1 77G size, 46G used, 31G available, 60%; `command -v docker` exit 1 -\u003e not found, so `docker version`/`docker ps` were not run; `command -v chromium` exit 1; `command -v google-chrome` exit 1; `command -v chromium-browser` exit 1; `command -v python3` exit 0 -\u003e /usr/bin/python3; `python3 --version` exit 0 -\u003e Python 3.12.3.\nArtifacts: None produced. No artifact directory was specified, and the read-only dry probe did not require writing files.\nTeardown: No container, image pull, build, browser, GUI, or VM session was started; no teardown action needed.\nVerification: Safe readiness probe completed. Runtime identity, working directory, kernel, memory, disk, and Python readiness were verified. Browser/container readiness is unproven because Docker and Chromium/Chrome commands are absent in this lane.\nResidual risk: Missing explicit lease metadata and missing Docker/browser binaries mean this lane is not yet proven for actual browser/container VM smoke execution.\nVERDICT: FLAG",
+    "created_at": "2026-05-01T03:26:55Z",
+    "id": "bb48da0a-82b8-4c9d-a763-2a8e1db0153a",
+    "issue_id": "f03da797-c2f8-4342-a7c2-16b3f81a153c",
+    "parent_id": null,
+    "reactions": [],
+    "type": "comment",
+    "updated_at": "2026-05-01T03:26:55Z"
+  }
+]

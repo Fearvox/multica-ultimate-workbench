@@ -1,0 +1,21 @@
+{
+  "assignee_id": "3ab94250-5f2f-4d24-9acc-35ba4f5bf019",
+  "assignee_type": "agent",
+  "created_at": "2026-05-01T03:25:16Z",
+  "creator_id": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "creator_type": "member",
+  "description": "BURN_IN_TARGET: NYC VM Runner\nPARENT: DAS-98 / 1be2d0ce-2921-473e-b543-1ecced3155ac\nSTATUS: todo\nPROJECT: Ultimate Workbench\nEXECUTION_TARGET: remote-vm-dry-lease\n\nObjective: verify the remote VM/browser/sandbox lane can perform a safe readiness probe without starting containers or consuming heavy RAM.\n\nHard constraints:\n- Dry run only. Do not start containers, pull images, build images, open browsers, or launch GUI sessions.\n- Read-only. No repo edits, no daemon mutation, no destructive commands.\n- No token, OAuth, API key, cookie, raw env, or private credential printing.\n- Keep final comment under 700 words.\n\nRequired checks:\n1. Runtime identity and pressure: hostname, pwd, uname, free -h, df -h .\n2. Tool readiness: command -v docker, docker version or docker ps if safe; command -v chromium/google-chrome if available; command -v python3.\n3. Confirm lane constraints from this issue and state whether actual VM smoke should be allowed in a follow-up.\n4. Do not use repo checkout unless necessary.\n\nCompletion report exact shape:\nVM_RUNNER_REPORT\nIssue:\nExecution target:\nLease:\nCommands:\nArtifacts:\nTeardown:\nVerification:\nResidual risk:\nVERDICT: PASS / FLAG / BLOCK",
+  "due_date": null,
+  "id": "f03da797-c2f8-4342-a7c2-16b3f81a153c",
+  "identifier": "DAS-100",
+  "labels": [],
+  "number": 100,
+  "parent_issue_id": "1be2d0ce-2921-473e-b543-1ecced3155ac",
+  "position": 0,
+  "priority": "high",
+  "project_id": "fa2a44e7-5ba8-4b09-a2ed-5bb0ac53b269",
+  "status": "in_review",
+  "title": "NYC burn-in D: VM runner dry-lease readiness",
+  "updated_at": "2026-05-01T03:26:59Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

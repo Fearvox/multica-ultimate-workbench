@@ -1,0 +1,25 @@
+[
+  {
+    "agent_id": "1d473c40-8bbe-47ee-8420-441ec75a9c0e",
+    "attempt": 1,
+    "completed_at": "2026-05-01T03:26:44Z",
+    "created_at": "2026-05-01T03:25:17Z",
+    "dispatched_at": "2026-05-01T03:25:17Z",
+    "error": null,
+    "id": "7a5c394f-7e40-4cad-822b-c8504ae72fa1",
+    "issue_id": "6763b50a-0113-490f-95f7-624b629e27ff",
+    "kind": "direct",
+    "max_attempts": 2,
+    "priority": 3,
+    "result": {
+      "output": "Completed DAS-102 and posted the required `REMOTE_BURNIN_REPORT` comment. The issue is now set to `in_review`.",
+      "pr_url": "",
+      "session_id": "c09d594e-b263-4f57-b326-8ecaaea83a6e",
+      "work_dir": "/root/multica_workspaces/5470ee5d-0791-4713-beb4-fd6a187d6523/7a5c394f/workdir"
+    },
+    "runtime_id": "cac02d4a-3372-48b5-8867-9d5649db7448",
+    "started_at": "2026-05-01T03:25:17Z",
+    "status": "completed",
+    "workspace_id": ""
+  }
+]

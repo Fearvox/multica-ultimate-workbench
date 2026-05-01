@@ -1,0 +1,21 @@
+{
+  "assignee_id": null,
+  "assignee_type": null,
+  "created_at": "2026-05-01T03:24:37Z",
+  "creator_id": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "creator_type": "member",
+  "description": "BURN_IN: NYC remote execution cell\nOWNER: human operator / Codex conductor\nSTATUS: controller only\nPROJECT: Ultimate Workbench\nREPO_RESOURCE: https://github.com/Fearvox/multica-ultimate-workbench\n\nObjective: run a controlled remote burn-in across the hermes-nyc1-multica execution cell after the tmux Hermes session was closed.\n\nController scope:\n- Parent issue is only the evidence anchor.\n- Child issues execute the actual remote probes.\n- No secrets, OAuth material, API keys, cookies, raw env dumps, or private tokens.\n- No destructive commands.\n- No repo edits unless a child explicitly says otherwise; current wave is read-only.\n- Keep evidence concise and command-backed.\n\nExpected child targets:\n1. NYC Codex Builder: remote Codex command + repo-anchor probe.\n2. NYC Hermes Researcher: remote Hermes issue/comment synthesis probe.\n3. NYC Ops Mechanic: remote daemon/disk/memory/process hygiene probe.\n4. NYC VM Runner: remote VM/browser lane dry-lease readiness probe without starting containers.\n\nAggregate rule: keep overall verdict FLAG if any child cannot prove repo-safe execution from the GitHub project resource or reports machine pressure.",
+  "due_date": null,
+  "id": "1be2d0ce-2921-473e-b543-1ecced3155ac",
+  "identifier": "DAS-98",
+  "labels": [],
+  "number": 98,
+  "parent_issue_id": null,
+  "position": 0,
+  "priority": "high",
+  "project_id": "fa2a44e7-5ba8-4b09-a2ed-5bb0ac53b269",
+  "status": "in_review",
+  "title": "NYC remote cell burn-in - 2026-05-01",
+  "updated_at": "2026-05-01T03:28:44Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

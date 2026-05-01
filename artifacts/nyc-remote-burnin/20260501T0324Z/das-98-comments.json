@@ -1,0 +1,15 @@
+[
+  {
+    "attachments": [],
+    "author_id": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "author_type": "member",
+    "content": "REMOTE_BURNIN_AGGREGATE\nPARENT: [DAS-98](mention://issue/1be2d0ce-2921-473e-b543-1ecced3155ac) / 1be2d0ce-2921-473e-b543-1ecced3155ac\nWINDOW: 2026-05-01T03:25Z-03:27Z\n\nSCOREBOARD:\n- [DAS-99](mention://issue/391ce387-61df-4a56-81aa-a00cb437bb54) NYC Codex Builder: FLAG. Remote Codex execution, issue read/comment, pressure checks all worked; repo checkout still resolves to stale laptop-local file:// metadata and fails before GitHub-backed checkout.\n- [DAS-100](mention://issue/f03da797-c2f8-4342-a7c2-16b3f81a153c) NYC VM Runner: FLAG. Dry-lease probe completed safely; runtime pressure OK and Python exists, but Docker/browser binaries are absent and the issue did not declare full VM lease fields for an actual VM smoke.\n- [DAS-101](mention://issue/25217770-9d18-44c8-a1a9-ef799cf699d0) NYC Ops Mechanic: PASS. Daemon/runtimes visible, disk 60% used with ~31G available, memory ~1.7Gi available, no obvious pressure. tmux still has sessions, including one attached Hermes-named session, so cleanup ownership was not claimed.\n- [DAS-102](mention://issue/6763b50a-0113-490f-95f7-624b629e27ff) NYC Hermes Researcher: PASS. Scoped issue/comment synthesis and runtime checks worked; Hermes update lag did not appear relevant to this burn-in.\n\nREMOTE_PRESSURE:\n- All four remote agents returned to idle after completing runs.\n- No token/OAuth/API key/cookie/raw env material was requested or printed in reports.\n- No repo edits, daemon mutation, destructive commands, container starts, browser launches, or VM sessions were performed.\n\nACTIONS_TAKEN:\n- Keeping [DAS-99](mention://issue/391ce387-61df-4a56-81aa-a00cb437bb54) and [DAS-100](mention://issue/f03da797-c2f8-4342-a7c2-16b3f81a153c) in_review as bounded FLAG follow-ups.\n- Closing [DAS-101](mention://issue/25217770-9d18-44c8-a1a9-ef799cf699d0) and [DAS-102](mention://issue/6763b50a-0113-490f-95f7-624b629e27ff) to done.\n\nNEXT_ACTION:\n- Fix/reconcile the remote repo anchor before heavy NYC Codex repo-backed work.\n- Add explicit VM lease fields and install/verify Docker/browser tooling before an actual NYC VM/browser smoke.\n\nOVERALL_VERDICT: FLAG",
+    "created_at": "2026-05-01T03:28:35Z",
+    "id": "ecdf7cc8-a827-45d4-a498-2decd7d9bc23",
+    "issue_id": "1be2d0ce-2921-473e-b543-1ecced3155ac",
+    "parent_id": null,
+    "reactions": [],
+    "type": "comment",
+    "updated_at": "2026-05-01T03:28:35Z"
+  }
+]
