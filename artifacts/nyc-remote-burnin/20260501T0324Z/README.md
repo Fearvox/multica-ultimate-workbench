@@ -23,6 +23,8 @@ Follow-up repo-anchor evidence lives in `artifacts/nyc-repo-anchor-probe/2026050
 - `DAS-105` confirmed the mechanism: the `.git` GitHub URL is not configured, while the no-`.git` GitHub URL matches workspace metadata that still points at the laptop-local `/Users/0xvox/...` repo.
 - `DAS-107` confirmed fresh remote workdirs receive `.multica/project/resources.json` with the GitHub project resource.
 - `DAS-108` confirmed adding a canonical `.git` GitHub project resource plus `default_branch_hint=codex/nyc-remote-agents` does not fix the stale backing store: both GitHub URL variants still sync against `file+Users+0xvox+multica-ultimate-workbench.git`.
+- Multica Desktop `Settings -> DASH -> Repositories` was used to replace the workspace repo anchor with `https://github.com/Fearvox/multica-ultimate-workbench.git`.
+- The post-replacement `DAS-108` rerun confirmed the stale file anchor is cleared; checkout now targets the GitHub bare repo cache path but blocks on non-interactive private-repo authentication.
 - `DAS-100` confirmed the remote VM lane is not ready for actual VM/browser smoke: Docker and browser binaries were absent, and full lease fields were not declared.
 - `DAS-101` noted tmux still had sessions, including an attached Hermes-named session; no cleanup was attempted.
 
