@@ -13,25 +13,25 @@ Read only as deep as the task requires:
 3. [DECISIONS.md](DECISIONS.md) - durable decisions and rationale.
 4. [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) - flight recorder and token/context review contract.
 5. [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) - capability discovery, repo anchor, risk, and routing bootstrap.
-6. [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md) - executable bootstrap block and verdict rules.
+6. [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) - executable bootstrap block and verdict rules.
 7. [docs/skill-curator.md](docs/skill-curator.md) - skill lifecycle, stale/archive/pin review protocol.
 8. [docs/multica-021-workflow.md](docs/multica-021-workflow.md) - project-bound repo, Quick Capture, fresh rerun, Mermaid, and runtime config rules.
-9. [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) - `/goal` and goal-persistence closeout contract.
-10. [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) - Research Vault pressure gate for remote/HarnessMax work.
+9. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
+10. [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) - Research Vault pressure gate for remote/HarnessMax work.
 11. [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) - read-only remote Research Vault MCP contract.
 12. [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) - Brave/Computer Use observation for Capy task and PR state.
-13. [skills/workbench-capy-process-check.md](skills/workbench-capy-process-check.md) - Capy process check report contract.
+13. [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md) - Capy process check report contract.
 14. [CLAUDE.md](CLAUDE.md) - Claude-compatible compact bridge for external tools.
 15. [.capy/CAPTAIN.md](.capy/CAPTAIN.md) - Capy routing and task-splitting rules.
 16. [.capy/BUILD.md](.capy/BUILD.md) - Capy implementation loop and closeout format.
 17. [.capy/REVIEW.md](.capy/REVIEW.md) - Capy review stance and verdict format.
 18. [.capy/settings.json](.capy/settings.json) - Capy MCP and project settings.
 19. [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) - Sanity context registry boundary.
-20. [skills/workbench-sanity-context.md](skills/workbench-sanity-context.md) - Sanity schema and data-policy rules.
+20. [skills/workbench-sanity-context/SKILL.md](skills/workbench-sanity-context/SKILL.md) - Sanity schema and data-policy rules.
 21. [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) - agent-install sync boundary.
-22. [skills/workbench-agent-install-unifier.md](skills/workbench-agent-install-unifier.md) - agent-install report contract.
+22. [skills/workbench-agent-install-unifier/SKILL.md](skills/workbench-agent-install-unifier/SKILL.md) - agent-install report contract.
 23. [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) - deployable Flue agent harness lane.
-24. [skills/workbench-flue-agent-harness.md](skills/workbench-flue-agent-harness.md) - Flue scaffold contract and report rules.
+24. [skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md) - Flue scaffold contract and report rules.
 25. [skills/README.md](skills/README.md) - workspace skill map and attachments.
 26. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
 27. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
@@ -51,15 +51,15 @@ Do not treat this repo as the Multica runtime itself.
 - From a Multica runtime, use the issue's project-bound GitHub repo resource first.
 - The `file://<LOCAL_WORKBENCH_REPO>` checkout is laptop-local only. Remote runtimes such as `<REMOTE_MULTICA_DEVICE>` must not rely on it; if repo checkout resolves to that path remotely, report `FLAG` or `BLOCK` and name the repo-anchor fix.
 - Use `scripts/collect-flight-recorder.sh <issue-id>` for review summaries when relevant.
-- Use [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md) before SDD, Goal Mode, L2 Pressure, VM routing, remote execution, or other non-trivial work.
+- Use [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) before SDD, Goal Mode, L2 Pressure, VM routing, remote execution, or other non-trivial work.
 - Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
-- Use [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) when an issue contains `/goal`, `GOAL_MODE: yes`, or asks an owner to continue until the stated objective is verified.
-- Use [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) when a task asks for HarnessMax, remote evolution, remote Hermes, remote VM, leaderboard pressure, or Research Vault grounding.
-- Use [skills/workbench-capy-process-check.md](skills/workbench-capy-process-check.md) when a task asks to inspect Capy live state through Brave, Computer Use, a Capy thread, a Capy task, or a Capy PR panel.
+- Use [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) when an issue contains `/goal`, `GOAL_MODE: yes`, or asks an owner to continue until the stated objective is verified.
+- Use [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) when a task asks for HarnessMax, remote evolution, remote Hermes, remote VM, leaderboard pressure, or Research Vault grounding.
+- Use [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md) when a task asks to inspect Capy live state through Brave, Computer Use, a Capy thread, a Capy task, or a Capy PR panel.
 - Use [.capy/CAPTAIN.md](.capy/CAPTAIN.md), [.capy/BUILD.md](.capy/BUILD.md), [.capy/REVIEW.md](.capy/REVIEW.md), and [.capy/settings.json](.capy/settings.json) as the Capy project context pack; these files make Capy use repo, PR, CI, and review evidence before self-reporting success.
-- Use [skills/workbench-sanity-context.md](skills/workbench-sanity-context.md) when a task touches Sanity schema, Studio, MCP, or the shared context registry.
-- Use [skills/workbench-agent-install-unifier.md](skills/workbench-agent-install-unifier.md) when a task uses `agent-install` to sync skills, MCP definitions, or AGENTS.md sections across coding agents.
-- Use [skills/workbench-flue-agent-harness.md](skills/workbench-flue-agent-harness.md) when an issue declares `FLUE_AGENT_CONTRACT` or asks to package a workflow as a deployable Flue agent.
+- Use [skills/workbench-sanity-context/SKILL.md](skills/workbench-sanity-context/SKILL.md) when a task touches Sanity schema, Studio, MCP, or the shared context registry.
+- Use [skills/workbench-agent-install-unifier/SKILL.md](skills/workbench-agent-install-unifier/SKILL.md) when a task uses `agent-install` to sync skills, MCP definitions, or AGENTS.md sections across coding agents.
+- Use [skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md) when an issue declares `FLUE_AGENT_CONTRACT` or asks to package a workflow as a deployable Flue agent.
 - Autopilots create issues; they do not silently perform high-risk work.
 - Outer Ring agents do not assign work to each other.
 - Preserve `Workbench Max` unless the human explicitly asks to modify it.
@@ -136,7 +136,7 @@ Rules:
 - Public docs must not contain raw env dumps, secrets, live IDs, request payloads, or raw transcripts.
 - `READY` means proceed; `FLAG` means proceed with a named caveat; `BLOCK` means a real external blocker must be fixed first.
 
-See [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md), [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md), and [issue-templates/self-awareness-bootstrap.md](issue-templates/self-awareness-bootstrap.md).
+See [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md), [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md), and [issue-templates/self-awareness-bootstrap.md](issue-templates/self-awareness-bootstrap.md).
 
 ## SDD Protocol
 
@@ -239,7 +239,7 @@ Rules:
 - Do not use a Flue scaffold issue to mutate live Multica runtimes or bindings.
 
 See [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md),
-[skills/workbench-flue-agent-harness.md](skills/workbench-flue-agent-harness.md),
+[skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md),
 and [issue-templates/flue-agent-scaffold.md](issue-templates/flue-agent-scaffold.md).
 
 ## Capy Process Check Protocol
@@ -272,7 +272,7 @@ Rules:
   the human explicitly approves that exact action.
 
 See [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md),
-[skills/workbench-capy-process-check.md](skills/workbench-capy-process-check.md),
+[skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md),
 and [issue-templates/capy-process-check.md](issue-templates/capy-process-check.md).
 
 ## Sanity Context Protocol
@@ -301,7 +301,7 @@ Rules:
 - Schema changes must build or validate locally before closeout.
 
 See [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md),
-[skills/workbench-sanity-context.md](skills/workbench-sanity-context.md), and
+[skills/workbench-sanity-context/SKILL.md](skills/workbench-sanity-context/SKILL.md), and
 [issue-templates/sanity-context-schema.md](issue-templates/sanity-context-schema.md).
 
 ## Agent-Install Unifier Protocol
@@ -331,7 +331,7 @@ Rules:
 - Report changed config paths and rollback plan.
 
 See [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md),
-[skills/workbench-agent-install-unifier.md](skills/workbench-agent-install-unifier.md),
+[skills/workbench-agent-install-unifier/SKILL.md](skills/workbench-agent-install-unifier/SKILL.md),
 and [issue-templates/agent-install-unifier.md](issue-templates/agent-install-unifier.md).
 
 ## Skill Curator Protocol
@@ -363,19 +363,19 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Flight recorder contract | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
 | Flight recorder usage | [docs/flight-recorder.md](docs/flight-recorder.md) |
 | Self-awareness protocol | [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) |
-| Self-awareness skill | [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md) |
+| Self-awareness skill | [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) |
 | Multica 0.2.21 workflow rules | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
-| Goal-persistence execution | [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) |
-| L2 pressure execution | [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) |
+| Goal-persistence execution | [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) |
+| L2 pressure execution | [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) |
 | Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
-| Capy process check skill | [skills/workbench-capy-process-check.md](skills/workbench-capy-process-check.md) |
+| Capy process check skill | [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md) |
 | Sanity context lane | [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) |
-| Sanity context skill | [skills/workbench-sanity-context.md](skills/workbench-sanity-context.md) |
+| Sanity context skill | [skills/workbench-sanity-context/SKILL.md](skills/workbench-sanity-context/SKILL.md) |
 | Agent-install unifier lane | [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) |
-| Agent-install unifier skill | [skills/workbench-agent-install-unifier.md](skills/workbench-agent-install-unifier.md) |
+| Agent-install unifier skill | [skills/workbench-agent-install-unifier/SKILL.md](skills/workbench-agent-install-unifier/SKILL.md) |
 | Flue agent harness lane | [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) |
-| Flue scaffold skill | [skills/workbench-flue-agent-harness.md](skills/workbench-flue-agent-harness.md) |
+| Flue scaffold skill | [skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md) |
 | Skill curator protocol | [docs/skill-curator.md](docs/skill-curator.md) |
 | Agent roster | [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) |
 | Remote agent cell | [agents/remote/nyc-remote-agents.md](agents/remote/nyc-remote-agents.md) |
@@ -402,7 +402,7 @@ git diff -- README.md AGENTS.md
 ```
 
 ```bash
-for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md skills/workbench-self-awareness-infra.md skills/workbench-goal-mode.md skills/workbench-capy-process-check.md skills/workbench-sanity-context.md skills/workbench-agent-install-unifier.md skills/workbench-flue-agent-harness.md skills/README.md agents/AGENT_ROSTER.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md; do
+for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md; do
   test -f "$path" || exit 1
 done
 echo "link-targets-ok"

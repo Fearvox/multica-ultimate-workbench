@@ -8,7 +8,7 @@ workbench workflow.
 ## Context
 
 - Workbench lane: `docs/flue-agent-harness-lane.md`
-- Skill: `skills/workbench-flue-agent-harness.md`
+- Skill: `skills/workbench-flue-agent-harness/SKILL.md`
 - Upstream entry: `https://flueframework.com/start.md`
 - Default local dev port: `3583`
 
@@ -19,9 +19,9 @@ SDD_STAGE: Technical Design
 OWNER: <assigned agent>
 STATUS: READY_FOR_REVIEW
 REVIEWER: Workbench Supervisor
-EVIDENCE: docs/flue-agent-harness-lane.md, skills/workbench-flue-agent-harness.md
+EVIDENCE: docs/flue-agent-harness-lane.md, skills/workbench-flue-agent-harness/SKILL.md
 HANDOFF_SUMMARY: Package one proven workflow as a Flue starter agent without changing Multica runtime state.
-SCOPED_EVIDENCE: docs/flue-agent-harness-lane.md, skills/workbench-flue-agent-harness.md, target project files only
+SCOPED_EVIDENCE: docs/flue-agent-harness-lane.md, skills/workbench-flue-agent-harness/SKILL.md, target project files only
 ANTI_OVER_READ: Do not inspect unrelated issue history, full agent roster, raw run transcripts, or private runtime config.
 ```
 

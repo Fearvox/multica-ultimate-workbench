@@ -18,6 +18,7 @@
 [![Sanity Context](https://img.shields.io/badge/context-Sanity-ef4444?style=flat-square)](docs/sanity-unified-context-lane.md)
 [![Agent Install](https://img.shields.io/badge/sync-agent--install-111827?style=flat-square)](docs/agent-install-unifier-lane.md)
 [![Flue Harness](https://img.shields.io/badge/lane-Flue_harness-f97316?style=flat-square)](docs/flue-agent-harness-lane.md)
+[![Skills.sh](https://img.shields.io/badge/skills.sh-installable-111827?style=flat-square)](https://skills.sh/)
 [![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)](#documentation-map)
 
 **Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
@@ -25,6 +26,18 @@
 ## Overview
 
 Multica Ultimate Workbench is the durable operating memory for a multi-agent workbench built on top of Multica. Multica remains the live collaboration layer for agents, issues, comments, direct chat, runtimes, skills, and autopilots. This repository preserves the operating model around that layer — roles, decisions, templates, safety rules, verification scripts, and review discipline — in Git, where it can be versioned, diffed, and audited independently of the live workspace.
+
+## Install Skills
+
+The public Workbench skill pack is installable through the open skills ecosystem:
+
+```bash
+npx skills add Fearvox/multica-ultimate-workbench --list --full-depth
+npx skills add Fearvox/multica-ultimate-workbench --skill workbench-self-awareness-infra workbench-sdd workbench-conductor
+npx skills add Fearvox/multica-ultimate-workbench --all
+```
+
+Use `--list` first to inspect the 23 public-safe skills. Install only the slice a runtime needs unless you are intentionally bootstrapping the full workbench grammar.
 
 ## Why It Exists
 
@@ -73,7 +86,7 @@ assumptions, and routes work into SDD, Goal Mode, L2 Pressure, VM execution,
 child issues, or Supervisor review as needed. It is public-safe by design: no
 raw environment dumps, secrets, live IDs, request payloads, or raw transcripts.
 
-See [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md) and [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md).
+See [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) and [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md).
 
 ## SDD Workflow
 
@@ -91,7 +104,7 @@ Goal Mode is the workbench wrapper for `/goal` tasks: the assigned owner locks t
 
 It is not a permission override. Destructive actions, credentials, public/private boundary changes, and live runtime mutations still require the normal approval and Supervisor review path.
 
-See [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md).
+See [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md).
 
 ## L2 Pressure
 
@@ -99,7 +112,7 @@ L2 Pressure is the Research Vault grounding layer for remote Hermes, VM, and Har
 
 Remote runtimes start read-only. The approved remote RV MCP surface is `vault_status`, `vault_search`, `vault_taxonomy`, and `vault_get`; writes, ingest, deletion, maintenance, and broad raw export require separate approval and Supervisor review.
 
-See [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) and [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md).
+See [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) and [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md).
 
 ## Agent + Runtime Model
 
@@ -160,7 +173,7 @@ Capy UI is supporting evidence, not the source of truth. Merge, done, and releas
 
 Capy project context lives in [CLAUDE.md](CLAUDE.md), [.capy/CAPTAIN.md](.capy/CAPTAIN.md), [.capy/BUILD.md](.capy/BUILD.md), [.capy/REVIEW.md](.capy/REVIEW.md), and [.capy/settings.json](.capy/settings.json). The settings file registers the Sanity MCP endpoint as sanitized supporting context only.
 
-See [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md), [skills/workbench-capy-process-check.md](skills/workbench-capy-process-check.md), and [issue-templates/capy-process-check.md](issue-templates/capy-process-check.md).
+See [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md), [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md), and [issue-templates/capy-process-check.md](issue-templates/capy-process-check.md).
 
 ## Sanity Unified Context Lane
 
@@ -168,13 +181,13 @@ Sanity is the structured context registry for cross-CLI workbench state. It stor
 
 Sanity does not store secrets, raw logs, OAuth material, raw transcripts, raw request payloads, private screenshots, or unreviewed memory overrides.
 
-See [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md), [skills/workbench-sanity-context.md](skills/workbench-sanity-context.md), and [issue-templates/sanity-context-schema.md](issue-templates/sanity-context-schema.md).
+See [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md), [skills/workbench-sanity-context/SKILL.md](skills/workbench-sanity-context/SKILL.md), and [issue-templates/sanity-context-schema.md](issue-templates/sanity-context-schema.md).
 
 ## Agent-Install Unifier Lane
 
 The agent-install lane distributes reviewed skills, MCP server definitions, and AGENTS.md sections across supported coding agents. It is a sync layer, not a governance layer: Multica and this repo still own routing, SDD, review gates, and final acceptance.
 
-See [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md), [skills/workbench-agent-install-unifier.md](skills/workbench-agent-install-unifier.md), and [issue-templates/agent-install-unifier.md](issue-templates/agent-install-unifier.md).
+See [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md), [skills/workbench-agent-install-unifier/SKILL.md](skills/workbench-agent-install-unifier/SKILL.md), and [issue-templates/agent-install-unifier.md](issue-templates/agent-install-unifier.md).
 
 ## Flue Agent Harness Lane
 
@@ -182,7 +195,7 @@ Flue is the deployable agent harness outlet for mature workbench workflows. When
 
 The lane does not replace Multica, SDD, Goal Mode, L2 Pressure, or Supervisor review. It turns stable workbench behavior into deployable agent code while keeping live routing and evidence gates in Multica.
 
-See [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md), [skills/workbench-flue-agent-harness.md](skills/workbench-flue-agent-harness.md), and [issue-templates/flue-agent-scaffold.md](issue-templates/flue-agent-scaffold.md).
+See [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md), [skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md), and [issue-templates/flue-agent-scaffold.md](issue-templates/flue-agent-scaffold.md).
 
 ## Skill Curator
 
@@ -228,9 +241,9 @@ Human approval required before running:
 | Historical rollout log | [WORKBENCH_LOG.md](WORKBENCH_LOG.md) |
 | Flight recorder contract | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
 | Self-awareness bootstrap | [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) |
-| Self-awareness skill | [skills/workbench-self-awareness-infra.md](skills/workbench-self-awareness-infra.md) |
-| Goal-persistence contract | [skills/workbench-goal-mode.md](skills/workbench-goal-mode.md) |
-| L2 pressure gate | [skills/workbench-l2-pressure-gate.md](skills/workbench-l2-pressure-gate.md) |
+| Self-awareness skill | [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) |
+| Goal-persistence contract | [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) |
+| L2 pressure gate | [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) |
 | Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
 | VM execution lane | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
@@ -274,8 +287,8 @@ Multica Ultimate Workbench 是建立在 Multica 之上的多 agent 工作台持�
 | 双环系统 | Inner Ring（Admin/Supervisor/Synthesizer）负责任务拆解与审核；Outer Ring 执行边界清楚的专项任务 | [AGENT_ROSTER](agents/AGENT_ROSTER.md) |
 | 自我感知层 | 非平凡任务先确认 runtime、role、repo anchor、tool/MCP、memory、risk、route 和 success metric，避免错上下文开工 | [self-awareness-infra-layer](docs/self-awareness-infra-layer.md) |
 | SDD 流程 | 原始需求 → 产品设计 → 技术设计 → 任务列表 → 执行/复核，每阶段作为 issue comment 留痕 | [SYNTHESIS](SYNTHESIS.md) |
-| Goal Mode | `/goal` 任务的目标保活协议：锁定目标、持续推进、按 build/test/smoke/docs/report/git-status/evidence gate 收尾 | [workbench-goal-mode](skills/workbench-goal-mode.md) |
-| L2 Pressure | 远端 Hermes/VM/HarnessMax 的 Research Vault 压力层：先读历史约束，再决定最高收益路径 | [workbench-l2-pressure-gate](skills/workbench-l2-pressure-gate.md) |
+| Goal Mode | `/goal` 任务的目标保活协议：锁定目标、持续推进、按 build/test/smoke/docs/report/git-status/evidence gate 收尾 | [workbench-goal-mode](skills/workbench-goal-mode/SKILL.md) |
+| L2 Pressure | 远端 Hermes/VM/HarnessMax 的 Research Vault 压力层：先读历史约束，再决定最高收益路径 | [workbench-l2-pressure-gate](skills/workbench-l2-pressure-gate/SKILL.md) |
 | Runtime 分工 | Codex（实现/审查）、Claude Code（架构/文档/规划）、Hermes（研究/记忆整理） | [AGENT_ROSTER](agents/AGENT_ROSTER.md) |
 | Workspace Skills | 共享语法，固化 SDD、routing、review、proofshot QA、token discipline、memory synthesis 等高频行为 | [skills/README](skills/README.md) |
 | Flight Recorder | Issue 级轻量摘要，输出 RUN_DIGEST，不做完整 telemetry | [flight-recorder](docs/flight-recorder.md) |

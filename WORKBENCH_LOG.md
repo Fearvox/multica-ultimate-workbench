@@ -57,7 +57,7 @@ replacement for Multica or the existing governance layers.
 Source added:
 
 - `docs/flue-agent-harness-lane.md`
-- `skills/workbench-flue-agent-harness.md`
+- `skills/workbench-flue-agent-harness/SKILL.md`
 - `issue-templates/flue-agent-scaffold.md`
 
 The lane requires `FLUE_AGENT_CONTRACT` before scaffold work: purpose, project

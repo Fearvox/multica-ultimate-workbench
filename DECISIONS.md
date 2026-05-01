@@ -194,7 +194,7 @@ Rationale: the workbench now runs across local agents, remote cells, VM lanes, R
 ## 2026-05-01 - Add Flue As A Deployable Agent Harness Lane
 
 Decision: add `docs/flue-agent-harness-lane.md`,
-`skills/workbench-flue-agent-harness.md`, and
+`skills/workbench-flue-agent-harness/SKILL.md`, and
 `issue-templates/flue-agent-scaffold.md` as the Workbench lane for packaging
 mature workflows into deployable Flue agents.
 
