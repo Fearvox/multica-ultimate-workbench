@@ -1,0 +1,20 @@
+{
+  "assignee_id": "1d473c40-8bbe-47ee-8420-441ec75a9c0e",
+  "assignee_type": "agent",
+  "created_at": "2026-05-01T02:16:24Z",
+  "creator_id": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "creator_type": "member",
+  "description": "SMOKE_TARGET: NYC Hermes Researcher\nOWNER: NYC Hermes Researcher\nSTATUS: todo\nPROJECT: Ultimate Workbench / fa2a44e7-5ba8-4b09-a2ed-5bb0ac53b269\nREPO_RESOURCE: https://github.com/Fearvox/multica-ultimate-workbench / 437fe66b-f61e-4625-af20-fb723c0177be\n\nObjective: verify the new remote Hermes agent can receive and complete a Multica task from the hermes-nyc1 runtime.\n\nScope:\n- No repo edits.\n- No token, OAuth, API key, cookie, or credential printing.\n- Do not run destructive commands.\n- Do not assign or mention other agents.\n\nPlease post one concise comment with:\n1. REMOTE_SMOKE: PASS / FLAG / BLOCK\n2. Agent name and perceived runtime/device context.\n3. Skills visible/relevant to this task.\n4. Whether any command execution was skipped or blocked.\n5. Residual risk.",
+  "due_date": null,
+  "id": "f0728723-d7c1-4521-ad5f-821603812a1b",
+  "identifier": "DAS-95",
+  "number": 95,
+  "parent_issue_id": null,
+  "position": 0,
+  "priority": "high",
+  "project_id": "fa2a44e7-5ba8-4b09-a2ed-5bb0ac53b269",
+  "status": "done",
+  "title": "Smoke: NYC Hermes remote agent",
+  "updated_at": "2026-05-01T02:31:11Z",
+  "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+}

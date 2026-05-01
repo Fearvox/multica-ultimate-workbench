@@ -1,0 +1,67 @@
+[
+  {
+    "id": "0c567b7b-34dd-4026-a390-251f2d713086",
+    "name": "NYC Codex Builder",
+    "description": "Remote Codex execution lane for long repo tasks, builds, benchmarks, and verified implementation.",
+    "runtime_id": "950bed98-fc63-406d-b1cf-51c54f1c6b25",
+    "status": "idle",
+    "max_concurrent_tasks": 2,
+    "skill_names": [
+      "workbench-code-review",
+      "workbench-debug-investigate",
+      "workbench-gsd-tasking",
+      "workbench-implementation",
+      "workbench-token-context-discipline"
+    ],
+    "custom_args": [],
+    "updated_at": "2026-05-01T02:19:23Z"
+  },
+  {
+    "id": "1d473c40-8bbe-47ee-8420-441ec75a9c0e",
+    "name": "NYC Hermes Researcher",
+    "description": "Remote Hermes research and batch-knowledge lane for long-context source synthesis.",
+    "runtime_id": "cac02d4a-3372-48b5-8867-9d5649db7448",
+    "status": "idle",
+    "max_concurrent_tasks": 3,
+    "skill_names": [
+      "workbench-memory-synthesis",
+      "workbench-product-brainstorming",
+      "workbench-research",
+      "workbench-token-context-discipline"
+    ],
+    "custom_args": [],
+    "updated_at": "2026-05-01T02:17:19Z"
+  },
+  {
+    "id": "7a5ee651-22bb-48a5-9c2b-48e6cb1f1328",
+    "name": "NYC Ops Mechanic",
+    "description": "Remote Codex ops lane for hermes-nyc1 runtime health, disk, daemon, and dependency hygiene.",
+    "runtime_id": "950bed98-fc63-406d-b1cf-51c54f1c6b25",
+    "status": "idle",
+    "max_concurrent_tasks": 1,
+    "skill_names": [
+      "workbench-debug-investigate",
+      "workbench-implementation",
+      "workbench-review-qa",
+      "workbench-token-context-discipline"
+    ],
+    "custom_args": [],
+    "updated_at": "2026-05-01T02:17:50Z"
+  },
+  {
+    "id": "3ab94250-5f2f-4d24-9acc-35ba4f5bf019",
+    "name": "NYC VM Runner",
+    "description": "Remote Codex lane for bounded VM/browser/sandbox execution with artifacts and teardown proof.",
+    "runtime_id": "950bed98-fc63-406d-b1cf-51c54f1c6b25",
+    "status": "idle",
+    "max_concurrent_tasks": 1,
+    "skill_names": [
+      "workbench-browser-proofshot-qa",
+      "workbench-capy-vm-lane",
+      "workbench-review-qa",
+      "workbench-token-context-discipline"
+    ],
+    "custom_args": [],
+    "updated_at": "2026-05-01T02:17:51Z"
+  }
+]

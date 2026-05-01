@@ -42,13 +42,15 @@ Primary repo anchor:
 Ultimate Workbench project -> https://github.com/Fearvox/multica-ultimate-workbench
 ```
 
-If repo files are needed inside a runtime workdir and the project-bound resource is unavailable, use the local path only as an explicit fallback:
+If repo files are needed inside a laptop-local runtime workdir and the project-bound resource is unavailable, use the local path only as an explicit fallback:
 
 ```bash
 multica repo checkout file:///Users/0xvox/multica-ultimate-workbench
 ```
 
 Then label the evidence as local fallback and verify the branch or commit before citing file evidence.
+
+Remote runtimes such as `hermes-nyc1-multica` must not rely on that `file://` path. If `multica repo checkout https://github.com/Fearvox/multica-ultimate-workbench` fails because workspace repo metadata still points at the laptop path, the agent should report `FLAG` or `BLOCK` and request a repo-anchor fix rather than silently switching to unrelated files.
 
 ## Fresh Rerun Rule
 

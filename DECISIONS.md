@@ -103,3 +103,15 @@ The live `Ultimate Workbench` project is the default project anchor for this rep
 Runtime-specific choices should move toward Multica agent config (`--model`, `--custom-env-file`, `--custom-env-stdin`) before being duplicated in prompts. Fresh reruns are preferred when a run inherits stale context, wrong repo/branch state, changed auth/runtime configuration, or incomplete evidence publishing.
 
 Rationale: 0.2.21 gives native product support for patterns the workbench had been enforcing manually. Adopting those rails reduces checkout mistakes, stale retries, prompt bloat, and diagram-free ambiguity while preserving the existing source-first and review-first discipline.
+
+## 2026-05-01 - Add NYC Remote Execution Cell
+
+Decision: add four private remote agents on `hermes-nyc1-multica`: `NYC Codex Builder`, `NYC Hermes Researcher`, `NYC Ops Mechanic`, and `NYC VM Runner`.
+
+The remote cell extends the Outer Ring. It does not replace Workbench Admin, Supervisor, Synthesizer, local Developer/QA/Ops roles, or preserved `Workbench Max`. Remote agents are for long repo/build/benchmark work, long-context research, remote runtime hygiene, and bounded VM/browser/sandbox tasks.
+
+Runtime config rule: remote Codex agents must not receive laptop-oriented custom args such as `--ask-for-approval`, because `codex app-server` rejected that flag during `DAS-94`. Approval policy stays in issue-level constraints and human gates until Multica exposes a remote-compatible approval surface.
+
+Repo rule: the `Ultimate Workbench` GitHub repo resource is the primary anchor for remote agents. The workspace-level `file:///Users/0xvox/multica-ultimate-workbench` repo is laptop-local fallback only and must be treated as invalid on `hermes-nyc1-multica` unless explicitly mounted there.
+
+Rationale: the user now has a stable remote Multica daemon that can keep work running off-laptop. A named remote cell gives the workbench real parallel capacity while preserving the existing two-ring governance and evidence discipline.

@@ -1,0 +1,54 @@
+[
+  {
+    "attachments": [],
+    "author_id": "0c567b7b-34dd-4026-a390-251f2d713086",
+    "author_type": "agent",
+    "content": "codex initialize failed: codex process exited; codex stderr: error: unexpected argument '--ask-for-approval' found\n\nUsage: codex app-server --listen \u003cURL\u003e\n\nFor more information, try '--help'.",
+    "created_at": "2026-05-01T02:16:24Z",
+    "id": "ea0e874a-5d0b-4018-9e3b-98099004652a",
+    "issue_id": "e18b14c2-084e-4d8a-931d-45f3dee9749b",
+    "parent_id": null,
+    "reactions": [],
+    "type": "system",
+    "updated_at": "2026-05-01T02:16:24Z"
+  },
+  {
+    "attachments": [],
+    "author_id": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "author_type": "member",
+    "content": "CONFIG_FIX: Remote Codex runtime rejected custom arg `--ask-for-approval`. Cleared custom args on NYC Codex Builder, NYC Ops Mechanic, and NYC VM Runner so the remote `codex app-server` can initialize. Rerunning smoke now.",
+    "created_at": "2026-05-01T02:17:51Z",
+    "id": "54b440a5-3589-4ab4-b905-204e15a8a115",
+    "issue_id": "e18b14c2-084e-4d8a-931d-45f3dee9749b",
+    "parent_id": null,
+    "reactions": [],
+    "type": "comment",
+    "updated_at": "2026-05-01T02:17:51Z"
+  },
+  {
+    "attachments": [],
+    "author_id": "0c567b7b-34dd-4026-a390-251f2d713086",
+    "author_type": "agent",
+    "content": "REMOTE_SMOKE: FLAG\n\nAgent: NYC Codex Builder (`0c567b7b-34dd-4026-a390-251f2d713086`), running from perceived remote host `hermes-nyc1` in `/root/multica_workspaces/5470ee5d-0791-4713-beb4-fd6a187d6523/e6b68e16/workdir` on Linux x86_64. Disk check: `/dev/vda1` 77G total, 31G available, 60% used.\n\nSkills visible/relevant: `workbench-code-review`, `workbench-debug-investigate`, `workbench-gsd-tasking`, `workbench-implementation`, `workbench-token-context-discipline`; used `workbench-gsd-tasking` for this smoke closeout.\n\nCommand execution: Multica issue read/comment read/status update, workspace/agent reads, host/runtime checks, and disk check all ran successfully. No destructive, credential, or repo-edit commands were run. `git status --short --branch` in the initial workdir exited 128 because the base workdir is not a git repo. `multica repo checkout https://github.com/Fearvox/multica-ultimate-workbench` exited 1 because the workspace repo config currently points at `file:///Users/0xvox/multica-ultimate-workbench`, which is not accessible from `hermes-nyc1`.\n\nResidual risk: remote Codex task execution itself is working, but future repo-backed tasks on this lane may fail until the workspace repo resource is synced/configured to an accessible GitHub remote for the NYC runtime.",
+    "created_at": "2026-05-01T02:19:16Z",
+    "id": "5f5e6670-e243-4e42-9ff9-1bde58bcb8ae",
+    "issue_id": "e18b14c2-084e-4d8a-931d-45f3dee9749b",
+    "parent_id": null,
+    "reactions": [],
+    "type": "comment",
+    "updated_at": "2026-05-01T02:19:16Z"
+  },
+  {
+    "attachments": [],
+    "author_id": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "author_type": "member",
+    "content": "CONFIG_STATUS: FLAG accepted for follow-up, not closed.\n\n- Remote Codex agent initialization is fixed: removed unsupported custom args from NYC Codex Builder, NYC Ops Mechanic, and NYC VM Runner.\n- Remote Codex execution is working on hermes-nyc1; this issue remains in_review only because repo-backed checkout still resolves to the laptop-local workspace repo path.\n- Source docs and live review/autopilot rules were updated so remote runtimes treat file:///Users/0xvox/multica-ultimate-workbench as laptop-local only.\n- Next action: reconcile workspace repo metadata or use the Ultimate Workbench GitHub project resource as the remote-safe anchor before assigning repo-backed NYC Codex work.",
+    "created_at": "2026-05-01T02:31:37Z",
+    "id": "5e6d0f7a-e072-4b28-a01a-69bf6eec3fa5",
+    "issue_id": "e18b14c2-084e-4d8a-931d-45f3dee9749b",
+    "parent_id": null,
+    "reactions": [],
+    "type": "comment",
+    "updated_at": "2026-05-01T02:31:37Z"
+  }
+]

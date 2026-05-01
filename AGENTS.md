@@ -30,7 +30,8 @@ Do not treat this repo as the Multica runtime itself.
 - Do not store secrets, OAuth material, private tokens, raw request payloads, or raw run transcripts.
 - Do not claim completion without evidence.
 - Prefer the `Ultimate Workbench` Multica Project and its GitHub repo resource before guessing repository context.
-- From a Multica runtime, use the issue's project-bound repo resource first; only use `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` as a local-only fallback, and label that fallback in evidence.
+- From a Multica runtime, use the issue's project-bound GitHub repo resource first.
+- The `file:///Users/0xvox/multica-ultimate-workbench` checkout is laptop-local only. Remote runtimes such as `hermes-nyc1-multica` must not rely on it; if repo checkout resolves to that path remotely, report `FLAG` or `BLOCK` and name the repo-anchor fix.
 - Use `scripts/collect-flight-recorder.sh <issue-id>` for review summaries when relevant.
 - Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
 - Autopilots create issues; they do not silently perform high-risk work.
@@ -47,6 +48,7 @@ Use the two-ring model.
 | --- | --- | --- |
 | Inner Ring | Workbench Admin, Workbench Supervisor, Workbench Synthesizer | Route work, review evidence, preserve memory, and keep the system coherent. |
 | Outer Ring | Developer, Researcher, Architect, Docs, QA, Ops, Curator | Execute bounded specialist work. Do not take over orchestration unless assigned. |
+| Remote Cell | NYC Codex Builder, NYC Hermes Researcher, NYC Ops Mechanic, NYC VM Runner | Execute longer tasks on `hermes-nyc1-multica`. Treat laptop file paths as invalid unless explicitly verified on that host. |
 | Special | Workbench Max | Preserved private workbench. Use only when the human explicitly assigns it. |
 
 Direct chat is for fuzzy thought. Issues are for executable work. Mentions are for narrow review or advice. Autopilots create recurring review issues. The Auto Review Sweeper is the automatic `in_review` handoff: Workbench Supervisor scans completed agent work on a schedule, posts `AUTO_REVIEW`, and may close PASS targets to `done`.
@@ -140,6 +142,7 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Multica 0.2.21 workflow rules | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
 | Skill curator protocol | [docs/skill-curator.md](docs/skill-curator.md) |
 | Agent roster | [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) |
+| Remote agent cell | [agents/remote/nyc-remote-agents.md](agents/remote/nyc-remote-agents.md) |
 | Workspace skills | [skills/README.md](skills/README.md) |
 | Issue templates | [issue-templates/](issue-templates/) |
 | Autopilot specs | [autopilots/](autopilots/) |

@@ -23,9 +23,12 @@ multica issue runs <target-issue-id> --output json
 
 Checkout before repo-local evidence:
 
-```bash
-multica repo checkout file:///Users/0xvox/multica-ultimate-workbench
+```text
+Prefer the target issue's project-bound GitHub repo resource.
+Use multica repo checkout file:///Users/0xvox/multica-ultimate-workbench only on laptop-local runtimes.
 ```
+
+On remote runtimes such as `hermes-nyc1-multica`, treat the laptop `file://` path as invalid unless the issue proves it is mounted there.
 
 ## Target Review Block
 

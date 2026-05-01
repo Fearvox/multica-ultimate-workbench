@@ -1,7 +1,7 @@
 # Synthesis
 
 Date: 2026-04-29
-Last updated: 2026-04-30 UTC during Multica 0.2.21 workflow upgrade.
+Last updated: 2026-05-01 UTC during NYC remote execution-cell configuration.
 
 ## Current Strategy
 
@@ -42,6 +42,15 @@ Live project binding created after the Multica 0.2.21 update:
 | Codex | `76228a28-203a-4249-9756-731d3cf68554` | `codex` | online |
 | Hermes | `d3a6d5a7-a80e-42ba-9d9e-3cefbc27fcf2` | `hermes` | online |
 
+Remote runtime cell added on 2026-05-01:
+
+| Runtime | ID | Provider | Device | Status |
+| --- | --- | --- | --- | --- |
+| NYC Codex | `950bed98-fc63-406d-b1cf-51c54f1c6b25` | `codex` | `hermes-nyc1-multica` | online |
+| NYC Hermes | `cac02d4a-3372-48b5-8867-9d5649db7448` | `hermes` | `hermes-nyc1-multica` | online |
+
+Remote Hermes currently reports an available update; treat that as ops hygiene, not a blocker for research smoke tasks.
+
 The existing private `Workbench Max` agent on the Codex runtime must be preserved.
 
 ## Live Multica Agent Roster
@@ -71,6 +80,17 @@ Existing companion agent:
 | Workbench Max | `4b0198c4-4736-4982-bdd5-ca5cdbb0a456` | Codex | private | 6 | idle |
 
 `Workbench Max` is a preserved Special bench, not a default Inner or Outer Ring member. It should be used only by human-explicit assignment and should remain out of broad skill-binding or prompt-compression passes unless the issue names it.
+
+Remote execution-cell agents:
+
+| Agent | ID | Runtime | Visibility | Max Tasks | Smoke |
+| --- | --- | --- | --- | ---: | --- |
+| NYC Codex Builder | `0c567b7b-34dd-4026-a390-251f2d713086` | NYC Codex | private | 2 | `DAS-94` FLAG |
+| NYC Hermes Researcher | `1d473c40-8bbe-47ee-8420-441ec75a9c0e` | NYC Hermes | private | 3 | `DAS-95` PASS |
+| NYC Ops Mechanic | `7a5ee651-22bb-48a5-9c2b-48e6cb1f1328` | NYC Codex | private | 1 | created; pending dedicated ops smoke |
+| NYC VM Runner | `3ab94250-5f2f-4d24-9acc-35ba4f5bf019` | NYC Codex | private | 1 | created; pending dedicated VM smoke |
+
+`DAS-94` proved remote Codex task execution and command capability after clearing incompatible custom args, but flagged repo checkout because workspace repo metadata still points at the laptop-local `file:///Users/0xvox/multica-ultimate-workbench` path. Remote repo-backed tasks should use the `Ultimate Workbench` GitHub repo resource first and report `FLAG` or `BLOCK` if Multica checkout resolves to the laptop path.
 
 ## Ring Model
 
@@ -135,6 +155,7 @@ See `docs/multica-021-workflow.md`.
 | Workspace skills drift from local source | Agents may run stale or invisible operating protocols. | Keep canonical skill source in `skills/`, record live IDs, and verify `skill list` plus agent bindings after changes. |
 | Prompt bloat from over-attached skills | Agents waste context and quota on irrelevant operating protocols. | Attach skills by role, keep high-frequency skills compact, and use `workbench-token-context-discipline` for large histories/docs. |
 | Runtime workdir lacks checked-out repo files unless agents resolve the project repo | Agents may not find `SYNTHESIS.md` or `issue-templates/sdd-workflow.md` even when those files exist in the source repo. | For tasks requiring repo-local docs or templates, resolve the project-bound GitHub repo resource first. If unavailable, `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` is a local-only fallback that must be labeled and branch/commit verified. |
+| Remote runtimes cannot use laptop-local workspace repo paths | NYC agents can execute but may fail repo-backed tasks when checkout metadata resolves to `file:///Users/0xvox/multica-ultimate-workbench`. | Use the `Ultimate Workbench` GitHub repo resource as primary; treat laptop `file://` checkout as local-only and leave `DAS-94` in review until the repo-anchor fix is accepted. |
 | Issues drift away from the correct repo as more projects are added | Agents may inspect the wrong source tree or stale local checkout. | Use the `Ultimate Workbench` project-bound GitHub repo resource as the default anchor for workbench issues. |
 | Reruns inherit polluted context | A retry can repeat stale assumptions or wrong checkout state. | Use fresh reruns when stale context, wrong branch, auth changes, or incomplete evidence publishing appears. |
 | Runtime configuration gets duplicated in prompts | Model and environment choices drift across docs, agent settings, and CLI flags. | Prefer Multica agent `--model` and safe custom env file/stdin config for runtime-specific settings; document IDs and verification evidence after changes. |
@@ -218,4 +239,4 @@ New source entries:
 
 ## Next Immediate Action
 
-The workbench now has a live auto-review handoff, frontmatter-hardened skill source, Capy VM Lane pilot, and Multica 0.2.21 project-bound repo anchor. `Auto Review Sweeper` creates a Supervisor sweep every 30 minutes and lets PASS targets move to `done` without manual reassignment. Remaining runtime hygiene: stale MCP auth noise appears to come from global Codex/plugin auth, not this repo's workbench skill source.
+The workbench now has a live auto-review handoff, frontmatter-hardened skill source, Capy VM Lane pilot, Multica 0.2.21 project-bound repo anchor, and an online NYC remote execution cell. `Auto Review Sweeper` creates a Supervisor sweep every 30 minutes and lets PASS targets move to `done` without manual reassignment. Remaining runtime hygiene: stale MCP auth noise appears to come from global Codex/plugin auth, and remote repo-backed NYC tasks need the workspace repo anchor reconciled away from the laptop-only `file://` path.

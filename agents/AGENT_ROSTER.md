@@ -16,6 +16,17 @@
 | Ops Mechanic | Outer | Codex | private | 1 | Assigned ops issue |
 | Memory Curator | Outer | Claude Code or Hermes | private | 1 | Assigned synthesis/memory issue |
 
+## Remote Execution Cell
+
+| Agent | Ring | Preferred Runtime | Visibility | Max Concurrent Tasks | Primary Trigger |
+| --- | --- | --- | --- | ---: | --- |
+| NYC Codex Builder | Outer | Codex on `hermes-nyc1-multica` | private | 2 | Assigned long repo/build/benchmark issue |
+| NYC Hermes Researcher | Outer | Hermes on `hermes-nyc1-multica` | private | 3 | Assigned long-context research or batch knowledge issue |
+| NYC Ops Mechanic | Outer | Codex on `hermes-nyc1-multica` | private | 1 | Assigned remote runtime health issue |
+| NYC VM Runner | Outer | Codex on `hermes-nyc1-multica` | private | 1 | Assigned remote VM/browser/sandbox issue |
+
+Remote agents are execution cells, not new orchestrators. They must use the `Ultimate Workbench` GitHub repo resource as the primary source. The laptop-only `file:///Users/0xvox/multica-ultimate-workbench` workspace repo is not a valid checkout anchor on `hermes-nyc1-multica`.
+
 ## Preserved Special Bench
 
 | Agent | Ring | Preferred Runtime | Visibility | Max Concurrent Tasks | Primary Trigger |

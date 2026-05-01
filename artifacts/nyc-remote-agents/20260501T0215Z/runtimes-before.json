@@ -1,0 +1,92 @@
+[
+  {
+    "id": "90d36323-17a9-48b1-80f9-8417989b9a67",
+    "name": "Copilot (deMacBook-Pro.local)",
+    "provider": "copilot",
+    "status": "online",
+    "device_info": "deMacBook-Pro.local · GitHub Copilot CLI 1.0.27.\nRun 'copilot update' to check for updates.",
+    "daemon_id": "019dd7f1-cf98-7a8b-bdbe-590b8e239210",
+    "created_at": "2026-04-29T06:34:19Z",
+    "last_seen_at": "2026-05-01T02:14:44Z"
+  },
+  {
+    "id": "dd23854a-7a38-4d04-8d02-014ba5a9df3d",
+    "name": "Claude (deMacBook-Pro.local)",
+    "provider": "claude",
+    "status": "online",
+    "device_info": "deMacBook-Pro.local · 2.1.92 (Claude Code)",
+    "daemon_id": "019dd7f1-cf98-7a8b-bdbe-590b8e239210",
+    "created_at": "2026-04-29T06:34:19Z",
+    "last_seen_at": "2026-05-01T02:14:44Z"
+  },
+  {
+    "id": "76228a28-203a-4249-9756-731d3cf68554",
+    "name": "Codex (deMacBook-Pro.local)",
+    "provider": "codex",
+    "status": "online",
+    "device_info": "deMacBook-Pro.local · codex-cli 0.125.0",
+    "daemon_id": "019dd7f1-cf98-7a8b-bdbe-590b8e239210",
+    "created_at": "2026-04-29T06:34:19Z",
+    "last_seen_at": "2026-05-01T02:14:44Z"
+  },
+  {
+    "id": "08f68785-3ec2-42d4-8154-7ef854e3a3ae",
+    "name": "Opencode (deMacBook-Pro.local)",
+    "provider": "opencode",
+    "status": "online",
+    "device_info": "deMacBook-Pro.local · 1.3.10",
+    "daemon_id": "019dd7f1-cf98-7a8b-bdbe-590b8e239210",
+    "created_at": "2026-04-29T06:34:19Z",
+    "last_seen_at": "2026-05-01T02:14:44Z"
+  },
+  {
+    "id": "6774f282-5339-46cd-9475-37c8828bf435",
+    "name": "Openclaw (deMacBook-Pro.local)",
+    "provider": "openclaw",
+    "status": "online",
+    "device_info": "deMacBook-Pro.local · OpenClaw 2026.4.1 (da64a97)",
+    "daemon_id": "019dd7f1-cf98-7a8b-bdbe-590b8e239210",
+    "created_at": "2026-04-29T06:34:19Z",
+    "last_seen_at": "2026-05-01T02:14:44Z"
+  },
+  {
+    "id": "d3a6d5a7-a80e-42ba-9d9e-3cefbc27fcf2",
+    "name": "Hermes (deMacBook-Pro.local)",
+    "provider": "hermes",
+    "status": "online",
+    "device_info": "deMacBook-Pro.local · Hermes Agent v0.11.0 (2026.4.23)\nProject: /Users/0xvox/.hermes/hermes-agent\nPython: 3.11.14\nOpenAI SDK: 2.30.0\nUp to date",
+    "daemon_id": "019dd7f1-cf98-7a8b-bdbe-590b8e239210",
+    "created_at": "2026-04-29T06:34:19Z",
+    "last_seen_at": "2026-05-01T02:14:44Z"
+  },
+  {
+    "id": "4c2a8a4c-5236-4704-8fd8-f6b340039eb9",
+    "name": "Gemini (deMacBook-Pro.local)",
+    "provider": "gemini",
+    "status": "online",
+    "device_info": "deMacBook-Pro.local · 0.35.3",
+    "daemon_id": "019dd7f1-cf98-7a8b-bdbe-590b8e239210",
+    "created_at": "2026-04-29T06:34:19Z",
+    "last_seen_at": "2026-05-01T02:14:44Z"
+  },
+  {
+    "id": "950bed98-fc63-406d-b1cf-51c54f1c6b25",
+    "name": "Codex (hermes-nyc1-multica)",
+    "provider": "codex",
+    "status": "online",
+    "device_info": "hermes-nyc1-multica · codex-cli 0.125.0",
+    "daemon_id": "019de149-9c01-7c5c-b16a-5af675705b5c",
+    "created_at": "2026-05-01T02:06:38Z",
+    "last_seen_at": "2026-05-01T02:14:39Z"
+  },
+  {
+    "id": "cac02d4a-3372-48b5-8867-9d5649db7448",
+    "name": "Hermes (hermes-nyc1-multica)",
+    "provider": "hermes",
+    "status": "online",
+    "device_info": "hermes-nyc1-multica · Hermes Agent v0.11.0 (2026.4.23)\nProject: /root/.hermes/hermes-agent\nPython: 3.11.15\nOpenAI SDK: 2.32.0\nUpdate available: 1135 commits behind — run 'hermes update'",
+    "daemon_id": "019de149-9c01-7c5c-b16a-5af675705b5c",
+    "created_at": "2026-05-01T02:06:38Z",
+    "last_seen_at": "2026-05-01T02:14:39Z"
+  }
+]

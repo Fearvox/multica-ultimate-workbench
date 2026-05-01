@@ -1,0 +1,15 @@
+[
+  {
+    "created_at": "2026-04-30T11:57:20Z",
+    "created_by": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+    "id": "437fe66b-f61e-4625-af20-fb723c0177be",
+    "label": null,
+    "position": 0,
+    "project_id": "fa2a44e7-5ba8-4b09-a2ed-5bb0ac53b269",
+    "resource_ref": {
+      "url": "https://github.com/Fearvox/multica-ultimate-workbench"
+    },
+    "resource_type": "github_repo",
+    "workspace_id": "5470ee5d-0791-4713-beb4-fd6a187d6523"
+  }
+]

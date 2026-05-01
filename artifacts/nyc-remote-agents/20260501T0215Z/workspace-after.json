@@ -1,0 +1,17 @@
+{
+  "context": null,
+  "created_at": "2026-04-14T16:13:58Z",
+  "description": null,
+  "id": "5470ee5d-0791-4713-beb4-fd6a187d6523",
+  "issue_prefix": "DAS",
+  "name": "DASH",
+  "repos": [
+    {
+      "description": "Multica Ultimate Workbench local operating-memory repo",
+      "url": "file:///Users/0xvox/multica-ultimate-workbench"
+    }
+  ],
+  "settings": {},
+  "slug": "dash",
+  "updated_at": "2026-04-29T22:46:21Z"
+}

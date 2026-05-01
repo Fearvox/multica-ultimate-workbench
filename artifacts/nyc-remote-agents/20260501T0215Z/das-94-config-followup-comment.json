@@ -1,0 +1,13 @@
+{
+  "attachments": [],
+  "author_id": "060a77ed-73c3-4420-b74a-e6f6d45c4ea8",
+  "author_type": "member",
+  "content": "CONFIG_STATUS: FLAG accepted for follow-up, not closed.\n\n- Remote Codex agent initialization is fixed: removed unsupported custom args from NYC Codex Builder, NYC Ops Mechanic, and NYC VM Runner.\n- Remote Codex execution is working on hermes-nyc1; this issue remains in_review only because repo-backed checkout still resolves to the laptop-local workspace repo path.\n- Source docs and live review/autopilot rules were updated so remote runtimes treat file:///Users/0xvox/multica-ultimate-workbench as laptop-local only.\n- Next action: reconcile workspace repo metadata or use the Ultimate Workbench GitHub project resource as the remote-safe anchor before assigning repo-backed NYC Codex work.",
+  "created_at": "2026-05-01T02:31:37Z",
+  "id": "5e6d0f7a-e072-4b28-a01a-69bf6eec3fa5",
+  "issue_id": "e18b14c2-084e-4d8a-931d-45f3dee9749b",
+  "parent_id": null,
+  "reactions": [],
+  "type": "comment",
+  "updated_at": "2026-05-01T02:31:37Z"
+}

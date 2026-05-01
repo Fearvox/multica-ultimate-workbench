@@ -32,7 +32,8 @@ Required target evidence:
 - `multica issue get <target-issue-id> --output json`
 - `multica issue comment list <target-issue-id> --output json`
 - `multica issue runs <target-issue-id> --output json`
-- `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` before repo-local evidence claims.
+- Prefer the target issue's `Ultimate Workbench` project GitHub repo resource before repo-local evidence claims.
+- Use `multica repo checkout file:///Users/0xvox/multica-ultimate-workbench` only on laptop-local runtimes; mark it invalid on remote runtimes such as `hermes-nyc1-multica`.
 - `scripts/collect-flight-recorder.sh <target-issue-id>` only when compact run evidence is needed.
 
 Target review block:

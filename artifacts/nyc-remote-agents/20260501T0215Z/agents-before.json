@@ -1,0 +1,193 @@
+[
+  {
+    "id": "4b0198c4-4736-4982-bdd5-ca5cdbb0a456",
+    "name": "Workbench Max",
+    "description": "Private Codex workbench: inspect real state, patch the smallest surface, verify on live paths, keep OpenClaw-owned delivery stable.",
+    "runtime_id": "76228a28-203a-4249-9756-731d3cf68554",
+    "status": "idle",
+    "max_concurrent_tasks": 6,
+    "skill_ids": []
+  },
+  {
+    "id": "28b28318-1ba5-4d41-883e-9763ce66c816",
+    "name": "Codex Guardian",
+    "description": "High-risk local ops, command approval, rollback planning, and evidence-first verification.",
+    "runtime_id": "76228a28-203a-4249-9756-731d3cf68554",
+    "status": "idle",
+    "max_concurrent_tasks": 1,
+    "skill_ids": [
+      "b7b035cb-67d6-4fbd-a756-c410190576a9",
+      "d5b663e5-2eaf-4a43-979c-5ee19b209a49",
+      "b4bf2dce-9acc-4082-ab6b-7fcb1383950a",
+      "6fe7672c-5821-40bf-abd0-ac52b953eb56"
+    ]
+  },
+  {
+    "id": "5fb626ce-488c-44cd-81c1-0cfb3ea26bce",
+    "name": "Workbench Admin",
+    "description": "Front door, requirement clarification, issue creation, and specialist dispatch.",
+    "runtime_id": "dd23854a-7a38-4d04-8d02-014ba5a9df3d",
+    "status": "idle",
+    "max_concurrent_tasks": 2,
+    "skill_ids": [
+      "811318a4-f396-4c87-8a89-80b5d871c6f5",
+      "dd07acb0-a647-48d5-b88a-e6730553f9fa",
+      "a9ec34a7-8c0d-4858-a013-899bff60d664",
+      "2cf724da-976a-40e6-be9b-ecbdc2af9041",
+      "6fe7672c-5821-40bf-abd0-ac52b953eb56"
+    ]
+  },
+  {
+    "id": "4e19cffb-1abe-461a-9026-eeb7155668d1",
+    "name": "Workbench Supervisor",
+    "description": "Risk review, goal-backward verification, evidence checks, and loop stopping.",
+    "runtime_id": "76228a28-203a-4249-9756-731d3cf68554",
+    "status": "idle",
+    "max_concurrent_tasks": 2,
+    "skill_ids": [
+      "b7b035cb-67d6-4fbd-a756-c410190576a9",
+      "811318a4-f396-4c87-8a89-80b5d871c6f5",
+      "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+      "2cf724da-976a-40e6-be9b-ecbdc2af9041",
+      "6fe7672c-5821-40bf-abd0-ac52b953eb56"
+    ]
+  },
+  {
+    "id": "3607eb50-98c3-41ae-99de-9f1ccff5c48c",
+    "name": "Workbench Synthesizer",
+    "description": "Canonical synthesis, decision logs, and handoffs.",
+    "runtime_id": "d3a6d5a7-a80e-42ba-9d9e-3cefbc27fcf2",
+    "status": "idle",
+    "max_concurrent_tasks": 1,
+    "skill_ids": [
+      "811318a4-f396-4c87-8a89-80b5d871c6f5",
+      "f2bac02b-5daf-400e-93df-49e97f64c59c",
+      "8d80f2f9-46cf-4d1e-a0bb-63c7064907eb",
+      "6fe7672c-5821-40bf-abd0-ac52b953eb56"
+    ]
+  },
+  {
+    "id": "31317f6a-8723-4e5d-ab67-9d02c07d0aab",
+    "name": "Codex Developer",
+    "description": "Focused implementation with tests and verification.",
+    "runtime_id": "76228a28-203a-4249-9756-731d3cf68554",
+    "status": "idle",
+    "max_concurrent_tasks": 2,
+    "skill_ids": [
+      "b7b035cb-67d6-4fbd-a756-c410190576a9",
+      "d5b663e5-2eaf-4a43-979c-5ee19b209a49",
+      "dd07acb0-a647-48d5-b88a-e6730553f9fa",
+      "b4bf2dce-9acc-4082-ab6b-7fcb1383950a"
+    ]
+  },
+  {
+    "id": "77bfbf5b-0cc7-4797-b703-b17eb700ad32",
+    "name": "Hermes Researcher",
+    "description": "Deep research, alternate approaches, and OAuth-backed local routes.",
+    "runtime_id": "d3a6d5a7-a80e-42ba-9d9e-3cefbc27fcf2",
+    "status": "idle",
+    "max_concurrent_tasks": 3,
+    "skill_ids": [
+      "a9ec34a7-8c0d-4858-a013-899bff60d664",
+      "ee3222fc-2722-4502-9e7f-883901ad01fc",
+      "6fe7672c-5821-40bf-abd0-ac52b953eb56"
+    ]
+  },
+  {
+    "id": "36f427ec-5395-4e0b-8168-f4fd02086826",
+    "name": "Claude Architect",
+    "description": "Long-context architecture and MCP-aware investigation.",
+    "runtime_id": "dd23854a-7a38-4d04-8d02-014ba5a9df3d",
+    "status": "idle",
+    "max_concurrent_tasks": 2,
+    "skill_ids": [
+      "66f04cd9-f62d-42b9-be2b-24ded62484bc",
+      "961497cb-a1f3-48df-961d-f9983ee918aa",
+      "dd07acb0-a647-48d5-b88a-e6730553f9fa",
+      "ee3222fc-2722-4502-9e7f-883901ad01fc",
+      "2cf724da-976a-40e6-be9b-ecbdc2af9041"
+    ]
+  },
+  {
+    "id": "2a4acdbe-c9d3-4394-8194-67f0e90b7d21",
+    "name": "Claude Docs",
+    "description": "Specs, README, release notes, and boundary-aware documentation.",
+    "runtime_id": "dd23854a-7a38-4d04-8d02-014ba5a9df3d",
+    "status": "idle",
+    "max_concurrent_tasks": 2,
+    "skill_ids": [
+      "66f04cd9-f62d-42b9-be2b-24ded62484bc",
+      "f2bac02b-5daf-400e-93df-49e97f64c59c",
+      "8d80f2f9-46cf-4d1e-a0bb-63c7064907eb",
+      "6fe7672c-5821-40bf-abd0-ac52b953eb56"
+    ]
+  },
+  {
+    "id": "45d11e94-303d-480b-b4b9-cffbcf8f79c4",
+    "name": "QA Verifier",
+    "description": "Tests, browser checks, screenshots, and regression evidence.",
+    "runtime_id": "76228a28-203a-4249-9756-731d3cf68554",
+    "status": "idle",
+    "max_concurrent_tasks": 2,
+    "skill_ids": [
+      "2acab3df-7b28-4ca4-a34b-4c713a453ada",
+      "b7b035cb-67d6-4fbd-a756-c410190576a9",
+      "961497cb-a1f3-48df-961d-f9983ee918aa",
+      "e8c8d908-1a13-4d5c-8b5f-dc48a908a149"
+    ]
+  },
+  {
+    "id": "54e53ad9-b677-4995-8a56-1c70d99be4c0",
+    "name": "Benchmark Scout",
+    "description": "Benchmark artifact quality, privacy, repeatability, and publication boundary review.",
+    "runtime_id": "d3a6d5a7-a80e-42ba-9d9e-3cefbc27fcf2",
+    "status": "idle",
+    "max_concurrent_tasks": 1,
+    "skill_ids": [
+      "ee3222fc-2722-4502-9e7f-883901ad01fc",
+      "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+      "6fe7672c-5821-40bf-abd0-ac52b953eb56"
+    ]
+  },
+  {
+    "id": "cf068511-8cde-455d-9c91-a6cf84d581be",
+    "name": "Ops Mechanic",
+    "description": "Daemons, CLI paths, config precedence, launchd, and local machine repair.",
+    "runtime_id": "76228a28-203a-4249-9756-731d3cf68554",
+    "status": "idle",
+    "max_concurrent_tasks": 1,
+    "skill_ids": [
+      "d5b663e5-2eaf-4a43-979c-5ee19b209a49",
+      "b4bf2dce-9acc-4082-ab6b-7fcb1383950a",
+      "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+      "6fe7672c-5821-40bf-abd0-ac52b953eb56"
+    ]
+  },
+  {
+    "id": "f437828c-a14b-4cc2-9449-6537e426a216",
+    "name": "Memory Curator",
+    "description": "Synthesis, vault notes, stale-memory checks, and canonical decisions.",
+    "runtime_id": "dd23854a-7a38-4d04-8d02-014ba5a9df3d",
+    "status": "idle",
+    "max_concurrent_tasks": 1,
+    "skill_ids": [
+      "f2bac02b-5daf-400e-93df-49e97f64c59c",
+      "8d80f2f9-46cf-4d1e-a0bb-63c7064907eb",
+      "6fe7672c-5821-40bf-abd0-ac52b953eb56"
+    ]
+  },
+  {
+    "id": "e42ff104-7ff2-41d8-936d-fe18448c2e1c",
+    "name": "Workbench VM Runner",
+    "description": "Runs bounded Capy VM / Computer API tasks with screenshot-backed artifacts under Supervisor review.",
+    "runtime_id": "76228a28-203a-4249-9756-731d3cf68554",
+    "status": "idle",
+    "max_concurrent_tasks": 1,
+    "skill_ids": [
+      "2acab3df-7b28-4ca4-a34b-4c713a453ada",
+      "23205bad-177e-4937-8934-d0ea5b8b1a4e",
+      "e8c8d908-1a13-4d5c-8b5f-dc48a908a149",
+      "6fe7672c-5821-40bf-abd0-ac52b953eb56"
+    ]
+  }
+]

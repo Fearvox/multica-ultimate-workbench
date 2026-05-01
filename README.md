@@ -11,6 +11,7 @@
 ![Codex](https://img.shields.io/badge/runtime-Codex-111827?style=flat-square)
 ![Claude Code](https://img.shields.io/badge/runtime-Claude_Code-d97706?style=flat-square)
 ![Hermes](https://img.shields.io/badge/runtime-Hermes-0f766e?style=flat-square)
+![Remote Cell](https://img.shields.io/badge/runtime-NYC_remote_cell-334155?style=flat-square)
 ![Flight Recorder](https://img.shields.io/badge/observability-flight_recorder-0369a1?style=flat-square)
 ![Curator](https://img.shields.io/badge/maintenance-skill_curator-9333ea?style=flat-square)
 ![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)
@@ -224,11 +225,12 @@ The workbench is intentionally conservative:
 | Skill curator protocol / Skill Curator 协议 | [docs/skill-curator.md](docs/skill-curator.md) |
 | Workspace skill map / Skill 映射 | [skills/README.md](skills/README.md) |
 | Agent roster / Agent 名册 | [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) |
+| Remote agent cell / 远程 Agent 单元 | [agents/remote/nyc-remote-agents.md](agents/remote/nyc-remote-agents.md) |
 | Issue templates / Issue 模板 | [issue-templates/](issue-templates/) |
 | Autopilots / 自动巡检 | [autopilots/](autopilots/) |
 
 ## Current Status / 当前状态
 
-The workbench has a verified two-ring roster, a high-frequency workspace skill pack, source-first prompt compression, daily health autopilot scaffolding, an automatic review sweeper, a flight recorder that has passed live QA/Supervisor review, a source-level skill curator protocol, a controlled VM lane, and a Multica 0.2.21 project-bound repo anchor. Current operational truth lives in [SYNTHESIS.md](SYNTHESIS.md); historical details live in [WORKBENCH_LOG.md](WORKBENCH_LOG.md).
+The workbench has a verified two-ring roster, a high-frequency workspace skill pack, source-first prompt compression, daily health autopilot scaffolding, an automatic review sweeper, a flight recorder that has passed live QA/Supervisor review, a source-level skill curator protocol, a controlled VM lane, a Multica 0.2.21 project-bound repo anchor, and an online NYC remote execution cell. Current operational truth lives in [SYNTHESIS.md](SYNTHESIS.md); historical details live in [WORKBENCH_LOG.md](WORKBENCH_LOG.md).
 
-当前工作台已经具备经过验证的双环 roster、高频 workspace skill pack、source-first prompt compression、daily health autopilot scaffold、automatic review sweeper、通过 live QA/Supervisor review 的 flight recorder、source-level skill curator protocol、受控 VM lane，以及 Multica 0.2.21 project-bound repo anchor。当前事实看 [SYNTHESIS.md](SYNTHESIS.md)，历史过程看 [WORKBENCH_LOG.md](WORKBENCH_LOG.md)。
+当前工作台已经具备经过验证的双环 roster、高频 workspace skill pack、source-first prompt compression、daily health autopilot scaffold、automatic review sweeper、通过 live QA/Supervisor review 的 flight recorder、source-level skill curator protocol、受控 VM lane、Multica 0.2.21 project-bound repo anchor，以及在线 NYC remote execution cell。当前事实看 [SYNTHESIS.md](SYNTHESIS.md)，历史过程看 [WORKBENCH_LOG.md](WORKBENCH_LOG.md)。

@@ -64,6 +64,7 @@ NEXT_ACTION: exact next owner/action, or none
 
 - Do not accept `done` based on paraphrase alone.
 - Distinguish content failures from workflow/tooling failures.
-- If Multica workspace repo access is needed, use the workspace repository checkout path and report the commit/branch inspected.
+- If repo access is needed, prefer the issue's project-bound GitHub repo resource and report the commit/branch inspected.
+- Treat `file:///Users/0xvox/multica-ultimate-workbench` as laptop-local fallback only; remote runtimes must flag it as invalid unless explicitly mounted.
 - Keep evidence concise and reproducible.
 - Verify `Workbench Max` remains untouched when a task says it must be preserved.
