@@ -1,7 +1,7 @@
 # Auto Review Sweeper Autopilot
 
 Mode: create issue
-Cadence: every 30 minutes
+Cadence: every 10 minutes during active HarnessMax / remote-evolve windows
 Preferred assignee: Workbench Supervisor
 
 Purpose: Automatically pick up issues that have reached `in_review` so completed agent work does not require a human to manually reassign every task for review.
@@ -12,7 +12,7 @@ Live autopilot:
 
 - Live ID: private deployment detail
 - Trigger ID: private deployment detail
-- Cron: `*/30 * * * *`
+- Cron: `*/10 * * * *`
 - Timezone: `America/New_York`
 - Execution mode: `create_issue`
 - Issue title template: `DAS Auto Review Sweep - {{date}}`
