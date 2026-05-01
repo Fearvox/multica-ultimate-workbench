@@ -1,5 +1,25 @@
 # Decisions
 
+## 2026-05-01 - Add Capy Git Dialogue Lane As A Public Review Surface
+
+Decision: recognize a `Capy Git Dialogue Lane` for Captain Capy and other
+external coding agents.
+
+Commit subjects, PR titles/descriptions, and review comments are valid durable
+loop signals when external Git/PR dialogue needs to feed the workbench. Those
+signals must stay compact, reviewable, and public-safe: no secrets, raw run
+transcripts, live IDs, private payloads, or noisy run logs in committed docs or
+review artifacts.
+
+This lane does not replace Multica's live collaboration layer and does not
+authorize daemon, Desktop UI, or core runtime mutation. PRs remain proposed
+artifacts; human or Supervisor review decides merge and acceptance.
+
+Rationale: the workbench already uses Git for durable memory and review. Naming
+the external Git/PR dialogue lane makes commit and PR metadata first-class
+signals without collapsing the boundary between live runtime coordination and
+public review surfaces.
+
 ## 2026-04-29 - Hybrid Workbench Architecture
 
 Decision: Use a Hybrid Multica Two-Ring Workbench.

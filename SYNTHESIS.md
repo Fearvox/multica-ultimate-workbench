@@ -106,6 +106,18 @@ Tracked docs must not include:
 - screenshots that reveal private UI state
 - generated command transcripts with real IDs
 
+## Capy Git Dialogue Lane
+
+The `Capy Git Dialogue Lane` is the external Git/PR dialogue surface for
+Captain Capy and similar coding agents. Durable loop signals belong in commit
+subjects, PR titles/descriptions, and review comments because those artifacts
+are diffable, reviewable, and tied to concrete repo state.
+
+This lane does not change the architecture boundary: Multica remains the live
+collaboration and runtime layer, while this repo and its PR history are durable
+memory and review surfaces. PRs are proposed dialogue artifacts; merge or
+acceptance stays with the human operator or Workbench Supervisor.
+
 ## Repo Anchor Rule
 
 Agents should prefer the GitHub repository resource as the canonical source for
@@ -125,6 +137,8 @@ Evidence should be compact and reviewable:
 - small derived summaries
 - exact verdict labels
 - residual risk
+- commit subjects, PR titles/descriptions, and review comments when external
+  Git dialogue is part of the loop
 
 Large artifacts belong in local temp storage or private issue comments, not in
 public Git history.
