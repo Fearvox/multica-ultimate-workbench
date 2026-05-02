@@ -25,6 +25,31 @@ repository.
 | Public Sanitization | Removed tracked raw artifacts and private execution plans from public Git, parameterized live scripts, and prepared a sanitized public snapshot. |
 | Codex App Supervisor Session | Added a repo-anchor rule for Codex Desktop supervising Multica from a different startup directory. |
 
+## 2026-05-02 - Captain Capy Whole-Access Git Dialogue Responder
+
+The workbench documented a public-safe whole-access GitHub webhook responder for
+the `Capy Git Dialogue Lane`. It is meant to route explicit GitHub requests to
+Captain Capy by using the webhook payload `owner/repo` as the repo anchor
+instead of assuming this workbench repository.
+
+Verification shape:
+
+- the responder was verified as an enabled webhook automation on base branch
+  `main` with the Captain agent binding;
+- subscribed events were verified for `issues` `opened` / `reopened` / `edited`
+  / `assigned`, `issue_comment.created`, `pull_request` `opened` / `reopened`
+  / `ready_for_review` / `synchronize`,
+  `pull_request_review_comment.created`, `pull_request_review.submitted`,
+  `check_suite.completed`, and `workflow_run.completed`;
+- rollout readback showed zero observed runs at verification time;
+- public durable docs continue to exclude automation UUIDs, webhook endpoints,
+  secrets, raw payloads, raw transcripts, and private screenshots.
+
+Residual risk: delivery health, repo-local instruction discovery, and reply
+quality remain live operational checks. Use payload-derived repo state, GitHub,
+review, check, workflow, and Capy evidence to confirm actual behavior instead of
+inferring it from this source snapshot.
+
 ## Codex App Supervisor Session
 
 The workbench now treats a designated Codex Desktop chat as a human-side

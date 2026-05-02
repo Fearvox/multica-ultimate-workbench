@@ -59,9 +59,9 @@ The workbench separates live execution from durable operating memory:
 The workbench also accepts a small external review surface: the `Capy Git
 Dialogue Lane`. Captain Capy and other external coding agents should use commit
 subjects, PR titles/descriptions, and review comments as durable, reviewable
-signals back into the workbench. Those artifacts complement Multica's live
-coordination; they do not replace it, and they do not authorize daemon, Desktop
-UI, or core runtime mutation.
+signals back into the workbench. A bounded GitHub webhook responder now listens
+for payload-scoped Capy dialogue across issue, PR, review, check, and workflow
+events, using the payload `owner/repo` as source of truth; see [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md). Those artifacts complement Multica's live coordination; they do not replace it, and they do not authorize daemon, Desktop UI, or core runtime mutation.
 
 ## Two-Ring System
 
@@ -247,6 +247,7 @@ Human approval required before running:
 | Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
 | VM execution lane | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
+| Capy Git dialogue responder | [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md) |
 | Sanity unified context lane | [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) |
 | Agent-install unifier lane | [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) |
 | Flue agent harness lane | [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) |

@@ -196,8 +196,18 @@ Tracked docs must not include:
 
 The `Capy Git Dialogue Lane` is the external Git/PR dialogue surface for
 Captain Capy and similar coding agents. Durable loop signals belong in commit
-subjects, PR titles/descriptions, and review comments because those artifacts
-are diffable, reviewable, and tied to concrete repo state.
+subjects, PR titles/descriptions, review comments, and bounded responder replies
+because those artifacts are diffable, reviewable, and tied to concrete repo
+state.
+
+This lane now includes a whole-access GitHub webhook responder. It must read
+the payload `owner/repo`, event, action, branch/ref, and issue/PR/comment/check
+state before acting, then follow repo-local instructions when present instead of
+assuming the workbench repo. The responder should avoid spam, post at most one
+concise route/review note for eligible non-draft PR lifecycle events, limit
+check/workflow follow-up to threads where Capy is already involved or waiting,
+and never merge, auto-merge, or mutate live runtime/config state without
+explicit approval.
 
 This lane does not change the architecture boundary: Multica remains the live
 collaboration and runtime layer, while this repo and its PR history are durable

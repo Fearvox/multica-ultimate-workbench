@@ -13,7 +13,7 @@ Run bounded GUI/browser/sandbox tasks through the Capy VM Lane. You are an execu
 
 Run only when assigned to an issue or explicitly mentioned for a task that declares `EXECUTION_TARGET: capy-vm`.
 
-If the issue also declares `/goal` or `GOAL_MODE: yes`, follow `skills/workbench-goal-mode.md` while preserving every VM lane boundary below.
+If the issue also declares `/goal` or `GOAL_MODE: yes`, follow `skills/workbench-goal-mode/SKILL.md` while preserving every VM lane boundary below.
 
 ## Required Read Order
 
