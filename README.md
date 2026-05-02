@@ -145,7 +145,7 @@ See [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-aware
 Non-trivial work follows Specification-Driven Development:
 
 ```text
-raw requirement → product design → technical design → task list → execution/review
+raw requirement → product design → technical design → optional algorithm advisory → task list → execution/review
 ```
 
 Each stage is recorded as a structured issue comment. Issue status stays coarse-grained; the detailed workflow lives in comments and review labels.
@@ -363,6 +363,8 @@ Human approval required before running:
 | Algorithm advisory lane | [docs/algorithm-advisory-gate-lane.md](docs/algorithm-advisory-gate-lane.md) |
 | Algorithm advisory skill | [skills/workbench-algorithm-advisory-gate/SKILL.md](skills/workbench-algorithm-advisory-gate/SKILL.md) |
 | Algorithm advisory template | [issue-templates/algorithm-advisory-gate.md](issue-templates/algorithm-advisory-gate.md) |
+| Dataset Pipeline Alpha | [docs/dataset-pipeline-alpha.md](docs/dataset-pipeline-alpha.md) |
+| Dataset helper CLI | [scripts/workbench-dataset](scripts/workbench-dataset) |
 | Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
 | VM execution lane | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |

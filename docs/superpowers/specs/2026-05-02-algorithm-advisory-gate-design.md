@@ -174,4 +174,3 @@ The implementation plan should require:
 - VM smoke proves temp `HOME` and temp config were used;
 - SDD template includes the Algorithm Advisory Gate stage;
 - a sample report can be carried into Task List without direct code mutation.
-
