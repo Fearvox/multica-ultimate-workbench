@@ -214,6 +214,19 @@ collaboration and runtime layer, while this repo and its PR history are durable
 memory and review surfaces. PRs are proposed dialogue artifacts; merge or
 acceptance stays with the human operator or Workbench Supervisor.
 
+## Project Windburn Scaffold Lane
+
+For new webpage, subpage, landing-page, and microsite work without a named
+target repo, the default repo anchor is `Fearvox/project-windburn`. Current
+repo evidence is intentionally treated as scaffold-only: do not assume an app
+root, shared packages, route tree, build system, or deployment wiring until the
+repo itself proves them.
+
+Expected shape: keep the root for index/routing/workflow docs, create each page
+as its own project under `project-windburn/<page-name>/`, and keep cross-page
+sharing explicit and reviewed. See
+[docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md).
+
 ## Repo Anchor Rule
 
 Agents should prefer the GitHub repository resource as the canonical source for

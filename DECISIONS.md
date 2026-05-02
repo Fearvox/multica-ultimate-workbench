@@ -1,5 +1,22 @@
 # Decisions
 
+## 2026-05-02 - Route Default New Webpage Work To Project Windburn
+
+Decision: treat `Fearvox/project-windburn` as the default landing-zone repo for
+new webpage, subpage, landing-page, and microsite work when the human does not
+name another repository.
+
+Until repo evidence shows otherwise, `project-windburn` is scaffold-only. Do
+not assume an existing app root, shared packages, route tree, build system, or
+deployment wiring from the repo name alone. Keep the root for index/routing
+documentation, place each child page as a self-contained project under
+`project-windburn/<page-name>/`, and require any shared code to be explicit and
+reviewed.
+
+Rationale: the current public repo evidence shows a public `main` branch with a
+minimal root only. Declaring the scaffold rule prevents agents from inventing
+structure while still giving webpage work a stable default repo anchor.
+
 ## 2026-05-01 - Add Capy, Sanity, And Agent-Install Infra Lanes
 
 Decision: add three separate workbench lanes:
