@@ -7,6 +7,7 @@ logs/
 .env.*
 state/runtime-snapshots/
 .private/
+.superconductor/
 
 # Agent/VM/runtime captures are local evidence, not public repo memory.
 artifacts/
