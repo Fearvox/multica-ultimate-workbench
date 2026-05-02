@@ -63,6 +63,12 @@ signals back into the workbench. A bounded GitHub webhook responder now listens
 for payload-scoped Capy dialogue across issue, PR, review, check, and workflow
 events, using the payload `owner/repo` as source of truth; see [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md). Those artifacts complement Multica's live coordination; they do not replace it, and they do not authorize daemon, Desktop UI, or core runtime mutation.
 
+For new webpage, subpage, landing-page, or microsite work without a named repo,
+the default route is the `Project Windburn` scaffold lane. Treat
+`Fearvox/project-windburn` as a public landing-zone scaffold until repo
+evidence shows created child page projects; see
+[docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md).
+
 ## Two-Ring System
 
 The system uses two rings instead of a flat swarm to keep agent coordination manageable.
@@ -248,6 +254,7 @@ Human approval required before running:
 | VM execution lane | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
 | Capy Git dialogue responder | [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md) |
+| Windburn scaffold routing lane | [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md) |
 | Sanity unified context lane | [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) |
 | Agent-install unifier lane | [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) |
 | Flue agent harness lane | [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) |
