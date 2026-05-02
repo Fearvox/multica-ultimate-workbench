@@ -22,6 +22,7 @@ The pack is directory-structured for the `skills` CLI: each skill lives at
 | [`workbench-sdd`](workbench-sdd/SKILL.md) | Raw requirement -> product design -> technical design -> task list -> execution/review. |
 | [`workbench-goal-mode`](workbench-goal-mode/SKILL.md) | Goal-persistence wrapper for `/goal` work that must continue until the objective is verified. |
 | [`workbench-l2-pressure-gate`](workbench-l2-pressure-gate/SKILL.md) | Research Vault pressure gate for remote Hermes, VM, HarnessMax, and autonomous evolution sweeps. |
+| [`workbench-algorithm-advisory-gate`](workbench-algorithm-advisory-gate/SKILL.md) | Advisory-only algorithm and data-structure review gate between Technical Design and Task List. |
 | [`workbench-conductor`](workbench-conductor/SKILL.md) | Two-ring routing, role boundaries, issue/comment discipline. |
 | [`workbench-research`](workbench-research/SKILL.md) | Evidence-first research and source discipline. |
 | [`workbench-review-qa`](workbench-review-qa/SKILL.md) | PASS/FLAG/BLOCK review and QA verification. |

@@ -14,6 +14,10 @@ The workbench is a two-ring operating system for agentic software work:
 - **Governance Layer**: Self-Awareness bootstrap, SDD, Goal Mode, review gates,
   flight recorder summaries, L2 Pressure, and explicit PASS / FLAG / BLOCK
   closeout.
+- **Algorithm Advisory Gate**: VM Claude Code plus `data-algo` skill reviews
+  correctness, complexity, data structures, and verification before Task List.
+  Correctness risk blocks; complexity risk becomes explicit tasks or residual
+  risk.
 - **Context Layer**: Sanity stores sanitized structured context for agents,
   runtimes, skills, evidence events, decisions, handoffs, and Capy process
   checks.
@@ -33,7 +37,8 @@ flowchart LR
   Z["Self-Awareness Bootstrap"] --> A["Raw Requirement"]
   A --> B["Product Design"]
   B --> C["Technical Design"]
-  C --> D["Task List"]
+  C --> P["Algorithm Advisory Gate if algorithm risk"]
+  P --> D["Task List"]
   D --> E["Specialist Execution"]
   D --> J["Goal Mode if /goal"]
   D --> K["L2 Pressure if remote/HarnessMax"]

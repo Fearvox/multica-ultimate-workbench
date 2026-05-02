@@ -16,25 +16,27 @@ Read only as deep as the task requires:
 6. [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) - executable bootstrap block and verdict rules.
 7. [docs/skill-curator.md](docs/skill-curator.md) - skill lifecycle, stale/archive/pin review protocol.
 8. [docs/multica-021-workflow.md](docs/multica-021-workflow.md) - project-bound repo, Quick Capture, fresh rerun, Mermaid, and runtime config rules.
-9. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
-10. [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) - Research Vault pressure gate for remote/HarnessMax work.
-11. [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) - read-only remote Research Vault MCP contract.
-12. [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) - Brave/Computer Use observation for Capy task and PR state.
-13. [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md) - Capy process check report contract.
-14. [CLAUDE.md](CLAUDE.md) - Claude-compatible compact bridge for external tools.
-15. [.capy/CAPTAIN.md](.capy/CAPTAIN.md) - Capy routing and task-splitting rules.
-16. [.capy/BUILD.md](.capy/BUILD.md) - Capy implementation loop and closeout format.
-17. [.capy/REVIEW.md](.capy/REVIEW.md) - Capy review stance and verdict format.
-18. [.capy/settings.json](.capy/settings.json) - Capy MCP and project settings.
-19. [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) - Sanity context registry boundary.
-20. [skills/workbench-sanity-context/SKILL.md](skills/workbench-sanity-context/SKILL.md) - Sanity schema and data-policy rules.
-21. [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) - agent-install sync boundary.
-22. [skills/workbench-agent-install-unifier/SKILL.md](skills/workbench-agent-install-unifier/SKILL.md) - agent-install report contract.
-23. [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) - deployable Flue agent harness lane.
-24. [skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md) - Flue scaffold contract and report rules.
-25. [skills/README.md](skills/README.md) - workspace skill map and attachments.
-26. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
-27. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
+9. [docs/algorithm-advisory-gate-lane.md](docs/algorithm-advisory-gate-lane.md) - algorithm review gate before Task List.
+10. [skills/workbench-algorithm-advisory-gate/SKILL.md](skills/workbench-algorithm-advisory-gate/SKILL.md) - advisory-only algorithm gate rules.
+11. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
+12. [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) - Research Vault pressure gate for remote/HarnessMax work.
+13. [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) - read-only remote Research Vault MCP contract.
+14. [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) - Brave/Computer Use observation for Capy task and PR state.
+15. [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md) - Capy process check report contract.
+16. [CLAUDE.md](CLAUDE.md) - Claude-compatible compact bridge for external tools.
+17. [.capy/CAPTAIN.md](.capy/CAPTAIN.md) - Capy routing and task-splitting rules.
+18. [.capy/BUILD.md](.capy/BUILD.md) - Capy implementation loop and closeout format.
+19. [.capy/REVIEW.md](.capy/REVIEW.md) - Capy review stance and verdict format.
+20. [.capy/settings.json](.capy/settings.json) - Capy MCP and project settings.
+21. [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) - Sanity context registry boundary.
+22. [skills/workbench-sanity-context/SKILL.md](skills/workbench-sanity-context/SKILL.md) - Sanity schema and data-policy rules.
+23. [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) - agent-install sync boundary.
+24. [skills/workbench-agent-install-unifier/SKILL.md](skills/workbench-agent-install-unifier/SKILL.md) - agent-install report contract.
+25. [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) - deployable Flue agent harness lane.
+26. [skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md) - Flue scaffold contract and report rules.
+27. [skills/README.md](skills/README.md) - workspace skill map and attachments.
+28. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
+29. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
 
 ## Repository Role
 
@@ -74,6 +76,7 @@ When supervising Multica from Codex Desktop:
 - Use `scripts/collect-flight-recorder.sh <issue-id>` for review summaries when relevant.
 - Use [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) before SDD, Goal Mode, L2 Pressure, VM routing, remote execution, or other non-trivial work.
 - Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
+- Use [skills/workbench-algorithm-advisory-gate/SKILL.md](skills/workbench-algorithm-advisory-gate/SKILL.md) when Technical Design has meaningful algorithm, data-structure, ranking, search, cache, queue, graph, streaming, ingestion, dedupe, or complexity risk before Task List.
 - Use [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) when an issue contains `/goal`, `GOAL_MODE: yes`, or asks an owner to continue until the stated objective is verified.
 - Use [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) when a task asks for HarnessMax, remote evolution, remote Hermes, remote VM, leaderboard pressure, or Research Vault grounding.
 - Use [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md) when a task asks to inspect Capy live state through Brave, Computer Use, a Capy thread, a Capy task, or a Capy PR panel.
@@ -95,10 +98,17 @@ Use the two-ring model.
 | --- | --- | --- |
 | Inner Ring | Workbench Admin, Workbench Supervisor, Workbench Synthesizer | Route work, review evidence, preserve memory, and keep the system coherent. |
 | Outer Ring | Developer, Researcher, Architect, Docs, QA, Ops, Curator | Execute bounded specialist work. Do not take over orchestration unless assigned. |
-| Remote Cell | NYC Codex Builder, NYC Hermes Researcher, NYC Ops Mechanic, NYC VM Runner | Execute longer tasks on `<REMOTE_MULTICA_DEVICE>`. Treat laptop file paths as invalid unless explicitly verified on that host. |
+| Remote Cell | NYC Codex Builder, NYC Hermes Researcher, NYC Ops Mechanic, NYC VM Runner, Remote Algorithm Advisor | Execute longer tasks on `<REMOTE_MULTICA_DEVICE>`. Treat laptop file paths as invalid unless explicitly verified on that host. |
 | Special | Workbench Max | Preserved private workbench. Use only when the human explicitly assigns it. |
 
 Direct chat is for fuzzy thought. Issues are for executable work. Mentions are for narrow review or advice. Autopilots create recurring review issues. Before a non-trivial issue routes or executes, the owner posts `SELF_AWARENESS_BOOTSTRAP` so role, repo, tool/MCP, memory, risk, route, and success metric are explicit. The Auto Review Sweeper is the automatic `in_review` handoff: Workbench Supervisor scans completed agent work on a schedule, posts `AUTO_REVIEW`, and may close PASS targets to `done`. The Remote HarnessMax Evolve Sweeper is the high-rate pressure controller for remote Hermes, remote VM, and Research Vault grounded routing; it creates issues and routes evidence, but does not silently mutate runtime state.
+
+Algorithm Advisory Gate is a hybrid SDD gate between Technical Design and Task
+List. When algorithm, data-structure, ranking, search, cache, queue, graph,
+streaming, ingestion, dedupe, or complexity risk matters, a Remote Algorithm
+Advisor may review with `data-algo` pressure, but remains advisory-only and must
+not patch repositories. Correctness risk returns `BLOCK`; complexity risk returns
+`FLAG` unless it also creates correctness risk.
 
 The Flue Agent Harness Lane is a packaging outlet. It turns a mature workflow
 into a deployable HTTP, CI, Node, Cloudflare, or sandbox-backed agent only after
@@ -164,7 +174,7 @@ See [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md), [s
 For non-trivial work, use the SDD comment pipeline:
 
 ```text
-Raw Requirement -> Product Design -> Technical Design -> Task List -> Execution And Verification
+Raw Requirement -> Product Design -> Technical Design -> Algorithm Advisory Gate (optional) -> Task List -> Execution And Verification
 ```
 
 Rules:
@@ -173,6 +183,9 @@ Rules:
 - Put stage detail in structured comments, not custom statuses.
 - Start from compact handoffs and exact evidence IDs before reading full history.
 - Use [issue-templates/sdd-workflow.md](issue-templates/sdd-workflow.md) when the work needs the full SDD path.
+- Algorithm Advisory Gate is optional, sits between Technical Design and Task
+  List, and converts correctness or complexity risk into a `BLOCK`, `FLAG`,
+  Task List content, verification pressure, or explicit residual risk.
 - Quick fixes may bypass full SDD only when the risk is low and the evidence path is still clear.
 - For `/goal` work, Task List must include `GOAL_LOCK`, closeout gates, and operator-call conditions before execution starts.
 
@@ -386,6 +399,9 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Self-awareness protocol | [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) |
 | Self-awareness skill | [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) |
 | Multica 0.2.21 workflow rules | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
+| Algorithm advisory lane | [docs/algorithm-advisory-gate-lane.md](docs/algorithm-advisory-gate-lane.md) |
+| Algorithm advisory skill | [skills/workbench-algorithm-advisory-gate/SKILL.md](skills/workbench-algorithm-advisory-gate/SKILL.md) |
+| Algorithm advisory issue template | [issue-templates/algorithm-advisory-gate.md](issue-templates/algorithm-advisory-gate.md) |
 | Goal-persistence execution | [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) |
 | L2 pressure execution | [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) |
 | Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
@@ -423,7 +439,7 @@ git diff -- README.md AGENTS.md
 ```
 
 ```bash
-for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md; do
+for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/algorithm-advisory-gate-lane.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md skills/workbench-self-awareness-infra/SKILL.md skills/workbench-algorithm-advisory-gate/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/algorithm-advisory-gate.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md; do
   test -f "$path" || exit 1
 done
 echo "link-targets-ok"

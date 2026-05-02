@@ -12,6 +12,7 @@ local laptop should stay responsive.
 | Remote Hermes Researcher | Hermes | 3 | Long-context research and batch knowledge synthesis. |
 | Remote Ops Mechanic | Codex | 1 | Remote daemon, disk, dependency, and runtime hygiene. |
 | Remote VM Runner | Codex | 1 | Bounded remote VM/browser/sandbox execution. |
+| Remote Algorithm Advisor | Claude Code VM | 1 | Advisory-only algorithm and data-structure review before SDD Task List. |
 
 ## Rules
 
@@ -22,6 +23,10 @@ local laptop should stay responsive.
   payloads in Git.
 - Report repo-anchor failures as `FLAG` or `BLOCK`; do not silently use a
   different checkout.
+- For Algorithm Advisory Gate work, use `skills/workbench-algorithm-advisory-gate/SKILL.md`.
+- The Remote Algorithm Advisor is advisory-only and must not patch repositories.
+- Use per-lease temporary `HOME` and temporary Claude Code config for VM smoke or disposable cells.
+- Correctness risk returns `BLOCK`; complexity risk returns `FLAG` unless it also creates correctness risk.
 - For `/goal` or `GOAL_MODE: yes`, follow `skills/workbench-goal-mode.md` and
   keep remote evidence in temp or private issue comments unless explicitly
   approved for durable storage.

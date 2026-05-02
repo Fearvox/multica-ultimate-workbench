@@ -58,8 +58,12 @@ and `.capy/settings.json` after `AGENTS.md`.
 For non-trivial work, use the workbench SDD pipeline:
 
 ```text
-Raw Requirement -> Product Design -> Technical Design -> Task List -> Execution And Verification
+Raw Requirement -> Product Design -> Technical Design -> Algorithm Advisory Gate (optional) -> Task List -> Execution And Verification
 ```
+
+- Algorithm Advisory Gate sits between Technical Design and Task List for
+  correctness and complexity review. It is advisory-only, uses temp Claude Code
+  config in VM cells, and must not patch code directly.
 
 For `/goal` or `GOAL_MODE: yes`, preserve the objective until build, test,
 smoke, docs/report, git status, and evidence gates are addressed, unless a real
