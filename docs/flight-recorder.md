@@ -40,7 +40,8 @@ These files are summaries only. Raw issue, comment, and run-message payloads are
 
 ## Recommended SDD Use
 
-At the end of a non-trivial issue:
+At the end of a Standard or Heavy issue that used SDD or needs compact review
+evidence:
 
 1. Owner posts execution evidence.
 2. Reviewer runs the flight recorder against the issue.

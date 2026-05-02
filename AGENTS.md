@@ -65,6 +65,9 @@ When supervising Multica from Codex Desktop:
 
 ## Operating Rules
 
+- Route every request through the Friction Tier Router before adding workflow
+  ceremony. Low-risk work should stay light; high-risk work keeps the hard
+  gates.
 - Do not modify Multica daemon, Desktop UI, or core runtime unless the human explicitly asks.
 - Do not store secrets, OAuth material, private tokens, raw request payloads, or raw run transcripts.
 - Do not claim completion without evidence.
@@ -72,7 +75,7 @@ When supervising Multica from Codex Desktop:
 - From a Multica runtime, use the issue's project-bound GitHub repo resource first.
 - The `file://<LOCAL_WORKBENCH_REPO>` checkout is laptop-local only. Remote runtimes such as `<REMOTE_MULTICA_DEVICE>` must not rely on it; if repo checkout resolves to that path remotely, report `FLAG` or `BLOCK` and name the repo-anchor fix.
 - Use `scripts/collect-flight-recorder.sh <issue-id>` for review summaries when relevant.
-- Use [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) before SDD, Goal Mode, L2 Pressure, VM routing, remote execution, or other non-trivial work.
+- Use [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) when the Friction Tier Router selects Heavy Path, when repo/runtime ownership is ambiguous, or when Standard Path evidence depends on current runtime capability.
 - Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
 - Use [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) when an issue contains `/goal`, `GOAL_MODE: yes`, or asks an owner to continue until the stated objective is verified.
 - Use [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) when a task asks for HarnessMax, remote evolution, remote Hermes, remote VM, leaderboard pressure, or Research Vault grounding.
@@ -98,7 +101,67 @@ Use the two-ring model.
 | Remote Cell | NYC Codex Builder, NYC Hermes Researcher, NYC Ops Mechanic, NYC VM Runner | Execute longer tasks on `<REMOTE_MULTICA_DEVICE>`. Treat laptop file paths as invalid unless explicitly verified on that host. |
 | Special | Workbench Max | Preserved private workbench. Use only when the human explicitly assigns it. |
 
-Direct chat is for fuzzy thought. Issues are for executable work. Mentions are for narrow review or advice. Autopilots create recurring review issues. Before a non-trivial issue routes or executes, the owner posts `SELF_AWARENESS_BOOTSTRAP` so role, repo, tool/MCP, memory, risk, route, and success metric are explicit. The Auto Review Sweeper is the automatic `in_review` handoff: Workbench Supervisor scans completed agent work on a schedule, posts `AUTO_REVIEW`, and may close PASS targets to `done`. The Remote HarnessMax Evolve Sweeper is the high-rate pressure controller for remote Hermes, remote VM, and Research Vault grounded routing; it creates issues and routes evidence, but does not silently mutate runtime state.
+Direct chat is for fuzzy thought. Issues are for executable work. Mentions are for narrow review or advice. Autopilots create recurring review issues. The Friction Tier Router decides whether the work is Fast, Standard, or Heavy before additional gates are applied. Heavy work and ambiguous repo/runtime work require `SELF_AWARENESS_BOOTSTRAP` so role, repo, tool/MCP, memory, risk, route, and success metric are explicit. The Auto Review Sweeper is the automatic `in_review` handoff: Workbench Supervisor scans completed agent work on a schedule, posts `AUTO_REVIEW`, and may close PASS targets to `done`. The Remote HarnessMax Evolve Sweeper is the high-rate pressure controller for remote Hermes, remote VM, and Research Vault grounded routing; it creates issues and routes evidence, but does not silently mutate runtime state.
+
+### Friction Tier Router
+
+Workbench Admin chooses the tier at intake. Workbench Supervisor enforces the
+chosen tier during review and may upgrade the tier when evidence shows higher
+risk. Do not downgrade a task to avoid evidence gates.
+
+```text
+FAST_PATH:
+- for reading docs, summarizing, copy edits, small README text, link cleanup,
+  ACKs, empty scaffolds, lightweight classification, and other work with no
+  code, no secrets, and no runtime surface
+- no SELF_AWARENESS_BOOTSTRAP unless repo/runtime ownership is ambiguous
+- no Temporal Pincer before send
+- no Research Vault pressure check
+- no broad issue history scan
+- max 20 minutes
+- output only: Done Sentence / Changed / Verified / Next one action
+- if it spawns a new lane, mark FLAG
+```
+
+```text
+STANDARD_PATH:
+- for ordinary code or documentation patches, prototype demos, tests, PR prep,
+  and page visual fixes
+- require issue anchor or explicit local task
+- require evidence expectations before execution
+- verify only the touched path
+- closeout requires Changed / Verified / Residual risk / Next one action
+- after 70% complete: no new architecture names and no new integrations
+```
+
+```text
+HEAVY_PATH:
+- for runtime, agent/autopilot, deploy, payment, OAuth, secrets, branch/merge,
+  public proof, daemon/Desktop/core, and remote VM work
+- require SELF_AWARENESS_BOOTSTRAP
+- require GOAL_LOCK if the objective spans turns
+- require full evidence gate before PASS
+- require Temporal Pincer for PASS/done/ready-to-merge
+- correctness risk = BLOCK
+- permission, secret, payment, or runtime mutation = human approval
+```
+
+```text
+COMPLETION_COOLING:
+- 75%: only verify, commit, or hand off; no new scope
+- 85%: publish/reviewable means stop editing and collect feedback only
+- 90%: merged/accepted means max one POST_MERGE_NOTE
+- 100%: no follow-up lane for 24h unless an external blocker appears
+```
+
+```text
+PARKING_LOT:
+Any new idea during active work gets one line only:
+Idea:
+Trigger:
+Earliest revisit:
+No agent assignment, issue, or doc expansion for 24h.
+```
 
 The Flue Agent Harness Lane is a packaging outlet. It turns a mature workflow
 into a deployable HTTP, CI, Node, Cloudflare, or sandbox-backed agent only after
@@ -131,7 +194,9 @@ Use [docs/multica-021-workflow.md](docs/multica-021-workflow.md) when a task tou
 
 ## Self-Awareness Protocol
 
-Use Self-Awareness before SDD, Goal Mode, L2 Pressure, remote work, VM work, repo-changing work, or any issue that depends on current runtime capability:
+Use Self-Awareness when the Friction Tier Router selects Heavy Path, when
+repo/runtime ownership is ambiguous, or when Standard Path depends on current
+runtime capability:
 
 ```text
 SELF_AWARENESS_BOOTSTRAP
@@ -161,7 +226,8 @@ See [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md), [s
 
 ## SDD Protocol
 
-For non-trivial work, use the SDD comment pipeline:
+For work that the Friction Tier Router sends to SDD, use the SDD comment
+pipeline:
 
 ```text
 Raw Requirement -> Product Design -> Technical Design -> Task List -> Execution And Verification

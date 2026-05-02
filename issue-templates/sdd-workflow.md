@@ -36,7 +36,11 @@ Assigned stage owner:
 
 ## SDD Bypass
 
-Use full SDD for non-trivial work. Workbench Admin may mark `SDD_BYPASS: quick-fix` or `SDD_BYPASS: emergency` only for low-risk or time-critical tasks, and Supervisor still reviews the execution result before close.
+Use the Friction Tier Router before SDD. Full SDD applies when Standard or Heavy
+work needs product/technical/task staging. Workbench Admin may mark
+`SDD_BYPASS: fast-path`, `SDD_BYPASS: quick-fix`, or `SDD_BYPASS: emergency`
+only for low-risk, explicit, or time-critical tasks, and Supervisor still
+reviews the execution result before close.
 
 ## Goal Mode
 

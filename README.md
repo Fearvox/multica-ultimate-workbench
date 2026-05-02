@@ -80,10 +80,25 @@ The system uses two rings instead of a flat swarm to keep agent coordination man
 
 See [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) for the full role map and ring assignments.
 
+## Friction Tier Router
+
+Workbench Admin routes each request before adding ceremony:
+
+| Tier | Use For | Gate |
+| --- | --- | --- |
+| Fast Path | Reading, summaries, copy edits, link cleanup, ACKs, empty scaffolds, and no-code/no-secret/no-runtime work. | Skip heavy preflights unless repo/runtime ownership is ambiguous. Close with Done / Changed / Verified / Next one action. |
+| Standard Path | Ordinary patches, prototypes, tests, PR prep, and visual fixes. | Require an issue anchor or explicit local task, expected evidence, touched-path verification, and residual-risk closeout. |
+| Heavy Path | Runtime, agents/autopilots, deploy, payment, OAuth, secrets, branch/merge, public proof, daemon/Desktop/core, and remote VM work. | Require Self-Awareness, full evidence gates, Temporal Pincer for PASS/done/ready-to-merge, and human approval for sensitive mutation. |
+
+Completion Cooling stops late-stage expansion: after 75% complete, work should
+verify, commit, or hand off; new ideas go to a one-line parking lot for later
+review.
+
 ## Self-Awareness
 
-Self-Awareness is the workbench's first bootstrap layer. Before non-trivial
-work, an agent posts `SELF_AWARENESS_BOOTSTRAP`: runtime identity, role
+Self-Awareness is the workbench's Heavy Path bootstrap layer. Agents post
+`SELF_AWARENESS_BOOTSTRAP` for Heavy work, ambiguous repo/runtime ownership, or
+Standard work that depends on current runtime capability: runtime identity, role
 boundary, repo anchor, tool/MCP envelope, memory sources checked, current-state
 proof, risk boundary, route, success metric, and operator-call conditions.
 

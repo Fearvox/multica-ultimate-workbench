@@ -22,8 +22,29 @@ repository.
 | Sanity Context | Added a structured context-registry lane for sanitized cross-CLI records. |
 | Agent-Install Unifier | Added a distribution lane for skills, MCP configs, and AGENTS.md sections across coding agents. |
 | Flue Harness Lane | Added a deployable agent-harness outlet for mature HTTP, CI, Node, Cloudflare, and sandbox-backed workflows. |
+| Friction Tier Router | Added Fast / Standard / Heavy routing so low-risk work skips ceremony while high-risk work keeps hard gates. |
 | Public Sanitization | Removed tracked raw artifacts and private execution plans from public Git, parameterized live scripts, and prepared a sanitized public snapshot. |
 | Codex App Supervisor Session | Added a repo-anchor rule for Codex Desktop supervising Multica from a different startup directory. |
+
+## 2026-05-02 - Friction Tier Router
+
+The workbench added a Friction Tier Router for Workbench Admin and Workbench
+Supervisor. The router splits work into Fast Path, Standard Path, and Heavy Path
+before applying governance ceremony.
+
+Verification shape:
+
+- `AGENTS.md` now contains the executable router rules, Completion Cooling, and
+  Parking Lot contract;
+- `SYNTHESIS.md` records the router in the operating model and governance layer;
+- `DECISIONS.md` records the durable decision and rationale;
+- `agents/AGENT_ROSTER.md` assigns intake classification to Admin and tier
+  enforcement to Supervisor;
+- `README.md` includes a public-safe summary.
+
+Residual risk: live Multica agent prompts and skill bindings were not synced in
+this source-only pass. Treat live rollout as a separate reviewed action if the
+runtime needs the new rules immediately.
 
 ## 2026-05-02 - Captain Capy Whole-Access Git Dialogue Responder
 

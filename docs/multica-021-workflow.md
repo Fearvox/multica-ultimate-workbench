@@ -18,7 +18,10 @@ Source: [Multica changelog](https://multica.ai/changelog).
 
 ## Intake Flow
 
-Use Quick Capture or a human-created issue for fuzzy input. Use the Project binding to anchor the correct repository before any agent claims file evidence. Use SDD comments when the work is non-trivial.
+Use Quick Capture or a human-created issue for fuzzy input. Use the Project
+binding to anchor the correct repository before any agent claims file evidence.
+Use the Friction Tier Router first, then apply SDD comments when the selected
+tier calls for them.
 
 ```mermaid
 flowchart LR

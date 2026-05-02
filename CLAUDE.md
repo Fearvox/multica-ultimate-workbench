@@ -50,12 +50,28 @@ and `.capy/settings.json` after `AGENTS.md`.
 ## Default Work Loop
 
 1. Inspect the current repo and task state.
-2. State the role boundary and source of truth.
-3. Make the smallest useful change.
-4. Verify on the real path.
-5. Report what changed, what was verified, residual risk, and next action.
+2. Choose the Friction Tier: Fast, Standard, or Heavy.
+3. State the role boundary and source of truth when the tier requires it.
+4. Make the smallest useful change.
+5. Verify on the real path.
+6. Report what changed, what was verified, residual risk, and next action.
 
-For non-trivial work, use the workbench SDD pipeline:
+Fast Path covers low-risk reading, summaries, copy, ACKs, empty scaffolds, and
+no-code/no-secret/no-runtime work. Skip heavy preflights unless repo/runtime
+ownership is ambiguous and close with Done / Changed / Verified / Next one
+action.
+
+Standard Path covers ordinary patches, demos, tests, PR prep, and visual fixes.
+Use an issue anchor or explicit local task, set evidence expectations before
+execution, and verify only the touched path.
+
+Heavy Path covers runtime, agents/autopilots, deploy, payment, OAuth, secrets,
+branch/merge, public proof, daemon/Desktop/core, and remote VM work. Require
+Self-Awareness, Goal Lock when the objective spans turns, full evidence before
+PASS, Temporal Pincer for PASS/done/ready-to-merge, and human approval for
+sensitive mutation.
+
+Use the full SDD pipeline when the selected tier calls for it:
 
 ```text
 Raw Requirement -> Product Design -> Technical Design -> Task List -> Execution And Verification

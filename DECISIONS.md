@@ -1,5 +1,43 @@
 # Decisions
 
+## 2026-05-02 - Add Friction Tier Router To Workbench Routing
+
+Decision: Workbench Admin and Workbench Supervisor must route work through a
+three-tier friction model before applying governance ceremony.
+
+Fast Path covers reading, summaries, copy edits, small README text, link
+cleanup, ACKs, empty scaffolds, lightweight classification, and work with no
+code, secrets, or runtime surface. It skips Self-Awareness, Temporal Pincer,
+Research Vault pressure checks, and broad issue scans unless repo/runtime
+ownership is ambiguous. It has a 20-minute ceiling and closes with Done
+Sentence / Changed / Verified / Next one action.
+
+Standard Path covers ordinary code or documentation patches, prototype demos,
+tests, PR prep, and visual page fixes. It requires an issue anchor or explicit
+local task, evidence expectations before execution, touched-path verification,
+and Changed / Verified / Residual risk / Next one action closeout. After 70%
+complete, no new architecture names or integrations are allowed.
+
+Heavy Path covers runtime, agent/autopilot, deploy, payment, OAuth, secrets,
+branch/merge, public proof, daemon/Desktop/core, and remote VM work. It keeps
+the hard gates: Self-Awareness, Goal Lock when the objective spans turns, full
+evidence before PASS, Temporal Pincer for PASS/done/ready-to-merge, BLOCK on
+correctness risk, and human approval for permission, secret, payment, or runtime
+mutation.
+
+Completion Cooling adds late-stage scope control: 75% means verify/commit/
+handoff only, 85% means publish/reviewable stops editing, 90% means merged or
+accepted allows at most one `POST_MERGE_NOTE`, and 100% means no follow-up lane
+for 24 hours unless an external blocker appears. New ideas during active work
+go to a one-line parking lot only.
+
+Rationale: the prior model protected high-risk work but overtaxed low-risk
+tasks with the same ceremony. Chronicle evidence from the overnight Workbench
+Decision Runtime work also clarified that Temporal Pincer should be a truth
+gate for closeout/PASS claims, not a handbrake before every send. The new
+router keeps the iron gates where they matter while letting low-risk work move
+without ritual overhead.
+
 ## 2026-05-02 - Route Default New Webpage Work To Project Windburn
 
 Decision: treat `Fearvox/project-windburn` as the default landing-zone repo for

@@ -1,9 +1,11 @@
 # Self-Awareness Infra Layer
 
-The Self-Awareness Infra Layer is the first boot step for non-trivial workbench
-runs. It makes an agent verify what it is, what it can actually use right now,
-which repo or issue is authoritative, which memory sources are current, and what
-counts as completion before it starts routing or implementation.
+The Self-Awareness Infra Layer is the first boot step for Heavy Path work,
+ambiguous repo/runtime ownership, and Standard Path work that depends on current
+runtime capability. It makes an agent verify what it is, what it can actually
+use right now, which repo or issue is authoritative, which memory sources are
+current, and what counts as completion before it starts routing or
+implementation.
 
 This is not a motivational prompt. It is a small capability and risk audit that
 prevents stale context, tool hallucination, scheduler-start claims, and
@@ -13,8 +15,11 @@ wrong-repo work.
 
 ```mermaid
 flowchart LR
-  A["Self-Awareness Bootstrap"] --> B["Raw Requirement"]
-  B --> C["Product Design"]
+  A["Raw Requirement"] --> R{"Friction Tier Router"}
+  R -->|Fast| X["Direct answer / small patch"]
+  R -->|Standard| C["Product Design"]
+  R -->|Heavy or ambiguous| B["Self-Awareness Bootstrap"]
+  B --> C
   C --> D["Technical Design"]
   D --> E["Task List"]
   E --> F["Execution / Review"]
@@ -24,13 +29,16 @@ flowchart LR
   H --> F
 ```
 
-Self-Awareness runs before SDD, Goal Mode, L2 Pressure, VM routing, or remote
-execution. It does not replace those layers; it decides which one should run
-next and what proof they must carry.
+Self-Awareness runs when the Friction Tier Router selects Heavy Path, when the
+repo/runtime is ambiguous, or when a Standard task needs live runtime capability
+before SDD, Goal Mode, L2 Pressure, VM routing, or remote execution. It does not
+replace those layers; it decides which one should run next and what proof they
+must carry.
 
 ## Required Bootstrap
 
-Agents post or maintain this block before routing, implementation, or review:
+Agents post or maintain this block before routing, implementation, or review
+when the selected tier requires it:
 
 ```text
 SELF_AWARENESS_BOOTSTRAP

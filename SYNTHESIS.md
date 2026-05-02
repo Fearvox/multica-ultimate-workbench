@@ -11,9 +11,9 @@ The workbench is a two-ring operating system for agentic software work:
 - **Inner Ring**: intake, routing, supervision, synthesis, and final judgment.
 - **Outer Ring**: implementation, research, design, QA, debugging, ops, VM work,
   and documentation.
-- **Governance Layer**: Self-Awareness bootstrap, SDD, Goal Mode, review gates,
-  flight recorder summaries, L2 Pressure, and explicit PASS / FLAG / BLOCK
-  closeout.
+- **Governance Layer**: Friction Tier Router, Self-Awareness bootstrap, SDD,
+  Goal Mode, review gates, flight recorder summaries, L2 Pressure, Temporal
+  Pincer closeout checks, and explicit PASS / FLAG / BLOCK closeout.
 - **Context Layer**: Sanity stores sanitized structured context for agents,
   runtimes, skills, evidence events, decisions, handoffs, and Capy process
   checks.
@@ -31,8 +31,11 @@ traceability, role boundaries, or operator control.
 
 ```mermaid
 flowchart LR
-  Z["Self-Awareness Bootstrap"] --> A["Raw Requirement"]
-  A --> B["Product Design"]
+  A["Raw Requirement"] --> R{"Friction Tier"}
+  R -->|Fast| X["Direct answer / small patch"]
+  R -->|Standard| B["Product Design"]
+  R -->|Heavy or ambiguous| Z["Self-Awareness Bootstrap"]
+  Z --> B
   B --> C["Technical Design"]
   C --> D["Task List"]
   D --> E["Specialist Execution"]
@@ -43,6 +46,7 @@ flowchart LR
   K --> E
   M --> E
   E --> F["Review Gate"]
+  X --> F
   E --> N["Sanity sanitized context update if useful"]
   E --> L["Flue Harness Lane if deployable agent"]
   N --> F
@@ -65,11 +69,30 @@ flowchart LR
 | Outer | QA / Reviewer | Run independent checks and report residual risk. |
 | Outer | Ops / VM | Handle runtimes, daemon health, VM/browser execution, and cleanup. |
 
+## Friction Tier Router
+
+The workbench no longer sends every request through the same ceremony.
+Workbench Admin classifies work at intake, and Workbench Supervisor enforces the
+chosen tier during review.
+
+| Tier | Use For | Required Gates |
+| --- | --- | --- |
+| Fast Path | Reading, summaries, copy edits, small README text, link cleanup, ACKs, empty scaffolds, lightweight classification, and work with no code, secrets, or runtime surface. | No bootstrap unless repo/runtime is ambiguous. No Temporal Pincer before send. No RV pressure check. No broad issue scan. Max 20 minutes. Close with Done Sentence / Changed / Verified / Next one action. |
+| Standard Path | Ordinary code or docs patches, prototype demos, tests, PR prep, and visual page fixes. | Require issue anchor or explicit local task, evidence expectations before execution, touched-path verification, and closeout with Changed / Verified / Residual risk / Next one action. After 70% complete, add no new architecture names or integrations. |
+| Heavy Path | Runtime, agent/autopilot, deploy, payment, OAuth, secrets, branch/merge, public proof, daemon/Desktop/core, and remote VM work. | Require Self-Awareness, Goal Lock when the objective spans turns, full evidence before PASS, Temporal Pincer for PASS/done/ready-to-merge, BLOCK for correctness risk, and human approval for permission/secret/payment/runtime mutation. |
+
+Completion Cooling keeps late-stage work from expanding: at 75% only verify,
+commit, or hand off; at 85% publish/reviewable means stop editing and collect
+feedback; at 90% merged/accepted allows at most one `POST_MERGE_NOTE`; at 100%
+no follow-up lane is created for 24 hours unless an external blocker appears.
+New ideas during active work go to a one-line parking lot with Idea, Trigger,
+and Earliest revisit only.
+
 ## Self-Awareness
 
-Self-Awareness is the preflight layer for non-trivial work. The owner posts
-`SELF_AWARENESS_BOOTSTRAP` before SDD, Goal Mode, L2 Pressure, remote execution,
-VM work, or repo-changing work. The block verifies runtime identity, role
+Self-Awareness is the preflight layer for Heavy Path, ambiguous repo/runtime
+ownership, and Standard Path work that depends on current runtime capability.
+The owner posts `SELF_AWARENESS_BOOTSTRAP` to verify runtime identity, role
 boundary, repo anchor, tool and MCP envelope, memory sources, current-state
 proof, risk boundary, route, success metric, operator-call conditions, and a
 `READY` / `FLAG` / `BLOCK` verdict.

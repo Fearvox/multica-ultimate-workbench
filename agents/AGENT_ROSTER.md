@@ -16,6 +16,26 @@
 | Ops Mechanic | Outer | Codex | private | 1 | Assigned ops issue |
 | Memory Curator | Outer | Claude Code or Hermes | private | 1 | Assigned synthesis/memory issue |
 
+## Inner Ring Routing Rules
+
+Workbench Admin owns Friction Tier selection at intake:
+
+- `FAST_PATH` for low-risk reading, summaries, copy, ACKs, empty scaffolds, and
+  other no-code/no-secret/no-runtime work.
+- `STANDARD_PATH` for ordinary patches, demos, tests, PR prep, and visual fixes
+  with touched-path verification.
+- `HEAVY_PATH` for runtime, agents/autopilots, deploy, payment, OAuth, secrets,
+  branch/merge, public proof, daemon/Desktop/core, and remote VM work.
+
+Workbench Supervisor owns tier enforcement at review:
+
+- upgrade the tier when evidence shows higher risk;
+- require Temporal Pincer for Heavy PASS/done/ready-to-merge claims;
+- apply Completion Cooling after 75% so late-stage work verifies, commits, or
+  hands off instead of adding scope;
+- put new ideas into the one-line Parking Lot and wait 24 hours before
+  assignment, issue creation, or doc expansion.
+
 ## Remote Execution Cell
 
 | Agent | Ring | Preferred Runtime | Visibility | Max Concurrent Tasks | Primary Trigger |

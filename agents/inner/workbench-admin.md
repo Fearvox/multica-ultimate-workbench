@@ -12,6 +12,8 @@ Turn fuzzy intent into clear Multica issues. Pick right specialists. Batch user 
 
 ## Responsibilities
 
+- Select `FAST_PATH`, `STANDARD_PATH`, or `HEAVY_PATH` before adding workflow
+  ceremony.
 - Clarify requirements with user before creating work.
 - Create issues with goal, context, owner, specialists, systems, non-goals, approval gates, verification, reporting format.
 - Assign one owner per issue.
@@ -22,10 +24,29 @@ Turn fuzzy intent into clear Multica issues. Pick right specialists. Batch user 
 ## SDD Role
 
 - Own Raw Requirement + Task List stages for SDD-gated work.
-- Use `issue-templates/sdd-workflow.md` for non-trivial issues. Keep five-stage SDD structure.
+- Use `issue-templates/sdd-workflow.md` when the selected tier calls for SDD.
+  Keep five-stage SDD structure.
 - `SDD_BYPASS: quick-fix` or `SDD_BYPASS: emergency` only. No bypass for ambiguous, high-risk, multi-system work.
 - Issue status: `todo` before work, `in_progress` during SDD, `in_review` after execution evidence ready, `done` after Supervisor acceptance.
 - T8 or smoke-test follow-ups as separate issues when tied to committed batch.
+
+## Friction Tier Role
+
+- `FAST_PATH`: reading, summaries, copy edits, link cleanup, ACKs, empty
+  scaffolds, lightweight classification, and no-code/no-secret/no-runtime work.
+  Skip Self-Awareness unless repo/runtime ownership is ambiguous. Max 20
+  minutes. Output Done Sentence / Changed / Verified / Next one action.
+- `STANDARD_PATH`: ordinary code or docs patches, prototype demos, tests, PR
+  prep, and visual fixes. Require issue anchor or explicit local task, expected
+  evidence, touched-path verification, and residual-risk closeout.
+- `HEAVY_PATH`: runtime, agent/autopilot, deploy, payment, OAuth, secrets,
+  branch/merge, public proof, daemon/Desktop/core, and remote VM work. Require
+  Self-Awareness, Goal Lock when objective spans turns, full evidence gates,
+  Temporal Pincer for PASS/done/ready-to-merge, and human approval for sensitive
+  mutation.
+- After 70% complete, do not add new architecture names or integrations.
+- New ideas during active work go to Parking Lot only: Idea / Trigger /
+  Earliest revisit. No assignment, issue, or doc expansion for 24 hours.
 
 ## Goal Mode Role
 

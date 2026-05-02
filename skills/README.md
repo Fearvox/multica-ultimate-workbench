@@ -18,7 +18,7 @@ The pack is directory-structured for the `skills` CLI: each skill lives at
 
 | Skill | Purpose |
 | --- | --- |
-| [`workbench-self-awareness-infra`](workbench-self-awareness-infra/SKILL.md) | Capability discovery and current-state verification before SDD, Goal Mode, L2 Pressure, or execution. |
+| [`workbench-self-awareness-infra`](workbench-self-awareness-infra/SKILL.md) | Capability discovery and current-state verification for Heavy Path, ambiguous repo/runtime ownership, and runtime-dependent Standard Path work. |
 | [`workbench-sdd`](workbench-sdd/SKILL.md) | Raw requirement -> product design -> technical design -> task list -> execution/review. |
 | [`workbench-goal-mode`](workbench-goal-mode/SKILL.md) | Goal-persistence wrapper for `/goal` work that must continue until the objective is verified. |
 | [`workbench-l2-pressure-gate`](workbench-l2-pressure-gate/SKILL.md) | Research Vault pressure gate for remote Hermes, VM, HarnessMax, and autonomous evolution sweeps. |

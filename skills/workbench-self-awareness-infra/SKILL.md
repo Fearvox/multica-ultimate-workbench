@@ -1,35 +1,41 @@
 ---
 name: workbench-self-awareness-infra
-description: Capability discovery and current-state verification before SDD, Goal Mode, L2 Pressure, routing, or execution.
+description: Capability discovery and current-state verification for Heavy Path, ambiguous repo/runtime ownership, and runtime-dependent Standard Path work.
 ---
 
 # Workbench Self-Awareness Infra
 
-Use this skill before non-trivial work, long-running autonomous work, remote
-execution, Research Vault pressure, repo-changing work, or any task that depends
-on current runtime capability.
+Use this skill when the Friction Tier Router selects Heavy Path, when
+repo/runtime ownership is ambiguous, or when Standard Path work depends on
+current runtime capability.
 
-Self-awareness is the workbench's first layer. It prevents agents from confusing
-memory, old sessions, model assumptions, or job-start events with current
-evidence.
+Self-awareness is the workbench's heavy-risk boot layer. It prevents agents
+from confusing memory, old sessions, model assumptions, or job-start events with
+current evidence without forcing low-risk Fast Path work through ceremony.
 
 ## Activation
 
 Use this layer when any of these apply:
 
-- a task is not a tiny one-command answer;
+- Friction Tier Router selected `HEAVY_PATH`;
+- repo, runtime, branch, issue, or owner is ambiguous;
+- `STANDARD_PATH` evidence depends on live runtime capability;
 - the issue contains `GOAL_MODE: yes`, `L2_PRESSURE: yes`, `/goal`,
   `HarnessMax`, `remote`, `VM`, `Research Vault`, `MCP`, or autonomous language;
-- the task may change a repo, live skill, agent, autopilot, runtime, or public
-  document;
+- the task may change a live skill, agent, autopilot, runtime, deploy surface,
+  payment/OAuth/secrets boundary, branch/merge state, or public proof surface;
 - the agent is starting from a new session, rerun, stale context, or external
-  handoff;
+  handoff and cannot cheaply verify the current anchor;
 - the task asks for the highest-yield route, leaderboard pressure, or full auto
   execution.
 
+Do not use this layer for `FAST_PATH` work unless repo/runtime ownership is
+ambiguous.
+
 ## Required Block
 
-Post or maintain this block before routing, implementation, or review:
+Post or maintain this block before routing, implementation, or review when the
+selected tier requires it:
 
 ```text
 SELF_AWARENESS_BOOTSTRAP

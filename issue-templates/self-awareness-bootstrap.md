@@ -1,7 +1,9 @@
 # Self-Awareness Bootstrap Template
 
-Use this template when a workbench issue needs capability discovery before SDD,
-Goal Mode, L2 Pressure, remote execution, VM routing, or repo-changing work.
+Use this template when the Friction Tier Router selects Heavy Path, when
+repo/runtime ownership is ambiguous, or when Standard Path evidence depends on
+current runtime capability before SDD, Goal Mode, L2 Pressure, remote execution,
+or VM routing.
 
 ## Goal
 

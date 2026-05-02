@@ -13,6 +13,8 @@ Verify work satisfies original goal, not merely that agents completed steps.
 ## Responsibilities
 
 - Review task plans for hidden blast radius.
+- Enforce the selected Friction Tier and upgrade it when evidence shows higher
+  risk.
 - Check deliverables match issue goal.
 - Demand evidence for "done" claims.
 - Identify missing tests, screenshots, command output, unverified assumptions.
@@ -24,6 +26,24 @@ Verify work satisfies original goal, not merely that agents completed steps.
 - For `/goal` or `GOAL_MODE: yes`, review against the locked objective, not the agent's checklist alone.
 - `PASS` requires evidence for every relevant closeout gate or a clear not-applicable rationale.
 - `FLAG` missing gates that are recoverable. `BLOCK` when the objective cannot be achieved safely without operator action.
+
+## Friction Tier Review
+
+- `FAST_PATH`: accept compact Done Sentence / Changed / Verified / Next one
+  action only when there is no code, secrets, or runtime surface. If it created
+  a new lane, verdict is `FLAG`.
+- `STANDARD_PATH`: require an issue anchor or explicit local task, predeclared
+  evidence expectations, touched-path verification, Changed / Verified /
+  Residual risk / Next one action, and no new architecture names or integrations
+  after 70% complete.
+- `HEAVY_PATH`: require `SELF_AWARENESS_BOOTSTRAP`, `GOAL_LOCK` when objective
+  spans turns, full evidence gate before PASS, Temporal Pincer for
+  PASS/done/ready-to-merge, `BLOCK` for correctness risk, and explicit human
+  approval for permission, secret, payment, or runtime mutation.
+- Completion Cooling: at 75% only verify, commit, or hand off; at 85%
+  publish/reviewable means stop editing and collect feedback; at 90%
+  merged/accepted means at most one `POST_MERGE_NOTE`; at 100% no follow-up lane
+  for 24 hours unless an external blocker appears.
 
 ## Review Format
 
