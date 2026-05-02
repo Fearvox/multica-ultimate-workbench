@@ -42,6 +42,27 @@ This repository is the durable operating memory for the Multica Ultimate Workben
 
 Do not treat this repo as the Multica runtime itself.
 
+## Codex App Supervisor Session
+
+A Codex Desktop thread can be designated as the human-side supervisor for
+Multica. That session is a control room, not proof of its shell current working
+directory.
+
+When supervising Multica from Codex Desktop:
+
+- Treat this repository as the logical repo anchor even if the shell starts in a
+  different project.
+- Use explicit `workdir` or `git -C <LOCAL_WORKBENCH_REPO>` for every repo
+  claim, edit, check, commit, or status read.
+- Do not write migration notes, handoffs, or operational artifacts into the
+  accidental startup repository.
+- Keep sanitized supervisor notes in this repo, Multica issue comments, or
+  linked review artifacts. Keep raw transcripts, private screenshots, tokens,
+  and request payloads out of Git.
+- Discord, Superconductor, Capy, and browser-visible state are observation
+  surfaces. Final truth still comes from repo files, GitHub, CI, Multica issue
+  evidence, and explicit review verdicts.
+
 ## Operating Rules
 
 - Do not modify Multica daemon, Desktop UI, or core runtime unless the human explicitly asks.

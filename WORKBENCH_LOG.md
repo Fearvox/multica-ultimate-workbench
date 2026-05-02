@@ -23,6 +23,26 @@ repository.
 | Agent-Install Unifier | Added a distribution lane for skills, MCP configs, and AGENTS.md sections across coding agents. |
 | Flue Harness Lane | Added a deployable agent-harness outlet for mature HTTP, CI, Node, Cloudflare, and sandbox-backed workflows. |
 | Public Sanitization | Removed tracked raw artifacts and private execution plans from public Git, parameterized live scripts, and prepared a sanitized public snapshot. |
+| Codex App Supervisor Session | Added a repo-anchor rule for Codex Desktop supervising Multica from a different startup directory. |
+
+## Codex App Supervisor Session
+
+The workbench now treats a designated Codex Desktop chat as a human-side
+Multica supervisor session. The session may start from another repository, but
+all workbench claims, edits, checks, and handoffs must explicitly anchor back to
+this workbench source repo.
+
+Verification shape:
+
+- the workbench repo was confirmed clean and synced with `origin/main`;
+- supervisor routing was documented in `AGENTS.md` and the Claude-compatible
+  bridge;
+- no local absolute paths, raw transcripts, private screenshots, tokens, or
+  request payloads were added.
+
+Residual risk: the Codex Desktop app may still show the old startup directory in
+its environment context. Agents must rely on explicit `workdir` / `git -C`
+routing until the app session itself is restarted from the workbench repo.
 
 ## 2026-05-01 - Capy, Sanity, And Agent-Install Lanes
 

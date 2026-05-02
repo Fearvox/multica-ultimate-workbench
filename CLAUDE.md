@@ -12,6 +12,16 @@ This repository is the durable operating memory for the Multica Ultimate
 Workbench. It coordinates Codex, Claude Code, Hermes, Capy, Sanity, and related
 agent surfaces without turning any one UI into the source of truth.
 
+## Codex App Supervisor Session
+
+If a Codex Desktop chat is designated as the Multica supervisor session, treat
+this repo as the logical working root even when the terminal starts elsewhere.
+Use explicit `workdir` or `git -C <LOCAL_WORKBENCH_REPO>` before making repo
+claims or edits. Do not write workbench handoffs into the accidental startup
+repo. Browser, Discord, Superconductor, and Capy UI state are supporting
+signals; repo, GitHub, CI, Multica issue evidence, and review verdicts remain
+the source of truth.
+
 ## Read Order
 
 Read only as deep as the task requires:
