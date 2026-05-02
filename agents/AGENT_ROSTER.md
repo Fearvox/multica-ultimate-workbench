@@ -29,7 +29,7 @@ Remote agents are execution cells, not new orchestrators. They must use the `Ult
 
 Remote Hermes and remote VM work may also receive `L2_PRESSURE: yes` or
 `RV_PRESSURE: required`. In that case the assigned owner follows
-[workbench-l2-pressure-gate](../skills/workbench-l2-pressure-gate.md): verify
+[workbench-l2-pressure-gate](../skills/workbench-l2-pressure-gate/SKILL.md): verify
 Research Vault access, post `RV_PRESSURE_CHECK`, apply prior failures and proven
 patterns to the route, and avoid raw vault dumps.
 
@@ -44,6 +44,6 @@ patterns to the route, and avoid raw vault dumps.
 ## Shared Goal Mode
 
 Any assigned owner may receive `/goal` or `GOAL_MODE: yes`. In that case the
-agent follows [workbench-goal-mode](../skills/workbench-goal-mode.md): lock the
+agent follows [workbench-goal-mode](../skills/workbench-goal-mode/SKILL.md): lock the
 objective, execute through the relevant closeout gates, and report `PASS`,
 `FLAG`, or `BLOCK` from evidence instead of stopping after a partial local fix.

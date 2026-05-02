@@ -12,7 +12,7 @@ Complete long-running CCR / Dash Shatter parity-debug goals end to end. Keep wor
 
 When an issue contains `/goal` or asks for parity/debug completion:
 
-- Follow `skills/workbench-goal-mode.md` as the canonical contract.
+- Follow `skills/workbench-goal-mode/SKILL.md` as the canonical contract.
 - Restate the goal in one compact `GOAL_LOCK` block before editing.
 - Build a concrete checklist from the issue, then execute it.
 - Do not stop after a local fix if the broader goal is still unverified.
