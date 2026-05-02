@@ -146,6 +146,38 @@ ANTI_OVER_READ:
 - Risk surface:
 - Verification approach:
 
+## Algorithm Advisory Gate
+
+Use this stage when the Technical Design has meaningful algorithm,
+data-structure, ranking, search, cache, queue, graph, streaming, ingestion,
+dedupe, or complexity risk.
+
+```text
+SDD_STAGE: Algorithm Advisory Gate
+OWNER:
+STATUS: READY_FOR_REVIEW
+REVIEWER: Workbench Supervisor
+EVIDENCE:
+HANDOFF_SUMMARY:
+SCOPED_EVIDENCE:
+ANTI_OVER_READ:
+```
+
+- Runtime:
+- Model:
+- Isolation:
+- Skill sources:
+- Code scope:
+- Correctness verdict: PASS / BLOCK
+- Complexity verdict: PASS / FLAG / BLOCK
+- Data-structure notes:
+- Algorithmic risks:
+- Task List injections:
+- Verification injections:
+- Settings readback:
+- Residual risk:
+- Next stage handoff:
+
 ## Task List
 
 ```text

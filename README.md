@@ -7,6 +7,7 @@
 [![Two Ring](https://img.shields.io/badge/system-two--ring-2563eb?style=flat-square)](#two-ring-system)
 [![Self-Awareness](https://img.shields.io/badge/workflow-self_awareness-155e75?style=flat-square)](#self-awareness)
 [![SDD](https://img.shields.io/badge/workflow-SDD-7c3aed?style=flat-square)](#sdd-workflow)
+[![Algorithm Advisory](https://img.shields.io/badge/gate-algorithm_advisory-1d4ed8?style=flat-square)](#algorithm-advisory-gate)
 [![Goal Mode](https://img.shields.io/badge/workflow-goal_mode-0f766e?style=flat-square)](#goal-mode)
 [![L2 Pressure](https://img.shields.io/badge/workflow-L2_pressure-9f1239?style=flat-square)](#l2-pressure)
 [![Codex](https://img.shields.io/badge/runtime-Codex-111827?style=flat-square)](agents/AGENT_ROSTER.md)
@@ -23,7 +24,7 @@
 [![Skills.sh](https://img.shields.io/badge/skills.sh-installable-111827?style=flat-square)](https://skills.sh/)
 [![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)](#documentation-map)
 
-**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Windburn Cache](#windburn-cognitive-cache-direction) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Wake Reports](#wake-reports) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Repo Brand Uplift](#repo-brand-uplift) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
+**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Windburn Cache](#windburn-cognitive-cache-direction) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Algorithm Advisory](#algorithm-advisory-gate) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Wake Reports](#wake-reports) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Repo Brand Uplift](#repo-brand-uplift) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
 
 ## Overview
 
@@ -148,6 +149,16 @@ raw requirement → product design → technical design → task list → execut
 ```
 
 Each stage is recorded as a structured issue comment. Issue status stays coarse-grained; the detailed workflow lives in comments and review labels.
+
+### Algorithm Advisory Gate
+
+Algorithm Advisory Gate is an optional SDD stage between Technical Design and
+Task List. A VM Claude Code advisor uses the `data-algo` skill to review
+correctness, complexity, data-structure choice, and verification pressure
+without directly modifying code.
+
+See [docs/algorithm-advisory-gate-lane.md](docs/algorithm-advisory-gate-lane.md)
+and [skills/workbench-algorithm-advisory-gate/SKILL.md](skills/workbench-algorithm-advisory-gate/SKILL.md).
 
 ## Goal Mode
 
@@ -349,6 +360,9 @@ Human approval required before running:
 | Goal-persistence contract | [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) |
 | Wake report / context restore skill | [skills/workbench-waking-up/SKILL.md](skills/workbench-waking-up/SKILL.md) |
 | L2 pressure gate | [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) |
+| Algorithm advisory lane | [docs/algorithm-advisory-gate-lane.md](docs/algorithm-advisory-gate-lane.md) |
+| Algorithm advisory skill | [skills/workbench-algorithm-advisory-gate/SKILL.md](skills/workbench-algorithm-advisory-gate/SKILL.md) |
+| Algorithm advisory template | [issue-templates/algorithm-advisory-gate.md](issue-templates/algorithm-advisory-gate.md) |
 | Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
 | VM execution lane | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
@@ -416,6 +430,7 @@ Multica Ultimate Workbench 是建立在 Multica 之上的多 agent 工作台持�
 | 双环系统 | Inner Ring（Admin/Supervisor/Synthesizer）负责任务拆解与审核；Outer Ring 执行边界清楚的专项任务 | [AGENT_ROSTER](agents/AGENT_ROSTER.md) |
 | 自我感知层 | 非平凡任务先确认 runtime、role、repo anchor、tool/MCP、memory、risk、route 和 success metric，避免错上下文开工 | [self-awareness-infra-layer](docs/self-awareness-infra-layer.md) |
 | SDD 流程 | 原始需求 → 产品设计 → 技术设计 → 任务列表 → 执行/复核，每阶段作为 issue comment 留痕 | [SYNTHESIS](SYNTHESIS.md) |
+| Algorithm Advisory Gate | 技术设计和任务列表之间的可选算法审查门，只给 correctness/complexity/data-structure 风险建议，不直接改代码 | [algorithm-advisory-gate-lane](docs/algorithm-advisory-gate-lane.md) |
 | Goal Mode | `/goal` 任务的目标保活协议：锁定目标、持续推进、按 build/test/smoke/docs/report/git-status/evidence gate 收尾 | [workbench-goal-mode](skills/workbench-goal-mode/SKILL.md) |
 | Wake Reports | `gm`/最近状态/落下任务的上下文恢复协议：先查记忆，再 live verify repo/issue/cron/runner，drift 优先，给 P0/P1/P2/PARKED action menu | [workbench-waking-up](skills/workbench-waking-up/SKILL.md) |
 | L2 Pressure | 远端 Hermes/VM/HarnessMax 的 Research Vault 压力层：先读历史约束，再决定最高收益路径 | [workbench-l2-pressure-gate](skills/workbench-l2-pressure-gate/SKILL.md) |
