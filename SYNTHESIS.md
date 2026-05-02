@@ -19,9 +19,10 @@ The workbench is a two-ring operating system for agentic software work:
   checks.
 - **Distribution Layer**: agent-install syncs reviewed skills, MCP definitions,
   and AGENTS.md sections across coding agents.
-- **Packaging Lanes**: Capy VM for disposable GUI/browser execution and Flue for
+- **Packaging Lanes**: Capy VM for disposable GUI/browser execution, Flue for
   deployable agent harnesses when a mature workflow should become HTTP, CI,
-  Node, Cloudflare, or sandbox-backed code.
+  Node, Cloudflare, or sandbox-backed code, and Runtime Hygiene for disk/swap/
+  cache/session pressure management.
 
 The goal is not "more agents." The goal is higher throughput without losing
 traceability, role boundaries, or operator control.
@@ -146,6 +147,32 @@ The required contract is `AGENT_INSTALL_SYNC_CONTRACT`: operation, source,
 target agents, config scope, secrets policy, dry-run requirement, readback
 requirement, and rollback plan.
 
+## Runtime Hygiene Lane
+
+Runtime Hygiene is the cleanup and closeout pressure layer for local and remote
+runtimes. It keeps the workbench stable while high-throughput agents, VM runs,
+Codex sessions, and Sanity sync loops are active.
+
+The lane owns disk/swap/cache/session pressure checks, A-tier cache/log/temp
+cleanup through `mo clean`, stale session closeout candidate reporting, and
+Tier B/C residue review proposals. It does not hard-delete, close sessions
+without evidence gates, or mutate daemons/Sanity/datasets without explicit
+approval.
+
+| Signal | Floor |
+| --- | --- |
+| Disk free | 80 Gi |
+| Disk capacity flag | 85% |
+| Swap used flag | 70% |
+| Conversation warning | 25 |
+| Conversation block | 50 |
+
+The required output is `RUNTIME_HYGIENE_REPORT` with disk/swap/issue/session/
+Sanity state and a PASS/FLAG/BLOCK verdict.
+
+Sources: `docs/runtime-hygiene-lane.md`, `skills/workbench-runtime-hygiene/SKILL.md`,
+`autopilots/runtime-hygiene-sweeper.md`, `issue-templates/runtime-hygiene-sweep.md`.
+
 ## Public Artifact Boundary
 
 Tracked docs may include:
@@ -219,4 +246,5 @@ The next useful upgrades are:
 - Flue agent harness lane pilots for CI review and HTTP agent packaging
 - live sync of `workbench-goal-mode` to the relevant Multica skills and agents
 - VM lane smoke tests with temp-only evidence
+- runtime-hygiene lane docs, skill, autopilot, and issue template synced to repo (DAS-410)
 - README and docs polish that stays public-safe
