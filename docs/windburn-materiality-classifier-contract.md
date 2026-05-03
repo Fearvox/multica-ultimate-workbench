@@ -309,6 +309,15 @@ Exit codes:
 
 Output: `MaterialityVerdict` as JSON. The current implementation is deterministic and local-only; it does not call a provider and does not promote trust.
 
+Corpus evaluation runs the classifier across all belief fixtures by generating local-only packets from each belief's expected materiality metadata:
+
+```bash
+node scripts/windburn-materiality-corpus-eval.mjs evaluate --format json \
+  --belief-dir .learning/fixtures/divergence-gate/beliefs
+```
+
+The corpus gate fails if any authority violation appears, if an expected material hidden flaw is not classified as `material`, or if primary expected labels drift.
+
 ---
 
 ## Consistency with "Grok is not judge"
