@@ -1,5 +1,23 @@
 # Decisions
 
+## 2026-05-03 - Add Windburn Divergence-Gated Trust Promotion Research Packet
+
+Decision: add `docs/windburn-divergence-gated-trust-research.md` and
+`issue-templates/windburn-divergence-gate-goal.md` as the v0.3 research lane
+for Windburn trust promotion.
+
+The lane tests whether a structurally separate challenger can reduce premature
+belief convergence before a `verified` belief becomes `trusted`, while keeping
+confidence, source truth, freshness, and trust promotion outside challenger
+authority. Grok/xAI may be used as a divergent hypothesis generator, but the
+interface stays provider-neutral and all material alternatives require
+materiality review plus external verification or Supervisor approval.
+
+Rationale: v0.2 proves the local cognitive-cache substrate. The next risk is
+self-reinforcing memory: a plausible belief can become future policy without
+enough pressure. Divergence is useful as hypothesis-space expansion, not as a
+judge.
+
 ## 2026-05-03 - Apply Agent Communication Profile At Conductor Startup
 
 Decision: add `docs/agent-communication-profile.md` as the default session

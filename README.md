@@ -82,9 +82,11 @@ adding the question they do not answer alone: what has the system learned from
 prior verified deltas, and how should that change the next run?
 
 See [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md)
-for the original decision record and
+for the original decision record,
 [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md)
-for the implementation dispatch contract.
+for the implementation dispatch contract, and
+[docs/windburn-divergence-gated-trust-research.md](docs/windburn-divergence-gated-trust-research.md)
+for the v0.3 divergence-gated trust-promotion research packet.
 
 ## Two-Ring System
 
@@ -300,6 +302,8 @@ Human approval required before running:
 | Windburn scaffold routing lane | [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md) |
 | Windburn cognitive-cache direction | [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) |
 | Windburn cognitive-cache dispatch | [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) |
+| Windburn divergence-gated trust research | [docs/windburn-divergence-gated-trust-research.md](docs/windburn-divergence-gated-trust-research.md) |
+| Windburn divergence gate goal template | [issue-templates/windburn-divergence-gate-goal.md](issue-templates/windburn-divergence-gate-goal.md) |
 | Windburn Senter hybrid goal template | [issue-templates/windburn-senter-hybrid-goal.md](issue-templates/windburn-senter-hybrid-goal.md) |
 | Sanity unified context lane | [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) |
 | Agent-install unifier lane | [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) |
