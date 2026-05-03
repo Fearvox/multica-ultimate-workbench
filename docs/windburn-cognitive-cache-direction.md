@@ -112,6 +112,12 @@ type Belief = {
   validScope: string;
   decayPolicy: "session" | "project" | "until-contradicted" | "expires";
   trustState: "parking" | "hypothesis" | "verified" | "trusted";
+  createdAt: string;
+  observedAt: string;
+  lastVerifiedAt?: string;
+  lastAccessedAt?: string;
+  ageBucket: "fresh" | "aging" | "stale" | "expired";
+  stalenessReason?: string;
   lastUpdated: string;
 };
 
@@ -172,6 +178,50 @@ confidence_promotion:
 
 Time decay is the floor: a belief loses freshness regardless of agent behavior.
 Evidence decay is the ceiling: new counter-evidence can collapse trust sooner.
+
+### Time-Awareness First Landing
+
+The first shippable slice should be time-awareness, not the full challenger or
+external evidence system. It gives every belief a clock and creates the surface
+that later Grok, Research Vault, and verifier loops can pressure.
+
+Minimum behavior:
+
+```text
+belief_time_fields:
+  created_at: when the belief record was first written
+  observed_at: when the underlying observation happened
+  last_verified_at: when an external verifier last confirmed the claim
+  last_accessed_at: when an agent last retrieved or cited the belief
+  age_bucket: fresh | aging | stale | expired
+  staleness_reason: human-readable reason the belief is no longer fresh
+```
+
+Agent reads may update only `last_accessed_at`. They must not update
+`created_at`, `observed_at`, `last_verified_at`, `age_bucket`, or
+`staleness_reason`. Agent writes may lower confidence, attach counter-evidence,
+or request verification, but they cannot make an old belief fresh.
+
+Read-time routing should compute and display freshness dynamically:
+
+```text
+fresh: usable normally with source and trust labels
+aging: usable with an age note
+stale: usable only as a hypothesis unless the task is low-risk
+expired: excluded from trusted context; may appear only as parking or history
+```
+
+The prompt/context pack should make age visible instead of silently filtering it
+away:
+
+```text
+This belief is 43 days old and has not been externally verified since creation.
+Treat it as a hypothesis, not trusted source truth.
+```
+
+This is the smallest anti-reward-hacking layer: repeated citation cannot reset
+decay, successful-looking agent behavior cannot promote confidence, and stale
+beliefs remain visibly stale until external verification refreshes them.
 
 ### Challenger Role
 

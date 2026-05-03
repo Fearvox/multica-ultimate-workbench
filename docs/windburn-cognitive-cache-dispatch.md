@@ -56,6 +56,7 @@ SCOPED_EVIDENCE
 - Direction doc: docs/windburn-cognitive-cache-direction.md
 - Dispatch contract: docs/windburn-cognitive-cache-dispatch.md
 - Hybrid goal template: issue-templates/windburn-senter-hybrid-goal.md
+- Time-awareness goal template: issue-templates/windburn-time-awareness-goal.md
 - External prior art: https://github.com/SouthpawIN/Senter
 - Workbench lanes: Self-Awareness, L2 Pressure, Goal Mode v2, remote RV MCP
 - Advisory claim: behavior-changing memory matters more than retrieval-only
@@ -183,6 +184,48 @@ verdict: PASS | FLAG | BLOCK
 
 ## Implementation Slices
 
+### Slice 0A: Time-Awareness First Landing
+
+Ship this before the full challenger, selector, or remote runtime pool work.
+The goal is to make belief age explicit and non-refreshable by agent behavior.
+
+- Add time fields to belief records:
+  - `created_at`
+  - `observed_at`
+  - `last_verified_at`
+  - `last_accessed_at`
+  - `age_bucket`
+  - `staleness_reason`
+- Define the write contract:
+  - agent retrieval may update only `last_accessed_at`;
+  - agent writes may lower confidence or request verification;
+  - agent writes may not reset `created_at`, `observed_at`, `last_verified_at`,
+    `age_bucket`, or `staleness_reason`;
+  - only an external verifier can refresh `last_verified_at` or move a belief
+    back toward `fresh`.
+- Define read-time labeling:
+  - `fresh`: usable with source and trust labels;
+  - `aging`: usable with an age note;
+  - `stale`: hypothesis only unless the task is low-risk;
+  - `expired`: excluded from trusted context and surfaced only as parking or
+    history.
+- Add context-pack wording that surfaces age explicitly:
+
+```text
+This belief is <age> old and last externally verified at <timestamp|never>.
+Use it as <trusted context|hypothesis|history> according to its freshness.
+```
+
+- Add fixtures proving:
+  - agent recitation does not reset time decay;
+  - `last_accessed_at` changes without changing `last_verified_at`;
+  - stale beliefs stay stale after repeated retrieval;
+  - external verifier evidence is required to refresh freshness.
+
+This slice is `STANDARD_PATH` if it only changes local docs/templates/fixtures.
+It becomes `HEAVY_PATH` if it mutates live agents, runtime bindings, Research
+Vault, remote VMs, daemon/Desktop/core, or shared memory storage.
+
 ### Slice 0: Specs-First Hybrid Contract
 
 - Compare the Senter-style markdown vault pattern against Windburn's required
@@ -263,13 +306,16 @@ verdict: PASS | FLAG | BLOCK
 - Fixture 4: source-truth entries surface in a separate section.
 - Fixture 5: context output is bounded by the requested budget.
 - Fixture 6: agent recitation does not reset time decay.
-- Fixture 7: confidence cannot rise without external verifier evidence.
-- Fixture 8: exploration momentum can rise for a bounded probe without changing
+- Fixture 7: `last_accessed_at` can change without refreshing
+  `last_verified_at`.
+- Fixture 8: stale beliefs remain stale after repeated retrieval.
+- Fixture 9: confidence cannot rise without external verifier evidence.
+- Fixture 10: exploration momentum can rise for a bounded probe without changing
   belief confidence or trust state.
-- Fixture 9: challenger counter-evidence can lower confidence or force a
+- Fixture 11: challenger counter-evidence can lower confidence or force a
   verifier gate.
-- Fixture 10: selector-chosen context does not change trust state or freshness.
-- Fixture 11: remote/VM runtime output is stored as pending evidence until
+- Fixture 12: selector-chosen context does not change trust state or freshness.
+- Fixture 13: remote/VM runtime output is stored as pending evidence until
   external verification approves or rejects it.
 
 ### Slice E: Workbench Closeout

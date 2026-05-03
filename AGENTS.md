@@ -480,6 +480,7 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Runtime hygiene skill | [skills/workbench-runtime-hygiene/SKILL.md](skills/workbench-runtime-hygiene/SKILL.md) |
 | Windburn cognitive-cache direction | [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) |
 | Windburn cognitive-cache dispatch | [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) |
+| Windburn time-awareness goal template | [issue-templates/windburn-time-awareness-goal.md](issue-templates/windburn-time-awareness-goal.md) |
 | Goal-persistence execution (v1) | [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) |
 | Goal Mode v2 conductor | [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) |
 | Goal Mode v2 issue template | [issue-templates/goal-mode-v2.md](issue-templates/goal-mode-v2.md) |
@@ -520,7 +521,7 @@ git diff -- README.md AGENTS.md
 ```
 
 ```bash
-for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/codex-workbench-runtime-profile.md docs/runtime-hygiene-lane.md docs/windburn-cognitive-cache-direction.md docs/windburn-cognitive-cache-dispatch.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md config/multica-workbench-codex-profile.example.toml scripts/multica-codex-cache-janitor.sh skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-runtime-hygiene/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md; do
+for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/codex-workbench-runtime-profile.md docs/runtime-hygiene-lane.md docs/windburn-cognitive-cache-direction.md docs/windburn-cognitive-cache-dispatch.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md config/multica-workbench-codex-profile.example.toml scripts/multica-codex-cache-janitor.sh skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-runtime-hygiene/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md issue-templates/windburn-time-awareness-goal.md; do
   test -f "$path" || exit 1
 done
 echo "link-targets-ok"
