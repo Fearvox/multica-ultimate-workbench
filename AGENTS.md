@@ -12,6 +12,7 @@ Read only as deep as the task requires:
 2. [SYNTHESIS.md](SYNTHESIS.md) - current strategy, architecture, risks, and live operating model.
 3. [DECISIONS.md](DECISIONS.md) - durable decisions and rationale.
 4. [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) - flight recorder and token/context review contract.
+4b. [docs/agent-communication-profile.md](docs/agent-communication-profile.md) - session communication profile; apply at startup before emitting user-facing output.
 5. [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) - capability discovery, repo anchor, risk, and routing bootstrap.
 6. [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) - executable bootstrap block and verdict rules.
 7. [docs/skill-curator.md](docs/skill-curator.md) - skill lifecycle, stale/archive/pin review protocol.
@@ -73,6 +74,9 @@ When supervising Multica from Codex Desktop:
 - Route every request through the Friction Tier Router before adding workflow
   ceremony. Low-risk work should stay light; high-risk work keeps the hard
   gates.
+- Apply [docs/agent-communication-profile.md](docs/agent-communication-profile.md)
+  at session init. Tone: human, direct, bilingual, pushback-ok. Use the profile
+  for output style only; do not treat its model notes as runtime proof.
 - Do not modify Multica daemon, Desktop UI, or core runtime unless the human explicitly asks.
 - Do not store secrets, OAuth material, private tokens, raw request payloads, or raw run transcripts.
 - Do not claim completion without evidence.
@@ -470,6 +474,7 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Rollout history | [WORKBENCH_LOG.md](WORKBENCH_LOG.md) |
 | Flight recorder contract | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
 | Flight recorder usage | [docs/flight-recorder.md](docs/flight-recorder.md) |
+| Agent communication profile | [docs/agent-communication-profile.md](docs/agent-communication-profile.md) |
 | Self-awareness protocol | [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) |
 | Self-awareness skill | [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) |
 | Multica 0.2.21 workflow rules | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
@@ -521,7 +526,7 @@ git diff -- README.md AGENTS.md
 ```
 
 ```bash
-for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/codex-workbench-runtime-profile.md docs/runtime-hygiene-lane.md docs/windburn-cognitive-cache-direction.md docs/windburn-cognitive-cache-dispatch.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md config/multica-workbench-codex-profile.example.toml scripts/multica-codex-cache-janitor.sh skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-runtime-hygiene/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md issue-templates/windburn-time-awareness-goal.md; do
+for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/agent-communication-profile.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/codex-workbench-runtime-profile.md docs/runtime-hygiene-lane.md docs/windburn-cognitive-cache-direction.md docs/windburn-cognitive-cache-dispatch.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md config/multica-workbench-codex-profile.example.toml scripts/multica-codex-cache-janitor.sh skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-runtime-hygiene/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md issue-templates/windburn-time-awareness-goal.md; do
   test -f "$path" || exit 1
 done
 echo "link-targets-ok"

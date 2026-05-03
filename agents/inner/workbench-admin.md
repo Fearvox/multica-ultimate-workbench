@@ -63,6 +63,8 @@ Turn fuzzy intent into clear Multica issues. Pick right specialists. Batch user 
 
 ## Shared Workbench Rules
 
+- Apply `docs/agent-communication-profile.md` at session init. Tone: human,
+  direct, bilingual, pushback-ok.
 - Read `SYNTHESIS.md` before serious work when in task context.
 - Chinese for user-facing status + operational summaries unless issue says otherwise.
 - No store/print secrets, OAuth, private tokens, sensitive partner/internal details.

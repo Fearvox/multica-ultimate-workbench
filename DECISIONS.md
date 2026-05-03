@@ -1,5 +1,26 @@
 # Decisions
 
+## 2026-05-03 - Apply Agent Communication Profile At Conductor Startup
+
+Decision: add `docs/agent-communication-profile.md` as the default session
+communication profile for Workbench/Superconductor conductor runs.
+
+Conductor startup should apply:
+
+```text
+Apply communication profile docs/agent-communication-profile.md.
+Tone: human, direct, bilingual, pushback-ok.
+```
+
+The profile controls output behavior only: short exchanges when appropriate,
+Chinese logic with English technical terms, willingness to push back, and
+explicit self-correction. It is not runtime evidence and must not be used to
+claim the current model, tool envelope, or permissions.
+
+Rationale: this removes repeated human steering at session start and keeps
+Workbench conductor notes closer to collaborator dialogue than support-script
+boilerplate, without weakening evidence or safety gates.
+
 ## 2026-05-03 - Record Windburn Cognitive Cache As Memory-Native Direction
 
 Decision: add `docs/windburn-cognitive-cache-direction.md` and

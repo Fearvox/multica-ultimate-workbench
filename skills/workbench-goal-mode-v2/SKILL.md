@@ -13,6 +13,18 @@ Goal Mode v2 is a persistent conductor, not a single-agent persistence wrapper.
 It splits the workflow into two cooperating layers so the human does not need to
 babysit windows, monitor every agent, or manually switch contexts.
 
+## Session Communication Bootstrap
+
+At conductor startup, load `docs/agent-communication-profile.md` and apply:
+
+```text
+Apply communication profile docs/agent-communication-profile.md.
+Tone: human, direct, bilingual, pushback-ok.
+```
+
+This controls communication style only. Runtime identity, model, tools, and MCP
+availability still require live proof.
+
 ## Architecture
 
 ```mermaid
@@ -170,12 +182,14 @@ Goal Mode v2 composes with, but does not replace:
 
 When activated by `/goal` or `GOAL_MODE: yes`, the conductor must:
 
-1. Post `GOAL_LOCK` with objective, owner, non_goals, closeout gates, and
+1. Apply `docs/agent-communication-profile.md` before the first user-facing
+   conductor note.
+2. Post `GOAL_LOCK` with objective, owner, non_goals, closeout gates, and
    operator-call conditions.
-2. If Heavy Path: post `SELF_AWARENESS_BOOTSTRAP` before designing.
-3. If L2_PRESSURE: post `RV_PRESSURE_CHECK` before routing.
-4. Enter `DESIGNING` → produce `DECISION_PACKET` → enter `DISPATCHING`.
-5. Continue the observe → review → archive → next-goal loop until DONE or
+3. If Heavy Path: post `SELF_AWARENESS_BOOTSTRAP` before designing.
+4. If L2_PRESSURE: post `RV_PRESSURE_CHECK` before routing.
+5. Enter `DESIGNING` → produce `DECISION_PACKET` → enter `DISPATCHING`.
+6. Continue the observe → review → archive → next-goal loop until DONE or
    OPERATOR_NEEDED.
 
 ## Closeout Contract

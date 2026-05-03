@@ -9,6 +9,18 @@ Use this skill when coordinating the Hybrid Multica Two-Ring Workbench.
 
 The workbench has an Inner Ring for command, review, and synthesis, and an Outer Ring for bounded specialist execution. Multica issues and comments are the live coordination record. This repository is the durable operating-memory record.
 
+## Session Communication Bootstrap
+
+At session init, load `docs/agent-communication-profile.md` and apply:
+
+```text
+Apply communication profile docs/agent-communication-profile.md.
+Tone: human, direct, bilingual, pushback-ok.
+```
+
+Use the communication profile for output behavior only. Do not treat its model
+notes as proof of the current runtime model, tools, or permissions.
+
 ## Role Boundaries
 
 - Admin converts fuzzy direction into executable issue shape.
