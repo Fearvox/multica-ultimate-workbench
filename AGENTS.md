@@ -494,6 +494,7 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Windburn self-consistency verifier | [scripts/windburn-verify.mjs](scripts/windburn-verify.mjs) |
 | Windburn belief write gate | [scripts/windburn-belief-write.mjs](scripts/windburn-belief-write.mjs) |
 | Windburn momentum decay dry-run | [scripts/windburn-momentum-decay.mjs](scripts/windburn-momentum-decay.mjs) |
+| Windburn promotion gate runner | [scripts/windburn-promotion-gate.mjs](scripts/windburn-promotion-gate.mjs) |
 | Goal-persistence execution (v1) | [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) |
 | Goal Mode v2 conductor | [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) |
 | Goal Mode v2 issue template | [issue-templates/goal-mode-v2.md](issue-templates/goal-mode-v2.md) |

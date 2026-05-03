@@ -1,7 +1,7 @@
 # Windburn Materiality Classifier Contract
 
 Date: 2026-05-03
-Status: spec; not implementation
+Status: local deterministic harness implemented
 Depends on: `docs/windburn-divergence-gated-trust-research.md` DivergencePacket contract
 Feeds: `docs/plans/windburn-divergence-gate-harness-plan.md` Tasks 6-7
 
@@ -317,6 +317,21 @@ node scripts/windburn-materiality-corpus-eval.mjs evaluate --format json \
 ```
 
 The corpus gate fails if any authority violation appears, if an expected material hidden flaw is not classified as `material`, or if primary expected labels drift.
+
+Promotion-gate decisions compose packet validation, materiality classification, and the optional corpus drift guard into one local-only summary:
+
+```bash
+node scripts/windburn-promotion-gate.mjs decide --format json \
+  --packet .learning/fixtures/divergence-gate/packets/<packet>.md \
+  --belief-dir .learning/fixtures/divergence-gate/beliefs
+```
+
+Exit codes:
+- `0` = PASS: packet is valid, no material blocker, no adjacent follow-up.
+- `1` = FLAG: no material blocker, but adjacent alternatives must be parked before promotion.
+- `2` = BLOCK: packet validation, authority boundary, materiality, or corpus drift guard failed.
+
+The promotion gate reports `promotion.eligible` and `promotion.action`, but writes no trust state, confidence, or source-truth fields.
 
 ---
 
