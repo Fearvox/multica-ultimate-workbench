@@ -319,6 +319,7 @@ Human approval required before running:
 | Windburn materiality classifier contract | [docs/windburn-materiality-classifier-contract.md](docs/windburn-materiality-classifier-contract.md) |
 | Windburn challenge orchestration contract | [docs/windburn-challenge-orchestration-contract.md](docs/windburn-challenge-orchestration-contract.md) |
 | Windburn promotion gate runner | [scripts/windburn-promotion-gate.mjs](scripts/windburn-promotion-gate.mjs) |
+| Windburn challenge orchestration runner | [scripts/windburn-challenge.mjs](scripts/windburn-challenge.mjs) |
 | Windburn divergence gate implementation plan | [docs/plans/windburn-divergence-gate-harness-plan.md](docs/plans/windburn-divergence-gate-harness-plan.md) |
 | Windburn divergence gate goal template | [issue-templates/windburn-divergence-gate-goal.md](issue-templates/windburn-divergence-gate-goal.md) |
 | Windburn Senter hybrid goal template | [issue-templates/windburn-senter-hybrid-goal.md](issue-templates/windburn-senter-hybrid-goal.md) |
