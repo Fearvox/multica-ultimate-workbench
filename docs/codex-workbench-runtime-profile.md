@@ -88,8 +88,8 @@ node --version
 npm --version
 multica version # or note unavailable
 bash -n scripts/multica-codex-cache-janitor.sh
-cd prototypes/decision-runtime-vm && npm test
-cd prototypes/decision-runtime-vm && npm run smoke:route-stuck-branch
+(cd prototypes/decision-runtime-vm && npm test)
+(cd prototypes/decision-runtime-vm && npm run smoke:route-stuck-branch)
 ```
 
 Expected result:
