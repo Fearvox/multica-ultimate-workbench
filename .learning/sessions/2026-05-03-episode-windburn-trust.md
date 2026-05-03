@@ -11,96 +11,73 @@ topics:
   - self-consistency verifier
   - adaptive compiler
   - cross-belief dependency resolution
+  - verification harness
+  - session extraction
   - agent communication profile
 ---
 
 ## Summary
 
-A deep-dive design session on the Windburn trust pipeline. The operator identified
-that Grok (xAI) can serve as a structural defense against premature convergence in
-agent memory systems. The conversation progressed through trust decay mechanics,
-Grok failure mode characterization, then expanded into a full three-axis belief
-model with five implementation specs.
+A deep-dive design session that produced the complete Windburn trust pipeline
+architecture: 7 implementation blocks, 7 parking specs, 1 schema contract, 1
+communication profile, and a GOAL_MODE_V2 autonomous dispatch for 1-week
+execution.
 
 ## Sequence
 
 ```
 trust decay & reward hacking
-  → Grok divergence gate design
-  → dogfood correction (self-consistency violation)
-  → self-consistency verifier spec (9 rules)
-  → agent communication profile
-  → three-axis belief model (confidence, trustState, explorationMomentum)
-  → SCHEMA.md contract
-  → adaptive compiler spec
-  → cross-belief dependency spec (4 additional verifier rules)
+  → Grok divergence gate design (Grok as hypothesis-space expander, not judge)
+  → dogfood correction (self-consistency violation → verifier spec trigger)
+  → self-consistency verifier spec (9 rules, zero-model write gate)
+  → agent communication profile (human tone, bilingual, pushback-ok)
+  → three-axis belief model (confidence / trustState / explorationMomentum)
+  → SCHEMA.md contract (verifier-readable, entry types + frontmatter per type)
+  → adaptive compiler spec (attention allocator, per-agent weight drift)
+  → cross-belief dependency spec (ripple algorithm, rules 10-13)
+  → verification harness spec (5 e2e scenarios, behavioral proof)
+  → session extraction spec (bridge: narrative → structured entries)
+  → GOAL_MODE_V2 dispatch (7 blocks, 1 week autonomous)
 ```
 
 ## Artifacts Produced
 
-### New Specs
-- `.learning/parking/self-consistency-verifier-spec.md` — zero-model write gate, 9 rules
-- `.learning/parking/three-axis-belief-spec.md` — full data model + governance + momentum decay
-- `.learning/parking/adaptive-compiler-spec.md` — attention allocator with feedback loop
-- `.learning/parking/cross-belief-dependency-spec.md` — ripple algorithm, 4 extra verifier rules
+### Specs (7 parking)
+- `.learning/parking/self-consistency-verifier-spec.md`
+- `.learning/parking/three-axis-belief-spec.md`
+- `.learning/parking/adaptive-compiler-spec.md`
+- `.learning/parking/cross-belief-dependency-spec.md`
+- `.learning/parking/verification-harness-spec.md`
+- `.learning/parking/session-extraction-spec.md`
+- `.learning/parking/grok-divergence-gate.md` (belief, in `beliefs/`)
 
-### Schema
-- `.learning/SCHEMA.md` — verifier-readable contract for all entry types
-
-### Beliefs
-- `.learning/beliefs/grok-divergence-gate.md` — hypothesis, pending external verification
+### Contract
+- `.learning/SCHEMA.md`
 
 ### Configuration
-- `docs/agent-communication-profile.md` — personality profile for Codex/Superconductor sessions
+- `docs/agent-communication-profile.md`
+
+### Dispatch
+- `.learning/parking/multica-dispatch-windburn-phase1.md` (7 blocks)
+- `.learning/parking/multica-autonomous-week-1.md` (GOAL_MODE_V2, 1 week)
 
 ### Session Record
-- `.learning/sessions/2026-05-03-episode-windburn-trust.md` — this file
+- `.learning/sessions/2026-05-03-episode-windburn-trust.md` (this file)
 
 ## Dogfood Correction
 
 Initial draft of grok-divergence-gate belief was written with `trustState: verified`
 and `confidence: 0.90` — a self-consistency violation. Operator corrected to
-`hypothesis` + `0.62`, which became the trigger case for the verifier spec.
+`hypothesis` + `0.62`, which became the trigger case for the verifier spec and
+the motivation for the three-axis belief model.
 
 ## Parallel Work (Hermes/Multica)
 
 While this session ran, Hermes produced:
-- `docs/windburn-materiality-classifier-contract.md` — aligns with our "classifier is not judge" principle
-- `scripts/windburn-divergence-gate.mjs` — packet validation CLI
+- `docs/windburn-materiality-classifier-contract.md`
+- `scripts/windburn-divergence-gate.mjs` + tests
 - Divergence gate fixtures
 
-These are complementary to the parking specs. The materiality classifier
-contract explicitly quotes: "Grok is not judge."
+## Operator's Closing Signal
 
-## Superconductor Dispatch
-
-```
-DISPATCH — Windburn Trust Pipeline Phase 1
-
-Read order:
-1. .learning/SCHEMA.md (the contract)
-2. .learning/parking/self-consistency-verifier-spec.md (write gate, 9 rules)
-3. .learning/parking/three-axis-belief-spec.md (data model + governance)
-4. .learning/parking/adaptive-compiler-spec.md (attention allocator)
-5. .learning/parking/cross-belief-dependency-spec.md (dependency ripple)
-6. .learning/beliefs/grok-divergence-gate.md (context belief)
-
-Context:
-- docs/agent-communication-profile.md (apply before executing)
-- docs/windburn-materiality-classifier-contract.md (parallel spec by Hermes)
-- scripts/windburn-divergence-gate.mjs (existing CLI, packet validator)
-
-Build order:
-1. windburn-verify (self-consistency verifier) — smallest, test fixtures ready
-2. windburn-momentum-decay — algorithm is specced, pure logic
-3. windburn-deps (cycle detection + ripple simulation) — verifier rules 10-13
-4. windburn-compile (adaptive compiler) — depends on verifier + deps
-5. Align belief frontmatter with three-axis model
-
-Non-negotiables:
-- Verifier reports, never mutates confidence/trustState
-- Grok never modifies confidence or trustState
-- Momentum auto-decays by system clock; agent declares, clock enforces
-- Compiler retrieves what changes behavior, not what's similar
-- No remote runtime mutation, no secret capture, no RV writes
-```
+> 7 blocks, 1 week, full auto. Everything needed is specced. Multica runs adaptive.
