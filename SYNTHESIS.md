@@ -17,6 +17,9 @@ The workbench is a two-ring operating system for agentic software work:
 - **Context Layer**: Sanity stores sanitized structured context for agents,
   runtimes, skills, evidence events, decisions, handoffs, and Capy process
   checks.
+- **Windburn Cognitive Cache Direction**: a future `.learning` substrate turns
+  perceptions, beliefs, failures, source truth, skills, and parking ideas into
+  reviewed future-self context.
 - **Distribution Layer**: agent-install syncs reviewed skills, MCP definitions,
   and AGENTS.md sections across coding agents.
 - **Packaging Lanes**: Capy VM for disposable GUI/browser execution, Flue for
@@ -26,6 +29,12 @@ The workbench is a two-ring operating system for agentic software work:
 
 The goal is not "more agents." The goal is higher throughput without losing
 traceability, role boundaries, or operator control.
+
+The next memory-native direction is Windburn Cognitive Cache: preserve reality
+feedback as typed memory so future runs change policy instead of repeating the
+same failed action under new wording. See
+[docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md)
+and [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md).
 
 ## Operating Model
 

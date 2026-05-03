@@ -18,10 +18,11 @@
 [![Sanity Context](https://img.shields.io/badge/context-Sanity-ef4444?style=flat-square)](docs/sanity-unified-context-lane.md)
 [![Agent Install](https://img.shields.io/badge/sync-agent--install-111827?style=flat-square)](docs/agent-install-unifier-lane.md)
 [![Flue Harness](https://img.shields.io/badge/lane-Flue_harness-f97316?style=flat-square)](docs/flue-agent-harness-lane.md)
+[![Windburn Cache](https://img.shields.io/badge/direction-Windburn_cache-0f766e?style=flat-square)](docs/windburn-cognitive-cache-direction.md)
 [![Skills.sh](https://img.shields.io/badge/skills.sh-installable-111827?style=flat-square)](https://skills.sh/)
 [![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)](#documentation-map)
 
-**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
+**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Windburn Cache](#windburn-cognitive-cache-direction) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
 
 ## Overview
 
@@ -68,6 +69,22 @@ the default route is the `Project Windburn` scaffold lane. Treat
 `Fearvox/project-windburn` as a public landing-zone scaffold until repo
 evidence shows created child page projects; see
 [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md).
+
+## Windburn Cognitive Cache Direction
+
+Windburn's next important direction is not a new base model first. It is a
+memory-native agent substrate: a `.learning` layer that preserves perceptions,
+beliefs, failures, source truth, skills, and parking ideas so future runs can
+change behavior from prior reality feedback.
+
+This direction keeps Workbench Self-Awareness and L2 Pressure intact while
+adding the question they do not answer alone: what has the system learned from
+prior verified deltas, and how should that change the next run?
+
+See [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md)
+for the original decision record and
+[docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md)
+for the implementation dispatch contract.
 
 ## Two-Ring System
 
@@ -279,6 +296,8 @@ Human approval required before running:
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
 | Capy Git dialogue responder | [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md) |
 | Windburn scaffold routing lane | [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md) |
+| Windburn cognitive-cache direction | [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) |
+| Windburn cognitive-cache dispatch | [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) |
 | Sanity unified context lane | [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) |
 | Agent-install unifier lane | [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) |
 | Flue agent harness lane | [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) |
@@ -325,6 +344,7 @@ Multica Ultimate Workbench 是建立在 Multica 之上的多 agent 工作台持�
 | Goal Mode | `/goal` 任务的目标保活协议：锁定目标、持续推进、按 build/test/smoke/docs/report/git-status/evidence gate 收尾 | [workbench-goal-mode](skills/workbench-goal-mode/SKILL.md) |
 | L2 Pressure | 远端 Hermes/VM/HarnessMax 的 Research Vault 压力层：先读历史约束，再决定最高收益路径 | [workbench-l2-pressure-gate](skills/workbench-l2-pressure-gate/SKILL.md) |
 | Runtime 分工 | Codex（实现/审查）、Claude Code（架构/文档/规划）、Hermes（研究/记忆整理） | [AGENT_ROSTER](agents/AGENT_ROSTER.md) |
+| Windburn Cognitive Cache | `.learning` 未来自我记忆方向：把感知、信念、失败、source truth、技能和停车想法变成可复核的行为改变层 | [windburn-cognitive-cache-direction](docs/windburn-cognitive-cache-direction.md) |
 | Workspace Skills | 共享语法，固化 SDD、routing、review、proofshot QA、token discipline、memory synthesis 等高频行为 | [skills/README](skills/README.md) |
 | Flight Recorder | Issue 级轻量摘要，输出 RUN_DIGEST，不做完整 telemetry | [flight-recorder](docs/flight-recorder.md) |
 | Capy VM Lane | 受控 VM 执行通道，处理 GUI/浏览器/沙盒任务 | [capy-vm-lane](docs/capy-vm-lane.md) |

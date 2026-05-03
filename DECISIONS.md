@@ -1,5 +1,28 @@
 # Decisions
 
+## 2026-05-03 - Record Windburn Cognitive Cache As Memory-Native Direction
+
+Decision: add `docs/windburn-cognitive-cache-direction.md` and
+`docs/windburn-cognitive-cache-dispatch.md` as the public-safe direction record
+for Windburn's Belief/Perception/Continuity cache.
+
+Windburn should not start as a new base model. It should start as a local,
+reviewable `.learning` substrate that turns human-agent interaction, tool
+feedback, failures, repo state, and Research Vault evidence into future-self
+context. The core loop is `observe reality -> update belief -> choose action ->
+verify delta -> preserve learning`.
+
+Key design constraints: separate source truth from hypotheses and parking,
+exclude secret-adjacent memory from default context compilation, require trust
+promotion before memory becomes shared future policy, keep the first MVP local,
+and defer base-model training until the external memory substrate proves
+behavior change.
+
+Rationale: Workbench Self-Awareness answers current runtime/repo/tool safety;
+L2 Pressure answers which prior Research Vault evidence changes route or risk.
+Windburn Cognitive Cache answers what the system learned from prior verified
+reality feedback and how that should change the next run.
+
 ## 2026-05-03 - Record Danfei Xu Human Data Insights As Workflow Cross-Analysis
 
 Decision: add `docs/danfei-xu-human-data-workflow-insights.md` as a cross-analysis of Danfei Xu's robotics/human data research philosophy against the Multica workbench operating model. Ten insights mapped from research principles to concrete workflow improvements.

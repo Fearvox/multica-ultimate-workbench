@@ -18,6 +18,8 @@ Read only as deep as the task requires:
 8. [docs/multica-021-workflow.md](docs/multica-021-workflow.md) - project-bound repo, Quick Capture, fresh rerun, Mermaid, and runtime config rules.
 8b. [docs/codex-workbench-runtime-profile.md](docs/codex-workbench-runtime-profile.md) - lean Codex per-run profile and cache guard contract.
 8c. [docs/runtime-hygiene-lane.md](docs/runtime-hygiene-lane.md) - disk/swap/cache/session cleanup boundaries.
+8d. [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) - Windburn memory-native direction and .learning trust model.
+8e. [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) - Windburn cognitive-cache MVP dispatch and review contract.
 9. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
 9b. [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) - Two-layer autonomous conductor with decision packets and dedupe controls.
 10. [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) - Research Vault pressure gate for remote/HarnessMax work.
@@ -88,6 +90,7 @@ When supervising Multica from Codex Desktop:
 - Use `scripts/collect-flight-recorder.sh <issue-id>` for review summaries when relevant.
 - Use [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) when the Friction Tier Router selects Heavy Path, when repo/runtime ownership is ambiguous, or when Standard Path evidence depends on current runtime capability.
 - Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
+- Use [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) and [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) when a task touches Windburn cognitive cache, `.learning`, future-self memory, belief/perception/continuity state, or behavior-changing memory.
 - Use [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) when an issue contains `/goal` or `GOAL_MODE: yes` for simple single-agent persistence.
 - Use [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) when the issue also contains `GOAL_MODE_V2: yes` or the objective spans multiple agents and evidence cycles — the two-layer conductor produces decision packets, dispatches bounded issues, monitors, reviews, and archives until a real blocker appears.
 - Use [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) when a task asks for HarnessMax, remote evolution, remote Hermes, remote VM, leaderboard pressure, or Research Vault grounding.
@@ -475,6 +478,8 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Codex cache janitor | [scripts/multica-codex-cache-janitor.sh](scripts/multica-codex-cache-janitor.sh) |
 | Runtime hygiene lane | [docs/runtime-hygiene-lane.md](docs/runtime-hygiene-lane.md) |
 | Runtime hygiene skill | [skills/workbench-runtime-hygiene/SKILL.md](skills/workbench-runtime-hygiene/SKILL.md) |
+| Windburn cognitive-cache direction | [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) |
+| Windburn cognitive-cache dispatch | [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) |
 | Goal-persistence execution (v1) | [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) |
 | Goal Mode v2 conductor | [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) |
 | Goal Mode v2 issue template | [issue-templates/goal-mode-v2.md](issue-templates/goal-mode-v2.md) |
@@ -515,7 +520,7 @@ git diff -- README.md AGENTS.md
 ```
 
 ```bash
-for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/codex-workbench-runtime-profile.md docs/runtime-hygiene-lane.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md config/multica-workbench-codex-profile.example.toml scripts/multica-codex-cache-janitor.sh skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-runtime-hygiene/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md; do
+for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/codex-workbench-runtime-profile.md docs/runtime-hygiene-lane.md docs/windburn-cognitive-cache-direction.md docs/windburn-cognitive-cache-dispatch.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md config/multica-workbench-codex-profile.example.toml scripts/multica-codex-cache-janitor.sh skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-runtime-hygiene/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md; do
   test -f "$path" || exit 1
 done
 echo "link-targets-ok"
