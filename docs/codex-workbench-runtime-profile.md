@@ -76,6 +76,34 @@ config, auth, or session files.
 Do not install or load a launchd job from this repo. Recurring cleanup needs a
 separate human approval and runtime-hygiene issue.
 
+## Codex Environment Smoke
+
+Before assigning real Workbench work to a new Codex environment, run this
+read-only smoke:
+
+```bash
+pwd
+git status --short --branch
+node --version
+npm --version
+multica version # or note unavailable
+bash -n scripts/multica-codex-cache-janitor.sh
+(cd prototypes/decision-runtime-vm && npm test)
+(cd prototypes/decision-runtime-vm && npm run smoke:route-stuck-branch)
+```
+
+Expected result:
+
+- no file changes;
+- tests pass;
+- smoke command exits successfully.
+
+If `git status --short --branch` shows a non-main work branch, report that
+branch context before creating a PR.
+
+Boundary: this smoke does not prove Multica daemon or runtime mutation
+capability.
+
 ## Verification
 
 For a completed run:
