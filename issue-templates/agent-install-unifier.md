@@ -13,6 +13,7 @@ AGENT_INSTALL_SYNC_CONTRACT:
   source:
   target_agents:
   config_scope:
+  stdio_policy: deny
   secrets_policy: none | env-only
   dry_run_first: true
   readback_required: true
@@ -25,10 +26,10 @@ operation:
 source:
 target_agents:
 config_scope:
+stdio_policy:
 files_or_configs_changed:
 readback:
 rollback_plan:
 residual_risk:
 VERDICT: PASS | FLAG | BLOCK
 ```
-

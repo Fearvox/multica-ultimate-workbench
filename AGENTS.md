@@ -72,6 +72,10 @@ When supervising Multica from Codex Desktop:
 - Do not modify Multica daemon, Desktop UI, or core runtime unless the human explicitly asks.
 - Do not store secrets, OAuth material, private tokens, raw request payloads, or raw run transcripts.
 - Do not claim completion without evidence.
+- Cloud, repo-reply, GitHub, and Copilot bot surfaces must use a cloud-safe MCP
+  profile with no `stdio` servers. Do not let mention-triggered bots start
+  local-only tools such as Playwright MCP; if a reply path requires browser
+  automation, route it to an explicitly local interactive runtime instead.
 - Prefer the `Ultimate Workbench` Multica Project and its GitHub repo resource before guessing repository context.
 - From a Multica runtime, use the issue's project-bound GitHub repo resource first.
 - The `file://<LOCAL_WORKBENCH_REPO>` checkout is laptop-local only. Remote runtimes such as `<REMOTE_MULTICA_DEVICE>` must not rely on it; if repo checkout resolves to that path remotely, report `FLAG` or `BLOCK` and name the repo-anchor fix.
@@ -415,6 +419,11 @@ Rules:
 - Prefer readback and dry-run before mutation.
 - Prefer project-local config over global user config unless the task names a
   global sync.
+- Non-local, mention-triggered, repo-reply, GitHub, Copilot, and Codex Cloud
+  agents must read back `stdio_policy: deny` before receiving MCP config.
+  `playwright` and other local browser MCP servers are allowed only for an
+  explicitly local interactive runtime and must not be inherited by cloud-safe
+  profiles.
 - Never place token values, OAuth material, cookies, passwords, or private keys
   in command examples or durable docs.
 - Report changed config paths and rollback plan.

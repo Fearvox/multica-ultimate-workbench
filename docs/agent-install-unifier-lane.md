@@ -39,6 +39,7 @@ AGENT_INSTALL_SYNC_CONTRACT:
   source:
   target_agents:
   config_scope: user | project
+  stdio_policy: allow-local-interactive-only | deny
   secrets_policy: none | env-only
   dry_run_first: true
   readback_required: true
@@ -48,6 +49,13 @@ AGENT_INSTALL_SYNC_CONTRACT:
 ## Safety Rules
 
 - Prefer readback and dry-run before write.
+- Default `stdio_policy` to `deny` for non-local, mention-triggered, repo-reply,
+  GitHub, Copilot, and Codex Cloud agents.
+- Allow `stdio` MCP servers only for an explicitly local interactive runtime.
+  Playwright MCP must never be inherited by cloud-safe profiles; if a cloud or
+  repo bot needs browser evidence, hand it to a local browser lane instead.
+- Treat readback that shows `playwright` or any other local-only `stdio` server
+  in a cloud-safe profile as `BLOCK` and roll back that config before retrying.
 - Never put token values, OAuth material, cookies, or passwords into command
   examples or durable docs.
 - Environment variables may be named, but values must stay out of Git.
@@ -62,10 +70,10 @@ operation:
 source:
 target_agents:
 config_scope:
+stdio_policy:
 files_or_configs_changed:
 readback:
 rollback_plan:
 residual_risk:
 VERDICT: PASS | FLAG | BLOCK
 ```
-

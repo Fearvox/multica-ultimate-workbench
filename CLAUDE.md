@@ -42,6 +42,9 @@ and `.capy/settings.json` after `AGENTS.md`.
 - Do not mutate Multica daemon, Desktop UI, Capy project settings, Sanity
   dataset, GitHub repo settings, or runtime credentials unless the task
   explicitly asks for that action.
+- Do not start or inherit `stdio` MCP servers from cloud, repo-reply, GitHub,
+  Copilot, or Codex Cloud bot surfaces. Playwright MCP is local-interactive
+  only; mention-triggered bots must use a cloud-safe no-stdio MCP profile.
 - Do not treat Capy UI, chat memory, or Sanity memory as authoritative over
   Git, GitHub, CI, repo files, or review comments.
 - Do not claim completion without concrete evidence: commands, files, commits,
