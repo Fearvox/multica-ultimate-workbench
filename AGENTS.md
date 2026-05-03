@@ -487,6 +487,7 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Windburn cognitive-cache direction | [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) |
 | Windburn cognitive-cache dispatch | [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) |
 | Windburn divergence-gated trust research | [docs/windburn-divergence-gated-trust-research.md](docs/windburn-divergence-gated-trust-research.md) |
+| Windburn divergence gate implementation plan | [docs/plans/windburn-divergence-gate-harness-plan.md](docs/plans/windburn-divergence-gate-harness-plan.md) |
 | Windburn divergence gate goal template | [issue-templates/windburn-divergence-gate-goal.md](issue-templates/windburn-divergence-gate-goal.md) |
 | Windburn time-awareness goal template | [issue-templates/windburn-time-awareness-goal.md](issue-templates/windburn-time-awareness-goal.md) |
 | Goal-persistence execution (v1) | [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) |
