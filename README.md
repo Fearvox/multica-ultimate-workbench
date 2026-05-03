@@ -89,7 +89,9 @@ for the implementation dispatch contract, and
 for the v0.3 divergence-gated trust-promotion research packet, and
 [docs/windburn-materiality-classifier-contract.md](docs/windburn-materiality-classifier-contract.md)
 for the classifier and promotion-gate boundary that routes challenger
-alternatives without promoting trust.
+alternatives without promoting trust, and
+[docs/windburn-challenge-orchestration-contract.md](docs/windburn-challenge-orchestration-contract.md)
+for the local challenge-review bridge that composes verifier and promotion-gate outputs.
 
 ## Two-Ring System
 
@@ -315,6 +317,7 @@ Human approval required before running:
 | Windburn cognitive-cache dispatch | [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) |
 | Windburn divergence-gated trust research | [docs/windburn-divergence-gated-trust-research.md](docs/windburn-divergence-gated-trust-research.md) |
 | Windburn materiality classifier contract | [docs/windburn-materiality-classifier-contract.md](docs/windburn-materiality-classifier-contract.md) |
+| Windburn challenge orchestration contract | [docs/windburn-challenge-orchestration-contract.md](docs/windburn-challenge-orchestration-contract.md) |
 | Windburn promotion gate runner | [scripts/windburn-promotion-gate.mjs](scripts/windburn-promotion-gate.mjs) |
 | Windburn divergence gate implementation plan | [docs/plans/windburn-divergence-gate-harness-plan.md](docs/plans/windburn-divergence-gate-harness-plan.md) |
 | Windburn divergence gate goal template | [issue-templates/windburn-divergence-gate-goal.md](issue-templates/windburn-divergence-gate-goal.md) |

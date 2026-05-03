@@ -23,6 +23,7 @@ Read only as deep as the task requires:
 8e. [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) - Windburn cognitive-cache MVP dispatch and review contract.
 8f. [docs/windburn-divergence-gated-trust-research.md](docs/windburn-divergence-gated-trust-research.md) - Windburn v0.3 divergence-gated trust-promotion research packet.
 8g. [docs/windburn-materiality-classifier-contract.md](docs/windburn-materiality-classifier-contract.md) - materiality classifier boundary for DivergencePacket alternatives.
+8h. [docs/windburn-challenge-orchestration-contract.md](docs/windburn-challenge-orchestration-contract.md) - local challenge-review bridge for verifier + promotion-gate outputs.
 9. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
 9b. [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) - Two-layer autonomous conductor with decision packets and dedupe controls.
 10. [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) - Research Vault pressure gate for remote/HarnessMax work.
@@ -488,6 +489,8 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Windburn cognitive-cache direction | [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) |
 | Windburn cognitive-cache dispatch | [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) |
 | Windburn divergence-gated trust research | [docs/windburn-divergence-gated-trust-research.md](docs/windburn-divergence-gated-trust-research.md) |
+| Windburn materiality classifier contract | [docs/windburn-materiality-classifier-contract.md](docs/windburn-materiality-classifier-contract.md) |
+| Windburn challenge orchestration contract | [docs/windburn-challenge-orchestration-contract.md](docs/windburn-challenge-orchestration-contract.md) |
 | Windburn divergence gate implementation plan | [docs/plans/windburn-divergence-gate-harness-plan.md](docs/plans/windburn-divergence-gate-harness-plan.md) |
 | Windburn divergence gate goal template | [issue-templates/windburn-divergence-gate-goal.md](issue-templates/windburn-divergence-gate-goal.md) |
 | Windburn time-awareness goal template | [issue-templates/windburn-time-awareness-goal.md](issue-templates/windburn-time-awareness-goal.md) |
