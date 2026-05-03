@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Workbench Decision Runtime VM Cell</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="runtime-shell">
+      <header class="topline">
+        <div>
+          <p class="eyebrow">WORKBENCH DECISION RUNTIME / VM CELL</p>
+          <h1>Local Decision State Machine</h1>
+        </div>
+        <div class="status-pill" id="state-pill">IDLE</div>
+      </header>
+
+      <section class="timeline" id="timeline" aria-label="State timeline"></section>
+
+      <section class="grid">
+        <aside class="panel context-panel">
+          <p class="eyebrow">CONTEXT STATE</p>
+          <dl>
+            <dt>repo</dt>
+            <dd>/Users/0xvox/multica-ultimate-workbench</dd>
+            <dt>branch</dt>
+            <dd>smokehouse / dirty</dd>
+            <dt>active issue</dt>
+            <dd>EVENS-007</dd>
+            <dt>agents</dt>
+            <dd>QA / Developer / Supervisor / CAPY / Babysitter</dd>
+            <dt>truth</dt>
+            <dd>repo + GitHub + Multica primary, CAPY supporting</dd>
+          </dl>
+        </aside>
+
+        <section class="panel futures-panel">
+          <div class="panel-head">
+            <p class="eyebrow">RANKED DECISION FUTURES</p>
+            <span>1-4ms cached rerank target</span>
+          </div>
+          <label class="input-label" for="hint-input">shorthand intent</label>
+          <div class="input-row">
+            <input id="hint-input" type="text" value="route stuck branch" autocomplete="off">
+            <button id="select-button" type="button">SELECT TOP FUTURE</button>
+            <button id="confirm-button" type="button">CONFIRM COMPILE</button>
+          </div>
+          <div class="note-line" id="keypress-note">keypress path: cached rerank only / no LLM / no dispatch</div>
+          <div class="future-list" id="future-list"></div>
+        </section>
+
+        <aside class="panel gate-panel">
+          <p class="eyebrow">TEMPORAL PINCER GATE</p>
+          <div class="gate-verdict" id="gate-verdict">WAITING</div>
+          <div class="gate-section">
+            <h2>Required Evidence</h2>
+            <ul id="evidence-required"></ul>
+          </div>
+          <div class="gate-section">
+            <h2>Missing Proof</h2>
+            <ul id="missing-proof"></ul>
+          </div>
+          <div class="gate-section">
+            <h2>False PASS Risks</h2>
+            <ul id="false-pass-risks"></ul>
+          </div>
+        </aside>
+      </section>
+
+      <section class="focus-grid" aria-label="Automation focus guard">
+        <article class="panel focus-panel">
+          <p class="eyebrow">AUTOMATION GUARD</p>
+          <div class="guard-list" id="automation-list"></div>
+        </article>
+        <article class="panel focus-panel action-panel">
+          <div class="panel-head">
+            <p class="eyebrow">TRUE NEXT ACTION</p>
+            <span id="completion-meter">0%</span>
+          </div>
+          <dl class="focus-state">
+            <dt>main line</dt>
+            <dd id="main-line"></dd>
+            <dt>side line</dt>
+            <dd id="side-line"></dd>
+          </dl>
+          <div class="next-action" id="next-action"></div>
+        </article>
+        <article class="panel focus-panel">
+          <p class="eyebrow">PARKING LOT / STOP NOW</p>
+          <div class="focus-columns">
+            <div>
+              <h2>Parking</h2>
+              <ul id="parking-lot"></ul>
+            </div>
+            <div>
+              <h2>Stop</h2>
+              <ul id="stop-rules"></ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel json-panel">
+          <p class="eyebrow">DECISION PACKET</p>
+          <pre id="decision-packet">{}</pre>
+        </article>
+        <article class="panel json-panel">
+          <p class="eyebrow">WORKBENCH COMPILE RESULT</p>
+          <pre id="compile-result">{}</pre>
+        </article>
+        <article class="panel instruction-panel">
+          <p class="eyebrow">ISSUE ANCHOR / SCOPED INSTRUCTION</p>
+          <div id="issue-anchor">not bound yet</div>
+          <p id="instruction-preview">Select a future, then confirm compile. No live send occurs in this VM cell.</p>
+          <p class="observer-note" id="capy-note">CAPY/VM observer is supporting evidence only.</p>
+        </article>
+      </section>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

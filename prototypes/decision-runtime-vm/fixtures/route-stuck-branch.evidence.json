@@ -1,0 +1,15 @@
+{
+  "claim": "PASS",
+  "ui_state": "ready",
+  "issue_state": "in_review",
+  "repo_dirty_state": "dirty",
+  "pr_checks": "failing",
+  "evidence_present": [
+    "git diff --stat output"
+  ],
+  "evidence_missing": [
+    "fresh git status --short output",
+    "GitHub PR #37 check readback",
+    "QA verdict PASS/FLAG/BLOCK"
+  ]
+}
