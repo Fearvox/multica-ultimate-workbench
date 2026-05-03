@@ -295,6 +295,7 @@ Human approval required before running:
 | VM execution lane | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
 | Capy Git dialogue responder | [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md) |
+| Superconductor user dogfood | [docs/superconductor-user-dogfood.md](docs/superconductor-user-dogfood.md) |
 | Windburn scaffold routing lane | [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md) |
 | Windburn cognitive-cache direction | [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) |
 | Windburn cognitive-cache dispatch | [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) |

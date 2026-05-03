@@ -1,0 +1,249 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - main [ref=e3]:
+    - generic [ref=e5]:
+      - link "DASH home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "DASH" [ref=e7]:
+          - img [ref=e8]
+          - generic [ref=e10]: DASH
+        - generic [ref=e11]: / Download
+      - navigation "Primary" [ref=e12]:
+        - list [ref=e13]:
+          - listitem [ref=e14]:
+            - link "Index" [ref=e15] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e16]: Index
+          - listitem [ref=e17]:
+            - link "Windburn" [ref=e18] [cursor=pointer]:
+              - /url: /multica
+              - generic [ref=e19]: Windburn
+          - listitem [ref=e20]:
+            - link "Download" [ref=e21] [cursor=pointer]:
+              - /url: /download
+              - generic [ref=e22]: Download
+          - listitem [ref=e24]:
+            - link "Evensong" [ref=e25] [cursor=pointer]:
+              - /url: https://evensong.zonicdesign.art
+              - generic [ref=e26]: Evensong
+              - generic [ref=e27]: ↗
+          - listitem [ref=e28]:
+            - link "Standards" [ref=e29] [cursor=pointer]:
+              - /url: https://three-standards-collide.vercel.app/
+              - generic [ref=e30]: Standards
+              - generic [ref=e31]: ↗
+          - listitem [ref=e32]:
+            - link "Contact" [ref=e33] [cursor=pointer]:
+              - /url: mailto:business@zonicdesign.art
+              - generic [ref=e34]: Contact
+          - listitem [ref=e35]:
+            - radiogroup "Color mode" [ref=e36]:
+              - radio "System" [checked] [ref=e37]:
+                - img [ref=e38]
+                - generic [ref=e40]: System
+              - radio "Light" [ref=e41]:
+                - img [ref=e42]
+                - generic [ref=e48]: Light
+              - radio "Dark" [ref=e49]:
+                - img [ref=e50]
+                - generic [ref=e52]: Dark
+    - generic:
+      - generic: DASH · Download Router
+    - generic:
+      - generic: 2026-05-03 13:47:34 UTC
+    - generic [ref=e53]:
+      - generic [ref=e54]:
+        - generic [ref=e55]: Download Router · Public Entry
+        - generic [ref=e56]: Human + agent surface
+      - generic [ref=e57]:
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - img [ref=e60]
+            - generic [ref=e62]: DASH · Multica · Windburn
+          - heading "Download router" [level=1] [ref=e63]:
+            - generic [ref=e64]: Download
+            - generic [ref=e65]: router.
+          - paragraph [ref=e66]: One public jump surface for the Multica desktop download, release notes, Workbench source, and agent install route. Human-readable first, copyable machine-readable source attached at the top.
+          - generic [ref=e67]:
+            - link "Download Multica" [ref=e68] [cursor=pointer]:
+              - /url: https://multica.ai/download
+              - generic [ref=e69]: Download Multica
+              - img [ref=e70]
+            - link "Open Windburn" [ref=e72] [cursor=pointer]:
+              - /url: /multica
+              - generic [ref=e73]: Open Windburn
+              - generic [ref=e74]: ↗
+        - complementary [ref=e75]:
+          - generic [ref=e76]:
+            - generic [ref=e77]:
+              - generic [ref=e78]:
+                - paragraph [ref=e79]: Agent Copy Surface
+                - paragraph [ref=e80]: "Default format: markdown"
+              - generic [ref=e81]:
+                - combobox "Copy format" [ref=e82]:
+                  - option "Agent MD" [selected]
+                  - option "Human MD"
+                  - option "JSON"
+                  - option "Links TXT"
+                - button "Copy" [ref=e83]
+            - generic [ref=e84]:
+              - link "agent.md.txt" [ref=e85] [cursor=pointer]:
+                - /url: /download/agent.md.txt
+              - link "links.txt" [ref=e86] [cursor=pointer]:
+                - /url: /download/links.txt
+              - link "windburn dossier" [ref=e87] [cursor=pointer]:
+                - /url: /multica
+            - code [ref=e89]: "# DASH Download Router Purpose: public download and handoff entry for humans and agents. Canonical pages: - human_page: https://zonicdesign.art/download - agent_markdown: https://zonicdesign.art/download/agent.md.txt - link_map: https://zonicdesign.art/download/links.txt - windburn_dossier: https://zonicdesign.art/multica Use rules: - Humans should start with Multica Desktop unless they are reviewing source. - Agents should copy this markdown first, then open only the exact target needed. - Do not infer secrets, private runtime bindings, or internal deployment state from this public page. - If a target changes, verify the current public URL before updating downstream docs. Targets: ## Multica Desktop - id: desktop - role: Primary installer / updater - status: official - url: https://multica.ai/download - note: Use this path for the app download and desktop update entry. ## Multica Changelog - id: changelog - role: Release notes - status: official - url: https://multica.ai/changelog - note: Check this before claiming a new desktop build or feature is current. ## Windburn Workbench Repo - id: workbench - role: Source package - status: source - url: https://github.com/Fearvox/multica-ultimate-workbench - note: Clone this when the task needs the Workbench memory layer and docs. ## Workbench skills.sh Surface - id: skills - role: Agent install surface - status: agent - url: https://skills.sh/fearvox/multica-ultimate-workbench - note: Use this when a coding agent needs the published skill package route."
+    - generic [ref=e92]:
+      - link "01 / official Open ↗ Multica Desktop Primary installer / updater Use this path for the app download and desktop update entry." [ref=e93] [cursor=pointer]:
+        - /url: https://multica.ai/download
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e96]: 01 / official
+            - generic [ref=e97]: Open ↗
+          - heading "Multica Desktop" [level=2] [ref=e98]
+          - paragraph [ref=e99]: Primary installer / updater
+        - paragraph [ref=e100]: Use this path for the app download and desktop update entry.
+      - link "02 / official Open ↗ Multica Changelog Release notes Check this before claiming a new desktop build or feature is current." [ref=e101] [cursor=pointer]:
+        - /url: https://multica.ai/changelog
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - generic [ref=e104]: 02 / official
+            - generic [ref=e105]: Open ↗
+          - heading "Multica Changelog" [level=2] [ref=e106]
+          - paragraph [ref=e107]: Release notes
+        - paragraph [ref=e108]: Check this before claiming a new desktop build or feature is current.
+      - link "03 / source Open ↗ Windburn Workbench Repo Source package Clone this when the task needs the Workbench memory layer and docs." [ref=e109] [cursor=pointer]:
+        - /url: https://github.com/Fearvox/multica-ultimate-workbench
+        - generic [ref=e110]:
+          - generic [ref=e111]:
+            - generic [ref=e112]: 03 / source
+            - generic [ref=e113]: Open ↗
+          - heading "Windburn Workbench Repo" [level=2] [ref=e114]
+          - paragraph [ref=e115]: Source package
+        - paragraph [ref=e116]: Clone this when the task needs the Workbench memory layer and docs.
+      - link "04 / agent Open ↗ Workbench skills.sh Surface Agent install surface Use this when a coding agent needs the published skill package route." [ref=e117] [cursor=pointer]:
+        - /url: https://skills.sh/fearvox/multica-ultimate-workbench
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - generic [ref=e120]: 04 / agent
+            - generic [ref=e121]: Open ↗
+          - heading "Workbench skills.sh Surface" [level=2] [ref=e122]
+          - paragraph [ref=e123]: Agent install surface
+        - paragraph [ref=e124]: Use this when a coding agent needs the published skill package route.
+    - generic [ref=e126]:
+      - generic [ref=e127]:
+        - text: Routing Rule
+        - heading "Do not guess the lane." [level=2] [ref=e128]
+      - generic [ref=e129]:
+        - generic [ref=e130]:
+          - paragraph [ref=e131]: Human install
+          - paragraph [ref=e132]: Start with the official Multica download page.
+        - generic [ref=e133]:
+          - paragraph [ref=e134]: Release proof
+          - paragraph [ref=e135]: Use changelog before claiming what the desktop build includes.
+        - generic [ref=e136]:
+          - paragraph [ref=e137]: Agent setup
+          - paragraph [ref=e138]: Copy agent.md.txt, then open only the needed target.
+        - generic [ref=e139]:
+          - paragraph [ref=e140]: Source review
+          - paragraph [ref=e141]: Use the Workbench repo and Windburn dossier together.
+    - generic [ref=e143]:
+      - generic [ref=e144]:
+        - generic [ref=e145]:
+          - img "DASH" [ref=e146]:
+            - img [ref=e147]
+            - generic [ref=e149]: DASH
+          - paragraph [ref=e150]: Custom Digital Systems. Operator-grade infrastructure for retrieval, agents, and right-of-way design.
+          - paragraph [ref=e151]: A Zonic Design Studio · 2026
+        - generic [ref=e152]:
+          - heading "Hub" [level=4] [ref=e153]
+          - list [ref=e154]:
+            - listitem [ref=e155]:
+              - link "Index" [ref=e156] [cursor=pointer]:
+                - /url: /
+                - generic [ref=e157]: Index
+            - listitem [ref=e158]:
+              - link "Visual adoption" [ref=e159] [cursor=pointer]:
+                - /url: "#adoption"
+                - generic [ref=e160]: Visual adoption
+            - listitem [ref=e161]:
+              - link "Windburn" [ref=e162] [cursor=pointer]:
+                - /url: /multica
+                - generic [ref=e163]: Windburn
+            - listitem [ref=e164]:
+              - link "Download" [ref=e165] [cursor=pointer]:
+                - /url: /download
+                - generic [ref=e166]: Download
+            - listitem [ref=e167]:
+              - link "Evensong" [ref=e168] [cursor=pointer]:
+                - /url: "#evensong"
+                - generic [ref=e169]: Evensong
+            - listitem [ref=e170]:
+              - link "Standards" [ref=e171] [cursor=pointer]:
+                - /url: "#standards"
+                - generic [ref=e172]: Standards
+        - generic [ref=e173]:
+          - heading "Surfaces" [level=4] [ref=e174]
+          - list [ref=e175]:
+            - listitem [ref=e176]:
+              - link "evensong.zonicdesign.art" [ref=e177] [cursor=pointer]:
+                - /url: https://evensong.zonicdesign.art
+                - generic [ref=e178]: evensong.zonicdesign.art
+                - generic [ref=e179]: ↗
+            - listitem [ref=e180]:
+              - link "three-standards-collide" [ref=e181] [cursor=pointer]:
+                - /url: https://three-standards-collide.vercel.app/
+                - generic [ref=e182]: three-standards-collide
+                - generic [ref=e183]: ↗
+            - listitem [ref=e184]:
+              - link "multica-ultimate-workbench" [ref=e185] [cursor=pointer]:
+                - /url: https://github.com/Fearvox/multica-ultimate-workbench
+                - generic [ref=e186]: multica-ultimate-workbench
+                - generic [ref=e187]: ↗
+            - listitem [ref=e188]:
+              - link "skills.sh / fearvox" [ref=e189] [cursor=pointer]:
+                - /url: https://skills.sh/fearvox/multica-ultimate-workbench
+                - generic [ref=e190]: skills.sh / fearvox
+                - generic [ref=e191]: ↗
+            - listitem [ref=e192]:
+              - link "dash-design-infra" [ref=e193] [cursor=pointer]:
+                - /url: https://github.com/Fearvox/dash-design-infra
+                - generic [ref=e194]: dash-design-infra
+                - generic [ref=e195]: ↗
+        - generic [ref=e196]:
+          - heading "Stack" [level=4] [ref=e197]
+          - list [ref=e198]:
+            - listitem [ref=e199]:
+              - link "Plus Jakarta Sans" [ref=e200] [cursor=pointer]:
+                - /url: "#"
+                - generic [ref=e201]: Plus Jakarta Sans
+            - listitem [ref=e202]:
+              - link "Geist Mono" [ref=e203] [cursor=pointer]:
+                - /url: "#"
+                - generic [ref=e204]: Geist Mono
+            - listitem [ref=e205]:
+              - link "Next.js · Vercel" [ref=e206] [cursor=pointer]:
+                - /url: "#"
+                - generic [ref=e207]: Next.js · Vercel
+            - listitem [ref=e208]:
+              - link "Lenis · GSAP" [ref=e209] [cursor=pointer]:
+                - /url: "#"
+                - generic [ref=e210]: Lenis · GSAP
+        - generic [ref=e211]:
+          - heading "Contact" [level=4] [ref=e212]
+          - list [ref=e213]:
+            - listitem [ref=e214]:
+              - link "business@zonicdesign.art" [ref=e215] [cursor=pointer]:
+                - /url: mailto:business@zonicdesign.art
+                - generic [ref=e216]: business@zonicdesign.art
+            - listitem [ref=e217]:
+              - link "zonicdesign.art" [ref=e218] [cursor=pointer]:
+                - /url: https://zonicdesign.art
+                - generic [ref=e219]: zonicdesign.art
+                - generic [ref=e220]: ↗
+      - generic [ref=e221]:
+        - paragraph [ref=e222]: © 2026 Dash · A Zonic Design Studio · All rights reserved.
+        - paragraph [ref=e223]: Designed with intention. Built with precision.
+  - alert [ref=e224]

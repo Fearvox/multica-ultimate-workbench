@@ -1,0 +1,173 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - link "DASH content intelligence" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img [ref=e7]
+          - generic [ref=e9]:
+            - generic [ref=e10]: DASH
+            - paragraph [ref=e11]: content intelligence
+        - button "打开导航" [ref=e12]:
+          - img [ref=e13]
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]: Front stage
+          - navigation [ref=e19]:
+            - link "首页" [ref=e20] [cursor=pointer]:
+              - /url: /
+            - link "今日简报" [ref=e21] [cursor=pointer]:
+              - /url: /brief
+            - link "报告" [ref=e22] [cursor=pointer]:
+              - /url: /reports
+            - link "知识" [ref=e23] [cursor=pointer]:
+              - /url: /knowledge
+            - link "证据" [ref=e24] [cursor=pointer]:
+              - /url: /evidence
+            - link "归档" [ref=e25] [cursor=pointer]:
+              - /url: /archive
+        - generic [ref=e26]:
+          - generic [ref=e27]: Strategy
+          - navigation [ref=e28]:
+            - link "人设时间线" [ref=e29] [cursor=pointer]:
+              - /url: /persona/timeline
+            - link "人设信号" [ref=e30] [cursor=pointer]:
+              - /url: /persona
+            - link "信号总览" [ref=e31] [cursor=pointer]:
+              - /url: /signals
+            - link "风向雷达" [ref=e32] [cursor=pointer]:
+              - /url: /radar
+            - link "趋势情报" [ref=e33] [cursor=pointer]:
+              - /url: /trends
+            - link "内容建议" [ref=e34] [cursor=pointer]:
+              - /url: /recommend
+        - generic [ref=e35]:
+          - generic [ref=e36]: Ops
+          - navigation [ref=e37]:
+            - link "日复盘" [ref=e38] [cursor=pointer]:
+              - /url: /review/daily
+            - link "周复盘" [ref=e39] [cursor=pointer]:
+              - /url: /review/weekly
+            - link "预警" [ref=e40] [cursor=pointer]:
+              - /url: /alerts
+            - link "2小时归因" [ref=e41] [cursor=pointer]:
+              - /url: /attribution
+            - link "实验台" [ref=e42] [cursor=pointer]:
+              - /url: /experiments
+            - link "采集任务" [ref=e43] [cursor=pointer]:
+              - /url: /collector
+            - link "运行状态" [ref=e44] [cursor=pointer]:
+              - /url: /runtime
+  - main [ref=e45]:
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - img [ref=e49]
+          - generic [ref=e50]: DASH
+          - generic [ref=e51]: 2026年3月30日星期一
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - generic [ref=e54]: Fresh 报告
+            - generic [ref=e55]:
+              - text: "2"
+              - generic [ref=e56]: /2
+          - generic [ref=e57]:
+            - generic [ref=e58]: 活跃采集
+            - generic [ref=e59]:
+              - text: "1"
+              - generic [ref=e60]: /3
+          - generic [ref=e61]:
+            - generic [ref=e62]: 最高信号
+            - generic [ref=e63]: 84%
+          - generic [ref=e64]:
+            - generic [ref=e65]: 待处理预警
+            - generic [ref=e66]: "1"
+      - generic [ref=e67]:
+        - generic [ref=e68]:
+          - generic [ref=e69]: TODAY'S GROWTH
+          - link "日增长报告 →" [ref=e70] [cursor=pointer]:
+            - /url: /reports/daily
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - generic [ref=e73]: 抖音
+            - generic [ref=e74]: 1,984
+            - generic [ref=e75]: ↑+2.0k
+          - generic [ref=e76]:
+            - generic [ref=e77]: TikTok
+            - generic [ref=e78]: 10.1k
+            - generic [ref=e79]: →0
+          - generic [ref=e80]:
+            - generic [ref=e81]: 小红书
+            - generic [ref=e82]: "0"
+            - generic [ref=e83]: →0
+          - generic [ref=e84]:
+            - generic [ref=e85]: 总赞
+            - generic [ref=e86]: +62.6k
+      - region "平台粉丝趋势" [ref=e87]:
+        - generic [ref=e88]:
+          - generic [ref=e90]: 抖音
+          - generic [ref=e91]: "0"
+          - generic [ref=e92]: 暂无趋势数据
+        - generic [ref=e93]:
+          - generic [ref=e95]: TikTok
+          - generic [ref=e96]: "0"
+          - generic [ref=e97]: 暂无趋势数据
+        - generic [ref=e98]:
+          - generic [ref=e100]: 小红书
+          - generic [ref=e101]: "0"
+          - generic [ref=e102]: 暂无趋势数据
+      - generic [ref=e103]:
+        - link "REPORT / SOCIAL 读社媒报告 fresh 117 分钟" [ref=e104] [cursor=pointer]:
+          - /url: /reports/social
+          - generic [ref=e105]: REPORT / SOCIAL
+          - generic [ref=e106]: 读社媒报告
+          - generic [ref=e107]:
+            - generic [ref=e108]: fresh
+            - generic [ref=e109]: 117 分钟
+        - link "REPORT / TECH 读技术报告 fresh 69 分钟" [ref=e110] [cursor=pointer]:
+          - /url: /reports/tech
+          - generic [ref=e111]: REPORT / TECH
+          - generic [ref=e112]: 读技术报告
+          - generic [ref=e113]:
+            - generic [ref=e114]: fresh
+            - generic [ref=e115]: 69 分钟
+        - link "REPORT / DAILY GROWTH 日增长报告 粉丝 +2.0k 赞 +62.6k" [ref=e116] [cursor=pointer]:
+          - /url: /reports/daily
+          - generic [ref=e117]: REPORT / DAILY GROWTH
+          - generic [ref=e118]: 日增长报告
+          - generic [ref=e119]:
+            - generic [ref=e120]: 粉丝 +2.0k
+            - generic [ref=e121]: 赞 +62.6k
+        - link "SIGNALS 信号总览 5 条信号" [ref=e122] [cursor=pointer]:
+          - /url: /signals
+          - generic [ref=e123]: SIGNALS
+          - generic [ref=e124]: 信号总览
+          - paragraph [ref=e125]: 5 条信号
+      - generic [ref=e126]:
+        - generic [ref=e127]: ALERTS
+        - list [ref=e128]:
+          - listitem [ref=e129]:
+            - generic [ref=e130]: high
+            - generic [ref=e131]: 获赞日内增长显著，建议复盘最近内容模版
+      - generic [ref=e132]:
+        - generic [ref=e133]: COLLECTOR PULSE
+        - generic [ref=e134]:
+          - generic [ref=e135]:
+            - generic [ref=e136]:
+              - generic [ref=e137]: 抖音
+              - generic [ref=e138]: ok
+            - paragraph [ref=e139]: 21 条内容
+            - paragraph [ref=e140]: 19h 前
+          - generic [ref=e141]:
+            - generic [ref=e142]:
+              - generic [ref=e143]: TikTok
+              - generic [ref=e144]: partial
+            - paragraph [ref=e145]: 暂无内容
+            - paragraph [ref=e146]: 19h 前
+          - generic [ref=e147]:
+            - generic [ref=e148]:
+              - generic [ref=e149]: 小红书
+              - generic [ref=e150]: partial
+            - paragraph [ref=e151]: 暂无内容
+            - paragraph [ref=e152]: 19h 前
+  - alert [ref=e153]
