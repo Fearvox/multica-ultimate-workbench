@@ -1,7 +1,7 @@
 # Hermes Kanban Parity Signal
 
-Issue: DAS-1016  
-Date: 2026-05-03  
+Issue: DAS-1016
+Date: 2026-05-03
 Status: parity reviewed; no live runtime mutation
 
 ## Scope
