@@ -1,0 +1,74 @@
+[
+  {
+    "id": "future-focus-guard-next-action",
+    "title": "Close current main line from automation guard",
+    "intent": "Read the active babysitter and heartbeat signals, pick one next closure action, and park fresh ideas.",
+    "route": "focus-guard",
+    "target_agent": "ADHD Closure Babysitter",
+    "issue_anchor": {
+      "mode": "proposed",
+      "issue_id": "LOCAL-FOCUS-001"
+    },
+    "risk_tier": "LOW",
+    "evidence_required": [
+      "automation status readback",
+      "main line selected",
+      "parking lot updated"
+    ],
+    "confidence": 0.9,
+    "latency_estimate": "fast",
+    "cost_estimate": "low"
+  },
+  {
+    "id": "future-flight-recorder-first",
+    "title": "Run flight recorder first",
+    "intent": "Collect current issue and run evidence before assigning work.",
+    "route": "supervisor-gate",
+    "target_agent": "Workbench Supervisor",
+    "issue_anchor": {
+      "mode": "existing",
+      "issue_id": "EVENS-007"
+    },
+    "risk_tier": "LOW",
+    "evidence_required": ["RUN_DIGEST", "latest issue comments", "recent run summaries"],
+    "confidence": 0.76,
+    "latency_estimate": "fast",
+    "cost_estimate": "low"
+  },
+  {
+    "id": "future-qa-reproduce-checks",
+    "title": "Ask QA to reproduce checks",
+    "intent": "Verify why branch is stuck using command and PR check evidence.",
+    "route": "qa-review",
+    "target_agent": "QA Verifier",
+    "issue_anchor": {
+      "mode": "existing",
+      "issue_id": "EVENS-007"
+    },
+    "risk_tier": "MEDIUM",
+    "evidence_required": [
+      "git status --short output",
+      "git diff --stat output",
+      "GitHub PR #37 check readback"
+    ],
+    "confidence": 0.82,
+    "latency_estimate": "fast",
+    "cost_estimate": "low"
+  },
+  {
+    "id": "future-developer-patch-lane",
+    "title": "Route to Developer patch lane",
+    "intent": "Inspect diff and propose patch after evidence is current.",
+    "route": "developer-patch",
+    "target_agent": "Developer",
+    "issue_anchor": {
+      "mode": "existing",
+      "issue_id": "EVENS-007"
+    },
+    "risk_tier": "HIGH",
+    "evidence_required": ["repro command output", "diff summary", "pre-send pincer result"],
+    "confidence": 0.48,
+    "latency_estimate": "medium",
+    "cost_estimate": "medium"
+  }
+]

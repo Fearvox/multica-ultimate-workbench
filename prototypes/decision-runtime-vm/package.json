@@ -1,0 +1,11 @@
+{
+  "name": "workbench-decision-runtime-vm-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "smoke:route-stuck-branch": "node scripts/run-route-stuck-branch-smoke.mjs",
+    "serve": "node scripts/serve-vm-control-surface.mjs"
+  }
+}

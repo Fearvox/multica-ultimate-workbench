@@ -1,0 +1,58 @@
+{
+  "context_snapshot_id": "ctx-route-stuck-branch-001",
+  "repo": "/Users/0xvox/multica-ultimate-workbench",
+  "branch": "smokehouse",
+  "dirty_state": "dirty",
+  "active_issue": "EVENS-007",
+  "recent_runs": ["run-checks-stale", "run-review-open"],
+  "open_prs": [
+    {
+      "number": 37,
+      "state": "open",
+      "checks": "failing"
+    }
+  ],
+  "agents": ["QA Verifier", "Developer", "Workbench Supervisor", "CAPY/VM Observer", "ADHD Closure Babysitter", "Focus Loop Check-in"],
+  "evidence_available": ["git status", "diff summary", "PR check readback"],
+  "missing_evidence": ["fresh command output"],
+  "automation_signals": [
+    {
+      "id": "adhd-closure-babysitter",
+      "name": "ADHD Closure Babysitter",
+      "kind": "cron",
+      "status": "ACTIVE",
+      "cadence": "hourly",
+      "role": "read-only closure audit across active workspaces"
+    },
+    {
+      "id": "focus-loop-check-in",
+      "name": "Focus Loop Check-in",
+      "kind": "heartbeat",
+      "status": "ACTIVE",
+      "cadence": "45 minutes",
+      "role": "current-thread focus nudge and parking-lot enforcement"
+    }
+  ],
+  "focus_guard": {
+    "main_line": "Close Workbench Decision Runtime automation visibility in the VM web control surface",
+    "side_line": "Verify Codex Computer Use can observe Superconductor",
+    "parking_lot": [
+      "Superconductor-side Computer Use transport repair",
+      "live automation adapter for this VM cell",
+      "native sidecar interruption controls"
+    ],
+    "one_next_action": "Show automation guard in this webpage and verify the static VM cell still passes tests",
+    "stop_now": [
+      "Do not open another product lane",
+      "Do not mutate live automations from prototype mode",
+      "Park new ideas for 24 hours unless they block the main line"
+    ],
+    "completion_percent": 65
+  },
+  "source_authority": {
+    "repo": "primary",
+    "github": "primary",
+    "multica": "primary",
+    "capy": "supporting"
+  }
+}
