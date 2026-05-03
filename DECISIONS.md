@@ -315,3 +315,25 @@ stage: turning proven workflows into callable agents without collapsing live
 coordination into another runtime. Keeping it as a lane preserves the current
 two-ring governance while giving the system a clean path to deployable agent
 products.
+
+## 2026-05-03 - Keep Workbench Codex Runs Lean
+
+Decision: normal Multica Workbench Codex runs must not inherit the full user
+Codex plugin and marketplace profile. Per-run `codex-home/config.toml` should
+come from `config/multica-workbench-codex-profile.example.toml` or an equivalent
+launcher path such as `codex exec --ignore-user-config`.
+
+`codex app-server` support must be verified before passing exec-only flags. If
+the launcher cannot ignore user config, generate the lean per-run config instead
+and omit `[marketplaces.*]` and `[plugins.*]` tables unless the issue explicitly
+needs a named plugin capability.
+
+The cache janitor is a guard, not the primary fix. It may prune only
+completed-run `*/codex-home/.tmp` directories after dry-run review; it must not
+touch workdirs, logs, outputs, config, auth, sessions, active runs, or launchd
+without separate approval.
+
+Rationale: full profile inheritance made ordinary Workbench Codex tasks sync
+plugin repositories into per-run cache directories even when they only needed
+shell and `multica`. A lean profile prevents the bytes from being written, and
+the janitor limits residue until Multica exposes a first-class profile hook.

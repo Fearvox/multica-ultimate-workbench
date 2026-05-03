@@ -23,14 +23,19 @@ Start with `SELF_AWARENESS_BOOTSTRAP` and name:
 
 ## Cleanup Tiers
 
-- **Tier A**: caches and temp artifacts that can be regenerated. Move to Trash
-  only after the exact batch is approved.
+- **Tier A**: caches and temp artifacts that can be regenerated, including
+  completed-run `*/codex-home/.tmp` plugin sync caches. Move to Trash or prune
+  with the named guard only after the exact batch is approved.
 - **Tier B**: sessions, worktrees, Multica workspaces, OpenClaw workspaces,
   Colima/Lima disks, local models. Propose only until retention is confirmed.
 - **Tier C**: repos, iCloud, chat apps, Photos, credentials, Sanity datasets,
   daemon config, production state. Do not mutate from this skill.
 
 Never hard-delete and never empty Trash.
+
+Exception: `scripts/multica-codex-cache-janitor.sh --apply` may prune only
+completed-run `*/codex-home/.tmp` directories after dry-run review. Active runs,
+missing `.gc_meta.json`, or missing `completed_at` are not eligible.
 
 ## Preferred A-Tier Tool
 
@@ -66,6 +71,7 @@ Unknown state is `FLAG`, not permission to close.
 df -h /System/Volumes/Data
 sysctl vm.swapusage
 command -v mo && mo clean --dry-run
+scripts/multica-codex-cache-janitor.sh
 multica --profile desktop-api.multica.ai daemon status
 multica --profile desktop-api.multica.ai issue list --status in_progress --limit 100 --output json
 multica --profile desktop-api.multica.ai issue list --status in_review --limit 100 --output json

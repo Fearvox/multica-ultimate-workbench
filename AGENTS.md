@@ -16,6 +16,8 @@ Read only as deep as the task requires:
 6. [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) - executable bootstrap block and verdict rules.
 7. [docs/skill-curator.md](docs/skill-curator.md) - skill lifecycle, stale/archive/pin review protocol.
 8. [docs/multica-021-workflow.md](docs/multica-021-workflow.md) - project-bound repo, Quick Capture, fresh rerun, Mermaid, and runtime config rules.
+8b. [docs/codex-workbench-runtime-profile.md](docs/codex-workbench-runtime-profile.md) - lean Codex per-run profile and cache guard contract.
+8c. [docs/runtime-hygiene-lane.md](docs/runtime-hygiene-lane.md) - disk/swap/cache/session cleanup boundaries.
 9. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
 9b. [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) - Two-layer autonomous conductor with decision packets and dedupe controls.
 10. [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) - Research Vault pressure gate for remote/HarnessMax work.
@@ -76,6 +78,10 @@ When supervising Multica from Codex Desktop:
   profile with no `stdio` servers. Do not let mention-triggered bots start
   local-only tools such as Playwright MCP; if a reply path requires browser
   automation, route it to an explicitly local interactive runtime instead.
+- Normal Workbench Codex runs must use a lean per-run profile or an equivalent
+  `--ignore-user-config` launcher path. Do not copy full user Codex
+  `[marketplaces.*]` or `[plugins.*]` tables into per-run `codex-home` unless
+  the issue explicitly needs a named plugin capability.
 - Prefer the `Ultimate Workbench` Multica Project and its GitHub repo resource before guessing repository context.
 - From a Multica runtime, use the issue's project-bound GitHub repo resource first.
 - The `file://<LOCAL_WORKBENCH_REPO>` checkout is laptop-local only. Remote runtimes such as `<REMOTE_MULTICA_DEVICE>` must not rely on it; if repo checkout resolves to that path remotely, report `FLAG` or `BLOCK` and name the repo-anchor fix.
@@ -197,6 +203,7 @@ Use [docs/multica-021-workflow.md](docs/multica-021-workflow.md) when a task tou
 - Fresh rerun: use a new run when context is stale, poisoned, or bound to the wrong repo/branch.
 - Mermaid: use compact diagrams for routing, handoff, and state flows when they reduce ambiguity.
 - Runtime config: prefer Multica `--model`, `--custom-env-file`, or `--custom-env-stdin` over prompt text for agent-specific runtime configuration.
+- Codex profile: use [docs/codex-workbench-runtime-profile.md](docs/codex-workbench-runtime-profile.md) and [config/multica-workbench-codex-profile.example.toml](config/multica-workbench-codex-profile.example.toml) for normal Workbench Codex runs; `scripts/multica-codex-cache-janitor.sh` is a completed-run cache guard, not a launcher fix.
 
 ## Self-Awareness Protocol
 
@@ -463,6 +470,11 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Self-awareness protocol | [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) |
 | Self-awareness skill | [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) |
 | Multica 0.2.21 workflow rules | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
+| Codex Workbench runtime profile | [docs/codex-workbench-runtime-profile.md](docs/codex-workbench-runtime-profile.md) |
+| Lean Codex profile example | [config/multica-workbench-codex-profile.example.toml](config/multica-workbench-codex-profile.example.toml) |
+| Codex cache janitor | [scripts/multica-codex-cache-janitor.sh](scripts/multica-codex-cache-janitor.sh) |
+| Runtime hygiene lane | [docs/runtime-hygiene-lane.md](docs/runtime-hygiene-lane.md) |
+| Runtime hygiene skill | [skills/workbench-runtime-hygiene/SKILL.md](skills/workbench-runtime-hygiene/SKILL.md) |
 | Goal-persistence execution (v1) | [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) |
 | Goal Mode v2 conductor | [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) |
 | Goal Mode v2 issue template | [issue-templates/goal-mode-v2.md](issue-templates/goal-mode-v2.md) |
@@ -503,7 +515,7 @@ git diff -- README.md AGENTS.md
 ```
 
 ```bash
-for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md; do
+for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/codex-workbench-runtime-profile.md docs/runtime-hygiene-lane.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md config/multica-workbench-codex-profile.example.toml scripts/multica-codex-cache-janitor.sh skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-runtime-hygiene/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md; do
   test -f "$path" || exit 1
 done
 echo "link-targets-ok"

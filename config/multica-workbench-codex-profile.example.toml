@@ -1,0 +1,23 @@
+# Minimal Codex profile for Multica Workbench agent runs.
+# Intended for per-run codex-home generation, not the user's global ~/.codex.
+
+model = "gpt-5.5"
+model_context_window = 1000000
+model_auto_compact_token_limit = 220000
+model_reasoning_effort = "xhigh"
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+service_tier = "fast"
+
+[features]
+apps = false
+chronicle = false
+external_migration = false
+memories = false
+multi_agent = false
+tool_search = false
+tool_suggest = false
+
+# Workbench agents primarily need the multica CLI and local shell.
+# Omit [marketplaces.*] and [plugins.*] tables so Codex has nothing to sync
+# into codex-home/.tmp for normal issue/comment/review tasks.

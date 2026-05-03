@@ -56,6 +56,18 @@ multica --profile "$MULTICA_PROFILE" --workspace-id "$MULTICA_WORKSPACE_ID" agen
 | `CODEX_RUNTIME_ID` | Codex | explicit profile/workspace `runtime list` |
 | `HERMES_RUNTIME_ID` | Hermes | explicit profile/workspace `runtime list` |
 
+## Codex Runtime Profile Guard
+
+Before creating or updating Codex-backed Workbench agents, verify the launcher
+path in [docs/codex-workbench-runtime-profile.md](../docs/codex-workbench-runtime-profile.md).
+Normal Workbench Codex runs should use a lean per-run `codex-home/config.toml`
+from [config/multica-workbench-codex-profile.example.toml](../config/multica-workbench-codex-profile.example.toml)
+or a verified `codex exec --ignore-user-config` path.
+
+Do not add full user `[marketplaces.*]` or `[plugins.*]` tables to normal
+Workbench runs. If `codex app-server` is the launcher, verify supported flags
+before adding custom args; generate the lean profile instead when in doubt.
+
 ## Inner Ring
 
 | Agent | Definition file | Runtime variable | Max concurrent tasks | Visibility |

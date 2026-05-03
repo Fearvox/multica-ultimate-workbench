@@ -86,9 +86,22 @@ Use Multica agent config for runtime-specific behavior before duplicating it in 
 | Model selection | `multica agent update <id> --model <model>` |
 | Runtime secrets | `--custom-env-file` or `--custom-env-stdin` |
 | Non-secret CLI flags | `--custom-args` only when `--model` is not enough |
+| Codex Workbench profile | Lean per-run `codex-home/config.toml` from `config/multica-workbench-codex-profile.example.toml` |
 | Approval policy | Runtime-native config, not workbench prose |
 
 Never put secret values in repo docs, issue comments, shell history, or command transcripts.
+
+### Codex Profile Guard
+
+Normal Workbench Codex tasks need shell, Git, and `multica`; they should not
+inherit the full user Codex plugin or marketplace profile. Use
+[docs/codex-workbench-runtime-profile.md](codex-workbench-runtime-profile.md)
+for the launcher contract, verification report, and completed-run cache guard.
+
+If Multica launches `codex exec`, prefer `--ignore-user-config` plus explicit
+model/context overrides. If Multica launches `codex app-server`, generate a
+lean per-run profile instead; do not assume `app-server` accepts
+`--ignore-user-config`.
 
 ## Create-Issue-By-Agent Rule
 

@@ -30,6 +30,7 @@ When assigned `/goal` or `GOAL_MODE: yes`, post `GOAL_LOCK`, execute through the
 - Chinese for user-facing status + operational summaries unless issue says otherwise.
 - No store/print secrets, OAuth, private tokens, sensitive partner/internal details.
 - No claim done without evidence: command output, file path, screenshot, link, missing-verification note.
+- Codex runtime work: use lean Workbench profile; no full user plugin/marketplace inheritance unless the issue names the exact capability.
 - `/goal` or `GOAL_MODE: yes`: follow `skills/workbench-goal-mode/SKILL.md`.
 - Two attempts fail: post `BLOCKED`, stop.
 - Ownership unclear: post `BLOCKED`, stop.

@@ -26,13 +26,19 @@ evidence discipline as feature work.
 
 | Tier | Examples | Authority |
 | --- | --- | --- |
-| A | package/browser/updater caches, `uv` cache, temp VM artifacts, old approved workbench temp folders, empty temp dirs | may be moved to Trash only when the issue or human explicitly approves the named batch |
+| A | package/browser/updater caches, `uv` cache, temp VM artifacts, completed-run `*/codex-home/.tmp` plugin sync caches, old approved workbench temp folders, empty temp dirs | may be moved to Trash or pruned by a named guard only when the issue or human explicitly approves the named batch |
 | B | Codex sessions, Codex worktrees, Multica workspaces, OpenClaw workspaces, Colima/Lima disks, local model files | propose only until owner confirms retention value and rollback |
 | C | repos, iCloud, chat apps, Photos, Sanity datasets, credentials, live daemon config, production deploy state | do not mutate from this lane |
 
 Tier A is still not hard-delete. The default action is a named Trash batch such
 as `${HOME}/.Trash/workbench-runtime-hygiene-<timestamp>/`, followed by a disk
 and swap readback.
+
+Exception: `scripts/multica-codex-cache-janitor.sh --apply` may prune only
+completed-run `*/codex-home/.tmp` directories after its dry-run output is
+reviewed. These directories are regenerated plugin sync caches, not run
+evidence. Active runs, missing `.gc_meta.json`, or missing `completed_at` stay
+out of scope.
 
 ## Preferred A-Tier Cleaner
 
@@ -106,6 +112,7 @@ Use the smallest live checks first:
 df -h /System/Volumes/Data
 sysctl vm.swapusage
 command -v mo && mo clean --dry-run
+scripts/multica-codex-cache-janitor.sh
 multica --profile desktop-api.multica.ai daemon status
 multica --profile desktop-api.multica.ai issue list --status in_progress --limit 100 --output json
 multica --profile desktop-api.multica.ai issue list --status in_review --limit 100 --output json
@@ -148,3 +155,5 @@ VERDICT: PASS | FLAG | BLOCK
 - No mutation of preserved `Workbench Max`.
 - Remote cleanup must treat laptop paths as invalid and use remote-local
   evidence only.
+- Recurring cache cleanup jobs require a separate approval; this lane may run
+  the Codex cache janitor manually but must not install launchd jobs silently.

@@ -37,7 +37,7 @@ npx skills add Fearvox/multica-ultimate-workbench --skill workbench-self-awarene
 npx skills add Fearvox/multica-ultimate-workbench --all
 ```
 
-Use `--list` first to inspect the 23 public-safe skills. Install only the slice a runtime needs unless you are intentionally bootstrapping the full workbench grammar.
+Use `--list` first to inspect the 25 public-safe skills. Install only the slice a runtime needs unless you are intentionally bootstrapping the full workbench grammar.
 
 ## Why It Exists
 
@@ -145,6 +145,13 @@ Codex, Claude Code, and Hermes are assigned by role, not treated as interchangea
 | Claude Code | Architecture, documentation, planning, admin synthesis. |
 | Hermes | Research, memory synthesis, broader context digestion. |
 
+Normal Workbench Codex runs use a lean per-run profile rather than inheriting
+the user's full plugin and marketplace configuration. The default profile keeps
+shell, Git, model/context settings, and `multica` access, while omitting
+plugin/marketplace tables unless a task explicitly needs a named capability.
+See [docs/codex-workbench-runtime-profile.md](docs/codex-workbench-runtime-profile.md)
+and [config/multica-workbench-codex-profile.example.toml](config/multica-workbench-codex-profile.example.toml).
+
 ## Workspace Skills
 
 Workspace skills are the shared grammar of the workbench. They make high-frequency behavior explicit — SDD, conductor routing, research, implementation, review, docs release, browser proofshot QA, token/context discipline, L2 pressure, and memory synthesis.
@@ -237,6 +244,7 @@ Read-only helpers (safe to run anytime):
 ```bash
 ./scripts/list-workbench-state.sh
 ./scripts/collect-flight-recorder.sh <issue-id>
+./scripts/multica-codex-cache-janitor.sh
 ```
 
 Source regeneration:
@@ -250,6 +258,7 @@ Human approval required before running:
 ```bash
 ./scripts/create-pilot-agent.sh
 ./scripts/create-agent-roster.sh
+./scripts/multica-codex-cache-janitor.sh --apply
 ```
 
 ## Documentation Map
@@ -274,6 +283,9 @@ Human approval required before running:
 | Agent-install unifier lane | [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) |
 | Flue agent harness lane | [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) |
 | Platform workflow (0.2.22) | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
+| Codex Workbench runtime profile | [docs/codex-workbench-runtime-profile.md](docs/codex-workbench-runtime-profile.md) |
+| Lean Codex profile example | [config/multica-workbench-codex-profile.example.toml](config/multica-workbench-codex-profile.example.toml) |
+| Runtime hygiene lane | [docs/runtime-hygiene-lane.md](docs/runtime-hygiene-lane.md) |
 | Skill curator protocol | [docs/skill-curator.md](docs/skill-curator.md) |
 | Workspace skill map | [skills/README.md](skills/README.md) |
 | Agent roster | [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) |

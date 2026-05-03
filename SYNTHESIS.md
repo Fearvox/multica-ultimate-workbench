@@ -203,10 +203,11 @@ runtimes. It keeps the workbench stable while high-throughput agents, VM runs,
 Codex sessions, and Sanity sync loops are active.
 
 The lane owns disk/swap/cache/session pressure checks, A-tier cache/log/temp
-cleanup through `mo clean`, stale session closeout candidate reporting, and
-Tier B/C residue review proposals. It does not hard-delete, close sessions
-without evidence gates, or mutate daemons/Sanity/datasets without explicit
-approval.
+cleanup through `mo clean`, completed-run Codex plugin sync cache cleanup
+through `scripts/multica-codex-cache-janitor.sh`, stale session closeout
+candidate reporting, and Tier B/C residue review proposals. It does not
+hard-delete unrelated data, close sessions without evidence gates, or mutate
+daemons/Sanity/datasets without explicit approval.
 
 | Signal | Floor |
 | --- | --- |
@@ -219,8 +220,14 @@ approval.
 The required output is `RUNTIME_HYGIENE_REPORT` with disk/swap/issue/session/
 Sanity state and a PASS/FLAG/BLOCK verdict.
 
-Sources: `docs/runtime-hygiene-lane.md`, `skills/workbench-runtime-hygiene/SKILL.md`,
-`autopilots/runtime-hygiene-sweeper.md`, `issue-templates/runtime-hygiene-sweep.md`.
+Codex Workbench runs should also use a lean per-run profile that omits plugin
+marketplace tables unless the issue explicitly needs them. See
+`docs/codex-workbench-runtime-profile.md` and
+`config/multica-workbench-codex-profile.example.toml`.
+
+Sources: `docs/runtime-hygiene-lane.md`, `docs/codex-workbench-runtime-profile.md`,
+`skills/workbench-runtime-hygiene/SKILL.md`, `autopilots/runtime-hygiene-sweeper.md`,
+`issue-templates/runtime-hygiene-sweep.md`.
 
 ## Public Artifact Boundary
 

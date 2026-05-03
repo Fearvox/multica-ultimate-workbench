@@ -45,6 +45,9 @@ and `.capy/settings.json` after `AGENTS.md`.
 - Do not start or inherit `stdio` MCP servers from cloud, repo-reply, GitHub,
   Copilot, or Codex Cloud bot surfaces. Playwright MCP is local-interactive
   only; mention-triggered bots must use a cloud-safe no-stdio MCP profile.
+- Do not let normal Workbench Codex runs inherit the full user plugin or
+  marketplace profile. Use `docs/codex-workbench-runtime-profile.md` and the
+  lean profile example unless a task explicitly needs a named plugin.
 - Do not treat Capy UI, chat memory, or Sanity memory as authoritative over
   Git, GitHub, CI, repo files, or review comments.
 - Do not claim completion without concrete evidence: commands, files, commits,

@@ -21,6 +21,7 @@ The pack is directory-structured for the `skills` CLI: each skill lives at
 | [`workbench-self-awareness-infra`](workbench-self-awareness-infra/SKILL.md) | Capability discovery and current-state verification for Heavy Path, ambiguous repo/runtime ownership, and runtime-dependent Standard Path work. |
 | [`workbench-sdd`](workbench-sdd/SKILL.md) | Raw requirement -> product design -> technical design -> task list -> execution/review. |
 | [`workbench-goal-mode`](workbench-goal-mode/SKILL.md) | Goal-persistence wrapper for `/goal` work that must continue until the objective is verified. |
+| [`workbench-goal-mode-v2`](workbench-goal-mode-v2/SKILL.md) | Two-layer autonomous conductor with decision packets, dedupe controls, and evidence-loop closeout. |
 | [`workbench-l2-pressure-gate`](workbench-l2-pressure-gate/SKILL.md) | Research Vault pressure gate for remote Hermes, VM, HarnessMax, and autonomous evolution sweeps. |
 | [`workbench-conductor`](workbench-conductor/SKILL.md) | Two-ring routing, role boundaries, issue/comment discipline. |
 | [`workbench-research`](workbench-research/SKILL.md) | Evidence-first research and source discipline. |
@@ -37,6 +38,7 @@ The pack is directory-structured for the `skills` CLI: each skill lives at
 | [`workbench-sanity-context`](workbench-sanity-context/SKILL.md) | Sanity schema and context-registry work for cross-CLI sanitized workbench memory. |
 | [`workbench-agent-install-unifier`](workbench-agent-install-unifier/SKILL.md) | Skills, MCP, and AGENTS.md distribution across coding agents with readback and rollback. |
 | [`workbench-flue-agent-harness`](workbench-flue-agent-harness/SKILL.md) | Deployable Flue agent harness lane for HTTP, CI, Node, Cloudflare, and sandbox-backed agents. |
+| [`workbench-runtime-hygiene`](workbench-runtime-hygiene/SKILL.md) | Disk, swap, VM, agent workspace, Codex cache, and stale session hygiene for runtime stability. |
 | [`workbench-docs-release`](workbench-docs-release/SKILL.md) | Documentation sync after behavior, roster, skill, or release changes. |
 | [`workbench-token-context-discipline`](workbench-token-context-discipline/SKILL.md) | Compact context, cache-aware execution, and role-specific skill attachment. |
 | [`workbench-product-brainstorming`](workbench-product-brainstorming/SKILL.md) | Bounded product ideation with tradeoffs and smallest tests. |
