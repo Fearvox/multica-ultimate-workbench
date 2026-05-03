@@ -10,7 +10,7 @@ trustState: parking
 
 # Multica Dispatch — Windburn Trust Pipeline Phase 1
 
-Five blocks. Ship in order. Each block closes when its own verification passes.
+Seven blocks. Ship in order. Each block closes when its own verification passes.
 
 ## Block Map
 
@@ -20,13 +20,17 @@ BLOCK 0: Self-Consistency Verifier        (no prereqs)
 BLOCK 1: Three-Axis Belief Migration      (prereq: Block 0)
   ↓
 BLOCK 2: Cross-Belief Dependency          (prereq: Block 1)
-  ↓
-BLOCK 3: Adaptive Compiler MVP             (prereq: Block 0 + 2)
-  ↓
-BLOCK 4: Grok Divergence Pass Integration  (prereq: Block 1)
+  ├─→ BLOCK 3: Adaptive Compiler MVP       (prereq: Block 0 + 2)
+  └─→ BLOCK 4: Grok Divergence Pass        (prereq: Block 1)
+
+BLOCK 5: Verification Harness              (prereq: Block 0 + 3)
+BLOCK 6: Session Extraction                (prereq: Block 1)
 ```
 
 Blocks 2 & 4 are parallel once Block 1 lands. Block 3 waits for Block 0 + 2.
+Block 5 waits for compiler (Block 3) — needs it to run end-to-end scenarios.
+Block 6 is parallel to 2-4 once belief model (Block 1) is stable.
+Block 6 feeds the pipeline: extracted entries → verifier → compiler → harness.
 
 ---
 
@@ -228,6 +232,102 @@ ARTIFACTS
 - Updated promotion flow in belief lifecycle
 
 SHIP CONDITION: end-to-end: verifier → challenge → materiality → promotion gate works
+
+---
+
+## BLOCK 5 — Verification Harness
+
+PREREQ: Block 0 (verifier) + Block 3 (compiler)
+PRIORITY: high
+SESSION: standard
+SPEC: `.learning/parking/verification-harness-spec.md`
+
+WHAT
+The meta-test. Proves the full pipeline changes agent behavior, not just that
+individual CLIs pass. Five end-to-end scenarios with seeded `.learning/` state,
+expected compiler output, and expected behavioral change.
+
+SCENARIOS
+1. Repeated-action failure avoidance — agent skips tool-a after reading failure memory
+2. RV-grounded architecture decision — agent cites RV, doesn't escalate to training
+3. Privacy gate — secret-adjacent entries excluded from context pack
+4. Source-truth separation — source-truth in labeled section, parking beliefs excluded
+5. Budget enforcement — compiler trims in priority order, failures never trimmed
+
+SUB-TASKS
+1. Build `scripts/windburn-harness.mjs`:
+   - `run [--scenario <name>]` — seeds .learning, compiles, checks output
+   - `verify-behavior --scenario <name>` — spawns controlled agent run, checks action
+   - `preflight` — runs verifier on all fixtures before harness run
+2. Create harness directory with fixtures and expected outputs
+3. Run harness against each Block as it ships:
+   - Block 0 → preflight only (no compiler yet)
+   - Block 1 → scenarios 1, 4 as integration tests
+   - Block 3 → FULL harness gate — all 5 scenarios must pass
+
+VERIFICATION
+- `windburn-harness preflight` exits 0 (all fixtures valid)
+- `windburn-harness run` exits 0 (all 5 scenarios pass)
+- For scenario 1: agent with .learning context uses tool-b directly
+- For scenario 1 (baseline): agent without .learning tries tool-a first, fails
+
+ARTIFACTS
+- `scripts/windburn-harness.mjs`
+- `.learning/harness/scenario-1-pre-convergence/`
+- `.learning/harness/scenario-2-rv-routing/`
+- `.learning/harness/scenario-3-privacy-gate/`
+- `.learning/harness/scenario-4-source-truth/`
+- `.learning/harness/scenario-5-budget/`
+- `.learning/harness/expected/`
+
+SHIP CONDITION: `windburn-harness run` — all 5 PASS
+
+---
+
+## BLOCK 6 — Session Extraction
+
+PREREQ: Block 1 (belief model) — needs stable belief/failure/skill schemas
+PRIORITY: high
+SESSION: standard
+SPEC: `.learning/parking/session-extraction-spec.md`
+
+WHAT
+Bridge between narrative sessions and structured .learning entries. An agent
+reads a session episode, proposes beliefs/failures/skills/parking entries.
+All proposals enter the trust pipeline at `hypothesis` or `parking` — no
+auto-promotion, no gate bypass.
+
+This is what closes the loop: "we talked" → "the system learned."
+
+SUB-TASKS
+1. Build `scripts/windburn-extract.mjs`:
+   - Reads session episode, applies extraction heuristics (§3 of spec)
+   - Proposes BeliefProposal, FailureProposal, SkillProposal, ParkingProposal
+   - `--dry-run` prints proposals without writing
+   - `--since <date>` extracts from all unprocessed episodes since date
+2. Track extracted episodes in `.learning/.windburn/extracted-episodes.json`
+3. Wire extraction output into verifier (all proposals go through write gate)
+4. Idempotency: running twice on same episode detects existing extractions
+
+EXTRACTION SIGNALS (what the agent looks for)
+- Belief: "★ Insight" blocks, operator corrections, design decisions with rationale
+- Failure: dogfood moments, corrections, "did X → got Y → should have done Z"
+- Skill: repeated CLI patterns, demonstrated workflows
+- Parking: "revisit later," "out of scope," "future direction"
+
+VERIFICATION
+- Extract from `sessions/2026-05-03-episode-windburn-trust.md`
+- Expected: 1 belief (grok-divergence-gate), 1 failure (self-promotion dogfood),
+  4 parking ideas (verifier, three-axis, compiler, deps specs)
+- All proposed beliefs pass `windburn-verify`
+- Running extraction twice on same episode: second run detects existing, proposes nothing new
+- Extracted failure's `inferredReason` matches "agent self-promoted belief without challenge review"
+
+ARTIFACTS
+- `scripts/windburn-extract.mjs`
+- `.learning/.windburn/extracted-episodes.json` (seed with current episode as already-extracted)
+
+SHIP CONDITION: extraction on dogfood episode produces correct proposals + all pass verifier
 
 ---
 
