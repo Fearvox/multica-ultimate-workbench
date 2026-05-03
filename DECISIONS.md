@@ -1,5 +1,13 @@
 # Decisions
 
+## 2026-05-03 - Record Danfei Xu Human Data Insights As Workflow Cross-Analysis
+
+Decision: add `docs/danfei-xu-human-data-workflow-insights.md` as a cross-analysis of Danfei Xu's robotics/human data research philosophy against the Multica workbench operating model. Ten insights mapped from research principles to concrete workflow improvements.
+
+Key findings: SDD is validated as systems-first thinking (not overhead); Heavy Path enables safe uncertainty-seeking; Goal Mode decision packets should record rejected alternatives as structured taste; token/context discipline maps directly to behavior-cloning context adequacy; flight recorder should track decision-packet lifecycle as workbench training data.
+
+Rationale: the workbench's multi-agent coordination model shares deep structural parallels with full-stack robotics — integration depth, system-over-algorithm thinking, and taste-driven direction-setting all apply. Recording these cross-pollinations strengthens the operating model's theoretical foundation.
+
 ## 2026-05-02 - Adopt Goal Mode v2 Two-Layer Autonomous Conductor
 
 Decision: add `workbench-goal-mode-v2` as the two-layer persistent conductor
