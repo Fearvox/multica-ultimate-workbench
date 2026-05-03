@@ -103,6 +103,10 @@ progress.
 
 ## Goal Mode
 
+Goal Mode comes in two versions:
+
+### v1 — Single-Agent Persistence Wrapper
+
 `/goal` or `GOAL_MODE: yes` marks work that must persist until the stated
 objective is verified, not merely until one local fix lands. The owner posts a
 `GOAL_LOCK`, executes against closeout gates, investigates failed gates before
@@ -110,6 +114,28 @@ calling the operator, and reports `PASS`, `FLAG`, or `BLOCK` from evidence.
 
 Goal Mode does not override approval, privacy, repo-anchor, destructive-action,
 or Supervisor-review rules.
+
+### v2 — Two-Layer Autonomous Conductor
+
+`GOAL_MODE_V2: yes` enables the persistent conductor: a design/decision layer
+that produces decision packets, and a dispatch/operations layer that converts
+them into bounded Multica issues with dedupe, cooldown, max-active, and archive
+controls.
+
+The state machine runs `GOAL_CAPTURED → DESIGNING → DECISION_PACKET →
+DISPATCHING → OBSERVING → REVIEWING → BLOCKER_CLASSIFIED →
+LEARNING/ARCHIVING → NEXT_GOAL_OR_DONE`. The conductor stops only at real
+operator-call or external-platform blockers.
+
+Key contracts: `DECISION_PACKET` for scoped routing, `GOAL_MODE_V2_CLOSEOUT`
+for evidence-backed completion. Noise is prevented by dedupe keys, cooldown
+timers, max-active caps, and cancel-on-sight for duplicate issues.
+
+Use v2 when the objective spans multiple agents and evidence cycles. Use v1 for
+simple single-agent persistence. See
+`skills/workbench-goal-mode-v2/SKILL.md`,
+`issue-templates/goal-mode-v2.md`, and
+`autopilots/goal-conductor.md`.
 
 ## L2 Pressure
 
@@ -290,7 +316,8 @@ The next useful upgrades are:
 - Sanity context registry read/write discipline and MCP readback
 - agent-install dry-run/readback sync for shared skill and MCP config
 - Flue agent harness lane pilots for CI review and HTTP agent packaging
-- live sync of `workbench-goal-mode` to the relevant Multica skills and agents
+- live sync of `workbench-goal-mode` and `workbench-goal-mode-v2` to the relevant Multica skills and agents
+- Goal Mode v2 conductor autopilot deployment after dogfood pass (DAS-768)
 - VM lane smoke tests with temp-only evidence
 - runtime-hygiene lane docs, skill, autopilot, and issue template synced to repo (DAS-410)
 - README and docs polish that stays public-safe

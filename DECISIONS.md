@@ -1,5 +1,41 @@
 # Decisions
 
+## 2026-05-02 - Adopt Goal Mode v2 Two-Layer Autonomous Conductor
+
+Decision: add `workbench-goal-mode-v2` as the two-layer persistent conductor
+for multi-agent autonomous goals.
+
+Goal Mode v1 (`/goal` persistence wrapper) remains for simple single-agent work.
+Goal Mode v2 (`GOAL_MODE_V2: yes`) activates the full two-layer conductor:
+
+- Design / Decision Layer: continuously refines intent, constraints, and
+  product judgment, then produces a `DECISION_PACKET` — a scoped routing
+  artifact, not raw execution spam.
+- Dispatch / Operations Layer: converts decision packets into bounded Multica
+  issues with one owner each, monitors active/in_review/blocked/done states,
+  harvests evidence, archives noise, and re-routes only when new evidence
+  appears.
+
+The state machine is `GOAL_CAPTURED → DESIGNING → DECISION_PACKET →
+DISPATCHING → OBSERVING → REVIEWING → BLOCKER_CLASSIFIED →
+LEARNING/ARCHIVING → NEXT_GOAL_OR_DONE`.
+
+Noise prevention (per DAS-741/DAS-743 findings): dedupe keys before issue
+creation, cooldown timers between sweeps, max-active caps per goal, cancel
+noise issues on sight, and a self-cancel condition when the conductor is the
+only active issue left.
+
+The initial delivery (DAS-768) adds `skills/workbench-goal-mode-v2/SKILL.md`,
+`issue-templates/goal-mode-v2.md`, and `autopilots/goal-conductor.md` as
+design contracts. The goal-conductor autopilot is NOT deployed live until a
+separate approval issue with dogfood pass and rollback plan.
+
+Rationale: the zero-idle pass (DAS-185/DAS-740) worked but blurred design and
+dispatch — one supervisor kept switching, monitoring, and routing manually.
+Splitting the two concerns into cooperating layers, and adding dedupe/cooldown/
+archive controls, makes "auto forever" a durable control loop rather than
+endless new sweep issues.
+
 ## 2026-05-02 - Add Friction Tier Router To Workbench Routing
 
 Decision: Workbench Admin and Workbench Supervisor must route work through a

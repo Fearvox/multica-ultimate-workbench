@@ -79,7 +79,10 @@ Raw Requirement -> Product Design -> Technical Design -> Task List -> Execution 
 
 For `/goal` or `GOAL_MODE: yes`, preserve the objective until build, test,
 smoke, docs/report, git status, and evidence gates are addressed, unless a real
-external blocker appears.
+external blocker appears. For `GOAL_MODE_V2: yes`, use the two-layer autonomous
+conductor (`skills/workbench-goal-mode-v2/SKILL.md`): design layer produces
+decision packets, dispatch layer routes to bounded issues with dedupe/cooldown/
+archive controls.
 
 ## Sanity Context
 
