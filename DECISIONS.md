@@ -1,5 +1,23 @@
 # Decisions
 
+## 2026-05-03 - Add Windburn Trust Pipeline Bootstrap Scripts
+
+Decision: add deterministic local scripts for Windburn belief write gating and
+time-aware momentum decay:
+
+- `scripts/windburn-verify.mjs` remains the zero-model self-consistency gate and
+  now supports Rule 9 for stale high exploration momentum.
+- `scripts/windburn-belief-write.mjs` is the guarded write path: it runs the
+  verifier before copying a candidate belief into its destination.
+- `scripts/windburn-momentum-decay.mjs` reports system-clock momentum decay in
+  dry-run form without mutating belief files.
+
+Rationale: Windburn trust state, confidence, and exploration momentum are
+separate axes. Agents may declare exploration intent and lower confidence, but
+only external evidence and Supervisor gates can promote trust or confidence.
+The write gate blocks structurally invalid beliefs before they enter durable
+memory, while momentum decay stays clock-derived and report-only in this slice.
+
 ## 2026-05-03 - Add Windburn Divergence-Gated Trust Promotion Research Packet
 
 Decision: add `docs/windburn-divergence-gated-trust-research.md` and

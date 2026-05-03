@@ -165,6 +165,39 @@ Each alternative receives one label:
 The classifier must cite the original claim and the specific phrase that makes
 the alternative relevant or irrelevant. A vague "interesting" label is invalid.
 
+## Challenge Review Trigger Proposal
+
+The first trigger should be event-driven, not periodic.
+
+```text
+trigger:
+  belief.trustState == "verified"
+  AND promotion_request.requested_state == "trusted"
+  AND promotion_request.self_consistency_pass == true
+  AND no current challenge_review exists for this promotion request
+```
+
+On trigger, `windburn-challenge` should emit a pending `DivergencePacket` and
+append no trust mutation. The packet becomes evidence only after a materiality
+classifier labels each alternative and an external verifier or Supervisor
+resolves material items.
+
+Valid trigger sources:
+
+- explicit Supervisor challenge-review request;
+- verified belief promotion request to `trusted`;
+- stale high-momentum belief flagged by Rule 9 and selected for renewed
+  exploration;
+- operator request to stress-test a belief before it affects future policy.
+
+Invalid trigger effects:
+
+- no confidence delta;
+- no trustState change;
+- no source-truth write;
+- no freshness reset;
+- no automatic Research Vault write.
+
 ## Experiment Design
 
 ### Corpus

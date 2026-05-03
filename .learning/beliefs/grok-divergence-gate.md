@@ -10,16 +10,24 @@ counterEvidence:
   - probe-mode benchmark evidence in related work must not be treated as publishable proof
   - divergent alternatives can be off-scope, falsely symmetric, or novelty-biased without materiality review
 confidence: 0.62
-explorationMomentum: high
+explorationMomentum:
+  level: high
+  numeric: 0.8
+  declared_by: operator-agent-dogfood-session
+  declared_at: 2026-05-03T19:42:48Z
+  last_action_at: 2026-05-03T19:42:48Z
+  decay_history: []
 validScope: Windburn trust pipeline design
 decayPolicy: until-contradicted
 trustState: hypothesis
-created_at: 2026-05-03T19:42:48Z
-observed_at: 2026-05-03T19:42:48Z
-last_verified_at: null
-last_accessed_at: 2026-05-03T19:42:48Z
-age_bucket: fresh
-staleness_reason: fresh conversation-derived hypothesis; external verifier evidence pending
+temporal:
+  created_at: 2026-05-03T19:42:48Z
+  observed_at: 2026-05-03T19:42:48Z
+  last_verified_at: null
+  last_accessed_at: 2026-05-03T19:42:48Z
+  age_bucket: fresh
+  bucket_transition_at: 2026-05-03T19:42:48Z
+  staleness_reason: fresh conversation-derived hypothesis; external verifier evidence pending
 lastUpdated: 2026-05-03T19:42:48Z
 promotion_request:
   requested_state: verified

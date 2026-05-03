@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { readFileSync } from "node:fs";
 import { basename } from "node:path";
+import { pathToFileURL } from "node:url";
 
 const EXTERNAL_EVIDENCE_TYPES = new Set([
   "benchmark",
@@ -8,6 +9,8 @@ const EXTERNAL_EVIDENCE_TYPES = new Set([
   "review",
   "external_observation",
 ]);
+
+const HOT_MOMENTUM_LEVELS = new Set(["high", "critical"]);
 
 function usage() {
   return [
@@ -213,7 +216,7 @@ function parseFrontmatter(frontmatter) {
 }
 
 function hasOwn(object, key) {
-  return Object.prototype.hasOwnProperty.call(object, key);
+  return object != null && Object.prototype.hasOwnProperty.call(object, key);
 }
 
 function asArray(value) {
@@ -258,6 +261,8 @@ function evidenceHasSupervisorReview(evidence) {
 
 function hasChallengeReview(belief) {
   if (!isEmpty(belief.counterEvidence)) return true;
+  if (!isEmpty(belief.challenge_review)) return true;
+  if (!isEmpty(belief.challengeReview)) return true;
   if (!isEmpty(belief.challenge_reviewed_at)) return true;
   if (!isEmpty(belief.challengeReviewedAt)) return true;
   if (!isEmpty(belief.counterEvidenceReview)) return true;
@@ -271,11 +276,78 @@ function violation(rule, severity, detail, fix) {
   return { rule, severity, detail, fix };
 }
 
+function getTemporal(belief) {
+  const temporal = belief.temporal && typeof belief.temporal === "object" ? belief.temporal : {};
+  return {
+    created_at: temporal.created_at ?? belief.created_at ?? belief.createdAt,
+    observed_at: temporal.observed_at ?? belief.observed_at ?? belief.observedAt,
+    last_verified_at:
+      hasOwn(temporal, "last_verified_at") ? temporal.last_verified_at : belief.last_verified_at ?? belief.lastVerifiedAt,
+    last_accessed_at: temporal.last_accessed_at ?? belief.last_accessed_at ?? belief.lastAccessedAt,
+    age_bucket: temporal.age_bucket ?? belief.age_bucket ?? belief.ageBucket,
+    bucket_transition_at: temporal.bucket_transition_at ?? belief.bucket_transition_at ?? belief.bucketTransitionAt,
+    has_last_verified_at: hasOwn(temporal, "last_verified_at") || hasOwn(belief, "last_verified_at") || hasOwn(belief, "lastVerifiedAt"),
+    has_age_bucket: hasOwn(temporal, "age_bucket") || hasOwn(belief, "age_bucket") || hasOwn(belief, "ageBucket"),
+  };
+}
+
+function getExplorationMomentum(belief) {
+  const raw = belief.explorationMomentum ?? belief.exploration_momentum;
+  if (typeof raw === "string") {
+    return {
+      level: raw,
+      last_action_at: belief.last_action_at ?? belief.lastActionAt ?? null,
+    };
+  }
+  if (raw && typeof raw === "object") {
+    return {
+      level: raw.level,
+      numeric: raw.numeric,
+      declared_at: raw.declared_at,
+      last_action_at: raw.last_action_at ?? raw.lastActionAt ?? null,
+    };
+  }
+  return {
+    level: null,
+    last_action_at: belief.last_action_at ?? belief.lastActionAt ?? null,
+  };
+}
+
+function parseTimestamp(value) {
+  if (typeof value !== "string" || !value.trim()) return null;
+  const time = Date.parse(value);
+  return Number.isFinite(time) ? time : null;
+}
+
+function isHotMomentumStale(belief) {
+  const temporal = getTemporal(belief);
+  const momentum = getExplorationMomentum(belief);
+  const level = typeof momentum.level === "string" ? momentum.level.toLowerCase() : null;
+
+  if (!HOT_MOMENTUM_LEVELS.has(level)) return null;
+  if (temporal.age_bucket === "fresh") return null;
+
+  const lastActionAt = parseTimestamp(momentum.last_action_at);
+  const bucketTransitionAt = parseTimestamp(temporal.bucket_transition_at);
+
+  if (!lastActionAt) {
+    return "high exploration momentum has no last_action_at";
+  }
+  if (!bucketTransitionAt) {
+    return "high exploration momentum has no bucket_transition_at for staleness comparison";
+  }
+  if (lastActionAt < bucketTransitionAt) {
+    return "high exploration momentum last_action_at is older than bucket_transition_at";
+  }
+  return null;
+}
+
 function verifyBelief(belief, file) {
   const violations = [];
   const warnings = [];
   const trustState = belief.trustState;
   const confidence = Number(belief.confidence);
+  const temporal = getTemporal(belief);
 
   if (trustState === "verified" && !hasChallengeReview(belief)) {
     violations.push(
@@ -310,7 +382,7 @@ function verifyBelief(belief, file) {
     );
   }
 
-  if (trustState !== "parking" && (!hasOwn(belief, "last_verified_at") || !hasOwn(belief, "age_bucket"))) {
+  if (trustState !== "parking" && (!temporal.has_last_verified_at || !temporal.has_age_bucket)) {
     warnings.push(
       violation(
         "staleness-fields-required",
@@ -372,6 +444,18 @@ function verifyBelief(belief, file) {
     );
   }
 
+  const staleMomentumReason = isHotMomentumStale(belief);
+  if (staleMomentumReason) {
+    warnings.push(
+      violation(
+        "hot-momentum-requires-recent-action",
+        "FLAG",
+        staleMomentumReason,
+        "take an exploration action, downgrade explorationMomentum, or accept the flag",
+      ),
+    );
+  }
+
   const verdict = violations.length > 0 ? "BLOCK" : warnings.length > 0 ? "FLAG" : "PASS";
   return {
     file,
@@ -393,6 +477,16 @@ function formatText(result) {
   return lines.join("\n");
 }
 
+function readBeliefFile(file) {
+  const markdown = readFileSync(file, "utf8");
+  const frontmatter = extractFrontmatter(markdown, file);
+  return {
+    markdown,
+    frontmatter,
+    belief: parseFrontmatter(frontmatter),
+  };
+}
+
 function main() {
   let args;
   try {
@@ -402,9 +496,7 @@ function main() {
       process.exit(args.help ? 0 : 2);
     }
 
-    const markdown = readFileSync(args.file, "utf8");
-    const frontmatter = extractFrontmatter(markdown, args.file);
-    const belief = parseFrontmatter(frontmatter);
+    const { belief } = readBeliefFile(args.file);
     const result = verifyBelief(belief, args.file);
 
     if (args.format === "json") {
@@ -434,4 +526,20 @@ function main() {
   }
 }
 
-main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main();
+}
+
+export {
+  asArray,
+  extractFrontmatter,
+  getExplorationMomentum,
+  getTemporal,
+  hasOwn,
+  isEmpty,
+  parseFrontmatter,
+  parseTimestamp,
+  readBeliefFile,
+  verifyBelief,
+  violation,
+};

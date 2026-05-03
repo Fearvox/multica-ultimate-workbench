@@ -272,6 +272,14 @@ Source regeneration:
 ./scripts/generate-create-commands.sh
 ```
 
+Windburn local trust helpers:
+
+```bash
+node scripts/windburn-verify.mjs <belief-file.md>
+node scripts/windburn-momentum-decay.mjs <belief-file.md> --dry-run
+node scripts/windburn-belief-write.mjs --source <candidate.md> --dest .learning/beliefs/<slug>.md
+```
+
 Human approval required before running:
 
 ```bash

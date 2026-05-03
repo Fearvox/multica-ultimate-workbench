@@ -40,6 +40,9 @@ check — no model, no semantic understanding, no Grok. Just rules on fields.
 
 The verifier checks N rules. Each rule has a severity: `BLOCK` (reject write) or `FLAG` (allow with warning).
 
+The initial dogfood spec defined Rules 1-8. The three-axis belief model extends
+the same zero-model verifier with Rule 9 for stale hot exploration momentum.
+
 ### Rule 1: Verified Requires Challenge Review (BLOCK)
 
 ```
@@ -128,6 +131,23 @@ REASON: session-scoped beliefs should trace back to the session that produced th
 FIX: add episode reference or change decayPolicy
 ```
 
+### Rule 9: Hot Momentum Requires Recent Action (FLAG)
+
+```
+IF explorationMomentum.level is "high" or "critical"
+   AND temporal.age_bucket is not "fresh"
+   AND (
+     explorationMomentum.last_action_at is missing
+     OR explorationMomentum.last_action_at < temporal.bucket_transition_at
+   )
+THEN FLAG
+REASON: high exploration priority without recent exploration action
+FIX: take an exploration action, downgrade momentum, or accept the flag
+```
+
+Rule 9 remains snapshot-level. It does not track state across runs or understand
+the belief content; it only compares fields in the same frontmatter block.
+
 ## CLI Contract
 
 ```bash
@@ -176,10 +196,14 @@ In scope:
 - verification fixture that replays the dogfood case
 - implementation artefacts:
   - `scripts/windburn-verify.mjs`
+  - `scripts/windburn-belief-write.mjs`
+  - `scripts/windburn-momentum-decay.mjs`
   - `scripts/test-windburn-verify.mjs`
   - `.learning/fixtures/self-consistency/invalid-verified-without-review.md`
   - `.learning/fixtures/self-consistency/corrected-hypothesis.md`
   - `.learning/fixtures/self-consistency/verified-with-external-review.md`
+  - `.learning/fixtures/self-consistency/high-momentum-stale-no-action.md`
+  - `.learning/fixtures/self-consistency/new-belief-today.md`
 
 Out of scope:
 - semantic understanding of belief content
