@@ -1,5 +1,36 @@
 # Decisions
 
+## 2026-05-03 - Promote Self-Consistency Verifier From Parking To Implemented Guardrail
+
+Decision: the self-consistency verifier is promoted from `.learning/parking/` to
+implemented local guardrail status.
+
+**Status:** implemented. All three implementation artifacts exist and pass:
+- `scripts/windburn-verify.mjs` — the verifier (zero-model, deterministic, write-gate)
+- `scripts/test-windburn-verify.mjs` — replaying the dogfood case and two pass fixtures
+- `.learning/fixtures/self-consistency/` — three fixtures covering BLOCK, PASS, and
+  verified-with-review paths
+
+The parking spec `.learning/parking/self-consistency-verifier-spec.md` is left
+intact as the design source of truth.
+
+**Verified by:** `node scripts/test-windburn-verify.mjs` passes all three
+fixtures, `git diff --check` is clean on the working tree.
+
+**Residual risk:**
+- MVP scope is single-file only — does not scan `.learning/` directory
+- No semantic understanding — purely structural rules on frontmatter fields
+- Reports inconsistencies but does not auto-correct confidence or trustState
+- No Grok divergence pass integration (separate dispatch)
+- No Workbench Supervisor review flow integration (separate dispatch)
+- `--strict` mode treats FLAG as BLOCK but is opt-in, not the default
+
+These are all documented scope boundaries from the original spec, not implementation gaps.
+
+**Verdict:** PASS. The verifier is a working local guardrail, not merely parked
+speculation. Future agents should treat it as an implemented write-gate before
+beliefs enter the `.learning` substrate.
+
 ## 2026-05-03 - Add Windburn Divergence-Gated Trust Promotion Research Packet
 
 Decision: add `docs/windburn-divergence-gated-trust-research.md` and
