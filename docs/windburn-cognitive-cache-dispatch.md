@@ -40,17 +40,23 @@ L2_PRESSURE: yes
 RAW_REQUIREMENT
 Build the first local MVP for Windburn's Belief/Perception/Continuity
 cognitive cache: a durable .learning substrate that turns session/tool/RV
-feedback into future-self context without training a base model yet.
+feedback into future-self context without training a base model yet. Use the
+Senter-style markdown vault pattern as prior art, but keep Windburn's trust,
+privacy, and verification model stricter.
 
 HANDOFF_SUMMARY
 The goal is not to train Windburn yet. The goal is to create the minimum
 memory-native substrate that can preserve perceptions, beliefs, failures,
 skills, source truth, and parking ideas across sessions, then route compact
-context into a future agent run.
+context into a future agent run. Start specs-first: define the hybrid
+markdown-vault/router/trust/runtime contract before assigning implementation
+work.
 
 SCOPED_EVIDENCE
 - Direction doc: docs/windburn-cognitive-cache-direction.md
 - Dispatch contract: docs/windburn-cognitive-cache-dispatch.md
+- Hybrid goal template: issue-templates/windburn-senter-hybrid-goal.md
+- External prior art: https://github.com/SouthpawIN/Senter
 - Workbench lanes: Self-Awareness, L2 Pressure, Goal Mode v2, remote RV MCP
 - Advisory claim: behavior-changing memory matters more than retrieval-only
   benchmark performance
@@ -71,22 +77,43 @@ NON_NEGOTIABLES
   training in this issue.
 - Do not turn speculative beliefs into source truth.
 - Do not compile secret-adjacent memory into context packs by default.
+- Do not let agents reset time decay or directly raise belief confidence.
+- Do not let the belief holder be the only counter-evidence searcher.
+- Do not let a Senter-style selector become a trust authority.
+- Do not use idle VM or remote agent capacity as a hidden scheduler.
 
 SUCCESS_METRIC
 A local prototype exists that can:
-1. create and append .learning episode files;
-2. store typed perceptions, beliefs, failures, skills, source truth, and parking
+1. produce a reviewed `SPEC_PACKET` before implementation starts;
+2. create and append .learning episode files;
+3. store typed perceptions, beliefs, failures, skills, source truth, and parking
    ideas;
-3. compile a bounded future-self context pack;
-4. exclude secret-adjacent files from default context compilation;
-5. run at least two local verification fixtures:
+4. compile a bounded future-self context pack through a router that can shortlist
+   relevant markdown files without promoting their trust state;
+5. exclude secret-adjacent files from default context compilation;
+6. enforce trust rules:
+   - time decay is system-clock driven and cannot be reset by agent writes;
+   - agent-side confidence can decrease or request promotion, but cannot
+     increase without external verification;
+   - exploration momentum is separate from confidence and expires quickly;
+   - challenger output can lower trust or request verification, but cannot
+     directly promote a belief to trusted;
+7. route optional spare VM or remote runtime work through Goal Mode v2 decision
+   packets, VM leases, repo-anchor proof, max-active caps, and sanitized
+   evidence summaries;
+8. run local verification fixtures:
    - repeated-action failure avoidance;
    - Research-Vault-grounded architecture decision routing;
-6. produce a compact RUN_DIGEST with PASS / FLAG / BLOCK.
+   - confidence promotion blocked without verifier evidence;
+   - old belief remains old even after agent recitation;
+   - selector-chosen context does not promote trust;
+   - remote/VM runtime output remains pending until external verification;
+9. produce a compact RUN_DIGEST with PASS / FLAG / BLOCK.
 
 OPERATOR_CALL_CONDITIONS
 Stop and ask the human before:
 - any remote runtime mutation;
+- any live agent, skill, autopilot, or runtime binding change;
 - any secret-bearing config access;
 - any Research Vault write or maintenance run;
 - any model fine-tuning/training;
@@ -115,6 +142,28 @@ operator_call_conditions:
 verdict: READY | FLAG | BLOCK
 ```
 
+## Required Spec Packet
+
+Post this before implementation or child dispatch:
+
+```text
+SPEC_PACKET
+objective:
+hybrid_reference:
+vault_shape:
+selector_contract:
+trust_boundaries:
+runtime_pool:
+child_slices:
+verification_fixtures:
+operator_call_conditions:
+verdict: READY_TO_DISPATCH | NEEDS_DESIGN | OPERATOR_NEEDED
+```
+
+The spec packet is the first Goal Mode v2 decision artifact. It must decide how
+Senter-style markdown selection composes with Windburn trust, decay, privacy,
+and remote/VM execution. It is not implementation evidence.
+
 ## Required RV Pressure Check
 
 Post this before technical design:
@@ -134,6 +183,18 @@ verdict: PASS | FLAG | BLOCK
 
 ## Implementation Slices
 
+### Slice 0: Specs-First Hybrid Contract
+
+- Compare the Senter-style markdown vault pattern against Windburn's required
+  typed cognitive-cache objects.
+- Define which files are router input, which are trust-state records, and which
+  are pending or parking only.
+- Define the selector contract: embedding shortlist and model choice may route
+  context, but cannot raise confidence, reset decay, approve source truth, or
+  bypass privacy policy.
+- Define the spare runtime pool contract before dispatching any remote or VM
+  work.
+
 ### Slice A: Schema And Templates
 
 - Define `.learning` directory contract.
@@ -141,6 +202,12 @@ verdict: PASS | FLAG | BLOCK
   parking files.
 - Add redaction and public-safety rules.
 - Add trust states: parking, hypothesis, verified, trusted.
+- Add separate `confidence` and `explorationMomentum` fields.
+- Add immutable time-decay metadata that agent writes cannot refresh.
+- Add promotion-request fields that require external verifier evidence before
+  confidence can rise.
+- Add selector metadata fields that record why a belief or skill entered
+  context without treating selection as evidence.
 
 ### Slice B: CLI Prototype
 
@@ -148,6 +215,8 @@ verdict: PASS | FLAG | BLOCK
 - Add a compile command that emits a future-self context pack.
 - Keep the implementation local-first and repo-scoped.
 - Ensure the compile command enforces a deterministic budget approximation.
+- Ensure append/update commands can lower confidence or add a promotion request,
+  but cannot directly raise confidence.
 
 ### Slice C: Router Prototype
 
@@ -156,6 +225,34 @@ verdict: PASS | FLAG | BLOCK
   keywords and recency.
 - Keep output source-labeled.
 - Exclude secret-adjacent files unless an explicit approved flag is used.
+- Treat high exploration momentum as a reason to continue probing, not as a
+  trusted belief.
+- Add a Senter-inspired two-stage path: deterministic shortlist first, model
+  choice second. Keep both steps source-labeled and reviewable.
+
+### Slice C2: Challenger Prototype
+
+- Add a challenger role that receives a belief and produces counterfactuals,
+  edge cases, hidden assumptions, stale-source risk, and cheaper alternative
+  routes.
+- The challenger may be backed by a model-diverse provider such as xAI/Grok when
+  available, but the interface must stay provider-neutral.
+- Challenger output can trigger evidence decay, downgrade trust, or request
+  external verification. It cannot directly promote confidence.
+
+### Slice C3: Goal Runtime Pool
+
+- Use Goal Mode v2 decision packets to dispatch spare remote or VM runtimes only
+  after the spec packet is accepted.
+- Assign runtime slots by role:
+  - Remote Codex Builder: schema, CLI, fixtures, repo-backed implementation;
+  - Remote Hermes Researcher: long-context synthesis and prior-art pressure;
+  - Remote VM Runner: browser, sandbox, or GUI proof with a VM lease;
+  - Remote Ops Mechanic: runtime preflight, hygiene, or repo-anchor repair.
+- Enforce one owner, issue, repo anchor, TTL, evidence path, and teardown policy
+  per runtime lease.
+- Remote/VM outputs are pending evidence until reviewed by the conductor or
+  external verifier. They cannot directly promote `.learning` trust.
 
 ### Slice D: Verification Fixtures
 
@@ -165,6 +262,15 @@ verdict: PASS | FLAG | BLOCK
 - Fixture 3: secret-adjacent memory is excluded from default compilation.
 - Fixture 4: source-truth entries surface in a separate section.
 - Fixture 5: context output is bounded by the requested budget.
+- Fixture 6: agent recitation does not reset time decay.
+- Fixture 7: confidence cannot rise without external verifier evidence.
+- Fixture 8: exploration momentum can rise for a bounded probe without changing
+  belief confidence or trust state.
+- Fixture 9: challenger counter-evidence can lower confidence or force a
+  verifier gate.
+- Fixture 10: selector-chosen context does not change trust state or freshness.
+- Fixture 11: remote/VM runtime output is stored as pending evidence until
+  external verification approves or rejects it.
 
 ### Slice E: Workbench Closeout
 
@@ -229,8 +335,11 @@ Return:
    cross-agent skills, high-confidence project beliefs, and failure rules that
    change future policy. It should not review every local episode note.
 5. Keep this local-first before remote workhorse execution. Remote agents may
-   read a compiled pack, but should not write or promote `.learning` until the
-   trust and privacy gates are proven.
+   read a compiled pack and produce pending evidence, but should not write or
+   promote `.learning` until the trust and privacy gates are proven. Idle VM or
+   remote capacity is useful for challenger, verifier, fixture, and synthesis
+   tasks only when routed through Goal Mode v2 with repo-anchor proof and
+   sanitized closeout.
 
 ## First Repair Bias
 
@@ -240,4 +349,9 @@ highest-risk missing gates are:
 - default exclusion of `secret-adjacent` memory;
 - separate inclusion of `source-truth`;
 - real budget enforcement;
-- a trust-promotion state machine.
+- a trust-promotion state machine;
+- immutable time decay;
+- external-verifier-only confidence increase;
+- separate confidence and exploration momentum;
+- selector authority boundaries;
+- a spec-first Goal Mode v2 runtime-pool contract.

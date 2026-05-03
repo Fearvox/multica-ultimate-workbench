@@ -108,8 +108,10 @@ type Belief = {
   evidence: string[];
   counterEvidence: string[];
   confidence: number;
+  explorationMomentum: "low" | "medium" | "high";
   validScope: string;
   decayPolicy: "session" | "project" | "until-contradicted" | "expires";
+  trustState: "parking" | "hypothesis" | "verified" | "trusted";
   lastUpdated: string;
 };
 
@@ -134,6 +136,149 @@ type ContinuityState = {
   nextSelfPrompt: string;
 };
 ```
+
+## Trust, Decay, And Cognitive Diversity
+
+Windburn must separate belief trust from exploration energy.
+
+```text
+confidence            how reliable the belief is
+explorationMomentum   whether the route is still worth trying
+```
+
+An agent may increase `explorationMomentum` when a route is cheap, high-upside,
+or worth probing. It may not directly increase `confidence`. This prevents early
+creative energy from becoming trusted memory before reality has checked it.
+
+### Decay Rules
+
+```text
+time_decay:
+  system-clock only
+  agent reads it but cannot reset it
+  old beliefs remain old even if an agent keeps citing them
+
+evidence_decay:
+  triggered by independent contradiction search
+  counter-evidence is collected by system tools or a separate challenger role
+  new material counter-evidence can downgrade trust faster than time decay
+
+confidence_promotion:
+  agent can propose promotion
+  system does not raise confidence until external verification passes
+  challenger failure to find a material counterexample is supporting evidence,
+  not sufficient proof by itself
+```
+
+Time decay is the floor: a belief loses freshness regardless of agent behavior.
+Evidence decay is the ceiling: new counter-evidence can collapse trust sooner.
+
+### Challenger Role
+
+A single model should not both hold a belief and be responsible for falsifying
+it. Windburn should use cognitive diversity as a trust boundary.
+
+The challenger role is not the judge. Its job is to expand the falsification
+space:
+
+```text
+- find worlds where the belief fails;
+- generate counterfactuals and edge cases;
+- name hidden assumptions;
+- propose cheaper or less assumption-heavy routes;
+- search for stale-source or changed-environment risk.
+```
+
+A creative, model-diverse challenger such as Grok/xAI can be valuable here
+because its inductive bias is different from a careful executor/reviewer model.
+That diversity is useful only if authority stays separated:
+
+```text
+executor / belief holder: propose, act, verify deltas, lower confidence
+challenger: attack assumptions and generate counter-evidence
+external verifier: confirm evidence and approve confidence increase
+system clock: apply irreversible time decay
+```
+
+This keeps reward hacking harder: a belief holder cannot keep itself fresh,
+cannot promote itself to trusted, and cannot define the full search space for
+its own falsification.
+
+## Hybrid Markdown Runtime
+
+Senter is useful as external prior art for a markdown-native agent substrate:
+agents, skills, hooks, state, and selection live in an editable vault, with a
+two-stage selection path that shortlists by embedding and then asks a model to
+choose the most relevant context. Windburn should borrow the substrate pattern,
+not the trust model.
+
+The hybrid route is:
+
+```text
+Senter-style substrate:
+  markdown vault
+  agents / skills / hooks / state
+  progressive disclosure
+  embedding shortlist -> model selection
+
+Windburn trust layer:
+  typed Perception / Belief / Failure / Continuity objects
+  immutable time decay
+  external-verifier-only confidence increase
+  privacy and source-truth separation
+  model-diverse challenger loop
+```
+
+The selector is a router, not an authority. It may decide which skills,
+memories, or parked ideas enter context for the current goal, but it cannot
+promote trust, reset decay, approve source truth, or bypass privacy gates.
+
+### Specs-First Goal Loop
+
+Hybrid work should begin as a spec loop before implementation:
+
+```text
+fuzzy thought
+  -> SPEC_PACKET
+  -> GOAL_LOCK
+  -> DECISION_PACKET
+  -> bounded child issues
+  -> observation / review
+  -> .learning pending deltas
+  -> external verification
+  -> trusted memory promotion or parking
+```
+
+`/goal` keeps the objective alive across turns, but it does not grant permission
+to mutate live runtimes, agents, secrets, Research Vault, or public truth. The
+first pass must define the vault shape, router contract, trust boundaries,
+runtime owners, fixtures, and operator-call conditions before any code is
+assigned.
+
+### Spare Runtime Pool
+
+Unused VM or remote agent runtimes can create throughput only when they remain
+execution cells rather than becoming a hidden scheduler. Windburn should treat
+them as a bounded runtime pool:
+
+```text
+Remote Codex Builder: schema, CLI, fixtures, repo-backed implementation
+Remote Hermes Researcher: long-context synthesis and prior-art pressure
+Remote VM Runner: browser, sandbox, or GUI proof with VM lease and teardown
+Remote Ops Mechanic: runtime preflight, hygiene, and repo-anchor repair
+```
+
+Rules:
+
+- one owner, issue, repo anchor, and TTL per runtime lease;
+- GitHub repo resource first; laptop `file://` paths are invalid remotely
+  unless explicitly mounted;
+- remote runtimes may read compiled context packs, but cannot promote
+  `.learning` trust or write source truth directly;
+- VM/browser artifacts stay temp or private by default, with only sanitized
+  summaries committed;
+- idle capacity may run challenger, verifier, fixture, or synthesis tasks, but
+  cannot mutate live Multica runtimes or autopilots without explicit approval.
 
 ## Durable File Shape
 
