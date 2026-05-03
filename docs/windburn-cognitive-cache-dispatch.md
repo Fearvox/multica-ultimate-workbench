@@ -106,6 +106,8 @@ A local prototype exists that can:
    - repeated-action failure avoidance;
    - Research-Vault-grounded architecture decision routing;
    - confidence promotion blocked without verifier evidence;
+   - self-consistency verifier blocks a false `verified` write before it enters
+     `.learning`;
    - old belief remains old even after agent recitation;
    - selector-chosen context does not promote trust;
    - remote/VM runtime output remains pending until external verification;
