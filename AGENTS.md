@@ -22,6 +22,7 @@ Read only as deep as the task requires:
 8d. [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) - Windburn memory-native direction and .learning trust model.
 8e. [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) - Windburn cognitive-cache MVP dispatch and review contract.
 8f. [docs/windburn-divergence-gated-trust-research.md](docs/windburn-divergence-gated-trust-research.md) - Windburn v0.3 divergence-gated trust-promotion research packet.
+8g. [docs/windburn-materiality-classifier-contract.md](docs/windburn-materiality-classifier-contract.md) - materiality classifier boundary for DivergencePacket alternatives.
 9. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
 9b. [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) - Two-layer autonomous conductor with decision packets and dedupe controls.
 10. [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) - Research Vault pressure gate for remote/HarnessMax work.
