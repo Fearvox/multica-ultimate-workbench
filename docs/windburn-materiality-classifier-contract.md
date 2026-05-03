@@ -295,20 +295,19 @@ this checklist before approving the materiality verdict.
 
 ---
 
-## CLI Contract (future implementation)
+## CLI Contract (implemented local harness)
 
 ```bash
-node scripts/windburn-divergence-gate.mjs classify --format json \
-  --belief .learning/fixtures/divergence-gate/beliefs/<belief>.md \
+node scripts/windburn-materiality-classify.mjs classify --format json \
   --packet .learning/fixtures/divergence-gate/packets/<packet>.md
 ```
 
 Exit codes:
-- `0` = PASS (no material alternatives, no authority violations)
-- `1` = FLAG (adjacent or speculative alternatives exist, no material)
+- `0` = PASS (no material alternatives and no adjacent follow-up)
+- `1` = FLAG (no material alternatives, but adjacent follow-up exists)
 - `2` = BLOCK (material alternatives or authority violations)
 
-Output: `MaterialityVerdict` as JSON.
+Output: `MaterialityVerdict` as JSON. The current implementation is deterministic and local-only; it does not call a provider and does not promote trust.
 
 ---
 
