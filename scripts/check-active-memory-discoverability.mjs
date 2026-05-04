@@ -1,52 +1,77 @@
 #!/usr/bin/env node
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const repoRoot = process.cwd();
-const packetPath = resolve(repoRoot, 'issue-templates/active-memory-packet.md');
-const text = readFileSync(packetPath, 'utf8');
+const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
+const packetPath = join(repoRoot, "issue-templates", "active-memory-packet.md");
+const packetPathRelative = "issue-templates/active-memory-packet.md";
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function hasRetrievalKey(text, key) {
+  const escapedKey = escapeRegExp(key);
+  const matcher = new RegExp(`^\\s*-\\s*(?:"${escapedKey}"|'${escapedKey}'|${escapedKey})\\s*$`, "m");
+  return matcher.test(text);
+}
+
+let text;
+try {
+  text = readFileSync(packetPath, "utf8");
+} catch (error) {
+  console.log(
+    JSON.stringify({
+      discoverability_verified: false,
+      error: `Unable to read ${packetPathRelative}: ${error.message}`,
+      packet_path: packetPathRelative,
+    }),
+  );
+  process.exit(1);
+}
 
 const requiredKeys = [
-  'Workbench',
-  'Windburn',
-  'Evensong',
-  'Research Vault',
-  'active memory',
-  'Goal Mode',
+  "Workbench",
+  "Windburn",
+  "Evensong",
+  "Research Vault",
+  "active memory",
+  "Goal Mode",
 ];
 
-const missingKeys = requiredKeys.filter((key) => !text.includes(`"${key}"`));
+const missingKeys = requiredKeys.filter((key) => !hasRetrievalKey(text, key));
 const requiredFields = [
-  'claim',
-  'source_refs',
-  'evidence_type',
-  'causal_delta',
-  'trust_state',
-  'confidence',
-  'exploration_momentum',
-  'created_at',
-  'observed_at',
-  'last_verified_at',
-  'privacy',
-  'write_decision',
-  'retrieval_keys',
-  'next_verification',
+  "claim",
+  "source_refs",
+  "evidence_type",
+  "causal_delta",
+  "trust_state",
+  "confidence",
+  "exploration_momentum",
+  "created_at",
+  "observed_at",
+  "last_verified_at",
+  "privacy",
+  "write_decision",
+  "retrieval_keys",
+  "next_verification",
 ];
 const missingFields = requiredFields.filter((field) => !text.includes(`${field}:`));
 
 const sourceRefs = [
-  'https://blog.walrus.xyz/memwal-long-term-memory-for-ai-agents/',
-  'https://www.arxiv.org/pdf/2603.19935',
-  'https://arxiv.org/abs/2604.07877v1',
-  'https://arxiv.org/html/2602.22769v2',
-  'docs/windburn-cognitive-cache-direction.md',
-  'docs/windburn-divergence-gated-trust-research.md',
-  'skills/workbench-goal-mode-v2/SKILL.md',
+  "https://blog.walrus.xyz/memwal-long-term-memory-for-ai-agents/",
+  "https://www.arxiv.org/pdf/2603.19935",
+  "https://arxiv.org/abs/2604.07877v1",
+  "https://arxiv.org/html/2602.22769v2",
+  "docs/windburn-cognitive-cache-direction.md",
+  "docs/windburn-divergence-gated-trust-research.md",
+  "skills/workbench-goal-mode-v2/SKILL.md",
 ];
 const missingSources = sourceRefs.filter((ref) => !text.includes(ref));
 
 const result = {
-  packet_path: 'issue-templates/active-memory-packet.md',
+  packet_path: packetPathRelative,
   required_keys: requiredKeys,
   missing_keys: missingKeys,
   missing_fields: missingFields,

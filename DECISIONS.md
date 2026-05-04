@@ -69,16 +69,16 @@ source` and `Copy source`, and preserve the raw fenced code if rendering fails.
 
 ## 2026-05-04 - Add Repo Brand Uplift As Distribution Infrastructure
 
-Decision: add `workbench-repo-brand-uplift`, `docs/repo-brand-uplift-lane.md`,
-and `issue-templates/repo-brand-uplift-goal.md` as the public GitHub repo
-first-impression lane. The standard is Zonic/Evensong-style: brand signal,
-proof before prose, fresh-clone quickstart, architecture map, maturity labels,
-public/private discipline, and community path.
+Decision: establish a repo-brand-uplift lane as the public GitHub repo
+first-impression standard. When that lane is implemented, it should follow the
+Zonic/Evensong-style pattern: brand signal, proof before prose, fresh-clone
+quickstart, architecture map, maturity labels, public/private discipline, and
+community path.
 
 Rationale: several repos now contain real work but do not make that value
 obvious to outsiders. README polish alone is insufficient; public trust comes
 from evidence-backed first screens and adjacent metadata/docs consistency. The
-lane keeps the work one repo at a time, forbids invented proof, and routes
+lane should keep the work one repo at a time, forbid invented proof, and route
 Workbench-facing public-surface changes through Hermes docs-sync review.
 
 ## 2026-05-04 - Make Hermes Docs Sync a Public Skill
