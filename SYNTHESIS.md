@@ -291,8 +291,9 @@ tree, build system, or deployment wiring until the repo itself proves them.
 Expected shape: keep the root for index/routing/workflow docs, create each page
 as its own project directly under the checkout as
 `<project-windburn checkout>/<page-name>/`, do not create a nested
-`project-windburn/project-windburn/<page-name>/` directory unless the human
-explicitly asks for it, and keep cross-page sharing explicit and reviewed. See
+`<project-windburn checkout>/project-windburn/<page-name>/` directory unless
+the human explicitly asks for it, and keep cross-page sharing explicit and
+reviewed. See
 [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md).
 
 ## Repo Anchor Rule

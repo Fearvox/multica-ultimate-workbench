@@ -162,7 +162,7 @@ gate for closeout/PASS claims, not a handbrake before every send. The new
 router keeps the iron gates where they matter while letting low-risk work move
 without ritual overhead.
 
-## 2026-05-02 - Route Default New Webpage Work To Project Windburn
+## 2026-05-02 - Route Unanchored Webpage Work To Project Windburn
 
 Decision: treat `Fearvox/project-windburn` as the default landing-zone repo for
 new webpage, subpage, landing-page, and microsite work only when no target repo
@@ -174,8 +174,9 @@ not assume an existing app root, shared packages, route tree, build system, or
 deployment wiring from the repo name alone. Keep the root for index/routing
 documentation, place each child page as a self-contained project directly under
 the checkout as `<project-windburn checkout>/<page-name>/`, do not create a
-nested `project-windburn/project-windburn/<page-name>/` directory unless the
-human asks for it, and require any shared code to be explicit and reviewed.
+nested `<project-windburn checkout>/project-windburn/<page-name>/` directory
+unless the human asks for it, and require any shared code to be explicit and
+reviewed.
 
 Rationale: the current public repo evidence shows a public `main` branch with a
 minimal root only. Declaring the scaffold rule prevents agents from inventing

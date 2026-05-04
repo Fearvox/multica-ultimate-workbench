@@ -39,8 +39,8 @@ under the `project-windburn` checkout:
 <project-windburn checkout>/<page-name>/
 ```
 
-Do not create a nested `project-windburn/` directory inside the checkout such
-as `<project-windburn checkout>/project-windburn/<page-name>/` unless the human
+Do not create a nested path inside the checkout such as
+`<project-windburn checkout>/project-windburn/<page-name>/` unless the human
 explicitly asks for that shape.
 
 Each child page project should carry its own:
