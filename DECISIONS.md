@@ -162,7 +162,7 @@ gate for closeout/PASS claims, not a handbrake before every send. The new
 router keeps the iron gates where they matter while letting low-risk work move
 without ritual overhead.
 
-## 2026-05-02 - Route Unanchored Webpage Work With No Repo Anchor To Project Windburn
+## 2026-05-02 - Route Unspecified New Webpage Work To Project Windburn
 
 Decision: treat `Fearvox/project-windburn` as the default landing-zone repo for
 new webpage, subpage, landing-page, and microsite work only when no target repo
