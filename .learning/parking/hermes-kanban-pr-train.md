@@ -4,7 +4,7 @@ type: contribution_train
 target_repo: NousResearch/hermes-agent
 target_url: https://github.com/NousResearch/hermes-agent
 created_at_utc: 2026-05-04T04:10:00Z
-updated_at_utc: 2026-05-04T04:28:00Z
+updated_at_utc: 2026-05-04T05:13:45Z
 status: in_progress
 related_local_signal: docs/hermes-kanban-parity-signal.md
 ---
@@ -51,6 +51,10 @@ maintainer-readable scope.
   `kanban_complete` and `kanban_show`. It is refreshed onto latest `main` and
   locally validated with `scripts/run_tests.sh tests/tools/test_kanban_tools.py
   -q` (`32 passed, 4 warnings`).
+- PR #19536 is open as an independent web sidecar: shadcn-compatible
+  `@loading-ui/ring` primitive plus status/loading usage in the dashboard. It
+  is not part of the Kanban evidence train and should not be used to justify
+  dashboard/schema follow-ups.
 
 ## Truth Boundary
 
@@ -241,6 +245,37 @@ Non-goals:
 - no decorative redesign
 - no raw transcript display
 - no secrets/log dumping
+
+## UI Sidecar PRs
+
+### PR U1: Loading Ring Status Primitive
+
+Type: web UI foundation
+
+Objective: add a small shadcn-compatible loading primitive without widening the
+Kanban evidence PRs.
+
+Live PR:
+
+- #19536 `feat(web): add loading-ui ring status primitive`
+- URL: https://github.com/NousResearch/hermes-agent/pull/19536
+
+Changed files:
+
+- `web/components.json`
+- `web/tsconfig.json`
+- `web/src/components/loading-ui/ring.tsx`
+- `web/src/App.tsx`
+- `web/src/pages/ProfilesPage.tsx`
+
+Verification:
+
+- `cd web && npm ci` passed with 0 vulnerabilities reported
+- `cd web && npm run build` passed
+- `cd web && npx eslint src/App.tsx src/pages/ProfilesPage.tsx src/components/loading-ui/ring.tsx` passed
+- `cd web && npx shadcn@latest add @loading-ui/ring --dry-run --yes` reported the generated component as identical/skipped
+- full `cd web && npm run lint` is blocked by existing lint errors in untouched
+  files, so PR #19536 reports that limitation explicitly
 
 ## PR Body Layout
 
