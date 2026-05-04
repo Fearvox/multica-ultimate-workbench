@@ -69,18 +69,20 @@ source` and `Copy source`, and preserve the raw fenced code if rendering fails.
 
 ## 2026-05-04 - Keep Repo Brand Uplift As A Public-Surface Standard
 
-Decision: treat repo-brand uplift as a public-surface standard, not an installed
-lane in this repository. Public GitHub first-impression work should keep the
-same bar — brand signal, proof before prose, fresh-clone quickstart,
-architecture map, maturity labels, public/private discipline, and community
-path — but must not cite unlanded docs, skills, or issue templates as if they
-already exist here.
+Decision: treat repo-brand uplift as a public-surface standard and a future
+lane to define, not an installed lane in this repository today. Public GitHub
+first-impression work should keep the same bar — brand signal, proof before
+prose, fresh-clone quickstart, architecture map, maturity labels,
+public/private discipline, and community path — but must not cite unlanded
+docs, skills, or issue templates as if they already exist here.
 
 Rationale: several repos now contain real work but do not make that value
 obvious to outsiders. README polish alone is insufficient; public trust comes
 from evidence-backed first screens and adjacent metadata/docs consistency. The
 standard keeps the work one repo at a time, forbids invented proof, and keeps
 this decision log aligned with repo-visible evidence.
+Future public-surface changes can still route through Hermes docs-sync review
+once the concrete repo-brand-uplift artifacts actually land.
 
 ## 2026-05-04 - Make Hermes Docs Sync a Public Skill
 

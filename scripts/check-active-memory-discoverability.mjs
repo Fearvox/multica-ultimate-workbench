@@ -39,39 +39,51 @@ const sourceRefs = [
   "docs/windburn-divergence-gated-trust-research.md",
   "skills/workbench-goal-mode-v2/SKILL.md",
 ];
-
-function escapeRegex(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-function hasYamlListScalar(text, value) {
-  const escaped = escapeRegex(value);
-  const pattern = new RegExp(`^\\s*-\\s*(?:"${escaped}"|'${escaped}'|${escaped})\\s*$`, "m");
-  return pattern.test(text);
-}
-
-function printJson(result) {
+function printResult(result) {
   console.log(JSON.stringify(result, null, 2));
 }
 
-let text;
-try {
-  text = readFileSync(packetPath, "utf8");
-} catch (error) {
-  printJson({
-    packet_path: packetPathRelative,
-    required_keys: requiredKeys,
-    missing_keys: requiredKeys,
-    missing_fields: requiredFields,
-    missing_example_sources: sourceRefs,
-    discoverability_verified: false,
-    verdict: "BLOCK",
-    error: `Cannot read ${packetPathRelative}: ${error.message}`,
-  });
-  process.exit(2);
+function readPacketText(filePath) {
+  try {
+    return readFileSync(filePath, "utf8").replace(/\r\n/g, "\n");
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    printResult({
+      packet_path: packetPathRelative,
+      required_keys: requiredKeys,
+      missing_keys: requiredKeys,
+      missing_fields: requiredFields,
+      missing_example_sources: sourceRefs,
+      discoverability_verified: false,
+      error: `Cannot read ${packetPathRelative}: ${message}`,
+    });
+    process.exit(1);
+  }
 }
 
-const missingKeys = requiredKeys.filter((key) => !hasYamlListScalar(text, key));
+function collectRetrievalKeys(markdown) {
+  const blocks = markdown.matchAll(/^retrieval_keys:\s*\n((?:[ \t]+-\s.*\n?)*)/gm);
+  const keys = new Set();
+
+  for (const [, block] of blocks) {
+    for (const line of block.split("\n")) {
+      const match = line.match(/^\s*-\s*(?:"([^"]+)"|'([^']+)'|([^#\n]+?))\s*$/);
+      if (!match) {
+        continue;
+      }
+      const value = (match[1] ?? match[2] ?? match[3])?.trim();
+      if (value) {
+        keys.add(value);
+      }
+    }
+  }
+
+  return keys;
+}
+
+const text = readPacketText(packetPath);
+const retrievalKeys = collectRetrievalKeys(text);
+const missingKeys = requiredKeys.filter((key) => !retrievalKeys.has(key));
 const missingFields = requiredFields.filter((field) => !text.includes(`${field}:`));
 const missingSources = sourceRefs.filter((ref) => !text.includes(ref));
 const result = {
@@ -84,7 +96,7 @@ const result = {
     missingKeys.length === 0 && missingFields.length === 0 && missingSources.length === 0,
 };
 
-printJson(result);
+printResult(result);
 
 if (!result.discoverability_verified) {
   process.exitCode = 1;
