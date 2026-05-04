@@ -1,8 +1,9 @@
 # Project Windburn Scaffold Lane
 
 `Fearvox/project-windburn` is the default landing-zone repository for new
-webpage, subpage, landing-page, and microsite work when the human does not name
-another repo.
+webpage, subpage, landing-page, and microsite work only when no target repo is
+named in the request, attached to the issue or project, or otherwise
+established by primary repo evidence.
 
 ## Current Repo Evidence
 
@@ -20,7 +21,9 @@ evidence shows created child page projects.
 ## Routing Rule
 
 - Route new webpage/subpage/landing-page/microsite requests to
-  `Fearvox/project-windburn` by default when no other repo is named.
+  `Fearvox/project-windburn` by default only when no target repo is named in
+  the request, attached to the issue or project, or otherwise established by
+  primary repo evidence.
 - Do not assume an existing app structure, shared package layout, route tree,
   build system, deployment wiring, or page-level conventions until repo
   evidence proves them.
@@ -29,11 +32,16 @@ evidence shows created child page projects.
 
 ## Child Project Shape
 
-Each created page should live as a self-contained project directory under:
+Each created page should live as a self-contained project directory directly
+under the `project-windburn` checkout:
 
 ```text
-project-windburn/<page-name>/
+<project-windburn checkout>/<page-name>/
 ```
+
+Do not create a nested `project-windburn/` directory inside the checkout such
+as `project-windburn/project-windburn/<page-name>/` unless the human explicitly
+asks for that shape.
 
 Each child page project should carry its own:
 

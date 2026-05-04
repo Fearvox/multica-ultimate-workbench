@@ -64,10 +64,11 @@ signals back into the workbench. A bounded GitHub webhook responder now listens
 for payload-scoped Capy dialogue across issue, PR, review, check, and workflow
 events, using the payload `owner/repo` as source of truth; see [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md). Those artifacts complement Multica's live coordination; they do not replace it, and they do not authorize daemon, Desktop UI, or core runtime mutation.
 
-For new webpage, subpage, landing-page, or microsite work without a named repo,
-the default route is the `Project Windburn` scaffold lane. Treat
-`Fearvox/project-windburn` as a public landing-zone scaffold until repo
-evidence shows created child page projects; see
+For new webpage, subpage, landing-page, or microsite work, the default route is
+the `Project Windburn` scaffold lane only when no target repo is named in the
+request, attached to the issue or project, or otherwise established by primary
+repo evidence. Treat `Fearvox/project-windburn` as a public landing-zone
+scaffold until repo evidence shows created child page projects; see
 [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md).
 
 ## Windburn Cognitive Cache Direction
