@@ -40,8 +40,8 @@ under the `project-windburn` checkout:
 ```
 
 Do not create a nested `project-windburn/` directory inside the checkout such
-as `project-windburn/project-windburn/<page-name>/` unless the human explicitly
-asks for that shape.
+as `<project-windburn checkout>/project-windburn/<page-name>/` unless the human
+explicitly asks for that shape.
 
 Each child page project should carry its own:
 
