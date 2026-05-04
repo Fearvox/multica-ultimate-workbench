@@ -48,7 +48,9 @@ maintainer-readable scope.
   one PR equals one reviewable slice.
 - PR #19512 is open: docs-only handoff evidence convention.
 - PR #19522 is open: test-only metadata round-trip fixture through
-  `kanban_complete` and `kanban_show`.
+  `kanban_complete` and `kanban_show`. It is refreshed onto latest `main` and
+  locally validated with `scripts/run_tests.sh tests/tools/test_kanban_tools.py
+  -q` (`32 passed, 4 warnings`).
 
 ## Truth Boundary
 
