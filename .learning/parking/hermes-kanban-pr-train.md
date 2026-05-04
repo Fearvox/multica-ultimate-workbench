@@ -4,7 +4,7 @@ type: contribution_train
 target_repo: NousResearch/hermes-agent
 target_url: https://github.com/NousResearch/hermes-agent
 created_at_utc: 2026-05-04T04:10:00Z
-updated_at_utc: 2026-05-04T05:13:45Z
+updated_at_utc: 2026-05-04T06:24:00Z
 status: in_progress
 related_local_signal: docs/hermes-kanban-parity-signal.md
 ---
@@ -259,6 +259,10 @@ Live PR:
 
 - #19536 `feat(web): add loading-ui ring status primitive`
 - URL: https://github.com/NousResearch/hermes-agent/pull/19536
+- Review follow-up: https://github.com/NousResearch/hermes-agent/pull/19536#pullrequestreview-4217574517
+- Timing: follow up after the workbench docs-sync skill is served/synced, so
+  the response can use the new Claude-writes/Hermes-reviews loop instead of an
+  ad hoc reply.
 
 Changed files:
 
@@ -276,6 +280,15 @@ Verification:
 - `cd web && npx shadcn@latest add @loading-ui/ring --dry-run --yes` reported the generated component as identical/skipped
 - full `cd web && npm run lint` is blocked by existing lint errors in untouched
   files, so PR #19536 reports that limitation explicitly
+
+Post-serve follow-up checks:
+
+- Inspect the three Copilot review threads before replying or patching.
+- Likely focus areas from the public review snapshot: `Ring` inline `<style>`
+  / animation handling and root `web/tsconfig.json` alias scope.
+- Reply only after verifying the current branch state; do not treat Copilot's
+  summary as authoritative without reading the changed files.
+- If a patch is needed, keep it within PR #19536's loading primitive scope.
 
 ## PR Body Layout
 

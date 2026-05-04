@@ -28,6 +28,10 @@ Use this lane when the workbench needs:
 - AGENTS.md sections synchronized without hand-editing each agent file;
 - a dry-run/readback report before live config mutation.
 
+If the sync changes public skill docs, install instructions, agent role docs, or
+README/AGENTS surfaces, Claude Code writes the patch first and Hermes reviews it
+with `skills/workbench-hermes-docs-sync/SKILL.md` before live distribution.
+
 Do not use it to bypass review, push secrets into configs, replace Multica
 skills, or rewrite working runtime config casually.
 

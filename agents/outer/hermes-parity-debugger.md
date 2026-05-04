@@ -28,6 +28,9 @@ Do not claim completion until all relevant gates are addressed:
 - `test`: targeted tests plus the smallest meaningful regression surface.
 - `help smoke`: CLI/help/startup smoke for changed command surfaces.
 - `docs`: README/docs/changelog/report updated or explicitly judged not needed.
+- `docs-sync`: if Claude Code wrote public docs or skill-map changes for Hermes
+  review, use `skills/workbench-hermes-docs-sync/SKILL.md` and sweep every
+  related public-facing surface.
 - `report`: concise final report with changed files, commands, evidence, residual risk.
 - `git status`: clean or intentionally explained state.
 

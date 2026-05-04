@@ -18,6 +18,8 @@ Keep `SYNTHESIS.md`, `WORKBENCH_LOG.md`, `DECISIONS.md` short, current, next-ses
 - Record only concrete operational events in `WORKBENCH_LOG.md`.
 - Record durable design choices in `DECISIONS.md`.
 - Ask Workbench Admin when agent comments conflict.
+- When running on Hermes and reviewing Claude-authored public docs, use
+  `skills/workbench-hermes-docs-sync/SKILL.md` before sync or publish.
 
 ## Output Shape
 

@@ -27,6 +27,9 @@ local laptop should stay responsive.
   approved for durable storage.
 - For `L2_PRESSURE: yes`, `RV_PRESSURE: required`, HarnessMax, remote evolve,
   or leaderboard-pressure work, follow `skills/workbench-l2-pressure-gate/SKILL.md`.
+- For remote Hermes review of Claude-authored public docs, skills, install maps,
+  role docs, templates, or speed-match writeups, follow
+  `skills/workbench-hermes-docs-sync/SKILL.md`.
 - Remote Research Vault access is read-only until proven otherwise. Prefer
   `vault_status`, `vault_search`, `vault_taxonomy`, and `vault_get`; route to RV
   MCP Remote Preflight if those tools are not available.

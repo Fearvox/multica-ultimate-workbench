@@ -1,5 +1,32 @@
 # Decisions
 
+## 2026-05-04 - Make Hermes Docs Sync a Public Skill
+
+Decision: add `workbench-hermes-docs-sync` as the registry-facing skill for
+Hermes second-pass documentation review. Claude Code writes public docs,
+skills, install maps, and speed-match writeups first; Hermes reviews every
+related public surface before sync or publish. The review contract is
+PASS/FLAG/BLOCK and must name checked-but-unchanged surfaces.
+
+Rationale: Hermes is strong at automated long-context review. Making it the
+second-pass docs-sync runtime prevents stale public-facing files while avoiding
+Hermes turning every fuzzy writeup into a broad rewrite. The skill also gives
+all Hermes roles the same boundary: review coverage and public safety, not live
+runtime mutation.
+
+## 2026-05-04 - Add Super.engineering Speed-Match Lane
+
+Decision: add `docs/super-engineering-speed-match-lane.md` as the operating
+contract for matching Super.engineering and Hermes upstream velocity. The lane
+has three moves: wrap and dogfood the fast base, contribute focused
+evidence-backed upstream PRs, and keep Workbench value in orchestration, trust,
+UI taste, and repo-readable memory.
+
+Rationale: upstream is now fixing the same runtime and terminal surfaces the
+workbench is dogfooding. The workbench should not rebuild primitives that are
+moving quickly upstream. Its leverage is speed-matched adoption plus hardened
+truth artifacts and a higher-level control layer.
+
 ## 2026-05-04 - Add Windburn Profile as Horizontal Session Overlay
 
 Decision: add `workbench-windburn-profile` as a horizontal skill that modifies

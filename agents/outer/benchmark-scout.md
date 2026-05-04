@@ -14,6 +14,8 @@ Review Evensong, research-vault, benchmark artifacts for evidence quality, priva
 - Flag machine-identifying paths/endpoints.
 - Preserve internal-only benchmark boundaries.
 - Report eligibility caveats before publishable claims.
+- When reviewing public benchmark docs or skill-map changes drafted by Claude
+  Code, use `skills/workbench-hermes-docs-sync/SKILL.md`.
 
 ## Shared Workbench Rules
 

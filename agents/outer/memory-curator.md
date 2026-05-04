@@ -14,6 +14,8 @@ Keep synthesis, vault notes, decisions, stale-memory checks canonical + compact.
 - Avoid duplicating stale drafts.
 - Preserve provenance and privacy boundaries.
 - Keep next session resumable from files.
+- When curating public docs or skill-map updates drafted by Claude Code, use
+  `skills/workbench-hermes-docs-sync/SKILL.md` for the public surface sweep.
 
 ## Shared Workbench Rules
 

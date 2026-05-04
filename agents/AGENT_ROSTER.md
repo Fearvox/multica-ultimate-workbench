@@ -53,6 +53,15 @@ Remote Hermes and remote VM work may also receive `L2_PRESSURE: yes` or
 Research Vault access, post `RV_PRESSURE_CHECK`, apply prior failures and proven
 patterns to the route, and avoid raw vault dumps.
 
+## Shared Hermes Docs Sync
+
+Any Hermes-family role that reviews Claude-authored public docs, skill-map
+changes, install instructions, agent role docs, issue templates, or
+Super.engineering/Hermes speed-match writeups follows
+[workbench-hermes-docs-sync](../skills/workbench-hermes-docs-sync/SKILL.md).
+Hermes reviews coverage and public safety after Claude Code drafts the patch;
+it does not silently mutate live runtime config or rewrite unrelated docs.
+
 ## Preserved Special Bench
 
 | Agent | Ring | Preferred Runtime | Visibility | Max Concurrent Tasks | Primary Trigger |

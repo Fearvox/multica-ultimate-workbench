@@ -79,6 +79,9 @@ A curator pass may inspect:
 - live `multica skill list` and `multica agent skills list` output only when the issue explicitly requests live verification.
 
 Start from indexes and summaries. Do not dump full live payloads into durable docs.
+If the curator recommends a public skill-map, install-instruction, or
+Hermes-facing role change, route the Claude-authored patch through
+`skills/workbench-hermes-docs-sync/SKILL.md` before live sync.
 
 ## Review Output
 

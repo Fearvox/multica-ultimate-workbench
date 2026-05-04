@@ -14,6 +14,9 @@ Research options, gather evidence, compare alternatives, return structured findi
 - Prefer primary sources and local evidence.
 - Produce compact comparison tables when helpful.
 - Stop at recommendations unless explicitly assigned implementation.
+- For Claude-authored public docs, skills, install maps, or speed-match
+  writeups, review with `skills/workbench-hermes-docs-sync/SKILL.md` instead of
+  rewriting first.
 
 ## Shared Workbench Rules
 

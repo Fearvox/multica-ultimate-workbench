@@ -22,6 +22,9 @@ The workbench is a two-ring operating system for agentic software work:
   reviewed future-self context.
 - **Distribution Layer**: agent-install syncs reviewed skills, MCP definitions,
   and AGENTS.md sections across coding agents.
+- **Public Docs Sync Layer**: Claude Code authors public writeups first, then
+  Hermes reviews every related public-facing surface through
+  `workbench-hermes-docs-sync` before sync or publish.
 - **Packaging Lanes**: Capy VM for disposable GUI/browser execution, Flue for
   deployable agent harnesses when a mature workflow should become HTTP, CI,
   Node, Cloudflare, or sandbox-backed code, and Runtime Hygiene for disk/swap/
