@@ -4,7 +4,8 @@ type: contribution_train
 target_repo: NousResearch/hermes-agent
 target_url: https://github.com/NousResearch/hermes-agent
 created_at_utc: 2026-05-04T04:10:00Z
-status: planned
+updated_at_utc: 2026-05-04T04:28:00Z
+status: in_progress
 related_local_signal: docs/hermes-kanban-parity-signal.md
 ---
 
@@ -45,6 +46,9 @@ maintainer-readable scope.
 - PR #19507 was closed and superseded by #19508 because the original branch
   carried unrelated TUI files. This is the proof point for our rule:
   one PR equals one reviewable slice.
+- PR #19512 is open: docs-only handoff evidence convention.
+- PR #19522 is open: test-only metadata round-trip fixture through
+  `kanban_complete` and `kanban_show`.
 
 ## Truth Boundary
 
@@ -308,6 +312,7 @@ Stop conditions:
 
 ## Next Action
 
-Open PR A as a docs-only evidence contract after checking the latest upstream
-docs and PR queue. If PR A gets maintainer pushback, fold their vocabulary into
-PR B tests instead of arguing from Workbench terminology.
+Wait for maintainer signal on PR #19512 and PR #19522 before opening dashboard
+or schema follow-ups. If maintainers accept the vocabulary, the next safe slice
+is PR C: a small human-readable evidence packet formatter. If maintainers push
+back, adapt the field names in docs/tests before adding any new runtime surface.
