@@ -6,31 +6,6 @@ import { fileURLToPath } from "node:url";
 const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const packetPath = join(repoRoot, "issue-templates", "active-memory-packet.md");
 const packetPathRelative = "issue-templates/active-memory-packet.md";
-
-function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-function hasRetrievalKey(text, key) {
-  const escapedKey = escapeRegExp(key);
-  const matcher = new RegExp(`^\\s*-\\s*(?:"${escapedKey}"|'${escapedKey}'|${escapedKey})\\s*$`, "m");
-  return matcher.test(text);
-}
-
-let text;
-try {
-  text = readFileSync(packetPath, "utf8");
-} catch (error) {
-  console.log(
-    JSON.stringify({
-      discoverability_verified: false,
-      error: `Unable to read ${packetPathRelative}: ${error.message}`,
-      packet_path: packetPathRelative,
-    }),
-  );
-  process.exit(1);
-}
-
 const requiredKeys = [
   "Workbench",
   "Windburn",
@@ -39,8 +14,6 @@ const requiredKeys = [
   "active memory",
   "Goal Mode",
 ];
-
-const missingKeys = requiredKeys.filter((key) => !hasRetrievalKey(text, key));
 const requiredFields = [
   "claim",
   "source_refs",
@@ -57,8 +30,6 @@ const requiredFields = [
   "retrieval_keys",
   "next_verification",
 ];
-const missingFields = requiredFields.filter((field) => !text.includes(`${field}:`));
-
 const sourceRefs = [
   "https://blog.walrus.xyz/memwal-long-term-memory-for-ai-agents/",
   "https://www.arxiv.org/pdf/2603.19935",
@@ -68,8 +39,41 @@ const sourceRefs = [
   "docs/windburn-divergence-gated-trust-research.md",
   "skills/workbench-goal-mode-v2/SKILL.md",
 ];
-const missingSources = sourceRefs.filter((ref) => !text.includes(ref));
 
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function hasYamlListScalar(text, value) {
+  const escaped = escapeRegex(value);
+  const pattern = new RegExp(`^\\s*-\\s*(?:"${escaped}"|'${escaped}'|${escaped})\\s*$`, "m");
+  return pattern.test(text);
+}
+
+function printJson(result) {
+  console.log(JSON.stringify(result, null, 2));
+}
+
+let text;
+try {
+  text = readFileSync(packetPath, "utf8");
+} catch (error) {
+  printJson({
+    packet_path: packetPathRelative,
+    required_keys: requiredKeys,
+    missing_keys: requiredKeys,
+    missing_fields: requiredFields,
+    missing_example_sources: sourceRefs,
+    discoverability_verified: false,
+    verdict: "BLOCK",
+    error: `Cannot read ${packetPathRelative}: ${error.message}`,
+  });
+  process.exit(2);
+}
+
+const missingKeys = requiredKeys.filter((key) => !hasYamlListScalar(text, key));
+const missingFields = requiredFields.filter((field) => !text.includes(`${field}:`));
+const missingSources = sourceRefs.filter((ref) => !text.includes(ref));
 const result = {
   packet_path: packetPathRelative,
   required_keys: requiredKeys,
@@ -80,7 +84,7 @@ const result = {
     missingKeys.length === 0 && missingFields.length === 0 && missingSources.length === 0,
 };
 
-console.log(JSON.stringify(result, null, 2));
+printJson(result);
 
 if (!result.discoverability_verified) {
   process.exitCode = 1;

@@ -67,19 +67,20 @@ ASCII, but agents still need exact source to copy, edit, and rerender. The
 Codex-style pattern solves both: render the graph beautifully, expose `View
 source` and `Copy source`, and preserve the raw fenced code if rendering fails.
 
-## 2026-05-04 - Add Repo Brand Uplift As Distribution Infrastructure
+## 2026-05-04 - Keep Repo Brand Uplift As A Public-Surface Standard
 
-Decision: establish a repo-brand-uplift lane as the public GitHub repo
-first-impression standard. When that lane is implemented, it should follow the
-Zonic/Evensong-style pattern: brand signal, proof before prose, fresh-clone
-quickstart, architecture map, maturity labels, public/private discipline, and
-community path.
+Decision: treat repo-brand uplift as a public-surface standard, not an installed
+lane in this repository. Public GitHub first-impression work should keep the
+same bar — brand signal, proof before prose, fresh-clone quickstart,
+architecture map, maturity labels, public/private discipline, and community
+path — but must not cite unlanded docs, skills, or issue templates as if they
+already exist here.
 
 Rationale: several repos now contain real work but do not make that value
 obvious to outsiders. README polish alone is insufficient; public trust comes
 from evidence-backed first screens and adjacent metadata/docs consistency. The
-lane should keep the work one repo at a time, forbid invented proof, and route
-Workbench-facing public-surface changes through Hermes docs-sync review.
+standard keeps the work one repo at a time, forbids invented proof, and keeps
+this decision log aligned with repo-visible evidence.
 
 ## 2026-05-04 - Make Hermes Docs Sync a Public Skill
 
