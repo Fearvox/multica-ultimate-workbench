@@ -1,5 +1,86 @@
 # Decisions
 
+## 2026-05-04 - Separate Capy Captain Contracts From Multica Runtime Execution
+
+Decision: formalize a hard boundary between Capy and Multica through the
+`multica-runtime-card` protocol. Capy owns the legislative ring (deep-read repos,
+understand boundaries, produce Captain contracts). Multica owns the executive
+ring (take a runtime card, SSH in, execute within constraints, return evidence).
+The interface is a single JSON artifact: the runtime card.
+
+```text
+Capy's ring:  deep-read → understand boundaries → produce Captain contracts
+Multica's ring: take card → SSH forced-command → wrapper → five actions → evidence back
+```
+
+The SSH channel is a secure runtime channel, not a raw shell:
+
+- Dedicated `captain-runtime` user, never root.
+- Dedicated SSH key with forced command — no arbitrary shell on connect.
+- Default entry into a fixed tmux/session wrapper (`windburn-captain-runtime`).
+- Wrapper exposes exactly five actions: `status`, `dispatch`, `read-evidence`,
+  `run-safe-check`, `attach-task`. No sixth action.
+- All mutations continue through Windburn confirm gates: NixOS rebuild, secret
+  sync, provider smoke — Multica never runs these bare.
+- Transcript, command, and verdict all land in evidence.
+- Public UI only sees redacted status — no raw IP, path, SSH target, or token.
+- Capy connects to the runtime endpoint, not to private SSH details in repo.
+
+The runtime card schema (`multica-runtime-card`):
+
+```json
+{
+  "runtime_id": "...",
+  "repo": "...",
+  "branch": "...",
+  "intent": "...",
+  "allowed_actions": ["status", "dispatch", ...],
+  "privacy_scope": "...",
+  "expected_evidence": "...",
+  "verdict_policy": "PASS | FLAG | BLOCK"
+}
+```
+
+This gives the workbench three reliable entry points:
+**FusionChain** (primary, browser-to-agent), **Capy SSH Runtime** (secure
+terminal channel with capability cards), **Superconductor** (monitoring
+and review surface).
+
+Rationale: the prior architecture risked building an air-traffic control tower
+when an SSH door was right there. But the fix is not "open an SSH session and
+type commands." The runtime-card protocol makes SSH a *controlled capability
+surface* — the card declares what one agent may do in one session, the wrapper
+enforces it, and evidence flows back. Capy does not need to know SSH config;
+Multica does not need to read Captain contracts. The card is the boundary.
+Capy is legislation, Multica is enforcement — two rings, one interface, no
+ambiguity.
+
+## 2026-05-04 - Treat Rendered Graphs As Copyable Source Artifacts
+
+Decision: extend the Multica 0.2.22 workflow with a `GRAPH_ARTIFACT` convention.
+Rendered diagrams should display as polished cards for humans, while the raw
+Mermaid/DOT/source remains canonical and copyable for agents. Exported images
+are convenience outputs, not source of truth.
+
+Rationale: graph-heavy research and architecture notes are hard to read as raw
+ASCII, but agents still need exact source to copy, edit, and rerender. The
+Codex-style pattern solves both: render the graph beautifully, expose `View
+source` and `Copy source`, and preserve the raw fenced code if rendering fails.
+
+## 2026-05-04 - Add Repo Brand Uplift As Distribution Infrastructure
+
+Decision: add `workbench-repo-brand-uplift`, `docs/repo-brand-uplift-lane.md`,
+and `issue-templates/repo-brand-uplift-goal.md` as the public GitHub repo
+first-impression lane. The standard is Zonic/Evensong-style: brand signal,
+proof before prose, fresh-clone quickstart, architecture map, maturity labels,
+public/private discipline, and community path.
+
+Rationale: several repos now contain real work but do not make that value
+obvious to outsiders. README polish alone is insufficient; public trust comes
+from evidence-backed first screens and adjacent metadata/docs consistency. The
+lane keeps the work one repo at a time, forbids invented proof, and routes
+Workbench-facing public-surface changes through Hermes docs-sync review.
+
 ## 2026-05-04 - Make Hermes Docs Sync a Public Skill
 
 Decision: add `workbench-hermes-docs-sync` as the registry-facing skill for
