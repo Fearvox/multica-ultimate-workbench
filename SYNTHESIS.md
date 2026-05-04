@@ -281,15 +281,19 @@ acceptance stays with the human operator or Workbench Supervisor.
 
 ## Project Windburn Scaffold Lane
 
-For new webpage, subpage, landing-page, and microsite work without a named
-target repo, the default repo anchor is `Fearvox/project-windburn`. Current
-repo evidence is intentionally treated as scaffold-only: do not assume an app
-root, shared packages, route tree, build system, or deployment wiring until the
-repo itself proves them.
+For new webpage, subpage, landing-page, and microsite work, use
+`Fearvox/project-windburn` as the default repo anchor only when no target repo
+is named in the request, attached to the issue or project, or otherwise
+established by primary repo evidence. Current repo evidence is intentionally
+treated as scaffold-only: do not assume an app root, shared packages, route
+tree, build system, or deployment wiring until the repo itself proves them.
 
 Expected shape: keep the root for index/routing/workflow docs, create each page
-as its own project under `project-windburn/<page-name>/`, and keep cross-page
-sharing explicit and reviewed. See
+as its own project directly under the checkout as
+`<project-windburn checkout>/<page-name>/`, do not create a nested
+`<project-windburn checkout>/project-windburn/<page-name>/` directory unless
+the human explicitly asks for it, and keep cross-page sharing explicit and
+reviewed. See
 [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md).
 
 ## Repo Anchor Rule
