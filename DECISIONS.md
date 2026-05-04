@@ -1,5 +1,24 @@
 # Decisions
 
+## 2026-05-04 - Add Windburn Profile as Horizontal Session Overlay
+
+Decision: add `workbench-windburn-profile` as a horizontal skill that modifies
+how all other skills execute. The profile inverts the default agent tone:
+casual is baseline, structured mode is earned by sustained density signals
+(technical term ratio, reference density, sentence length). Explicit switch
+words ("spec maxxing""随便聊聊") override auto-detection. UI tasks
+auto-inject CommitMono/dot-matrix aesthetic defaults.
+
+Rationale: the 2026-05-03 communication profile defines *what* tone to use.
+Windburn profile automates *when* to apply it. Without automation, every
+session requires the operator to manually declare mode, which is its own
+friction. The skill is deliberately a cheap heuristic, not a classifier —
+false positives are acceptable because downgrade from structured to casual
+is instant.
+
+Installed at `skills/workbench-windburn-profile/SKILL.md`. Docs at
+`docs/windburn-profile.md`.
+
 ## 2026-05-03 - Add Windburn Trust Pipeline Bootstrap Scripts
 
 Decision: add deterministic local scripts for Windburn belief write gating and

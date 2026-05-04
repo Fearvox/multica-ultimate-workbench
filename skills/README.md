@@ -43,6 +43,7 @@ The pack is directory-structured for the `skills` CLI: each skill lives at
 | [`workbench-token-context-discipline`](workbench-token-context-discipline/SKILL.md) | Compact context, cache-aware execution, and role-specific skill attachment. |
 | [`workbench-product-brainstorming`](workbench-product-brainstorming/SKILL.md) | Bounded product ideation with tradeoffs and smallest tests. |
 | [`workbench-gsd-tasking`](workbench-gsd-tasking/SKILL.md) | Owner-scoped tasks with gates, rollback, verification, and smoke tests. |
+| [`workbench-windburn-profile`](workbench-windburn-profile/SKILL.md) | Horizontal session overlay — auto-detects conversation mode, defaults casual, injects CommitMono aesthetic. |
 
 ## Deployment Boundary
 
