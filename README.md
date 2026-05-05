@@ -269,6 +269,7 @@ Human approval required before running:
 | VM execution lane | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
 | Capy Git dialogue responder | [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md) |
+| Capy world-model / Windburn brief | [docs/capy-world-model-windburn-brief.md](docs/capy-world-model-windburn-brief.md) |
 | Windburn scaffold routing lane | [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md) |
 | Sanity unified context lane | [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) |
 | Agent-install unifier lane | [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) |

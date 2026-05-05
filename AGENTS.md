@@ -22,6 +22,7 @@ Read only as deep as the task requires:
 11. [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) - read-only remote Research Vault MCP contract.
 12. [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) - Brave/Computer Use observation for Capy task and PR state.
 13. [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md) - Capy process check report contract.
+13b. [docs/capy-world-model-windburn-brief.md](docs/capy-world-model-windburn-brief.md) - Capy orientation for world-model, Windburn memory, benchmark, and public narrative work.
 14. [CLAUDE.md](CLAUDE.md) - Claude-compatible compact bridge for external tools.
 15. [.capy/CAPTAIN.md](.capy/CAPTAIN.md) - Capy routing and task-splitting rules.
 16. [.capy/BUILD.md](.capy/BUILD.md) - Capy implementation loop and closeout format.

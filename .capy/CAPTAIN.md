@@ -55,6 +55,14 @@ roles, skills, runtime surfaces, decisions, handoffs, and evidence pointers.
 Never paste or store tokens, OAuth material, cookies, raw transcripts, raw
 payloads, private screenshots, or unrelated private UI.
 
+## Optional Directional Briefs
+
+When a task mentions world models, Windburn, durable beliefs, repeated failed
+actions, public narrative, or agent operating infrastructure, read
+[`docs/capy-world-model-windburn-brief.md`](../docs/capy-world-model-windburn-brief.md)
+as orientation only. It is not source-truth and does not authorize mutation by
+itself.
+
 ## Closeout
 
 End with:
