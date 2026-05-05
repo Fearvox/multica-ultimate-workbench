@@ -16,7 +16,9 @@ The workbench is a two-ring operating system for agentic software work:
   Pincer closeout checks, and explicit PASS / FLAG / BLOCK closeout.
 - **Context Layer**: Sanity stores sanitized structured context for agents,
   runtimes, skills, evidence events, decisions, handoffs, and Capy process
-  checks.
+  checks. Wake reports restore session context by combining memory leads with
+  live repo, issue, automation, knowledge, and runner verification before new
+  work starts.
 - **Windburn Cognitive Cache Direction**: a future `.learning` substrate turns
   perceptions, beliefs, failures, source truth, skills, and parking ideas into
   reviewed future-self context.

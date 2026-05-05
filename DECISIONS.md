@@ -1,5 +1,22 @@
 # Decisions
 
+## 2026-05-05 - Add Waking-Up As The Workbench Context Restore Protocol
+
+Decision: add `workbench-waking-up` as the shared wake-report and
+session-to-Workbench bridge skill. When an operator asks for recent state,
+dropped leads, `gm`, `where are we`, or asks whether a direct-chat discovery
+should become Workbench-visible, agents must recall memory leads, verify live
+repo/issue/automation/knowledge/runner state, surface drift first, and return a
+short evidence-labeled action menu.
+
+Rationale: useful operating changes were being born in direct chat faster than
+repo docs or Multica surfaces could absorb them. The workbench needs a low-
+friction way to wake itself, detect stale memory, and turn reusable session
+outcomes into public-safe durable surfaces without adding a full PM ceremony.
+
+Installed at `skills/workbench-waking-up/SKILL.md`; public maps updated in
+`README.md`, `AGENTS.md`, `skills/README.md`, and `agents/AGENT_ROSTER.md`.
+
 ## 2026-05-04 - Separate Capy Captain Contracts From Multica Runtime Execution
 
 Decision: formalize a hard boundary between Capy and Multica through the

@@ -22,6 +22,7 @@ The pack is directory-structured for the `skills` CLI: each skill lives at
 | [`workbench-sdd`](workbench-sdd/SKILL.md) | Raw requirement -> product design -> technical design -> task list -> execution/review. |
 | [`workbench-goal-mode`](workbench-goal-mode/SKILL.md) | Goal-persistence wrapper for `/goal` work that must continue until the objective is verified. |
 | [`workbench-goal-mode-v2`](workbench-goal-mode-v2/SKILL.md) | Two-layer autonomous conductor with decision packets, dedupe controls, and evidence-loop closeout. |
+| [`workbench-waking-up`](workbench-waking-up/SKILL.md) | Context-restore wake reports: recall recent memory, verify live repo/issue/automation state, surface drift first, and bridge session-derived updates into durable Workbench surfaces. |
 | [`workbench-l2-pressure-gate`](workbench-l2-pressure-gate/SKILL.md) | Research Vault pressure gate for remote Hermes, VM, HarnessMax, and autonomous evolution sweeps. |
 | [`workbench-conductor`](workbench-conductor/SKILL.md) | Two-ring routing, role boundaries, issue/comment discipline. |
 | [`workbench-research`](workbench-research/SKILL.md) | Evidence-first research and source discipline. |
