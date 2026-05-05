@@ -14,8 +14,8 @@ Read-only fleet status panel. Reads every card under runtime-registry/ and
 fuses registry metadata with live runner evidence fetched via SSH.
 
 Sources:
-  runtime-registry/*.json         — registry cards (local, versioned in git)
-  /srv/windburn/evidence/runner/current.json  — live evidence (via SSH)
+  runtime-registry/*.json              — registry cards (local, versioned in git)
+  /srv/windburn/evidence/runner/current.json — live evidence (via SSH)
 
 Options:
   --format json    Output structured JSON (agent-consumable)
@@ -39,30 +39,21 @@ case "$FORMAT" in
   --format) FORMAT="${2:-terminal}"; shift 2 || true ;;
   --json) FORMAT="json" ;;
   "") FORMAT="terminal" ;;
-  *) FORMAT="terminal" ;;  # ignore unknown flags, default to terminal
+  *) FORMAT="terminal" ;;
 esac
 
-# ---------------------------------------------------------------------------
-# Resolve host from a card's host_env field (env var name, not raw value)
-# ---------------------------------------------------------------------------
 resolve_host() {
   local host_env="$1"
-  if [ -z "$host_env" ]; then
-    echo ""
-    return
-  fi
+  if [ -z "$host_env" ]; then echo ""; return; fi
   echo "${!host_env:-}"
 }
 
-# ---------------------------------------------------------------------------
-# Fetch live runner evidence from a workhorse via SSH
-# ---------------------------------------------------------------------------
 fetch_runner_evidence() {
   local host="$1"
   local evidence_path="${2:-/srv/windburn/evidence/runner/current.json}"
 
   if [ -z "$host" ]; then
-    echo '{"status":"UNKNOWN","reason":"host_env not set or unreachable"}'
+    echo '{"status":"UNKNOWN","reason":"host_env not set"}'
     return
   fi
 
@@ -78,9 +69,6 @@ fetch_runner_evidence() {
   }
 }
 
-# ---------------------------------------------------------------------------
-# Build a single runtime entry from card + live evidence
-# ---------------------------------------------------------------------------
 build_runtime_entry() {
   local card_json="$1"
   local evidence_json="$2"
@@ -91,7 +79,6 @@ build_runtime_entry() {
     '
     def s: if . == null then null else (. // "" | tostring) end;
     def b: if . == true then true else false end;
-
     {
       runtime_id: $card.runtime_id,
       instance: $card.action_payload.hermes_instance,
@@ -129,44 +116,40 @@ build_runtime_entry() {
     '
 }
 
-# ---------------------------------------------------------------------------
-# Terminal panel output (human-readable)
-# ---------------------------------------------------------------------------
 print_terminal_panel() {
   local fleet_json="$1"
-
   echo "$fleet_json" | jq -r '
-    def dot(s): if s == "PASS" then "●" elif s == "BLOCK" then "■" elif s == "FLAG" then "◆" elif s == "OFFLINE" then "○" elif s == "UNKNOWN" then "◇" else "○" end;
-    def color(s): if s == "PASS" then 2 elif s == "BLOCK" then 1 elif s == "FLAG" then 3 else 8 end;
-    def yn(b): if b then "✓" else "✗" end;
+    def dot(s):  if s == "PASS" then "●" elif s == "BLOCK" then "■"
+                 elif s == "FLAG" then "◆" elif s == "OFFLINE" then "○"
+                 elif s == "UNKNOWN" then "◇" else "○" end;
+    def yn(b):   if b == true then "✓" elif b == false then "✗" else "?" end;
+    def L(k):    k + (" " * (12 - (k | length)));
 
-    "╔══════════════════════════════════════════════════════════════════╗",
-    "║  Multica Fleet Status                    \(.generated_at_utc[0:19] // "unknown")Z  ║",
-    "╠══════════════════════════════════════════════════════════════════╣",
-    "║                                                                  ║",
-    (.fleet[] | [
-      "║  \(.instance // .runtime_id)\(" " * (48 - ((.instance // .runtime_id) | length)))║",
-      "║  \("─" * 62)║",
-      "║  Status:         \(.live.status // "UNKNOWN")  \(dot(.live.status // "UNKNOWN"))                                  ║",
-      "║  Provider:       \(.provider // "?") / \(.model // "?")\(" " * (28 - ((.provider // "?") | length) - ((.model // "?") | length)))║",
-      "║  Auth:           codex \(yn(.live.codex_auth))  hermes \(yn(.live.hermes_auth))  provider \(yn(.live.provider_env))                      ║",
-      "║  Tmux:           \(if .live.tmux_present then "observed (\(.live.tmux_session_count) session)" else "not observed" end)\(" " * (28 - (if .live.tmux_present then 19 + ((.live.tmux_session_count | tostring) | length) else 13 end)))║",
-      "║  Smoke:          \(.live.smoke_verdict // "?")\(" " * 8)reason: \(.live.smoke_reason // "?")\(" " * (34 - ((.live.smoke_reason // "?") | length)))║",
-      "║  Shell:          \(.permissions.shell // "?")                                       ║",
-      "║  Mutation:       \(.permissions.remote_mutation // false)                                              ║",
-      "║  Evidence:       \(.live.source // "none") @ \(.live.evidence_at // "?")\(" " * (29 - ((.live.source // "none") | length) - ((.live.evidence_at // "?") | length)))║",
-      "║  Allowed:        \(.allowed_actions // [] | join(", "))                                              ║",
-      "║  Repo:           \(.repo // "?")\(" " * (28 - ((.repo // "?") | length)))║",
-      "║  Host ref:       \(.host_env_ref // "?")                                          ║",
-      "║                                                                  ║"
-    ] | join("\n")),
-    "╚══════════════════════════════════════════════════════════════════╝"
+    [
+      "",
+      "══ Multica Fleet Status ══  \(.generated_at_utc[0:19] // "unknown")Z  ══  \(.registry_count) runtime(s) ══",
+      "",
+      (.fleet[] | [
+        "▸ \(.instance // .runtime_id)    \(.live.status // "UNKNOWN") \(dot(.live.status // "UNKNOWN"))",
+        "  " + ("─" * 62),
+        "  \(L("Status"))     \(.live.status // "UNKNOWN")",
+        "  \(L("Provider"))   \(.provider // "?") / \(.model // "?")",
+        "  \(L("Auth"))       codex \(yn(.live.codex_auth))  hermes \(yn(.live.hermes_auth))  provider \(yn(.live.provider_env))",
+        "  \(L("Tmux"))       \(if .live.tmux_present then "observed (\(.live.tmux_session_count) session)" else "not observed" end)",
+        "  \(L("Smoke"))      \(.live.smoke_verdict // "?")  —  \(.live.smoke_reason // "?")",
+        "  \(L("Shell"))      \(.permissions.shell // "?")",
+        "  \(L("Mutation"))   \(.permissions.remote_mutation // false)",
+        "  \(L("Allowed"))    \(.allowed_actions // [] | join(", "))",
+        "  \(L("Repo"))       \(.repo // "?")",
+        "  \(L("Host ref"))   \(.host_env_ref // "?")",
+        "  \(L("Evidence"))   \(.live.source // "none")  @  \(.live.evidence_at // "?")",
+        ""
+      ] | join("\n")),
+      "── \(.generated_at_utc[0:19] // "unknown")Z  ──  \(.registry_count) in registry  ──  read-only  ──"
+    ] | join("\n")
   '
 }
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
 main() {
   if [ ! -d "$REGISTRY_DIR" ]; then
     echo "runtime-panel: no runtime-registry/ directory found at $REGISTRY_DIR" >&2
@@ -181,11 +164,10 @@ main() {
     exit 0
   fi
 
-  local generated_at
+  local generated_at entries_json first
   generated_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-
-  local entries_json="["
-  local first=true
+  entries_json="["
+  first=true
 
   for card_file in "${card_files[@]}"; do
     local card_json host_env host evidence_json entry_json
@@ -195,14 +177,9 @@ main() {
     evidence_json="$(fetch_runner_evidence "$host")"
     entry_json="$(build_runtime_entry "$card_json" "$evidence_json")"
 
-    if [ "$first" = true ]; then
-      first=false
-    else
-      entries_json+=","
-    fi
+    if [ "$first" = true ]; then first=false; else entries_json+=","; fi
     entries_json+="$entry_json"
   done
-
   entries_json+="]"
 
   local fleet_json
@@ -212,12 +189,8 @@ main() {
     '{fleet: $fleet, generated_at_utc: $generated_at, mode: "read-only", registry_count: ($fleet | length)}')"
 
   case "$FORMAT" in
-    json)
-      echo "$fleet_json" | jq '.'
-      ;;
-    terminal|*)
-      print_terminal_panel "$fleet_json"
-      ;;
+    json) echo "$fleet_json" | jq '.' ;;
+    *)    print_terminal_panel "$fleet_json" ;;
   esac
 }
 
