@@ -46,3 +46,19 @@ test("repeated failure benchmark flags repeated submit attempts", async () => {
   assert.equal(result.evaluation.non_repetition_held, false);
   assert.equal(result.verdict, "FLAG");
 });
+
+
+test("repeated failure benchmark applies initialAction override consistently", async () => {
+  const result = await runRepeatedFailureSubmitBenchmark({ initialAction: "click_submit_override" });
+
+  assert.equal(result.initial_prediction.action, "click_submit");
+  assert.equal(result.initial_action, "click_submit_override");
+  assert.equal(result.observed_delta.action_taken, "click_submit_override");
+  assert.equal(result.failure.first_failed_action, "click_submit_override");
+  assert.deepEqual(result.failure.blocked_actions, ["click_submit_override"]);
+  assert.equal(result.rejected_repeated_action, "click_submit_override");
+  assert.equal(result.selected_next_valid_action, "select_required_answer");
+  assert.equal(result.evaluation.state_update_complete, true);
+  assert.equal(result.evaluation.non_repetition_held, true);
+  assert.equal(result.verdict, "PASS");
+});

@@ -8,10 +8,10 @@ const FIXTURES = Object.freeze({
 export async function runRepeatedFailureSubmitBenchmark(input = {}) {
   const context = input.context ?? await readJson(FIXTURES.context);
   const evidence = input.evidence ?? await readJson(FIXTURES.evidence);
-  const initialAction = input.initialAction ?? context.initial_prediction.action;
+  const effectiveAction = input.initialAction ?? evidence.action_taken;
   const observedDelta = {
     observation_id: evidence.observation_id,
-    action_taken: evidence.action_taken,
+    action_taken: effectiveAction,
     page_advanced: evidence.page_advanced,
     error_banner: evidence.error_banner
   };
@@ -32,8 +32,8 @@ export async function runRepeatedFailureSubmitBenchmark(input = {}) {
       };
   const failure = {
     kind: "failure",
-    first_failed_action: evidence.action_taken,
-    blocked_actions: input.disableFailureBlock ? [] : [evidence.action_taken],
+    first_failed_action: effectiveAction,
+    blocked_actions: input.disableFailureBlock ? [] : [effectiveAction],
     unblock_condition: "select_required_answer",
     reason: "Do not click submit again until the missing precondition is satisfied."
   };
@@ -56,7 +56,7 @@ export async function runRepeatedFailureSubmitBenchmark(input = {}) {
     derived_inference_promoted: false,
     human_approval_required: true
   };
-  const rejectedRepeatedAction = evidence.action_taken;
+  const rejectedRepeatedAction = effectiveAction;
   const selectedNextValidAction = input.forceRepeatedAction
     ? rejectedRepeatedAction
     : "select_required_answer";
@@ -78,7 +78,7 @@ export async function runRepeatedFailureSubmitBenchmark(input = {}) {
     benchmark_id: context.benchmark_id,
     scenario: context.scenario,
     initial_prediction: context.initial_prediction,
-    initial_action: initialAction,
+    initial_action: effectiveAction,
     observed_delta: observedDelta,
     perception,
     belief,
