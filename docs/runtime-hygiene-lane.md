@@ -68,6 +68,74 @@ Interpretation rules:
 - Do not store full cleaner logs in Git when they contain local paths; summarize
   categories and freed space.
 
+## Project Artifact Cleaner Candidate
+
+`dev-purge` is a useful project-artifact scanner for generated dependency,
+build, cache, and test-output directories such as `node_modules`, `.next`,
+`.venv`, `Pods`, `.turbo`, coverage output, and framework caches.
+
+Treat it as a guarded exception, not the default cleaner:
+
+```bash
+npx dev-purge --dry-run --json
+npx dev-purge --dry-run --older-than 6m --json
+npx dev-purge --older-than 6m
+```
+
+Rules:
+
+- Prefer `npx dev-purge` for evaluation before any global install.
+- First run must be `--dry-run`, preferably with `--json` for reviewable
+  summaries.
+- Use a named scan root when possible; avoid broad home-directory scans during
+  active work.
+- Default to `--older-than 6m` for dependency/build cleanup across forgotten
+  projects.
+- Interactive mode is acceptable after dry-run review because it asks `y/n` per
+  project.
+- `dev-purge -a` is blocked unless the operator explicitly approves the exact
+  root, filters, and dry-run summary in the same session.
+- Do not run it against active worktrees, preserved repos, live VM mounts,
+  iCloud folders, Photos, credentials, or production deploy directories.
+- Because `dev-purge` deletes selected directories rather than moving them to
+  Trash, reports must say that this is an approved hard-delete exception.
+
+Evidence should summarize category counts, reclaimable bytes, and filters used.
+Do not commit full path inventories when they reveal local private project
+names.
+
+## Memory And Port Pressure
+
+On macOS, `ps aux -r` is not enough for memory diagnosis. It reports RSS, while
+Activity Monitor's Memory column is closer to Mach `phys_footprint`, including
+compressed and wired memory. A process can therefore look small in `ps` while it
+is a real multi-GB footprint in Activity Monitor.
+
+Use `ps` rankings only as candidate discovery. Confirm pressure with:
+
+```bash
+memory_pressure 2>/dev/null
+vm_stat | head -10
+sysctl vm.swapusage
+sudo footprint -a 2>/dev/null | sed -n '1,80p'
+```
+
+Port leaks are a separate pressure class. They can cause new tabs, sockets, or
+local connections to fail even when RAM looks acceptable. Use file descriptor
+counts as a cheap proxy, and `lsmp` when available for Mach-port counts:
+
+```bash
+lsof -p <PID> 2>/dev/null | wc -l
+command -v lsmp >/dev/null && sudo lsmp -p <PID> 2>/dev/null | grep -c "^0x"
+```
+
+Thresholds:
+
+- Any workbench agent above 5000 ports: `FLAG`.
+- Any workbench agent true footprint above 4GB for more than 1h: `FLAG`.
+- Swap above 2GB: `FLAG`.
+- Free RAM below 8%: `BLOCK` for new agent launches.
+
 ## Session Closeout Rule
 
 The lane may mark a session or conversation as a close candidate only when all
@@ -111,7 +179,9 @@ Use the smallest live checks first:
 ```bash
 df -h /System/Volumes/Data
 sysctl vm.swapusage
+memory_pressure 2>/dev/null || vm_stat | head -10
 command -v mo && mo clean --dry-run
+npx dev-purge --dry-run --older-than 6m --json
 scripts/multica-codex-cache-janitor.sh
 multica --profile desktop-api.multica.ai daemon status
 multica --profile desktop-api.multica.ai issue list --status in_progress --limit 100 --output json
