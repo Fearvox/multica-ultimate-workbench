@@ -182,7 +182,11 @@ jq '
     input_tokens: (.token_usage.input // .tokenUsage.input // .usage.input // .usage.input_tokens // .input_tokens // null),
     output_tokens: (.token_usage.output // .tokenUsage.output // .usage.output // .usage.output_tokens // .output_tokens // null),
     cache_read_tokens: (.token_usage.cache_read_input_tokens // .tokenUsage.cache_read_input_tokens // .usage.cache_read_input_tokens // .cache_read_input_tokens // null),
-    cache_write_tokens: (.token_usage.cache_creation_input_tokens // .tokenUsage.cache_creation_input_tokens // .usage.cache_creation_input_tokens // .cache_creation_input_tokens // null)
+    cache_write_tokens: (.token_usage.cache_creation_input_tokens // .tokenUsage.cache_creation_input_tokens // .usage.cache_creation_input_tokens // .cache_creation_input_tokens // null),
+    credit_cost: (.credit_cost // .credits // .cost_credits // .usage.credit_cost // .usage.credits // null),
+    wall_clock_ms: (.wall_clock_ms // .duration_ms // .elapsed_ms // .usage.wall_clock_ms // null),
+    tool_call_count: (.tool_call_count // .tool_calls_count // .usage.tool_call_count // .usage.tool_calls_count // null),
+    message_count: (.message_count // .messages_count // .usage.message_count // .usage.messages_count // null)
   })
 ' "$RUNS_JSON" > "$RUNS_SUMMARY"
 
@@ -232,9 +236,49 @@ sdd_count="$(jq '[.[] | select(.has_sdd_stage)] | length' "$COMMENTS_SUMMARY")"
 checkout_comment_count="$(jq '[.[] | select(.has_checkout_evidence)] | length' "$COMMENTS_SUMMARY")"
 checkout_message_count="$(jq '[.[] | select(.has_checkout_evidence)] | length' "$MESSAGES_SUMMARY")"
 failed_run_count="$(jq '[.[] | select((.status // "" | tostring) | test("failed|cancelled|canceled|error|timeout"; "i"))] | length' "$RUNS_SUMMARY")"
+active_run_count="$(jq '[.[] | select((.status // "" | tostring) | test("running|in_progress|active|pending|queued"; "i"))] | length' "$RUNS_SUMMARY")"
 max_comment_len="$(jq 'if length == 0 then 0 else map(.body_len) | max end' "$COMMENTS_SUMMARY")"
 max_run_messages="$(jq 'if length == 0 then 0 else map(.count) | max end' "$MESSAGES_SUMMARY")"
 token_visible_count="$(jq '[.[] | select(.input_tokens != null or .output_tokens != null or .cache_read_tokens != null or .cache_write_tokens != null)] | length' "$RUNS_SUMMARY")"
+credit_visible_count="$(jq '[.[] | select(.credit_cost != null)] | length' "$RUNS_SUMMARY")"
+tool_count_visible_count="$(jq '[.[] | select(.tool_call_count != null)] | length' "$RUNS_SUMMARY")"
+message_count_visible_count="$(jq '[.[] | select(.message_count != null)] | length' "$RUNS_SUMMARY")"
+
+ACTIVE_RUN_IDS="$TMP_DIR/active-run-ids.json"
+jq '[.[] | select((.status // "" | tostring) | test("running|in_progress|active|pending|queued"; "i")) | .id]' "$RUNS_SUMMARY" > "$ACTIVE_RUN_IDS"
+active_run_with_verdict_count="$(jq --slurpfile active "$ACTIVE_RUN_IDS" '
+  [.[] | select((.has_verdict_marker == true) and ((.run_id as $id | $active[0] | index($id)) != null))] | length
+' "$MESSAGES_SUMMARY")"
+duplicate_comment_body_groups="$(jq '
+  def items:
+    if type == "array" then .
+    elif type == "object" and (.items | type) == "array" then .items
+    elif type == "object" and (.comments | type) == "array" then .comments
+    else [] end;
+  def body: (.body // .content // .text // .message // "");
+  items
+  | map(body | tostring | gsub("[[:space:]]+"; " ") | gsub("^[[:space:]]+|[[:space:]]+$"; ""))
+  | map(select(length > 0))
+  | sort
+  | group_by(.)
+  | map(select(length > 1))
+  | length
+' "$COMMENTS_JSON")"
+duplicate_comment_extra_count="$(jq '
+  def items:
+    if type == "array" then .
+    elif type == "object" and (.items | type) == "array" then .items
+    elif type == "object" and (.comments | type) == "array" then .comments
+    else [] end;
+  def body: (.body // .content // .text // .message // "");
+  items
+  | map(body | tostring | gsub("[[:space:]]+"; " ") | gsub("^[[:space:]]+|[[:space:]]+$"; ""))
+  | map(select(length > 0))
+  | sort
+  | group_by(.)
+  | map(select(length > 1) | length - 1)
+  | add // 0
+' "$COMMENTS_JSON")"
 
 {
   echo "# RUN_DIGEST"
@@ -256,6 +300,13 @@ token_visible_count="$(jq '[.[] | select(.input_tokens != null or .output_tokens
   echo "- checkout_evidence_comments: \`$checkout_comment_count\`"
   echo "- checkout_evidence_run_messages: \`$checkout_message_count\`"
   echo "- token_usage_visible_in_runs_json: \`$token_visible_count\`"
+  echo "- credit_usage_visible_in_runs_json: \`$credit_visible_count\`"
+  echo "- tool_call_count_visible_in_runs_json: \`$tool_count_visible_count\`"
+  echo "- message_count_visible_in_runs_json: \`$message_count_visible_count\`"
+  echo "- active_runs: \`$active_run_count\`"
+  echo "- active_runs_with_verdict_markers: \`$active_run_with_verdict_count\`"
+  echo "- duplicate_comment_body_groups: \`$duplicate_comment_body_groups\`"
+  echo "- duplicate_comment_extra_count: \`$duplicate_comment_extra_count\`"
   echo "- max_comment_chars: \`$max_comment_len\`"
   echo "- max_run_messages: \`$max_run_messages\`"
   echo
@@ -265,7 +316,7 @@ token_visible_count="$(jq '[.[] | select(.input_tokens != null or .output_tokens
     if length == 0 then
       "- none"
     else
-      .[] | "- run `\(.id // "(missing)")`: status=`\(.status // "(unknown)")`, agent=`\(.agent // "(unknown)")`, input=`\(.input_tokens // "n/a")`, output=`\(.output_tokens // "n/a")`, cache_read=`\(.cache_read_tokens // "n/a")`, cache_write=`\(.cache_write_tokens // "n/a")`"
+      .[] | "- run `\(.id // "(missing)")`: status=`\(.status // "(unknown)")`, agent=`\(.agent // "(unknown)")`, input=`\(.input_tokens // "n/a")`, output=`\(.output_tokens // "n/a")`, cache_read=`\(.cache_read_tokens // "n/a")`, cache_write=`\(.cache_write_tokens // "n/a")`, credits=`\(.credit_cost // "n/a")`, wall_clock_ms=`\(.wall_clock_ms // "n/a")`, tool_calls=`\(.tool_call_count // "n/a")`, messages=`\(.message_count // "n/a")`"
     end
   ' "$RUNS_SUMMARY"
   echo
@@ -279,6 +330,18 @@ token_visible_count="$(jq '[.[] | select(.input_tokens != null or .output_tokens
   fi
   if [[ "$failed_run_count" -gt 0 ]]; then
     echo "- FLAG: failed/cancelled/error/timeout runs detected: \`$failed_run_count\`."
+    flags=$((flags + 1))
+  fi
+  if [[ "$issue_status" =~ ^(in_review|done|blocked)$ && "$active_run_count" -gt 0 ]]; then
+    echo "- FLAG: issue is \`$issue_status\` while active runs remain: \`$active_run_count\`; run-finalization reconciliation is required before closeout."
+    flags=$((flags + 1))
+  fi
+  if [[ "$active_run_with_verdict_count" -gt 0 ]]; then
+    echo "- FLAG: active runs already contain verdict markers: \`$active_run_with_verdict_count\`; check for stuck finalization before retrying."
+    flags=$((flags + 1))
+  fi
+  if [[ "$duplicate_comment_extra_count" -gt 0 ]]; then
+    echo "- FLAG: duplicate comment bodies detected: \`$duplicate_comment_extra_count\` extra comments across \`$duplicate_comment_body_groups\` groups; check retry idempotency."
     flags=$((flags + 1))
   fi
   if [[ "$comment_count" -eq 0 ]]; then
@@ -299,6 +362,10 @@ token_visible_count="$(jq '[.[] | select(.input_tokens != null or .output_tokens
   fi
   if [[ "$token_visible_count" -eq 0 ]]; then
     echo "- INFO: run JSON did not expose token usage fields; use UI/API billing view for quota attribution."
+    flags=$((flags + 1))
+  fi
+  if [[ "$credit_visible_count" -eq 0 ]]; then
+    echo "- INFO: run JSON did not expose credit usage fields; do not claim token/credit efficiency from this digest alone."
     flags=$((flags + 1))
   fi
   if [[ "$flags" -eq 0 ]]; then

@@ -35,6 +35,10 @@ Required target evidence:
 - Prefer the target issue's `Ultimate Workbench` project GitHub repo resource before repo-local evidence claims.
 - Use `multica repo checkout file://<LOCAL_WORKBENCH_REPO>` only on laptop-local runtimes; mark it invalid on remote runtimes such as `<REMOTE_MULTICA_DEVICE>`.
 - `scripts/collect-flight-recorder.sh <target-issue-id>` only when compact run evidence is needed.
+- If a target is `in_review` but any related run is still active, mark the
+  target `PENDING` or `FLAG`; do not close it to `done`.
+- If duplicate result comments exist, name the primary evidence comment and
+  request run-finalization reconciliation before retrying.
 
 Target review block:
 

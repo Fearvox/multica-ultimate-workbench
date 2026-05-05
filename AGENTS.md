@@ -25,6 +25,8 @@ Read only as deep as the task requires:
 8g. [docs/windburn-materiality-classifier-contract.md](docs/windburn-materiality-classifier-contract.md) - materiality classifier boundary for DivergencePacket alternatives.
 8h. [docs/windburn-challenge-orchestration-contract.md](docs/windburn-challenge-orchestration-contract.md) - local challenge-review bridge for verifier + promotion-gate outputs.
 8i. [docs/super-engineering-speed-match-lane.md](docs/super-engineering-speed-match-lane.md) - Super.engineering/Hermes upstream speed-match operating lane.
+8j. [docs/repo-brand-uplift-lane.md](docs/repo-brand-uplift-lane.md) - Zonic/Evensong-style public GitHub repo brand uplift lane.
+8k. [docs/run-finalization-reconciliation-lane.md](docs/run-finalization-reconciliation-lane.md) - run lifecycle, duplicate result comment, and telemetry reconciliation contract.
 9. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
 9b. [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) - Two-layer autonomous conductor with decision packets and dedupe controls.
 10. [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) - Research Vault pressure gate for remote/HarnessMax work.
@@ -43,9 +45,10 @@ Read only as deep as the task requires:
 23. [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) - deployable Flue agent harness lane.
 24. [skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md) - Flue scaffold contract and report rules.
 25. [skills/workbench-hermes-docs-sync/SKILL.md](skills/workbench-hermes-docs-sync/SKILL.md) - Hermes second-pass docs-sync review contract.
-26. [skills/README.md](skills/README.md) - workspace skill map and attachments.
-27. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
-28. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
+26. [skills/workbench-repo-brand-uplift/SKILL.md](skills/workbench-repo-brand-uplift/SKILL.md) - GitHub README, metadata, and first-impression brand uplift contract.
+27. [skills/README.md](skills/README.md) - workspace skill map and attachments.
+28. [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) - role and runtime expectations.
+29. [WORKBENCH_LOG.md](WORKBENCH_LOG.md) - historical evidence only when needed.
 
 ## Repository Role
 
@@ -97,6 +100,10 @@ When supervising Multica from Codex Desktop:
 - From a Multica runtime, use the issue's project-bound GitHub repo resource first.
 - The `file://<LOCAL_WORKBENCH_REPO>` checkout is laptop-local only. Remote runtimes such as `<REMOTE_MULTICA_DEVICE>` must not rely on it; if repo checkout resolves to that path remotely, report `FLAG` or `BLOCK` and name the repo-anchor fix.
 - Use `scripts/collect-flight-recorder.sh <issue-id>` for review summaries when relevant.
+- If an issue is `in_review`, `done`, or `blocked` while a related run remains
+  active, treat it as run-finalization drift. Do not close or PASS it until
+  [docs/run-finalization-reconciliation-lane.md](docs/run-finalization-reconciliation-lane.md)
+  is satisfied or the residual risk is explicitly flagged.
 - Use [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) when the Friction Tier Router selects Heavy Path, when repo/runtime ownership is ambiguous, or when Standard Path evidence depends on current runtime capability.
 - Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
 - Use [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) and [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) when a task touches Windburn cognitive cache, `.learning`, future-self memory, belief/perception/continuity state, or behavior-changing memory.
@@ -109,6 +116,7 @@ When supervising Multica from Codex Desktop:
 - Use [skills/workbench-agent-install-unifier/SKILL.md](skills/workbench-agent-install-unifier/SKILL.md) when a task uses `agent-install` to sync skills, MCP definitions, or AGENTS.md sections across coding agents.
 - Use [skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md) when an issue declares `FLUE_AGENT_CONTRACT` or asks to package a workflow as a deployable Flue agent.
 - Use [skills/workbench-hermes-docs-sync/SKILL.md](skills/workbench-hermes-docs-sync/SKILL.md) when Hermes reviews Claude-authored public docs, skill-map changes, install instructions, agent role docs, issue templates, speed-match writeups, or any task says "sync everywhere", "skills.sh", "all Hermes", or "docs-sync".
+- Use [skills/workbench-repo-brand-uplift/SKILL.md](skills/workbench-repo-brand-uplift/SKILL.md) when a task asks to upgrade public GitHub repo first impression, README quality, repo metadata, Zonic/Evensong-style brand presentation, or "make every repo look as strong as Evensong."
 - Autopilots create issues; they do not silently perform high-risk work.
 - Outer Ring agents do not assign work to each other.
 - Preserve `Workbench Max` unless the human explicitly asks to modify it.
@@ -300,6 +308,40 @@ Artifact mode writes summary files only. Do not store raw issue descriptions, fu
 
 Token fields may be absent from Multica CLI run JSON. Treat that as an INFO residual risk and use UI/API billing evidence when quota attribution matters.
 
+## Run Finalization Reconciliation Protocol
+
+Use this protocol when final output exists but the run lifecycle, retry behavior,
+or telemetry evidence is unsettled:
+
+```text
+RUN_FINALIZATION_RECONCILIATION
+target_issue:
+run_id:
+observed_issue_status:
+observed_run_status:
+final_comment_id:
+duplicate_comment_ids:
+timeout_evidence:
+telemetry_available:
+action_taken:
+residual_risk:
+VERDICT: PASS | FLAG | BLOCK
+```
+
+Rules:
+
+- `in_review`, `done`, and `blocked` issues should not have active related runs
+  unless the mismatch is explicitly flagged.
+- Retries must not post duplicate final result comments; use a deterministic
+  dedupe key or identify the primary evidence comment.
+- Missing token, credit, wall-clock, tool-call, or message-count fields block
+  efficiency claims but do not automatically block answer-quality review.
+- Keep raw comments, raw run messages, private IDs, private URLs, screenshots,
+  and personal names out of public docs and PR text.
+
+See [docs/run-finalization-reconciliation-lane.md](docs/run-finalization-reconciliation-lane.md)
+and [issue-templates/run-finalization-reconciliation.md](issue-templates/run-finalization-reconciliation.md).
+
 ## L2 Pressure Protocol
 
 Use L2 Pressure before high-pressure remote or HarnessMax routing:
@@ -480,6 +522,8 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Rollout history | [WORKBENCH_LOG.md](WORKBENCH_LOG.md) |
 | Flight recorder contract | [WORKBENCH_METRICS.md](WORKBENCH_METRICS.md) |
 | Flight recorder usage | [docs/flight-recorder.md](docs/flight-recorder.md) |
+| Run finalization reconciliation | [docs/run-finalization-reconciliation-lane.md](docs/run-finalization-reconciliation-lane.md) |
+| Run finalization issue template | [issue-templates/run-finalization-reconciliation.md](issue-templates/run-finalization-reconciliation.md) |
 | Agent communication profile | [docs/agent-communication-profile.md](docs/agent-communication-profile.md) |
 | Self-awareness protocol | [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) |
 | Self-awareness skill | [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) |
@@ -518,6 +562,9 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Flue scaffold skill | [skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md) |
 | Super.engineering speed-match lane | [docs/super-engineering-speed-match-lane.md](docs/super-engineering-speed-match-lane.md) |
 | Hermes docs-sync skill | [skills/workbench-hermes-docs-sync/SKILL.md](skills/workbench-hermes-docs-sync/SKILL.md) |
+| Repo brand uplift lane | [docs/repo-brand-uplift-lane.md](docs/repo-brand-uplift-lane.md) |
+| Repo brand uplift skill | [skills/workbench-repo-brand-uplift/SKILL.md](skills/workbench-repo-brand-uplift/SKILL.md) |
+| Repo brand uplift goal template | [issue-templates/repo-brand-uplift-goal.md](issue-templates/repo-brand-uplift-goal.md) |
 | Skill curator protocol | [docs/skill-curator.md](docs/skill-curator.md) |
 | Agent roster | [agents/AGENT_ROSTER.md](agents/AGENT_ROSTER.md) |
 | Remote agent cell | [agents/remote/nyc-remote-agents.md](agents/remote/nyc-remote-agents.md) |
@@ -544,7 +591,7 @@ git diff -- README.md AGENTS.md
 ```
 
 ```bash
-for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/agent-communication-profile.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/codex-workbench-runtime-profile.md docs/runtime-hygiene-lane.md docs/windburn-cognitive-cache-direction.md docs/windburn-cognitive-cache-dispatch.md docs/windburn-divergence-gated-trust-research.md docs/windburn-materiality-classifier-contract.md docs/windburn-challenge-orchestration-contract.md docs/super-engineering-speed-match-lane.md docs/plans/windburn-divergence-gate-harness-plan.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md config/multica-workbench-codex-profile.example.toml scripts/multica-codex-cache-janitor.sh scripts/windburn-verify.mjs scripts/windburn-belief-write.mjs scripts/windburn-momentum-decay.mjs scripts/windburn-divergence-gate.mjs scripts/windburn-materiality-classify.mjs scripts/windburn-materiality-corpus-eval.mjs scripts/windburn-promotion-gate.mjs scripts/windburn-challenge.mjs skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-runtime-hygiene/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/workbench-hermes-docs-sync/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md issue-templates/windburn-divergence-gate-goal.md issue-templates/windburn-time-awareness-goal.md; do
+for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/agent-communication-profile.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/codex-workbench-runtime-profile.md docs/runtime-hygiene-lane.md docs/run-finalization-reconciliation-lane.md docs/windburn-cognitive-cache-direction.md docs/windburn-cognitive-cache-dispatch.md docs/windburn-divergence-gated-trust-research.md docs/windburn-materiality-classifier-contract.md docs/windburn-challenge-orchestration-contract.md docs/super-engineering-speed-match-lane.md docs/repo-brand-uplift-lane.md docs/plans/windburn-divergence-gate-harness-plan.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md config/multica-workbench-codex-profile.example.toml scripts/multica-codex-cache-janitor.sh scripts/windburn-verify.mjs scripts/windburn-belief-write.mjs scripts/windburn-momentum-decay.mjs scripts/windburn-divergence-gate.mjs scripts/windburn-materiality-classify.mjs scripts/windburn-materiality-corpus-eval.mjs scripts/windburn-promotion-gate.mjs scripts/windburn-challenge.mjs skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-runtime-hygiene/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/workbench-hermes-docs-sync/SKILL.md skills/workbench-repo-brand-uplift/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/run-finalization-reconciliation.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md issue-templates/windburn-divergence-gate-goal.md issue-templates/windburn-time-awareness-goal.md issue-templates/repo-brand-uplift-goal.md; do
   test -f "$path" || exit 1
 done
 echo "link-targets-ok"

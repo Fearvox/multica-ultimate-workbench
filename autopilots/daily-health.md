@@ -24,6 +24,9 @@ Required evidence separation:
 - Human members: run `multica workspace members <workspace-id> --output json`; report separately from agents.
 - Autopilots: run `multica autopilot list --output json`; report active/paused state and last run.
 - Risk evidence: cancelled/failed runs must include exact issue/run IDs and whether the direct owner/review/QA path still completed.
+- Run finalization: report any issue in `in_review`, `done`, or `blocked` that
+  still has active runs, plus any exact duplicate result comments found by the
+  flight recorder.
 - Flight recorder: for the current health issue, run `scripts/collect-flight-recorder.sh <issue-id>` after inspection and include only the compact `RUN_DIGEST` highlights.
 
 Storage discipline:

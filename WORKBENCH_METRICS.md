@@ -30,7 +30,10 @@ Every digest should include:
 - PASS/FLAG/BLOCK marker count
 - SDD stage marker count
 - checkout evidence count
-- visible token usage fields, if exposed by the CLI/API
+- visible token, credit, tool-call, and message-count fields, if exposed by the CLI/API
+- active run count
+- active runs that already contain verdict markers
+- duplicate comment body counts
 - max comment length
 - max run-message count
 - governor flags
@@ -52,7 +55,7 @@ Thresholds are warning rails, not automatic failure rules. Supervisor decides PA
 Use the digest as evidence, not as the verdict.
 
 - `BLOCK`: missing runs, impossible evidence path, or unsafe state.
-- `FLAG`: failed/cancelled runs, missing final evidence, no verdict marker, oversized trace, or token attribution not visible where expected.
+- `FLAG`: failed/cancelled runs, active run drift after review handoff, duplicate result comments, missing final evidence, no verdict marker, oversized trace, or token/credit attribution not visible where expected.
 - `PASS`: digest is coherent, evidence exists, and residual risks are named.
 
 ## Fresh Rerun Interpretation

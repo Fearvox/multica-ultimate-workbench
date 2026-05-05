@@ -24,6 +24,9 @@ Use this skill for product design, technical design documents, user-facing copy,
 - Do not include secrets or private credentials.
 - Keep `skills/README.md` aligned with live skill IDs and agent attachment maps.
 - For SDD work, keep stage artifacts scannable and avoid burying the actual artifact in discussion replies.
+- For diagrams in Multica comments or handoffs, use the `GRAPH_ARTIFACT`
+  contract from `docs/multica-021-workflow.md`: rendered card for humans,
+  copyable raw Mermaid/DOT/source for agents.
 
 ## Output Contract
 

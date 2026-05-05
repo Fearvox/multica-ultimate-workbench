@@ -7,10 +7,12 @@ The flight recorder is a small read-only helper for Multica issues. It creates a
 Agent workflows can look successful while still hiding operational problems:
 
 - a task finished but never posted usable evidence
+- a task posted final evidence but the run record stayed active
+- a retry duplicated a result comment after a foreground command timeout
 - a review label is missing
 - a run failed before a later owner recovered it
 - a stage read too much issue history
-- token usage is invisible in CLI JSON even when the UI shows quota numbers
+- token or credit usage is invisible in CLI JSON even when the UI shows quota numbers
 
 The digest turns those into quick review signals.
 
@@ -46,7 +48,8 @@ evidence:
 1. Owner posts execution evidence.
 2. Reviewer runs the flight recorder against the issue.
 3. Reviewer uses the digest to check evidence shape and context discipline.
-4. Reviewer posts `PASS`, `FLAG`, or `BLOCK` with the digest highlights.
+4. Reviewer checks active-run drift, duplicate result comments, and telemetry
+   visibility before posting `PASS`, `FLAG`, or `BLOCK`.
 5. Synthesizer records only durable outcomes in `WORKBENCH_LOG.md`.
 
 ## Daily Health Use

@@ -32,3 +32,4 @@ artifacts/**/*.mp4
 # Local browser QA captures.
 .playwright-mcp/
 /zonic-download-*.png
+.gstack/

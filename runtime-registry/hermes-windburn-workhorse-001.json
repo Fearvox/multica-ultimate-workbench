@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "registry_kind": "hermes-runtime-registration",
+  "privacy_scope": "team",
+  "card_id": "mrc_hermes_windburn_workhorse_001",
+  "runtime_id": "rt_hermes_windburn_workhorse_001",
+  "repo": "Fearvox/project-windburn",
+  "requested_action": "hermes-register",
+  "intent": "Register the first Windburn Hermes workhorse runtime in the repo-local registry without exposing private host or tmux target details.",
+  "action_payload": {
+    "hermes_instance": "windburn-workhorse-nyc1",
+    "route_label": "remote-workhorse",
+    "host_env": "HERMES_DROPLET_HOST",
+    "tmux_session_ref": "HERMES_TMUX_SESSION",
+    "provider": "openai-codex",
+    "model": "gpt-5.5"
+  },
+  "allowed_actions": [
+    "hermes-autoresearch",
+    "verify-card",
+    "status"
+  ],
+  "permissions": {
+    "shell": "forced-command",
+    "remote_mutation": false,
+    "provider_writeback": false
+  },
+  "privacy_note": "Raw host/IP values and tmux session targets stay outside the repo. Resolve host_env and tmux_session_ref from operator-owned runtime state only.",
+  "stream_policy": "redacted"
+}

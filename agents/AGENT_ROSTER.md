@@ -62,6 +62,16 @@ Super.engineering/Hermes speed-match writeups follows
 Hermes reviews coverage and public safety after Claude Code drafts the patch;
 it does not silently mutate live runtime config or rewrite unrelated docs.
 
+## Shared Repo Brand Uplift
+
+Public GitHub repo presentation work uses
+[workbench-repo-brand-uplift](../skills/workbench-repo-brand-uplift/SKILL.md).
+Claude Docs or Claude Architect should produce the first evidence-backed README
+patch. Hermes may review public-surface coverage with
+[workbench-hermes-docs-sync](../skills/workbench-hermes-docs-sync/SKILL.md)
+when the uplift touches Workbench skills, docs maps, install instructions, or
+role bindings.
+
 ## Preserved Special Bench
 
 | Agent | Ring | Preferred Runtime | Visibility | Max Concurrent Tasks | Primary Trigger |

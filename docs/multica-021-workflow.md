@@ -67,6 +67,29 @@ Use a fresh rerun when a task shows signs of stale context, poisoned resume stat
 
 The rerun must cite the old run ID as context, then start from the latest `HANDOFF_SUMMARY` and `SCOPED_EVIDENCE`.
 
+## Run Finalization Rule
+
+Issue status and run status must not drift silently. If an issue reaches
+`in_review`, `done`, or `blocked`, related runs must be terminal or explicitly
+marked for reconciliation before a reviewer treats the lane as settled.
+
+Watch for these signals:
+
+- issue is `in_review`, `done`, or `blocked` while a run is still `running`,
+  `in_progress`, `active`, `pending`, or `queued`;
+- a run message stream already contains `PASS`, `FLAG`, or `BLOCK` while the run
+  remains active;
+- a foreground issue/comment command timed out and a retry could duplicate the
+  result comment;
+- exact duplicate comment bodies appear on the issue;
+- token, credit, wall-clock, tool-call, or message-count fields are missing
+  while efficiency is part of the claim.
+
+Use [docs/run-finalization-reconciliation-lane.md](run-finalization-reconciliation-lane.md)
+and [issue-templates/run-finalization-reconciliation.md](../issue-templates/run-finalization-reconciliation.md)
+for the reconciliation contract. The flight recorder surfaces these signals
+without storing raw payloads.
+
 ## Mermaid Rule
 
 Use Mermaid diagrams for routing, ownership, state machines, and execution lanes when text would be ambiguous. Keep diagrams small enough to fit in one issue comment.
@@ -76,6 +99,52 @@ Preferred diagram types:
 - `flowchart` for SDD and issue routing.
 - `sequenceDiagram` for agent handoffs.
 - `stateDiagram-v2` for review state.
+
+## Graph Artifact Rule
+
+Rendered diagrams should be first-class Multica artifacts, not screenshots
+buried in prose. The raw source is canonical; the rendered graph is a derived
+human view.
+
+When an issue comment, stage artifact, or handoff includes a diagram, prefer a
+`GRAPH_ARTIFACT` block:
+
+````text
+GRAPH_ARTIFACT
+title:
+language: mermaid | dot | ascii
+render_target: inline_card | expandable_card | static_svg
+copy_source: required
+source:
+```mermaid
+flowchart TD
+  A["Raw requirement"] --> B["Design"]
+  B --> C["Patch"]
+  C --> D["Verification"]
+```
+````
+
+UI expectation:
+
+- show a polished rendered graph card by default;
+- include `Copy source` for the raw fenced code so agents can reuse it exactly;
+- include `View source` for humans reviewing the underlying graph;
+- include `Copy image` or export only as a convenience, never as the source of
+  truth;
+- if rendering fails, preserve and display the raw source with the error.
+
+Rendering rules:
+
+- Mermaid is the default for issue routing, state machines, and handoffs.
+- DOT/Graphviz is allowed for dense dependency or topology graphs.
+- ASCII diagrams are acceptable only as fallback or when terminal fidelity is
+  itself the point.
+- Keep labels short; move explanation into prose below the graph.
+- Do not embed secrets, private IDs, raw logs, or unreviewed screenshots in
+  graph source.
+
+This mirrors the Codex-style preview pattern: beautiful rendered graph for the
+human, canonical raw code for the agent.
 
 ## Runtime Config Rule
 

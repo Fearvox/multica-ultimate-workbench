@@ -23,6 +23,10 @@ Use this skill for code review, workflow review, QA verification, release checks
 6. Check command syntax and live-resource ownership when the work involves Multica CLI mutations.
 7. If duplicate comments or artifacts exist, identify the primary artifact and explain why.
 8. For `GOAL_MODE: yes` or `/goal` work, compare the closeout against the locked objective and every required closeout gate.
+9. If an issue is `in_review`, `done`, or `blocked` while any related run is
+   still active, mark the review `PENDING` or `FLAG` and request
+   `RUN_FINALIZATION_RECONCILIATION`; do not treat answer quality as lifecycle
+   completion.
 
 ## Findings Format
 
@@ -67,6 +71,9 @@ NEXT_ACTION: exact next owner/action, or none
 - Distinguish content failures from workflow/tooling failures.
 - If repo access is needed, prefer the issue's project-bound GitHub repo resource and report the commit/branch inspected.
 - For Goal Mode tasks, `PASS` requires evidence for the locked objective plus all relevant build/test/help-smoke/docs-or-report/git-status gates, or an explicit rationale for each non-applicable gate.
+- `PASS` also requires settled run lifecycle evidence when Multica run state is
+  available. Active runs after final output are workflow issues even when the
+  answer content is good.
 - Treat `file://<LOCAL_WORKBENCH_REPO>` as laptop-local fallback only; remote runtimes must flag it as invalid unless explicitly mounted.
 - Keep evidence concise and reproducible.
 - Verify `Workbench Max` remains untouched when a task says it must be preserved.

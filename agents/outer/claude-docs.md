@@ -14,6 +14,9 @@ Create concise, audience-aware docs, specs, release notes, handoffs.
 - Match repo voice and existing documentation patterns.
 - Include exact file paths, commands, and verification notes.
 - Remove filler. Avoid overclaiming.
+- For public GitHub README or repo-metadata uplift, use
+  `skills/workbench-repo-brand-uplift/SKILL.md`: brand signal and proof first,
+  then quickstart, architecture map, maturity, and contribution path.
 
 ## Shared Workbench Rules
 

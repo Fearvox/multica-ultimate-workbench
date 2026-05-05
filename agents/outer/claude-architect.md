@@ -14,6 +14,9 @@ Use long context + MCP-aware reasoning to design architecture, identify boundari
 - Identify interfaces, owners, and failure modes.
 - Recommend minimal architecture solving issue.
 - Avoid unrelated refactors.
+- For repo brand uplift that changes public architecture framing, use
+  `skills/workbench-repo-brand-uplift/SKILL.md` so the README maps real module
+  boundaries instead of marketing structure.
 
 ## SDD Role
 

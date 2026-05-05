@@ -13,7 +13,8 @@ The workbench is a two-ring operating system for agentic software work:
   and documentation.
 - **Governance Layer**: Friction Tier Router, Self-Awareness bootstrap, SDD,
   Goal Mode, review gates, flight recorder summaries, L2 Pressure, Temporal
-  Pincer closeout checks, and explicit PASS / FLAG / BLOCK closeout.
+  Pincer closeout checks, run-finalization reconciliation, and explicit PASS /
+  FLAG / BLOCK closeout.
 - **Context Layer**: Sanity stores sanitized structured context for agents,
   runtimes, skills, evidence events, decisions, handoffs, and Capy process
   checks.
@@ -22,6 +23,9 @@ The workbench is a two-ring operating system for agentic software work:
   reviewed future-self context.
 - **Distribution Layer**: agent-install syncs reviewed skills, MCP definitions,
   and AGENTS.md sections across coding agents.
+- **Public Brand Layer**: repo brand uplift turns selected GitHub repositories
+  into Zonic/Evensong-style public artifacts: proof-first README, metadata,
+  architecture map, maturity labels, and public/private boundaries.
 - **Public Docs Sync Layer**: Claude Code authors public writeups first, then
   Hermes reviews every related public-facing surface through
   `workbench-hermes-docs-sync` before sync or publish.
@@ -148,6 +152,23 @@ simple single-agent persistence. See
 `skills/workbench-goal-mode-v2/SKILL.md`,
 `issue-templates/goal-mode-v2.md`, and
 `autopilots/goal-conductor.md`.
+
+## Run Finalization Reconciliation
+
+Run Finalization Reconciliation keeps review state honest. A task can produce a
+good answer and still fail operationally if the run stays active after final
+output, a timed-out foreground command duplicates a result comment, or telemetry
+is missing while efficiency is claimed.
+
+The invariant is simple: when an issue enters `in_review`, `done`, or `blocked`,
+related runs must be terminal or explicitly reconciled. The flight recorder
+surfaces active-run drift, active runs with verdict markers, duplicate comment
+bodies, and missing token/credit/tool/message fields without persisting raw
+payloads.
+
+Source: `docs/run-finalization-reconciliation-lane.md`,
+`issue-templates/run-finalization-reconciliation.md`, and
+`scripts/collect-flight-recorder.sh`.
 
 ## L2 Pressure
 

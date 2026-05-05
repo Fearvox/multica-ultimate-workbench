@@ -44,15 +44,18 @@ observation cycle, and only when new evidence requires a re-route.
    to check active child state.
 3. Run `multica issue list --status in_review --limit 10` to check review-ready
    children.
-4. If any child moved to `done`: harvest evidence into the conductor issue
+4. For any child in `in_review`, compare issue status with `multica issue runs`
+   before closeout. If active runs remain after final output, post or request a
+   `RUN_FINALIZATION_RECONCILIATION` check instead of re-dispatching.
+5. If any child moved to `done`: harvest evidence into the conductor issue
    comment.
-5. If any child is stale `in_review` (>48h no activity): post one nudge to the
+6. If any child is stale `in_review` (>48h no activity): post one nudge to the
    child issue.
-6. If all children are `done` or `cancelled`: evaluate closeout gates.
+7. If all children are `done` or `cancelled`: evaluate closeout gates.
    - PASS → post GOAL_MODE_V2_CLOSEOUT, set conductor to `in_review`.
    - FLAG → post revised decision packet, re-dispatch.
    - BLOCK → classify blocker, post OPERATOR_NEEDED or enter cooldown.
-7. If new external evidence appeared: produce a revised decision packet, but
+8. If new external evidence appeared: produce a revised decision packet, but
    only if the cooldown has elapsed.
 
 ### What This Autopilot Does NOT Do
