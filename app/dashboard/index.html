@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fleet Status — Multica</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text y=%2214%22 font-size=%2214%22>⚡</text></svg>">
+</head>
+<body>
+<div class="shell">
+  <div class="header">
+    <h1>Multica Fleet Status</h1>
+    <div class="header-meta">
+      <span id="generated-at"></span>
+      <span class="refresh-indicator">
+        <span class="refresh-dot" id="refresh-dot"></span>
+        <span id="refresh-label">live</span>
+      </span>
+      <span id="registry-count"></span>
+    </div>
+  </div>
+  <div id="error-banner" class="error-banner" hidden></div>
+  <div class="fleet-grid" id="fleet-grid"></div>
+  <div class="empty-state" id="empty-state" hidden>No runtimes registered.</div>
+</div>
+<script src="app.js" type="module"></script>
+</body>
+</html>

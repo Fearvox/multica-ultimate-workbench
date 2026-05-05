@@ -1,0 +1,205 @@
+:root {
+  color-scheme: dark;
+  --bg: #040505;
+  --panel: rgba(11, 13, 13, 0.72);
+  --panel-hover: rgba(20, 22, 22, 0.82);
+  --line: rgba(240, 245, 235, 0.12);
+  --line-strong: rgba(240, 245, 235, 0.22);
+  --cream: #f2f0df;
+  --muted: rgba(242, 240, 223, 0.62);
+  --faint: rgba(242, 240, 223, 0.34);
+  --accent: #e8ff6a;
+  --pass: #5eead4;
+  --block: #df765f;
+  --flag: #fbbf24;
+  --offline: #6b7280;
+  --unknown: #818cf8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.shell {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.header h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+}
+
+.header-meta {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.refresh-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.refresh-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+.refresh-dot.stale { opacity: 0.2; }
+
+.fleet-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.runtime-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 20px 24px;
+  background: var(--panel);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.2s;
+}
+
+.runtime-card:hover {
+  border-color: var(--line-strong);
+  background: var(--panel-hover);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.card-instance {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cream);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.status-badge.PASS { background: rgba(94, 234, 212, 0.12); color: var(--pass); }
+.status-badge.BLOCK { background: rgba(223, 118, 95, 0.12); color: var(--block); }
+.status-badge.FLAG { background: rgba(251, 191, 36, 0.12); color: var(--flag); }
+.status-badge.OFFLINE { background: rgba(107, 114, 128, 0.12); color: var(--offline); }
+.status-badge.UNKNOWN { background: rgba(129, 140, 248, 0.12); color: var(--unknown); }
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot.PASS { background: var(--pass); }
+.status-dot.BLOCK { background: var(--block); }
+.status-dot.FLAG { background: var(--flag); }
+.status-dot.OFFLINE { background: var(--offline); }
+.status-dot.UNKNOWN { background: var(--unknown); }
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.metric-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+}
+
+.metric-value {
+  font-size: 0.82rem;
+  color: var(--cream);
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-value .check { color: var(--pass); }
+.metric-value .cross { color: var(--block); }
+.metric-value .warn { color: var(--flag); }
+
+.allowed-actions {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.action-tag {
+  font-size: 0.64rem;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(232, 255, 106, 0.06);
+  color: var(--accent);
+  opacity: 0.7;
+  text-transform: lowercase;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.error-banner {
+  border: 1px solid var(--block);
+  background: rgba(223, 118, 95, 0.08);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 0.8rem;
+  color: var(--block);
+}
