@@ -24,12 +24,14 @@ Options:
 
 Environment:
   RUNTIME_PANEL_SSH_TIMEOUT    SSH connect timeout in seconds (default: 5)
+  WINDBURN_REMOTE_USER         SSH user (default: root)
   HERMES_DROPLET_HOST          Resolved from registry card host_env field
+  WINDBURN_REMOTE_HOST         Resolved from registry card evidence_host_env field
 
 Examples:
   scripts/runtime-panel.sh
   scripts/runtime-panel.sh --json | jq .fleet
-  RUNTIME_PANEL_SSH_TIMEOUT=10 scripts/runtime-panel.sh
+  WINDBURN_REMOTE_HOST=1.2.3.4 scripts/runtime-panel.sh
 USAGE
 }
 
@@ -51,10 +53,16 @@ resolve_host() {
 fetch_runner_evidence() {
   local host="$1"
   local evidence_path="${2:-/srv/windburn/evidence/runner/current.json}"
+  local remote_user="${WINDBURN_REMOTE_USER:-root}"
 
   if [ -z "$host" ]; then
     echo '{"status":"UNKNOWN","reason":"host_env not set"}'
     return
+  fi
+
+  local ssh_target="$host"
+  if [[ "$host" != *@* ]]; then
+    ssh_target="${remote_user}@${host}"
   fi
 
   ssh \
@@ -62,7 +70,7 @@ fetch_runner_evidence() {
     -o StrictHostKeyChecking=accept-new \
     -o PasswordAuthentication=no \
     -o BatchMode=yes \
-    "$host" \
+    "$ssh_target" \
     "cat '$evidence_path' 2>/dev/null || echo '{}'" 2>/dev/null || {
     echo '{"status":"OFFLINE","reason":"ssh unreachable"}'
     return
