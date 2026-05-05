@@ -1,5 +1,18 @@
 # Decisions
 
+## 2026-05-04 - Add Repo Brand Uplift as Public Skill
+
+Decision: add `workbench-repo-brand-uplift` as the registry-facing skill for
+upgrading public GitHub repositories to a Zonic/Evensong-style first
+impression. The lane requires proof-first README structure, current quickstart
+commands, architecture maps, maturity labels, public/private boundaries, and
+Hermes docs-sync review when Workbench public surfaces change.
+
+Rationale: the workbench now has strong artifacts, but outside users and
+maintainers cannot adopt what they cannot quickly understand. Repo brand uplift
+turns "we have the thing" into a reviewable public surface without inventing
+traction, benchmarks, or authority.
+
 ## 2026-05-04 - Make Hermes Docs Sync a Public Skill
 
 Decision: add `workbench-hermes-docs-sync` as the registry-facing skill for
