@@ -93,6 +93,7 @@ build_runtime_entry() {
         provider_writeback: $card.permissions.provider_writeback
       },
       host_env_ref: $card.action_payload.host_env,
+      evidence_host_env_ref: ($card.action_payload.evidence_host_env // $card.action_payload.host_env),
       privacy_note: $card.privacy_note
     }
     + if $evidence.status then {
@@ -141,8 +142,8 @@ print_terminal_panel() {
         "  \(L("Mutation"))   \(.permissions.remote_mutation // false)",
         "  \(L("Allowed"))    \(.allowed_actions // [] | join(", "))",
         "  \(L("Repo"))       \(.repo // "?")",
-        "  \(L("Host ref"))   \(.host_env_ref // "?")",
-        "  \(L("Evidence"))   \(.live.source // "none")  @  \(.live.evidence_at // "?")",
+        "  \(L("Host"))        \(.host_env_ref // "?")  (evidence: \(.evidence_host_env_ref // "?"))",
+        "  \(L("Evidence"))    \(.live.source // "none")  @  \(.live.evidence_at // "?")",
         ""
       ] | join("\n")),
       "── \(.generated_at_utc[0:19] // "unknown")Z  ──  \(.registry_count) in registry  ──  read-only  ──"
@@ -170,10 +171,11 @@ main() {
   first=true
 
   for card_file in "${card_files[@]}"; do
-    local card_json host_env host evidence_json entry_json
+    local card_json host_env evidence_host_env host evidence_json entry_json
     card_json="$(jq '.' "$card_file")"
     host_env="$(echo "$card_json" | jq -r '.action_payload.host_env // ""')"
-    host="$(resolve_host "$host_env")"
+    evidence_host_env="$(echo "$card_json" | jq -r '.action_payload.evidence_host_env // ""')"
+    host="$(resolve_host "${evidence_host_env:-$host_env}")"
     evidence_json="$(fetch_runner_evidence "$host")"
     entry_json="$(build_runtime_entry "$card_json" "$evidence_json")"
 

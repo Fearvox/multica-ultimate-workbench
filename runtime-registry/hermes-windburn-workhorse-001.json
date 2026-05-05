@@ -11,6 +11,7 @@
     "hermes_instance": "windburn-workhorse-nyc1",
     "route_label": "remote-workhorse",
     "host_env": "HERMES_DROPLET_HOST",
+    "evidence_host_env": "WINDBURN_REMOTE_HOST",
     "tmux_session_ref": "HERMES_TMUX_SESSION",
     "provider": "openai-codex",
     "model": "gpt-5.5"
