@@ -1,0 +1,20 @@
+{
+  "observation_id": "obs-repeated-failure-submit-001",
+  "action_taken": "click_submit",
+  "page_advanced": false,
+  "error_banner": {
+    "visible": true,
+    "code": "missing-answer",
+    "message": "Select an answer before continuing."
+  },
+  "source_truth_facts": [
+    "After click_submit, the page did not advance.",
+    "A missing-answer banner appeared.",
+    "The banner message says: Select an answer before continuing."
+  ],
+  "source_truth_fact_ids": [
+    "ev-fact-no-advance",
+    "ev-fact-banner-visible",
+    "ev-fact-banner-message"
+  ]
+}

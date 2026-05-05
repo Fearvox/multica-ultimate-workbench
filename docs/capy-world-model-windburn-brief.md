@@ -213,6 +213,16 @@ Do not treat this as source-truth about people. Treat it as a useful routing
 hypothesis: one side is good at building the factory, the other at drilling into
 deep implementation/research work.
 
+## Memory Surface Note
+
+Markdown today:
+  durable, reviewable, GitHub-native memory surface.
+
+Cutdown later:
+  possible app-native structured document / agent-readable AST substrate when parser/tooling exists.
+
+Cutdown is still draft, pre-1.0, and only a future-fuzzy spike candidate for now. Do not migrate existing docs from Markdown or add parser/tooling from this note alone.
+
 ## What Capy Should Do With This
 
 Capy may:
