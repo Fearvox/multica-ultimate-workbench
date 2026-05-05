@@ -1,0 +1,33 @@
+{
+  "benchmark_id": "trial-state-repeated-failure-v0",
+  "scenario": "precondition-gated submit flow",
+  "initial_prediction": {
+    "action": "click_submit",
+    "expected_outcome": "advance_to_confirmation"
+  },
+  "page": {
+    "step_id": "questionnaire-step-1",
+    "required_answer_selected": false,
+    "available_actions": [
+      "click_submit",
+      "select_required_answer"
+    ]
+  },
+  "parking_candidates": [
+    {
+      "id": "browser-game-analogue",
+      "claim": "This state-update pattern may later map to a browser-game benchmark.",
+      "status": "speculative"
+    }
+  ],
+  "source_truth_facts": [
+    "Fixture scenario is a precondition-gated submit flow.",
+    "The initial predicted action is click_submit.",
+    "The required answer is not selected in the starting fixture state."
+  ],
+  "source_truth_fact_ids": [
+    "ctx-fact-scenario",
+    "ctx-fact-initial-action",
+    "ctx-fact-answer-missing"
+  ]
+}

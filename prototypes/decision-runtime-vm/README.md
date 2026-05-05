@@ -11,7 +11,8 @@ It demonstrates:
 - issue anchor before send;
 - scoped instruction preview;
 - Temporal Pincer closeout before PASS;
-- CAPY/VM observer as supporting skeptical evidence.
+- CAPY/VM observer as supporting skeptical evidence;
+- repeated-failure submit benchmark for perception/belief/failure updates after a blocked action;
 
 Run:
 
