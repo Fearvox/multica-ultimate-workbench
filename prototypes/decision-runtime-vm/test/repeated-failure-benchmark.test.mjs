@@ -6,6 +6,7 @@ test("repeated failure benchmark records failed submit and updates durable state
   const result = await runRepeatedFailureSubmitBenchmark();
 
   assert.equal(result.initial_action, "click_submit");
+  assert.equal(result.observed_delta.action_taken, "click_submit");
   assert.equal(result.failure.first_failed_action, "click_submit");
   assert.equal(result.rejected_repeated_action, "click_submit");
   assert.equal(result.perception.kind, "perception");

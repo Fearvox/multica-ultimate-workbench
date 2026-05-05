@@ -1,9 +1,14 @@
 import { readFile } from "node:fs/promises";
+import { basename } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const FIXTURES = Object.freeze({
   context: new URL("../fixtures/repeated-failure-submit.context.json", import.meta.url),
   evidence: new URL("../fixtures/repeated-failure-submit.evidence.json", import.meta.url)
 });
+const FIXTURE_FILES = Object.freeze(
+  Object.values(FIXTURES).map((url) => basename(fileURLToPath(url)))
+);
 
 export async function runRepeatedFailureSubmitBenchmark(input = {}) {
   const context = input.context ?? await readJson(FIXTURES.context);
@@ -51,7 +56,7 @@ export async function runRepeatedFailureSubmitBenchmark(input = {}) {
       ...(context.source_truth_fact_ids ?? []),
       ...(evidence.source_truth_fact_ids ?? [])
     ],
-    fixture_files: ["repeated-failure-submit.context.json", "repeated-failure-submit.evidence.json"],
+    fixture_files: FIXTURE_FILES,
     promotion_boundary: "Observed delta stays in perception unless a human explicitly promotes a fixture fact.",
     derived_inference_promoted: false,
     human_approval_required: true

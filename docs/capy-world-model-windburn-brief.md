@@ -221,7 +221,7 @@ Markdown today:
 Cutdown later:
   possible app-native structured document / agent-readable AST substrate when parser/tooling exists.
 
-Cutdown is still draft, pre-1.0, and only a future-fuzzy spike candidate for now. Do not migrate existing docs from Markdown or add parser/tooling from this note alone.
+Cutdown is still a draft, pre-1.0, and only a future-fuzzy spike candidate for now. Do not migrate existing docs from Markdown or add parser/tooling from this note alone.
 
 ## What Capy Should Do With This
 
@@ -276,4 +276,3 @@ residual risk before work begins.
 The direction is to make agents less like fluent amnesiacs and more like
 reviewable operators with durable perceptions, beliefs, failures, and
 human-approved truth.
-
