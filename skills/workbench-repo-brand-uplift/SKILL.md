@@ -79,7 +79,7 @@ Every uplift should pass these gates:
 
 Use this shape unless the repo has a stronger native convention:
 
-```markdown
+````markdown
 # PROJECT NAME
 
 > One sentence: what it is, who uses it, and why it matters.
@@ -109,7 +109,7 @@ Use this shape unless the repo has a stronger native convention:
 | --- | --- | --- |
 
 ## Contributing / License
-```
+````
 
 Keep the top compact. A README that needs a tour guide has already failed the
 landing-page job.
