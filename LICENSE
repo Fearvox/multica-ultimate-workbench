@@ -1,0 +1,65 @@
+Multica Ultimate Workbench — Multi-License
+===========================================
+
+This repository is multi-licensed under three tiers. The governing principle:
+
+  "Protocols are free. Implementation is free. Learnings stay open."
+
+See LICENSING.md for the definitive directory-by-directory mapping and
+the rationale behind each tier.
+
+    +----------------------------------------------+---------------------------+
+    | Part of repository                           | Applicable license        |
+    +----------------------------------------------+---------------------------+
+    | Workbench Protocols: schema contracts,       | Apache License 2.0        |
+    | registry card format, evidence record,       | (LICENSE-APACHE)          |
+    | sandbox run record, decision packet,         |                           |
+    | runtime backend schema, ActiveMemoryPacket   |                           |
+    | template, Capy card format,                  |                           |
+    | HERMES_SANDBOX_RUN_RECORD contract,          |                           |
+    | issue template contracts                     |                           |
+    +----------------------------------------------+---------------------------+
+    | Workbench Implementation: scripts,           | Apache License 2.0        |
+    | dashboards, autopilots, skills, CLI tools,   | (LICENSE-APACHE)          |
+    | server modules, runtime panel, serve-*.mjs,  |                           |
+    | repo configs,                                |                           |
+    | *.sh, *.mjs, *.js, *.css, *.html             |                           |
+    +----------------------------------------------+---------------------------+
+    | Workbench Learnings: friction patterns,      | CC BY-SA 4.0              |
+    | lane documents, parked specs, belief epics,  | (LICENSE-CC-BY-SA)        |
+    | learning sessions, schema docs,              |                           |
+    | DEPARK_MANIFEST, DECISIONS.md,               |                           |
+    | SYNTHESIS.md, AGENTS.md,                     |                           |
+    | .learning/**, docs/** (lane docs)            |                           |
+    +----------------------------------------------+---------------------------+
+
+The three-tier model is intentional:
+
+Tier 1 (Protocols — Apache 2.0): The interface specifications are the
+interchange format. Anyone can implement them in any language, on any
+platform, with or without modifications. The patent grant (§3) ensures
+no contributor can later claim patent infringement against an
+independent implementation of these protocols.
+
+Tier 2 (Implementation — Apache 2.0): The reference implementation is
+free to fork, adapt, and embed. Teams can use it as a starting point,
+commercial users can deploy it, and derivative implementations can
+share code freely. This is the same license Kubernetes, Multica, and
+OpenAI Agents SDK use for the same reason.
+
+Tier 3 (Learnings — CC BY-SA 4.0): The operational knowledge — lane
+docs, friction patterns, parked specs, belief archives — is where the
+thinking lives. Attribution-ShareAlike means anyone can use it
+commercially, but improvements and derivatives must remain under the
+same license. This prevents a company from taking Workbench patterns,
+improving them privately, and closing the improvements. The upstream
+stays open, and every derivative keeps the chain of attribution back
+to this repository.
+
+This multi-licensing model makes Workbench THE UPSTREAM: the protocols
+are free to adopt, the implementation is free to fork, and the learnings
+cannot be closed.
+
+Copyright 2026 Fearvox / 0xVox (Nolan Zhu / Hengyuan Zhu)
+
+For scope questions or contribution licensing guidance, see LICENSING.md.
