@@ -128,7 +128,7 @@
         "required CI checks fail",
         "high or critical review finding is open",
         "required primary evidence cannot be read",
-        "required permission to read primary evidence for semantic classification is missing",
+        "required primary-evidence read permission or evidence for semantic classification is missing",
         "primary GitHub, CI, or review evidence conflicts and cannot be resolved safely",
         "requirement is unclear or missing",
         "owner or external permission blocker prevents work from proceeding"
@@ -147,7 +147,7 @@
     ],
     "blockVerdictWhen": [
       "required primary evidence cannot be read",
-      "required permission to read primary evidence for semantic classification is missing",
+      "required primary-evidence read permission or evidence for semantic classification is missing",
       "primary github, ci, or review evidence conflicts and cannot be resolved safely",
       "required ci checks fail",
       "high or critical review finding is open",

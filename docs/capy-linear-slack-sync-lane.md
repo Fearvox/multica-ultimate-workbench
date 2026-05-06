@@ -121,7 +121,7 @@ If Linear or Slack tooling is unavailable, missing auth, or lacks channel/projec
 - emit `FLAG` when the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or the external write could not be completed; do not claim the external sync succeeded;
 - missing Linear or Slack adapter permission does not force semantic state `Blocked` unless it is the owner/external permission blocker that stops the work itself from proceeding;
 - emit `Blocked` semantic state and `BLOCK` verdict when required CI/check evidence fails, the requirement is unclear or missing, a high/critical review finding is open, or an owner/external permission blocker prevents work from proceeding;
-- emit `BLOCK` when required primary evidence cannot be read, required classification permission is missing, or primary evidence conflict prevents a trustworthy state decision;
+- emit `BLOCK` when required primary evidence cannot be read, required primary-evidence read permission or evidence for semantic classification is missing, or primary evidence conflict prevents a trustworthy state decision;
 - keep the failure localized to the external adapter and name the exact unavailable auth, permission, or tool surface.
 
 ## Privacy And Safety Rules
