@@ -200,7 +200,8 @@ const server = http.createServer(async (req, res) => {
     }
     const rel = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);
     const file = path.normalize(path.join(publicDir, rel));
-    if (!file.startsWith(publicDir) || !existsSync(file)) {
+    const relative = path.relative(publicDir, file);
+    if (relative.startsWith('..') || path.isAbsolute(relative) || !existsSync(file)) {
       res.writeHead(404, { 'content-type': 'text/plain' });
       res.end('not found');
       return;
