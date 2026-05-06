@@ -83,6 +83,7 @@
       ],
       "semanticStateAndVerdictAreSeparate": true,
       "blockedSemanticStateRequiresActionableWorkBlocker": true,
+      "blockedSemanticStateImpliesBlockVerdictForActionableWorkBlockers": true,
       "passWhen": [
         "semantic state is trustworthy and required external writes succeeded",
         "semantic state is trustworthy and no external write was required"
@@ -100,6 +101,10 @@
       "durable github or repo evidence resolves a mismatch against chat, memory, linear, slack, or another supporting surface"
     ],
     "blockVerdictWhen": [
+      "required ci checks fail",
+      "requirement is unclear or missing",
+      "high or critical review finding is open",
+      "owner or external permission blocker prevents work from proceeding",
       "required primary evidence cannot be read",
       "required permission or evidence for semantic classification is missing",
       "primary github, ci, or review evidence conflicts and cannot be resolved safely"
