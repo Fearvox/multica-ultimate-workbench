@@ -27,6 +27,7 @@ Read only as deep as the task requires:
 8i. [docs/super-engineering-speed-match-lane.md](docs/super-engineering-speed-match-lane.md) - Super.engineering/Hermes upstream speed-match operating lane.
 8j. [docs/repo-brand-uplift-lane.md](docs/repo-brand-uplift-lane.md) - Zonic/Evensong-style public GitHub repo brand uplift lane.
 8k. [docs/run-finalization-reconciliation-lane.md](docs/run-finalization-reconciliation-lane.md) - run lifecycle, duplicate result comment, and telemetry reconciliation contract.
+8l. [docs/image-read-bridge.md](docs/image-read-bridge.md) - local image-read bridge for text-only runtimes that need screenshot perception without a vision subagent.
 9. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
 9b. [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) - Two-layer autonomous conductor with decision packets and dedupe controls.
 10. [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) - Research Vault pressure gate for remote/HarnessMax work.
@@ -111,6 +112,7 @@ When supervising Multica from Codex Desktop:
 - Use [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) when the issue also contains `GOAL_MODE_V2: yes` or the objective spans multiple agents and evidence cycles — the two-layer conductor produces decision packets, dispatches bounded issues, monitors, reviews, and archives until a real blocker appears.
 - Use [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) when a task asks for HarnessMax, remote evolution, remote Hermes, remote VM, leaderboard pressure, or Research Vault grounding.
 - Use [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md) when a task asks to inspect Capy live state through Brave, Computer Use, a Capy thread, a Capy task, or a Capy PR panel.
+- Use [skills/workbench-image-read/SKILL.md](skills/workbench-image-read/SKILL.md) when a text-only runtime needs to inspect a local screenshot or image. Treat `image-read` output as supporting perception evidence, not live browser proof.
 - Use [.capy/CAPTAIN.md](.capy/CAPTAIN.md), [.capy/BUILD.md](.capy/BUILD.md), [.capy/REVIEW.md](.capy/REVIEW.md), and [.capy/settings.json](.capy/settings.json) as the Capy project context pack; these files make Capy use repo, PR, CI, and review evidence before self-reporting success.
 - Use [skills/workbench-sanity-context/SKILL.md](skills/workbench-sanity-context/SKILL.md) when a task touches Sanity schema, Studio, MCP, or the shared context registry.
 - Use [skills/workbench-agent-install-unifier/SKILL.md](skills/workbench-agent-install-unifier/SKILL.md) when a task uses `agent-install` to sync skills, MCP definitions, or AGENTS.md sections across coding agents.
@@ -554,6 +556,8 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
 | Capy process check skill | [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md) |
+| Image read bridge | [docs/image-read-bridge.md](docs/image-read-bridge.md) |
+| Image read skill | [skills/workbench-image-read/SKILL.md](skills/workbench-image-read/SKILL.md) |
 | Sanity context lane | [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) |
 | Sanity context skill | [skills/workbench-sanity-context/SKILL.md](skills/workbench-sanity-context/SKILL.md) |
 | Agent-install unifier lane | [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) |
