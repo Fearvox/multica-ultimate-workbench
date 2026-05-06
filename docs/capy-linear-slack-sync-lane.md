@@ -24,7 +24,7 @@ Default rollout: the registry entry ships disabled until an operator explicitly 
 | `In Progress` | `In Review` | PR opens or ready-for-review evidence exists | GitHub PR state or equivalent review-ready repo evidence |
 | `In Review` | `Ready for Merge` | PR exists, required checks are passing, and no open high/critical review findings remain | open PR, passing required checks, no open high/critical findings |
 | `Ready for Merge` | `Done` | PR is merged | merged PR evidence |
-| any state | `Blocked` | required CI/check evidence fails, the requirement is unclear or needs a required human decision before a safe transition, a high/critical review finding is open, required primary evidence cannot be read, or primary GitHub/CI/review evidence conflicts and cannot be resolved safely | failing/contradictory primary evidence or a read/requirement blocker that prevents trustworthy classification |
+| any state | `Blocked` | required CI/check evidence fails, the requirement is unclear or missing, a high/critical review finding is open, or an owner/external permission blocker prevents work from proceeding | failing required checks, open high/critical finding, or explicit owner/permission blocker that stops work |
 
 Rules:
 
@@ -36,7 +36,8 @@ Rules:
 - Use `PASS` when the semantic state is trustworthy and required external writes succeeded or no external write was required.
 - If durable GitHub/repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface, keep that semantic state and emit `FLAG` naming the mismatch.
 - If the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or write availability fails, keep that semantic state and emit `FLAG` naming the failed external surface.
-- If primary GitHub, CI, and review evidence disagree with each other, required primary evidence cannot be read, or a required human decision is missing and the state cannot be resolved safely, use `Blocked` and emit `BLOCK`.
+- If primary GitHub, CI, and review evidence disagree with each other, required primary evidence cannot be read, or required classification permission/evidence is missing and the state cannot be resolved safely, emit `BLOCK` instead of forcing `Blocked`.
+- Do not force the semantic state to `Blocked` solely because Linear/Slack auth, tooling, channel/project permission, or write availability is unavailable.
 
 ## Slack Notification Matrix
 
@@ -114,8 +115,8 @@ If Linear or Slack tooling is unavailable, missing auth, or lacks channel/projec
 - keep GitHub and repo evidence as the source of truth;
 - do not claim external sync succeeded;
 - emit `FLAG` when the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or the external write could not be completed;
-- missing Linear or Slack adapter permission does not force Linear state `Blocked` unless that permission is also required to read primary evidence or otherwise prevents trustworthy classification;
-- emit `BLOCK` when required primary evidence cannot be read, the requirement is unclear or needs a required human decision, required checks fail, an open high/critical finding remains, or primary evidence conflict prevents a trustworthy state decision;
+- missing Linear or Slack adapter permission does not force Linear state `Blocked` unless it is the owner/external permission blocker that stops the work itself from proceeding;
+- emit `BLOCK` when required primary evidence cannot be read, required classification permission is missing, or primary evidence conflict prevents a trustworthy state decision;
 - keep the failure localized to the external adapter and name the exact unavailable auth, permission, or tool surface.
 
 ## Privacy And Safety Rules

@@ -81,34 +81,28 @@
         "classify semantic state from primary GitHub or repo evidence first",
         "classify sync verdict separately after the semantic state is trustworthy"
       ],
+      "semanticStateAndVerdictAreSeparate": true,
+      "blockedSemanticStateRequiresActionableWorkBlocker": true,
       "passWhen": [
         "semantic state is trustworthy and required external writes succeeded",
         "semantic state is trustworthy and no external write was required"
-      ],
-      "flagWhen": [
-        "semantic state is clear but Linear auth, tooling, channel or project permission, or write availability fails",
-        "semantic state is clear but Slack auth, tooling, channel or project permission, or write availability fails",
-        "durable GitHub or repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface"
-      ],
-      "blockWhen": [
-        "required CI checks fail",
-        "high or critical review finding is open",
-        "required primary evidence cannot be read",
-        "primary GitHub, CI, or review evidence conflicts and cannot be resolved safely",
-        "requirement is unclear or needs a required human decision before a safe transition"
       ]
     },
     "blockedWhen": [
       "required ci checks fail",
-      "requirement is unclear or needs a required human decision before a safe transition",
+      "requirement is unclear or missing",
       "high or critical review finding is open",
-      "required primary evidence cannot be read",
-      "primary github, ci, or review evidence conflicts and cannot be resolved safely"
+      "owner or external permission blocker prevents work from proceeding"
     ],
     "flagWhen": [
       "semantic state is clear but linear auth, tooling, channel or project permission, or write availability fails",
       "semantic state is clear but slack auth, tooling, channel or project permission, or write availability fails",
       "durable github or repo evidence resolves a mismatch against chat, memory, linear, slack, or another supporting surface"
+    ],
+    "blockVerdictWhen": [
+      "required primary evidence cannot be read",
+      "required permission or evidence for semantic classification is missing",
+      "primary github, ci, or review evidence conflicts and cannot be resolved safely"
     ]
   },
   "forbiddenData": [
