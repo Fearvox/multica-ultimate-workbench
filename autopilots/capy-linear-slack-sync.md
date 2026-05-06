@@ -45,7 +45,7 @@ Use this exact state machine:
 - `In Progress` -> `In Review` when a PR opens or ready-for-review evidence exists.
 - `In Review` -> `Ready for Merge` only when a PR exists, required checks are passing, and no open high/critical review findings remain.
 - `Ready for Merge` -> `Done` only when the PR is merged.
-- Any state -> `Blocked` only when required CI/check evidence fails or a high/critical review finding is open.
+- Any state -> `Blocked` when required CI/check evidence fails, a high/critical review finding is open, the requirement is unclear or missing, or an owner/external permission blocker prevents work from proceeding.
 
 Precedence:
 
@@ -54,6 +54,7 @@ Precedence:
 - Keep semantic state and verdict separate: `Blocked` plus `BLOCK` applies only to required CI/check failure and open high/critical review findings, while unreadable primary evidence, missing required primary-evidence read permission or classification evidence, and unresolvable primary-evidence conflicts require `BLOCK` without forcing a semantic transition claim.
 - Use `PASS` when the semantic state is trustworthy, no actionable work blocker requires `Blocked` plus `BLOCK`, and required external writes succeeded or no external write was required.
 - If the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or write availability fails, keep that semantic state, emit `FLAG`, and do not claim the external sync succeeded.
+- If the semantic state is clear but a requirement, owner decision, or owner/external permission blocker stops work, keep the semantic state evidence-backed, use `Blocked` when that work-state classification is correct, and emit `FLAG` unless the blocker also prevents primary-evidence classification.
 - If durable GitHub/repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface, keep that semantic state and emit `FLAG` naming the mismatch.
 - If required CI/check evidence fails or a high/critical review finding is open, emit `Blocked` semantic state and `BLOCK` verdict.
 - If required primary evidence cannot be read, required primary-evidence read permission or evidence for semantic classification is missing, or primary GitHub/CI/review evidence conflicts enough to prevent a trustworthy state decision, emit `BLOCK` verdict and do not claim a semantic state transition succeeded.
@@ -104,6 +105,7 @@ Never emit duplicate Linear comments or Slack posts for the same dedupe key.
 
 - If the semantic state is clear but Linear or Slack auth, tooling, channel/project permission, or write availability is unavailable, emit `FLAG` and keep GitHub/repo evidence as source of truth.
 - Missing Linear or Slack adapter permission does not force semantic state `Blocked` when the semantic state is otherwise clear.
+- If the semantic state is clear but a requirement, owner decision, or owner/external permission blocker stops work, `Blocked` semantic state may still be appropriate, but keep the verdict at `FLAG` unless the blocker also prevents primary-evidence classification.
 - If required CI/check evidence fails or a high/critical review finding is open, emit `Blocked` semantic state and `BLOCK` verdict.
 - If required primary evidence cannot be read, required primary-evidence read permission or evidence for semantic classification is missing, or primary evidence conflict prevents a trustworthy state decision, emit `BLOCK` and do not claim a Linear state transition succeeded.
 - Name the exact missing tool, auth, permission, or primary-evidence surface.

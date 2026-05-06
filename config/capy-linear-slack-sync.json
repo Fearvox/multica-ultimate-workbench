@@ -122,6 +122,7 @@
       "flagWhen": [
         "semantic state is clear but Linear auth, tooling, channel or project permission, or write availability fails",
         "semantic state is clear but Slack auth, tooling, channel or project permission, or write availability fails",
+        "semantic state is clear but a requirement, owner decision, or owner/external permission blocker stops work without preventing primary-evidence classification",
         "durable GitHub or repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface"
       ],
       "blockWhen": [
@@ -129,16 +130,21 @@
         "high or critical review finding is open",
         "required primary evidence cannot be read",
         "required primary-evidence read permission or evidence for semantic classification is missing",
-        "primary GitHub, CI, or review evidence conflicts and cannot be resolved safely"
+        "primary GitHub, CI, or review evidence conflicts and cannot be resolved safely",
+        "requirement is unclear or missing",
+        "owner or external permission blocker prevents work from proceeding"
       ]
     },
     "blockedWhen": [
       "required ci checks fail",
-      "high or critical review finding is open"
+      "requirement is unclear or missing",
+      "high or critical review finding is open",
+      "owner or external permission blocker prevents work from proceeding"
     ],
     "flagWhen": [
       "semantic state is clear but linear auth, tooling, channel or project permission, or write availability fails",
       "semantic state is clear but slack auth, tooling, channel or project permission, or write availability fails",
+      "semantic state is clear but a requirement, owner decision, or owner/external permission blocker stops work without preventing primary-evidence classification",
       "durable github or repo evidence resolves a mismatch against chat, memory, linear, slack, or another supporting surface"
     ],
     "blockVerdictWhen": [

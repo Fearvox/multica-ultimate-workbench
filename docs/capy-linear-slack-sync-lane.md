@@ -24,7 +24,7 @@ Default rollout: the registry entry ships disabled until an operator explicitly 
 | `In Progress` | `In Review` | PR opens or ready-for-review evidence exists | GitHub PR state or equivalent review-ready repo evidence |
 | `In Review` | `Ready for Merge` | PR exists, required checks are passing, and no open high/critical review findings remain | open PR, passing required checks, no open high/critical findings |
 | `Ready for Merge` | `Done` | PR is merged | merged PR evidence |
-| any state | `Blocked` | required CI/check evidence fails or a high/critical review finding is open | failing required checks or open high/critical finding |
+| any state | `Blocked` | required CI/check evidence fails, a high/critical review finding is open, the requirement is unclear or missing, or an owner/external permission blocker prevents work from proceeding | failing required checks, open high/critical finding, or explicit requirement/owner blocker that stops work |
 
 Rules:
 
@@ -36,6 +36,7 @@ Rules:
 - Precedence rule: classify semantic state from primary GitHub/repo evidence first.
 - Use `PASS` when the semantic state is trustworthy, no actionable work blocker requires `Blocked` plus `BLOCK`, and required external writes succeeded or no external write was required.
 - If the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or write availability fails, keep that semantic state and emit `FLAG` naming the failed external surface.
+- If the semantic state is clear but a requirement, owner decision, or owner/external permission blocker stops work, keep the semantic state evidence-backed, use `Blocked` when that work-state classification is correct, and emit `FLAG` unless the blocker also prevents primary-evidence classification.
 - If durable GitHub/repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface, keep that semantic state and emit `FLAG` naming the mismatch.
 - If required CI/check evidence fails or a high/critical review finding is open, emit `Blocked` semantic state and `BLOCK` verdict.
 - If primary GitHub, CI, and review evidence disagree with each other, required primary evidence cannot be read, or required primary-evidence read permission or evidence for semantic classification is missing and the state cannot be resolved safely, emit `BLOCK` instead of forcing `Blocked`.
@@ -120,6 +121,7 @@ If Linear or Slack tooling is unavailable, missing auth, or lacks channel/projec
 - do not claim external sync succeeded;
 - emit `FLAG` when the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or the external write could not be completed; do not claim the external sync succeeded;
 - missing Linear or Slack adapter permission does not force semantic state `Blocked` when the semantic state is otherwise clear;
+- if the semantic state is clear but a requirement, owner decision, or owner/external permission blocker stops work, `Blocked` semantic state may still be appropriate, but keep the verdict at `FLAG` unless the blocker also prevents primary-evidence classification;
 - emit `Blocked` semantic state and `BLOCK` verdict when required CI/check evidence fails or a high/critical review finding is open;
 - emit `BLOCK` when required primary evidence cannot be read, required primary-evidence read permission or evidence for semantic classification is missing, or primary evidence conflict prevents a trustworthy state decision;
 - keep the failure localized to the external adapter and name the exact unavailable auth, permission, or tool surface.
