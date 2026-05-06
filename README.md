@@ -62,7 +62,9 @@ Dialogue Lane`. Captain Capy and other external coding agents should use commit
 subjects, PR titles/descriptions, and review comments as durable, reviewable
 signals back into the workbench. A bounded GitHub webhook responder now listens
 for payload-scoped Capy dialogue across issue, PR, review, check, and workflow
-events, using the payload `owner/repo` as source of truth; see [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md). Those artifacts complement Multica's live coordination; they do not replace it, and they do not authorize daemon, Desktop UI, or core runtime mutation.
+events, using the payload `owner/repo` as source of truth and treating
+self-authored bot churn as observation-only unless a human explicitly
+re-requests action; see [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md). Those artifacts complement Multica's live coordination; they do not replace it, and they do not authorize daemon, Desktop UI, or core runtime mutation.
 
 A sibling evidence-sync lane can project the same PR, CI, and review evidence into Linear and Slack for external status hygiene without changing the authority order: Captain classifies state, Linear is the durable external ledger, Slack is the human notification surface, and merge authority stays with humans plus GitHub evidence; see [docs/capy-linear-slack-sync-lane.md](docs/capy-linear-slack-sync-lane.md).
 
