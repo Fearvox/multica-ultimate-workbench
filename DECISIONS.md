@@ -1,5 +1,15 @@
 # Decisions
 
+## 2026-05-06 - Add Self-Loop Guardrails To The Capy Git Dialogue Responder
+
+Decision: the `Capy Git Dialogue Responder` must be source-first and self-loop resistant by contract. Self-authored bot comments, review comments, review submissions, synchronize events caused by Capy-authored commits, and duplicate closeout states are observation inputs only unless a human explicitly asks Capy to continue in that exact thread or after that exact commit. The responder must emit a `CAPY_GIT_DIALOGUE_GUARDRAIL` block before any write-capable action, enforce a per-PR automatic patch budget of one attempt per distinct human-authored review-finding batch, and stop with `FLAG` plus operator approval if it detects commit/comment/review churn from itself.
+
+Incident record: PR #17 entered a self-feedback loop on branch `capy/capy-linear-slack-sync`, producing 25 commits and 41 PR comments after the webhook responder reacted to its own bot comments, review comments, review submissions, and synchronize events. PR #18 was also superseded. Clean replay PR #19 replaces those runs. This decision is intentionally sanitized: no raw payloads, endpoint details, private IDs, or internal transcripts belong in repo-visible artifacts.
+
+Consequence: the live responder stays disabled until a separate human-approved rollout verifies these source-controlled guardrails. Reading and summarizing bot artifacts remains allowed, but bot-authored activity is not mutation authority.
+
+Rationale: GitHub dialogue is a useful durable lane only if the responder can distinguish evidence from authorization. Source-first loop prevention keeps public repo conversation readable, prevents repeated branch self-patching, and makes human approval the recovery path when automation churn appears.
+
 ## 2026-05-06 - Adopt Capy Linear Slack Evidence Sync With Ready for Merge
 
 Decision: add a bounded Capy evidence-sync lane for Linear and Slack. GitHub PRs, commits, CI/checks, and review findings remain the primary evidence. Captain Capy may automatically move Linear status and add Linear comments when the evidence gates pass, while Slack is limited to human-attention notifications.
