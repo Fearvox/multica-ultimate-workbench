@@ -237,8 +237,8 @@ and [issue-templates/run-finalization-reconciliation.md](issue-templates/run-fin
 
 OpenAI Agents SDK sandboxes are treated as a single-run execution backend, not
 as a replacement for the Workbench control plane. The first move is a local
-Hermes-style adapter spike: manifest-staged workspace, `Shell + Filesystem +
-Skills`, SDK memory disabled, and a `HERMES_SANDBOX_RUN_RECORD` that the
+Hermes-style adapter spike: manifest-staged workspace, `Shell`, `Filesystem`,
+and `Skills`, SDK memory disabled, and a `HERMES_SANDBOX_RUN_RECORD` that the
 Runtime Panel can read later.
 
 See [docs/hermes-openai-sandbox-adapter-lane.md](docs/hermes-openai-sandbox-adapter-lane.md)
