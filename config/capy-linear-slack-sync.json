@@ -1,0 +1,98 @@
+{
+  "$schema": "local://capy-linear-slack-sync/v1",
+  "enabled": true,
+  "linear": {
+    "projects": [
+      {
+        "name": "Multica Ultimate Workbench"
+      },
+      {
+        "name": "Windburn Remote Workhorse"
+      }
+    ],
+    "statuses": [
+      "Todo",
+      "In Progress",
+      "In Review",
+      "Ready for Merge",
+      "Done",
+      "Blocked"
+    ]
+  },
+  "slack": {
+    "defaultChannel": {
+      "name": "#everos-ops",
+      "id": "C0ASVU15ZDY"
+    },
+    "blockerChannel": {
+      "name": "#everos-ops",
+      "id": "C0ASVU15ZDY"
+    },
+    "excludedChannels": [
+      {
+        "name": "#社交",
+        "id": "C0ASM56QYUW"
+      }
+    ]
+  },
+  "notify": {
+    "blocked": true,
+    "ciFailed": true,
+    "highCriticalReviewFinding": true,
+    "needsOwnerDecision": true,
+    "readyForMerge": true,
+    "taskStarted": false,
+    "commitPushed": false,
+    "minorNit": false
+  },
+  "evidenceGates": {
+    "sourceOfTruth": [
+      "github pull requests",
+      "git commits",
+      "ci checks",
+      "github reviews",
+      "review findings"
+    ],
+    "inProgress": {
+      "requiresWorkStartEvidence": true
+    },
+    "inReview": {
+      "requiresPrOrReviewReadyEvidence": true
+    },
+    "readyForMerge": {
+      "requiresPr": true,
+      "requiresPassingRequiredChecks": true,
+      "requiresNoOpenHighCriticalReviewFindings": true
+    },
+    "done": {
+      "requiresMergedPr": true
+    },
+    "blockedWhen": [
+      "ci fails",
+      "permission is missing",
+      "requirement is unclear",
+      "high or critical review finding is open",
+      "source-of-truth evidence conflicts"
+    ]
+  },
+  "forbiddenData": [
+    "api keys",
+    "oauth material",
+    "bearer tokens",
+    "cookies",
+    "passwords",
+    "raw request payloads",
+    "raw response payloads",
+    "raw transcripts",
+    "private screenshots",
+    "private browser traces",
+    "unrelated private UI"
+  ],
+  "authority": {
+    "capyCanMoveLinearStatus": true,
+    "capyCanCommentLinear": true,
+    "capyCanPostSlack": true,
+    "capyCanMerge": false,
+    "buildAgentsCanWriteExternalStatus": false
+  }
+}

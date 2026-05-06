@@ -11,7 +11,9 @@
     "supportingContext": [
       "capy-ui",
       "multica",
-      "sanity"
+      "sanity",
+      "linear",
+      "slack"
     ]
   },
   "mcpServers": {
@@ -34,7 +36,9 @@
       "Capy UI",
       "Sanity context records",
       "Multica comments",
-      "agent self-reports"
+      "agent self-reports",
+      "Linear issue mirrors",
+      "Slack notifications"
     ],
     "forbiddenData": [
       "api keys",
@@ -58,5 +62,14 @@
       "next action",
       "PASS | FLAG | BLOCK verdict"
     ]
+  },
+  "externalCoordination": {
+    "registryPaths": [
+      "config/capy-linear-slack-sync.json"
+    ],
+    "systems": {
+      "linear": "supporting external ledger; semantic status still comes from git, github, ci, and review evidence",
+      "slack": "supporting notification surface only; not a source of truth"
+    }
   }
 }
