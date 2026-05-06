@@ -12,7 +12,7 @@ This is intentionally a prototype wedge, not the final SynDASH package. It prove
 
 ## Run
 
-Requires Node.js 18+. The cockpit server uses built-in `fetch` and `AbortSignal.timeout`, so older Node runtimes will fail before the prototype UI loads.
+Requires Node.js 18+. The cockpit server uses global `fetch` and `AbortSignal.timeout`, so older Node runtimes will fail before the prototype UI loads.
 
 Start Glances Web first if it is not already running:
 

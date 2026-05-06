@@ -54,6 +54,7 @@ function renderTools(tools) {
   return tools.map((t) => node('span', {
     className: `tool ${t.ok ? 'ok' : 'missing'}`,
     text: `${t.ok ? '●' : '○'} ${textValue(t.name)}`,
+    title: t.path || undefined,
   }));
 }
 
@@ -83,19 +84,39 @@ function replaceChildren(id, children) {
   $(id).replaceChildren(...children);
 }
 
+async function readSnapshot(res) {
+  if (!res.ok) {
+    const type = res.headers.get('content-type') || '';
+    let detail = '';
+    try {
+      if (type.includes('application/json')) {
+        const payload = await res.json();
+        detail = payload?.error || payload?.message || JSON.stringify(payload);
+      } else {
+        detail = (await res.text()).trim();
+      }
+    } catch {
+      detail = '';
+    }
+    throw new Error(`Snapshot request failed (${res.status} ${res.statusText})${detail ? `: ${detail}` : '. Check the local server logs.'}`);
+  }
+
+  const data = await res.json();
+  if (!data || typeof data !== 'object' || !data.glances || !data.processes || !Array.isArray(data.actions) || !Array.isArray(data.tools)) {
+    throw new Error('Snapshot payload malformed: expected cockpit snapshot object.');
+  }
+  return data;
+}
+
 async function tick() {
   try {
     const res = await fetch('/api/snapshot', { cache: 'no-store' });
-    if (!res.ok) {
-      let detail = '';
-      try {
-        detail = (await res.text()).trim();
-      } catch {
-        detail = '';
-      }
-      throw new Error(`Snapshot request failed (${res.status} ${res.statusText})${detail ? `: ${detail}` : '. Check the local server logs.'}`);
-    }
-    const data = await res.json();
+    const data = await readSnapshot(res);
+    const actions = Array.isArray(data.actions) ? data.actions : [];
+    const hermes = Array.isArray(data.processes?.hermes) ? data.processes.hermes : [];
+    const brave = Array.isArray(data.processes?.brave) ? data.processes.brave : [];
+    const top = Array.isArray(data.processes?.top) ? data.processes.top : [];
+    const tools = Array.isArray(data.tools) ? data.tools : [];
     const state = classState(data.state);
     $('headline').textContent = data.state === 'critical' ? 'GM, pressure is real.' : data.state === 'watch' ? 'GM, let it cook carefully.' : 'GM, we are clear.';
     $('subline').textContent = `${data.headline}. Evidence refreshed ${new Date(data.generatedAt).toLocaleTimeString()}.`;
@@ -115,20 +136,27 @@ async function tick() {
       $('swapMetric').className = `metric ${swapClass(data.glances.swap.percent)}`;
       $('loadValue').textContent = [data.glances.load.min1, data.glances.load.min5, data.glances.load.min15].map((v) => Number(v || 0).toFixed(2)).join(' / ');
     } else {
+      $('cpuValue').textContent = '—';
+      $('cpuMeta').textContent = '—';
+      $('memValue').textContent = '—';
+      $('memMeta').textContent = '—';
+      $('swapValue').textContent = '—';
+      $('swapMeta').textContent = '—';
+      $('loadValue').textContent = '—';
       $('hostLine').textContent = `Glances unavailable: ${data.glances.error}`;
       $('swapMetric').className = 'metric neutral';
     }
 
     $('macmonState').replaceChildren(renderMacmon(data.macmon));
-    replaceChildren('actions', data.actions.map(renderAction));
-    replaceChildren('hermesList', data.processes.hermes.length ? data.processes.hermes.map(renderProc) : [renderMuted('No Hermes process surfaced in Glances processlist.')]);
+    replaceChildren('actions', actions.map(renderAction));
+    replaceChildren('hermesList', hermes.length ? hermes.map(renderProc) : [renderMuted('No Hermes process surfaced in Glances processlist.')]);
     replaceChildren('processList', [
-      ...(data.processes.brave?.length ? [node('div', { className: 'section-kicker', text: 'Brave renderers' }), ...data.processes.brave.map(renderProc)] : []),
+      ...(brave.length ? [node('div', { className: 'section-kicker', text: 'Brave renderers' }), ...brave.map(renderProc)] : []),
       node('div', { className: 'section-kicker', text: 'System hot list' }),
-      ...data.processes.top.map(renderProc),
+      ...top.map(renderProc),
     ]);
     $('gitStatus').textContent = data.git.ok ? data.git.status : `Git unavailable: ${data.git.detail || data.git.label}`;
-    replaceChildren('toolStrip', renderTools(data.tools));
+    replaceChildren('toolStrip', renderTools(tools));
     $('updated').textContent = `updated ${new Date(data.generatedAt).toLocaleTimeString()}`;
   } catch (error) {
     $('headline').textContent = 'GM, cockpit adapter failed.';
