@@ -22,7 +22,7 @@ GitHub PRs, commits, CI/checks, and review findings remain the primary evidence.
 | `In Progress` | `In Review` | PR opens or ready-for-review evidence exists | GitHub PR state or equivalent review-ready repo evidence |
 | `In Review` | `Ready for Merge` | PR exists, required checks are passing, and no open high/critical review findings remain | open PR, passing required checks, no open high/critical findings |
 | `Ready for Merge` | `Done` | PR is merged | merged PR evidence |
-| any state | `Blocked` | CI fails, a high/critical review finding is open, evidence is ambiguous, primary evidence conflicts, the requirement is unclear, or permission is unsafe/missing for a trustworthy semantic decision | failing/contradictory primary evidence or explicit decision blocker |
+| any state | `Blocked` | required CI/check evidence fails, the requirement is unclear, a high/critical review finding is open, required primary evidence cannot be read, or primary GitHub/CI/review evidence conflicts and cannot be resolved safely | failing/contradictory primary evidence or a read/requirement blocker that prevents trustworthy classification |
 
 Rules:
 
@@ -30,11 +30,10 @@ Rules:
 - The semantic state and the external sync verdict are separate outputs.
 - `Ready for Merge` is an evidence state, not merge authority.
 - Capy must never auto-merge unless a human explicitly asks for that exact PR merge.
-- Precedence: decide the semantic repo state from primary GitHub/repo evidence first; external Linear/Slack write failures do not change that semantic state when the evidence is still clear.
-- If the semantic state is clear but an external Linear/Slack write fails, emit `FLAG`, keep GitHub/repo evidence authoritative, and do not claim the external sync succeeded.
-- If supporting context disagrees but primary evidence still determines the state, keep the chosen semantic state and emit `FLAG`.
-- If evidence is ambiguous, primary evidence conflicts, the requirement is unclear, or permission is unsafe/missing in a way that prevents a trustworthy semantic decision, emit `Blocked` semantic state and `BLOCK` verdict.
-- If CI fails or an open high/critical review finding exists, emit `Blocked` semantic state.
+- Precedence rule: classify semantic state from primary GitHub/repo evidence first.
+- If durable GitHub/repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface, keep that semantic state and emit `FLAG` naming the mismatch.
+- If the semantic state is clear but Linear/Slack auth, tooling, or write permission fails, keep that semantic state and emit `FLAG` naming the failed external surface.
+- If primary GitHub, CI, and review evidence disagree with each other and cannot be resolved safely, use `Blocked` and emit `BLOCK`.
 
 ## Slack Notification Matrix
 
@@ -107,14 +106,13 @@ Dedupe rules:
 
 ## Tooling Failure, FLAG, And BLOCK Behavior
 
-If Linear or Slack tooling is unavailable, missing auth, or lacks channel/project permission while the semantic state is otherwise clear:
+If Linear or Slack tooling is unavailable, missing auth, or lacks channel/project permission:
 
-- first decide whether primary GitHub/repo evidence already fixes the semantic repo state;
 - keep GitHub and repo evidence as the source of truth;
 - do not claim external sync succeeded;
-- keep the semantic state and emit `FLAG` when the semantic state is clear but the external write could not be completed;
-- missing Linear or Slack adapter permission does not force semantic repo state `Blocked` unless it also prevents a trustworthy semantic state decision;
-- emit `Blocked` semantic state and `BLOCK` verdict when missing permission, unclear requirements, ambiguous evidence, or conflicting primary evidence prevents a trustworthy state decision;
+- emit `FLAG` when the semantic state is clear but Linear/Slack auth, tooling, or the external write could not be completed;
+- missing Linear or Slack adapter permission does not force Linear state `Blocked` unless that permission is also required to read primary evidence or otherwise prevents trustworthy classification;
+- emit `BLOCK` when required primary evidence cannot be read, the requirement is unclear, required checks fail, an open high/critical finding remains, or primary evidence conflict prevents a trustworthy state decision;
 - keep the failure localized to the external adapter and name the exact unavailable surface.
 
 ## Privacy And Safety Rules
