@@ -135,9 +135,7 @@
     },
     "blockedWhen": [
       "required ci checks fail",
-      "requirement is unclear or missing",
-      "high or critical review finding is open",
-      "owner or external permission blocker prevents work from proceeding"
+      "high or critical review finding is open"
     ],
     "flagWhen": [
       "semantic state is clear but linear auth, tooling, channel or project permission, or write availability fails",
