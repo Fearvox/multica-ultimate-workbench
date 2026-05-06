@@ -27,6 +27,7 @@ GitHub PRs, commits, CI/checks, and review findings remain the primary evidence.
 Rules:
 
 - Recompute state from evidence on every eligible event; do not trust prior chat or stale cache.
+- The semantic state and the external sync verdict are separate outputs.
 - `Ready for Merge` is an evidence state, not merge authority.
 - Capy must never auto-merge unless a human explicitly asks for that exact PR merge.
 - Precedence: decide the semantic repo state from primary GitHub/repo evidence first; external Linear/Slack write failures do not change that semantic state when the evidence is still clear.
@@ -88,13 +89,14 @@ Preferred event identifiers:
 - Check run: `check_run.id`
 - Check suite: `check_suite.id`
 - Workflow run: `workflow_run.id`
-- Review submission or review finding change: `review.id` or `pull_request_review_comment.id`
+- Review submission: `review.id`
+- Review comment created/edited/deleted: action + `pull_request_review_comment.id`
 - Merge closeout: PR number + merged commit sha
 
 If a provider requires a single string key, concatenate:
 
 ```text
-repo + pr/issue + event + sha/check_run_id/workflow_run_id/review_id
+repo + pr/issue + event + action + sha/check_run_id/workflow_run_id/review_id/pull_request_review_comment_id
 ```
 
 Dedupe rules:

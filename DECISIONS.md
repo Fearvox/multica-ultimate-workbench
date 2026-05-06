@@ -4,7 +4,7 @@
 
 Decision: add a bounded Capy evidence-sync lane for Linear and Slack. GitHub PRs, commits, CI/checks, and review findings remain the primary evidence. Captain Capy may automatically move Linear status and add Linear comments when the evidence gates pass, while Slack is limited to human-attention notifications.
 
-The external sync state machine is `Todo`, `In Progress`, `In Review`, `Ready for Merge`, `Done`, and `Blocked`. `Ready for Merge` is allowed only when a PR exists, required checks are passing, and no open high/critical review findings remain. `Done` still requires a merged PR. Any source-of-truth conflict, missing permission, unclear requirement, CI failure, or open high/critical finding may force `Blocked`.
+The external sync semantic state machine is `Todo`, `In Progress`, `In Review`, `Ready for Merge`, `Done`, and `Blocked`. `Ready for Merge` is allowed only when a PR exists, required checks are passing, and no open high/critical review findings remain. `Done` still requires a merged PR. `Blocked` is reserved for primary evidence that says the work is unsafe to advance: CI failure, an open high/critical finding, unclear requirements, or conflicting/ambiguous primary evidence. The external sync verdict is separate from the semantic state: use `FLAG` when the semantic state is clear but Linear or Slack write/auth/permission fails, and use `BLOCK` when missing permission for the semantic decision, unclear requirements, or conflicting primary evidence prevent a trustworthy semantic decision.
 
 Build agents do not write Linear or Slack directly. Captain or webhook automation makes the semantic decision, then the adapter writes idempotently. Capy must never auto-merge unless a human explicitly asks for that exact PR merge.
 

@@ -48,6 +48,7 @@ Use this exact state machine:
 
 Precedence:
 
+- The semantic state and the external sync verdict are separate outputs.
 - Decide the semantic repo state from durable GitHub/repo evidence first.
 - If the semantic state is clear but Linear or Slack cannot be written because the external adapter, auth, or channel/project permission fails, keep the semantic state, emit `FLAG`, and do not claim the external sync succeeded.
 - If supporting context disagrees but primary evidence still determines the state, keep the chosen semantic state and emit `FLAG`.
@@ -80,7 +81,8 @@ Generate a dedupe key from repo identity plus event identity. Preferred identifi
 - check run: repo + PR/branch + `check_run.id`
 - check suite: repo + PR/branch + `check_suite.id`
 - workflow run: repo + PR/branch + `workflow_run.id`
-- review submission/comment: repo + PR number + `review.id` or `pull_request_review_comment.id`
+- review submission: repo + PR number + `review.id`
+- review comment change: repo + PR number + action + `pull_request_review_comment.id`
 - merge closeout: repo + PR number + merged sha
 
 Never emit duplicate Linear comments or Slack posts for the same dedupe key.
