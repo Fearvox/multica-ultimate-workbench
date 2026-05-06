@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import http from 'node:http';
-import { execFile } from 'node:child_process';
+import { execFile, spawn } from 'node:child_process';
 import { promisify } from 'node:util';
 import { readFile } from 'node:fs/promises';
 import { existsSync, statSync } from 'node:fs';
@@ -62,24 +62,18 @@ async function getGit() {
   const root = await run('git', ['rev-parse', '--show-toplevel'], { cwd: workbenchRepo });
   if (!root.ok) return { ok: false, label: 'not a git checkout', detail: root.stderr, stderr: root.stderr, code: root.code ?? null };
   const status = await run('git', ['status', '--short', '--branch'], { cwd: root.stdout });
-  const head = await run('git', ['rev-parse', '--short', 'HEAD'], { cwd: root.stdout });
-  const branch = await run('git', ['branch', '--show-current'], { cwd: root.stdout });
-  const dirtyLines = status.ok ? status.stdout.split('\n').filter((line) => line && !line.startsWith('##')) : [];
-  const failed = [
-    ['git status failed', status],
-    ['git head lookup failed', head],
-    ['git branch lookup failed', branch],
-  ].find(([, result]) => !result.ok);
-  if (failed) {
-    const [label, result] = failed;
-    return {
-      ok: false,
-      label,
-      detail: result.stderr || result.stdout || `exit ${result.code ?? 'unknown'}`,
-      stderr: result.stderr,
-      code: result.code ?? null,
-    };
+  if (!status.ok) {
+    return { ok: false, label: 'git status failed', detail: status.stderr || 'git status --short --branch failed', stderr: status.stderr, code: status.code ?? null };
   }
+  const head = await run('git', ['rev-parse', '--short', 'HEAD'], { cwd: root.stdout });
+  if (!head.ok) {
+    return { ok: false, label: 'git head failed', detail: head.stderr || 'git rev-parse --short HEAD failed', stderr: head.stderr, code: head.code ?? null };
+  }
+  const branch = await run('git', ['branch', '--show-current'], { cwd: root.stdout });
+  if (!branch.ok) {
+    return { ok: false, label: 'git branch failed', detail: branch.stderr || 'git branch --show-current failed', stderr: branch.stderr, code: branch.code ?? null };
+  }
+  const dirtyLines = status.stdout.split('\n').filter((line) => line && !line.startsWith('##'));
   return {
     ok: true,
     root: root.stdout,
@@ -101,10 +95,63 @@ async function getTools() {
   return entries;
 }
 
+const sampleMacmonLine = (macmonPath, timeout = 4500) => new Promise((resolve) => {
+  const child = spawn(macmonPath, ['pipe', '--interval', '1000'], {
+    env: { ...process.env, LC_ALL: 'C' },
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  let stdout = '';
+  let stderr = '';
+  let settled = false;
+
+  const finish = (result) => {
+    if (settled) return;
+    settled = true;
+    clearTimeout(timer);
+    child.stdout.removeAllListeners();
+    child.stderr.removeAllListeners();
+    child.removeAllListeners();
+    if (!child.killed) child.kill('SIGTERM');
+    resolve(result);
+  };
+
+  const timer = setTimeout(() => {
+    finish({ ok: false, stdout: '', stderr: stderr.trim() || 'macmon emitted no sample before timeout', code: 'TIMEOUT' });
+  }, timeout);
+
+  child.stdout.setEncoding('utf8');
+  child.stderr.setEncoding('utf8');
+  child.stdout.on('data', (chunk) => {
+    stdout += chunk;
+    const line = stdout.split('\n').find((entry) => entry.trim());
+    if (line) finish({ ok: true, stdout: line.trim(), stderr: stderr.trim() });
+  });
+  child.stderr.on('data', (chunk) => {
+    stderr += chunk;
+  });
+  child.on('error', (error) => {
+    finish({ ok: false, stdout: '', stderr: stderr.trim() || error.message, code: error.code ?? null });
+  });
+  child.on('close', (code) => {
+    if (settled) return;
+    const line = stdout.split('\n').find((entry) => entry.trim());
+    if (line) {
+      finish({ ok: true, stdout: line.trim(), stderr: stderr.trim() });
+      return;
+    }
+    finish({
+      ok: false,
+      stdout: '',
+      stderr: stderr.trim() || `macmon exited without a sample${code === null ? '' : ` (code ${code})`}`,
+      code: code ?? null,
+    });
+  });
+});
+
 async function getMacmon() {
   const present = await run('/bin/zsh', ['-lc', 'command -v macmon || true']);
   if (!present.stdout) return { ok: false, present: false, error: 'macmon not found in PATH' };
-  const sample = await run(present.stdout, ['pipe', '--interval', '1000'], { timeout: 2500, maxBuffer: 64_000 });
+  const sample = await sampleMacmonLine(present.stdout);
   const line = sample.stdout.split('\n').find(Boolean);
   if (!line) return { ok: false, present: true, error: sample.stderr || 'macmon emitted no sample' };
   try {

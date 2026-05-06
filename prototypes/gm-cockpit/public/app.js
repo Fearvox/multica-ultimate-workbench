@@ -27,14 +27,14 @@ function swapClass(percent) {
 }
 
 function renderAction(a) {
-  const tier = ['P0', 'P1', 'P2'].includes(a?.tier) ? a.tier : '';
+  const tier = ['P0', 'P1', 'P2'].includes(a?.tier) ? a.tier : 'P1';
   const body = node('div', {}, [
     node('h3', { text: textValue(a?.title) }),
     node('p', { text: textValue(a?.detail) }),
     node('small', { text: textValue(a?.evidence) }),
   ]);
   return node('div', { className: 'action' }, [
-    node('div', { className: `tier${tier ? ` ${tier}` : ''}`, text: textValue(a?.tier) }),
+    node('div', { className: `tier ${tier}`, text: tier }),
     body,
   ]);
 }
