@@ -55,10 +55,36 @@
           <div id="actions" class="actions"></div>
         </article>
 
+        <article class="panel workbench-panel">
+          <div class="panel-head">
+            <p class="label">workbench state</p>
+            <p id="workbenchReceipt" class="muted">Multica issue/run adapter</p>
+          </div>
+          <div id="workbenchItems" class="adapter-items"></div>
+        </article>
+      </section>
+
+      <section class="grid adapter-grid">
+        <article class="panel">
+          <div class="panel-head">
+            <p class="label">automation / cron</p>
+            <p id="automationReceipt" class="muted">Hermes cron adapter</p>
+          </div>
+          <div id="automationItems" class="adapter-items"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <p class="label">knowledge / RV</p>
+            <p id="knowledgeReceipt" class="muted">Research Vault adapter</p>
+          </div>
+          <div id="knowledgeItems" class="adapter-items"></div>
+        </article>
+
         <article class="panel ops-panel">
           <div class="panel-head">
             <p class="label">agent ops</p>
-            <p class="muted">Hermes / browser / runners</p>
+            <p class="muted">Hermes process pressure</p>
           </div>
           <div id="hermesList" class="process-list"></div>
         </article>
@@ -75,8 +101,8 @@
 
         <article class="panel">
           <div class="panel-head">
-            <p class="label">workbench</p>
-            <p class="muted">repo drift + receipts</p>
+            <p class="label">local repo + tools</p>
+            <p class="muted">drift + capability strip</p>
           </div>
           <pre id="gitStatus" class="receipt">—</pre>
           <div id="toolStrip" class="tool-strip"></div>

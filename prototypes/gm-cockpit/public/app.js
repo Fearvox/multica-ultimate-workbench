@@ -39,6 +39,42 @@ function renderAction(a) {
   ]);
 }
 
+function renderAdapter(adapter) {
+  const status = ['clear', 'watch', 'critical', 'unavailable'].includes(adapter?.status)
+    ? adapter.status
+    : 'unavailable';
+  const items = Array.isArray(adapter?.items) ? adapter.items : [];
+  if (!items.length) {
+    return [node('div', { className: 'adapter-card' }, [
+      node('div', {}, [
+        node('span', { className: `status-pill ${status}`, text: status }),
+        node('h3', { text: 'No items surfaced' }),
+        node('p', { text: 'Adapter returned no actionable state.' }),
+        node('small', { text: 'UNAVAILABLE: empty adapter payload' }),
+      ]),
+    ])];
+  }
+  return items.map((item) => {
+    const tier = ['P0', 'P1', 'P2', 'PARKED'].includes(item?.tier) ? item.tier : 'P2';
+    return node('div', { className: 'adapter-card' }, [
+      node('div', { className: `adapter-rank ${tier}`, text: tier }),
+      node('div', {}, [
+        node('div', { className: 'adapter-topline' }, [
+          node('span', { className: `status-pill ${status}`, text: status }),
+          node('small', { text: textValue(item?.evidence) }),
+        ]),
+        node('h3', { text: textValue(item?.title) }),
+        node('p', { text: textValue(item?.detail) }),
+      ]),
+    ]);
+  });
+}
+
+function setAdapter(prefix, adapter) {
+  $(`${prefix}Receipt`).textContent = adapter?.receipt || 'unavailable';
+  replaceChildren(`${prefix}Items`, renderAdapter(adapter));
+}
+
 function renderProc(p) {
   const cpu = Number(p?.cpu || 0);
   const mem = Number(p?.mem || 0);
@@ -148,6 +184,9 @@ async function tick() {
     }
 
     $('macmonState').replaceChildren(renderMacmon(data.macmon));
+    setAdapter('workbench', data.workbench);
+    setAdapter('automation', data.automation);
+    setAdapter('knowledge', data.knowledge);
     replaceChildren('actions', actions.map(renderAction));
     replaceChildren('hermesList', hermes.length ? hermes.map(renderProc) : [renderMuted('No Hermes process surfaced in Glances processlist.')]);
     replaceChildren('processList', [
