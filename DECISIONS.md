@@ -1,5 +1,15 @@
 # Decisions
 
+## 2026-05-06 - Adopt Capy Linear Slack Evidence Sync With Ready for Merge
+
+Decision: add a bounded Capy evidence-sync lane for Linear and Slack. GitHub PRs, commits, CI/checks, and review findings remain the primary evidence. Captain Capy may automatically move Linear status and add Linear comments when the evidence gates pass, while Slack is limited to human-attention notifications.
+
+The external sync semantic state machine is `Todo`, `In Progress`, `In Review`, `Ready for Merge`, `Done`, and `Blocked`. `Ready for Merge` is allowed only when a PR exists, required checks are passing, and no open high/critical review findings remain. `Done` still requires a merged PR. `Blocked` is reserved for primary evidence that says the work is unsafe to advance because required CI/check evidence fails or a high/critical review finding remains open. The external sync verdict is separate from the semantic state: use `PASS` when the semantic state is trustworthy and required external writes succeeded or no write was required, use `FLAG` when the semantic state is clear but Linear or Slack write/auth/channel-project-permission availability fails or a requirement/owner blocker stops the work while semantic classification remains trustworthy, and use `BLOCK` only when required CI/check evidence fails, an open high/critical finding remains, required primary evidence cannot be read, required primary-evidence read permission or semantic-classification evidence is missing, or conflicting primary evidence prevents a trustworthy semantic decision.
+
+Build agents do not write Linear or Slack directly. Captain or webhook automation makes the semantic decision, then the adapter writes idempotently. Capy must never auto-merge unless a human explicitly asks for that exact PR merge.
+
+Rationale: the workbench needed durable external status sync without promoting chat or third-party surfaces into authority. Adding `Ready for Merge` preserves the last evidence gate between `In Review` and `Done`, limits Slack noise to important human-attention events, and keeps repo-visible evidence and prompt contracts as the real audit trail.
+
 ## 2026-05-04 - Separate Capy Captain Contracts From Multica Runtime Execution
 
 Decision: formalize a hard boundary between Capy and Multica through the
