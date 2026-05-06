@@ -2,7 +2,7 @@
 
 The Capy Linear Slack Sync Lane is the bounded, source-first automation contract for syncing GitHub evidence into Linear and Slack without turning chat into a control plane.
 
-GitHub PRs, commits, CI/checks, and review findings remain the primary evidence. Captain Capy makes the semantic state decision from that evidence. Linear is the durable external work ledger. Slack is the human coordination and notification surface only.
+GitHub PRs, commits, CI/checks, and review findings remain the primary evidence. Captain Capy makes the semantic state decision from that evidence. Linear is the durable external work ledger. Slack is the human coordination and notification surface only. Machine-readable config and reports should use the canonical project source-of-truth tokens `git`, `github`, `ci`, and `review-comments`.
 
 ## Role Split
 
@@ -13,6 +13,8 @@ GitHub PRs, commits, CI/checks, and review findings remain the primary evidence.
 | Linear adapter | durable ledger writer | writes status and comments idempotently after Captain decides |
 | Slack adapter | human attention surface | posts bounded notifications only when human attention is warranted |
 | Build agents | implementation and verification | must not write Linear or Slack directly |
+
+Default rollout: the registry entry ships disabled until an operator explicitly enables it after verifying Linear/Slack auth, permissions, and rollout intent.
 
 ## State Machine
 

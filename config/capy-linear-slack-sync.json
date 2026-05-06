@@ -1,5 +1,4 @@
 {
-  "$schema": "https://capy.ai/schemas/capy-linear-slack-sync.v1.json",
   "enabled": false,
   "enablement": {
     "default": false,

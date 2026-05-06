@@ -33,8 +33,9 @@ React only to these GitHub events:
    - `docs/capy-linear-slack-sync-lane.md`
 4. Inspect the current PR, commit, required checks, workflow conclusions, review state, and open high/critical findings.
 5. Classify the highest-confidence allowed transition from primary evidence.
-6. Write Linear and Slack only when the required tool surface exists, auth is valid, permissions allow the write, and the dedupe key has not already been applied.
-7. Emit `CAPY_LINEAR_SLACK_SYNC` every run, even when no external write occurs.
+6. Respect repo enablement first: this lane ships disabled in the registry until an operator explicitly enables it after verifying Linear/Slack auth, permissions, and rollout intent.
+7. Write Linear and Slack only when the required tool surface exists, auth is valid, permissions allow the write, and the dedupe key has not already been applied.
+8. Emit `CAPY_LINEAR_SLACK_SYNC` every run, even when no external write occurs.
 
 ## State Classification Rules
 
@@ -49,7 +50,7 @@ Use this exact state machine:
 Precedence:
 
 - The semantic state and the external sync verdict are separate outputs.
-- Classify semantic state from primary GitHub/repo evidence first.
+- Classify semantic state from primary GitHub/repo evidence first, and use the canonical source-of-truth tokens `git`, `github`, `ci`, and `review-comments` in machine-readable config or reports.
 - If durable GitHub/repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface, keep that semantic state and emit `FLAG` naming the mismatch.
 - If the semantic state is clear but Linear/Slack auth, tooling, or write permission fails, keep the semantic state, emit `FLAG`, and do not claim the external sync succeeded.
 - If required primary evidence is unavailable, unclear, or conflicting enough to prevent a trustworthy state decision, emit `Blocked` semantic state and `BLOCK` verdict.
