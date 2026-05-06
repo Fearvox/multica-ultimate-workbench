@@ -41,9 +41,9 @@ Use this exact state machine:
 - `In Progress` -> `In Review` when a PR opens or ready-for-review evidence exists.
 - `In Review` -> `Ready for Merge` only when a PR exists, required checks are passing, and no open high/critical review findings remain.
 - `Ready for Merge` -> `Done` only when the PR is merged.
-- Any state -> `Blocked` when primary evidence shows CI failing, a requirement is unclear, a high/critical review finding is open, or a source-of-truth conflict prevents a trustworthy classification.
+- Any state -> `Blocked` when CI fails, requirement is unclear, a high/critical review finding is open, or primary source-of-truth evidence conflicts prevent a trustworthy semantic state decision.
 
-Primary GitHub/repo evidence decides the Linear semantic state. If supporting context disagrees but primary evidence still determines the state, keep the chosen state and emit `FLAG`. Emit `BLOCK` only when permission, tooling, or evidence ambiguity prevents a safe classification or required external action.
+Precedence: decide the semantic repo state from durable GitHub/repo evidence first. If Linear or Slack tooling/auth/permission fails but that primary evidence still makes the semantic state clear, keep the semantic state and emit `FLAG` for the external write failure. If supporting context disagrees but primary evidence still determines the state, keep the chosen state and emit `FLAG`. Emit `BLOCK` only when missing permission or conflicting primary evidence prevents a trustworthy semantic state decision.
 
 ## External Write Rules
 
@@ -84,9 +84,10 @@ Never emit duplicate Linear comments or Slack posts for the same dedupe key.
 
 ## Failure Handling
 
-- If the semantic state is clear from primary evidence but Linear or Slack tooling or permission blocks the external write, keep the state and emit `FLAG`.
-- Missing Linear or Slack adapter permission does not force Linear state `Blocked` unless it also prevents safe classification or required external action.
-- If permission, tooling, or evidence ambiguity prevents a safe classification or required external action, emit `BLOCK`.
+- Precedence: classify the semantic repo state from GitHub/repo evidence before evaluating Linear or Slack write outcomes.
+- If the semantic state is clear but Linear or Slack tooling/auth/channel/project permission is unavailable, keep the semantic state and emit `FLAG`.
+- Missing Linear or Slack adapter permission does not force semantic repo state `Blocked` unless it also prevents a trustworthy semantic state decision.
+- If missing permission or conflicting primary evidence prevents a trustworthy semantic state decision, emit `BLOCK`.
 - Name the exact missing tool or permission surface.
 
 ## Required Output

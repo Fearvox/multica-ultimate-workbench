@@ -71,29 +71,24 @@
       "ci fails",
       "requirement is unclear",
       "high or critical review finding is open",
-      "source-of-truth evidence conflicts that prevent a trustworthy classification"
+      "primary source-of-truth evidence conflicts prevent a trustworthy semantic state decision"
     ],
-    "precedence": {
-      "linearState": {
-        "blocked": [
-          "failing primary CI evidence",
-          "unclear requirement",
-          "open high or critical review finding",
-          "primary evidence conflict that prevents a trustworthy classification"
-        ]
-      },
-      "reportVerdict": {
-        "flagWhen": [
-          "semantic state is clear but Linear or Slack write cannot complete",
-          "supporting context disagrees but primary GitHub or repo evidence still determines the state"
-        ],
-        "blockWhen": [
-          "permission prevents safe classification or required external action",
-          "tooling prevents safe classification or required external action",
-          "evidence ambiguity prevents safe classification or required external action"
-        ]
-      }
-    }
+    "externalWriteFailure": {
+      "surfaces": [
+        "linear tooling unavailable",
+        "slack tooling unavailable",
+        "linear auth missing",
+        "slack auth missing",
+        "linear project permission missing",
+        "slack channel permission missing"
+      ],
+      "semanticState": "keep the semantic state from primary GitHub/repo evidence when clear",
+      "verdict": "FLAG"
+    },
+    "blockVerdictWhen": [
+      "missing permission prevents a trustworthy semantic state decision",
+      "conflicting primary source-of-truth evidence prevents a trustworthy semantic state decision"
+    ]
   },
   "forbiddenData": [
     "api keys",
