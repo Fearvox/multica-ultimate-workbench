@@ -64,6 +64,8 @@ signals back into the workbench. A bounded GitHub webhook responder now listens
 for payload-scoped Capy dialogue across issue, PR, review, check, and workflow
 events, using the payload `owner/repo` as source of truth; see [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md). Those artifacts complement Multica's live coordination; they do not replace it, and they do not authorize daemon, Desktop UI, or core runtime mutation.
 
+A sibling evidence-sync lane can project the same PR, CI, and review evidence into Linear and Slack for external status hygiene without changing the authority order: Captain classifies state, Linear is the durable external ledger, Slack is the human notification surface, and merge authority stays with humans plus GitHub evidence; see [docs/capy-linear-slack-sync-lane.md](docs/capy-linear-slack-sync-lane.md).
+
 For new webpage, subpage, landing-page, or microsite work, the default route is
 the `Project Windburn` scaffold lane only when no target repo is named in the
 request, attached to the issue or project, or otherwise established by primary
@@ -316,6 +318,7 @@ Human approval required before running:
 | VM execution lane | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
 | Capy Git dialogue responder | [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md) |
+| Capy Linear/Slack sync lane | [docs/capy-linear-slack-sync-lane.md](docs/capy-linear-slack-sync-lane.md) |
 | Superconductor user dogfood | [docs/superconductor-user-dogfood.md](docs/superconductor-user-dogfood.md) |
 | Superconductor dogfood goal template | [issue-templates/superconductor-user-dogfood-goal.md](issue-templates/superconductor-user-dogfood-goal.md) |
 | Windburn scaffold routing lane | [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md) |
