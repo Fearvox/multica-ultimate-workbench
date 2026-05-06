@@ -1,6 +1,13 @@
 const $ = (id) => document.getElementById(id);
 const pct = (n) => Number.isFinite(Number(n)) ? `${Number(n).toFixed(1)}%` : '—';
 const short = (s, n = 94) => (s || '').length > n ? `${s.slice(0, n - 1)}…` : (s || '—');
+const escapeHtml = (value) => String(value ?? '—').replace(/[&<>'"]/g, (char) => ({
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  "'": '&#39;',
+  '"': '&quot;',
+})[char]);
 
 function classState(state) {
   return state === 'critical' ? 'critical' : state === 'watch' ? 'watch' : 'clear';
@@ -15,7 +22,8 @@ function renderAction(a) {
 
 function renderProc(p) {
   const hot = p.cpu >= 80 ? ' hot' : '';
-  return `<div class="proc${hot}"><strong>${p.cpu.toFixed(1)}%</strong><span>${p.mem.toFixed(1)}% mem</span><code title="${p.command || p.name}">${short(p.command || p.name, 110)}</code></div>`;
+  const command = p.command || p.name;
+  return `<div class="proc${hot}"><strong>${p.cpu.toFixed(1)}%</strong><span>${p.mem.toFixed(1)}% mem</span><code title="${escapeHtml(command)}">${escapeHtml(short(command, 110))}</code></div>`;
 }
 
 function renderTools(tools) {
