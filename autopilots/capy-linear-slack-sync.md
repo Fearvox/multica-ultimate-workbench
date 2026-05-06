@@ -14,6 +14,9 @@ React only to these GitHub events:
 - `check_suite.completed`
 - `workflow_run.completed`
 - `pull_request_review.submitted`
+- `pull_request_review_comment.created`
+- `pull_request_review_comment.edited`
+- `pull_request_review_comment.deleted`
 
 ## Required Execution Order
 
@@ -41,9 +44,16 @@ Use this exact state machine:
 - `In Progress` -> `In Review` when a PR opens or ready-for-review evidence exists.
 - `In Review` -> `Ready for Merge` only when a PR exists, required checks are passing, and no open high/critical review findings remain.
 - `Ready for Merge` -> `Done` only when the PR is merged.
-- Any state -> `Blocked` when CI fails, requirement is unclear, a high/critical review finding is open, or primary source-of-truth evidence conflicts prevent a trustworthy semantic state decision.
+- Any state -> `Blocked` when CI fails, a high/critical review finding is open, evidence is ambiguous, primary evidence conflicts, the requirement is unclear, or permission is unsafe/missing for a trustworthy semantic decision.
 
-Precedence: decide the semantic repo state from durable GitHub/repo evidence first. If Linear or Slack tooling/auth/permission fails but that primary evidence still makes the semantic state clear, keep the semantic state and emit `FLAG` for the external write failure. If supporting context disagrees but primary evidence still determines the state, keep the chosen state and emit `FLAG`. Emit `BLOCK` only when missing permission or conflicting primary evidence prevents a trustworthy semantic state decision.
+Precedence:
+
+- Decide the semantic repo state from durable GitHub/repo evidence first.
+- If the semantic state is clear but Linear or Slack cannot be written because the external adapter, auth, or channel/project permission fails, keep the semantic state, emit `FLAG`, and do not claim the external sync succeeded.
+- If supporting context disagrees but primary evidence still determines the state, keep the chosen semantic state and emit `FLAG`.
+- If evidence is ambiguous, primary evidence conflicts, the requirement is unclear, or permission is unsafe/missing in a way that prevents a trustworthy semantic decision, emit `Blocked` semantic state and `BLOCK` verdict.
+- If CI fails or an open high/critical review finding exists, emit `Blocked` semantic state.
+- Prefer durable GitHub/repo evidence over chat or memory whenever evidence sources disagree.
 
 ## External Write Rules
 
@@ -70,7 +80,7 @@ Generate a dedupe key from repo identity plus event identity. Preferred identifi
 - check run: repo + PR/branch + `check_run.id`
 - check suite: repo + PR/branch + `check_suite.id`
 - workflow run: repo + PR/branch + `workflow_run.id`
-- review: repo + PR number + `review.id`
+- review submission/comment: repo + PR number + `review.id` or `pull_request_review_comment.id`
 - merge closeout: repo + PR number + merged sha
 
 Never emit duplicate Linear comments or Slack posts for the same dedupe key.
@@ -85,9 +95,9 @@ Never emit duplicate Linear comments or Slack posts for the same dedupe key.
 ## Failure Handling
 
 - Precedence: classify the semantic repo state from GitHub/repo evidence before evaluating Linear or Slack write outcomes.
-- If the semantic state is clear but Linear or Slack tooling/auth/channel/project permission is unavailable, keep the semantic state and emit `FLAG`.
+- If the semantic state is clear but Linear or Slack tooling, auth, or write permission is unavailable, keep the semantic state and emit `FLAG`.
 - Missing Linear or Slack adapter permission does not force semantic repo state `Blocked` unless it also prevents a trustworthy semantic state decision.
-- If missing permission or conflicting primary evidence prevents a trustworthy semantic state decision, emit `BLOCK`.
+- If permission, requirement ambiguity, evidence ambiguity, or conflicting primary evidence prevents a trustworthy state decision, emit `Blocked` semantic state and `BLOCK` verdict.
 - Name the exact missing tool or permission surface.
 
 ## Required Output

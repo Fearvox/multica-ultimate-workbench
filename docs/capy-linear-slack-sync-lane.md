@@ -22,7 +22,7 @@ GitHub PRs, commits, CI/checks, and review findings remain the primary evidence.
 | `In Progress` | `In Review` | PR opens or ready-for-review evidence exists | GitHub PR state or equivalent review-ready repo evidence |
 | `In Review` | `Ready for Merge` | PR exists, required checks are passing, and no open high/critical review findings remain | open PR, passing required checks, no open high/critical findings |
 | `Ready for Merge` | `Done` | PR is merged | merged PR evidence |
-| any state | `Blocked` | CI fails, requirement is unclear, a high/critical review finding is open, or primary source-of-truth evidence conflicts prevent a trustworthy semantic state decision | failing/contradictory primary evidence or explicit requirement blocker |
+| any state | `Blocked` | CI fails, a high/critical review finding is open, evidence is ambiguous, primary evidence conflicts, the requirement is unclear, or permission is unsafe/missing for a trustworthy semantic decision | failing/contradictory primary evidence or explicit decision blocker |
 
 Rules:
 
@@ -30,8 +30,10 @@ Rules:
 - `Ready for Merge` is an evidence state, not merge authority.
 - Capy must never auto-merge unless a human explicitly asks for that exact PR merge.
 - Precedence: decide the semantic repo state from primary GitHub/repo evidence first; external Linear/Slack write failures do not change that semantic state when the evidence is still clear.
-- If supporting context disagrees but primary evidence still determines the state, keep the chosen state and emit `FLAG`.
-- If evidence disagrees across GitHub, CI, and review state, keep the contradiction explicit and emit `BLOCK` only when the conflict makes a trustworthy semantic state decision impossible.
+- If the semantic state is clear but an external Linear/Slack write fails, emit `FLAG`, keep GitHub/repo evidence authoritative, and do not claim the external sync succeeded.
+- If supporting context disagrees but primary evidence still determines the state, keep the chosen semantic state and emit `FLAG`.
+- If evidence is ambiguous, primary evidence conflicts, the requirement is unclear, or permission is unsafe/missing in a way that prevents a trustworthy semantic decision, emit `Blocked` semantic state and `BLOCK` verdict.
+- If CI fails or an open high/critical review finding exists, emit `Blocked` semantic state.
 
 ## Slack Notification Matrix
 
@@ -86,7 +88,7 @@ Preferred event identifiers:
 - Check run: `check_run.id`
 - Check suite: `check_suite.id`
 - Workflow run: `workflow_run.id`
-- Review submission or review finding change: `review.id`
+- Review submission or review finding change: `review.id` or `pull_request_review_comment.id`
 - Merge closeout: PR number + merged commit sha
 
 If a provider requires a single string key, concatenate:
@@ -103,14 +105,14 @@ Dedupe rules:
 
 ## Tooling Failure, FLAG, And BLOCK Behavior
 
-If Linear or Slack tooling is unavailable, missing auth, or lacks channel/project permission:
+If Linear or Slack tooling is unavailable, missing auth, or lacks channel/project permission while the semantic state is otherwise clear:
 
 - first decide whether primary GitHub/repo evidence already fixes the semantic repo state;
 - keep GitHub and repo evidence as the source of truth;
 - do not claim external sync succeeded;
 - keep the semantic state and emit `FLAG` when the semantic state is clear but the external write could not be completed;
 - missing Linear or Slack adapter permission does not force semantic repo state `Blocked` unless it also prevents a trustworthy semantic state decision;
-- emit `BLOCK` only when missing permission or conflicting primary evidence prevents a trustworthy semantic state decision;
+- emit `Blocked` semantic state and `BLOCK` verdict when missing permission, unclear requirements, ambiguous evidence, or conflicting primary evidence prevents a trustworthy state decision;
 - keep the failure localized to the external adapter and name the exact unavailable surface.
 
 ## Privacy And Safety Rules

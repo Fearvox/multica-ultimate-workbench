@@ -1,6 +1,11 @@
 {
-  "$schema": "local://capy-linear-slack-sync/v1",
-  "enabled": true,
+  "$schema": "https://capy.ai/schemas/capy-linear-slack-sync.v1.json",
+  "enabled": false,
+  "enablement": {
+    "default": false,
+    "requiresDeploymentOverride": true,
+    "reason": "prevent accidental Linear or Slack writes during rollout and testing"
+  },
   "linear": {
     "projects": [
       {
@@ -47,11 +52,16 @@
   },
   "evidenceGates": {
     "sourceOfTruth": [
+      "git",
+      "github",
+      "ci",
+      "review-comments"
+    ],
+    "sourceOfTruthReferences": [
+      "git commits and repo diffs",
       "github pull requests",
-      "git commits",
       "ci checks",
-      "github reviews",
-      "review findings"
+      "github review comments and findings"
     ],
     "inProgress": {
       "requiresWorkStartEvidence": true
@@ -68,26 +78,23 @@
       "requiresMergedPr": true
     },
     "blockedWhen": [
-      "ci fails",
-      "requirement is unclear",
-      "high or critical review finding is open",
-      "primary source-of-truth evidence conflicts prevent a trustworthy semantic state decision"
+      "ci-fails",
+      "open-high-critical-review-finding",
+      "evidence-ambiguity",
+      "contradictory-primary-evidence",
+      "unclear-requirement",
+      "unsafe-or-missing-permission-for-semantic-decision"
     ],
-    "externalWriteFailure": {
-      "surfaces": [
-        "linear tooling unavailable",
-        "slack tooling unavailable",
-        "linear auth missing",
-        "slack auth missing",
-        "linear project permission missing",
-        "slack channel permission missing"
-      ],
-      "semanticState": "keep the semantic state from primary GitHub/repo evidence when clear",
-      "verdict": "FLAG"
-    },
+    "flagWhen": [
+      "external-adapter-write-fails",
+      "external-adapter-auth-unavailable",
+      "supporting-context-disagrees-but-primary-evidence-is-clear"
+    ],
     "blockVerdictWhen": [
-      "missing permission prevents a trustworthy semantic state decision",
-      "conflicting primary source-of-truth evidence prevents a trustworthy semantic state decision"
+      "evidence-ambiguity",
+      "contradictory-primary-evidence",
+      "unclear-requirement",
+      "unsafe-or-missing-permission-for-semantic-decision"
     ]
   },
   "forbiddenData": [
