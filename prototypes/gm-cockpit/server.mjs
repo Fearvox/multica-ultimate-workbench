@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 
 const execFileP = promisify(execFile);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const publicDir = path.join(__dirname, 'public');
+const publicDir = path.resolve(__dirname, 'public');
 const port = Number(process.env.GM_COCKPIT_PORT || 4877);
 const glancesUrl = process.env.GLANCES_URL || 'http://127.0.0.1:61208/api/4/all';
 const workbenchRepo = process.env.MUW_REPO || process.cwd();
@@ -64,7 +64,25 @@ async function getGit() {
   const status = await run('git', ['status', '--short', '--branch'], { cwd: root.stdout });
   const head = await run('git', ['rev-parse', '--short', 'HEAD'], { cwd: root.stdout });
   const branch = await run('git', ['branch', '--show-current'], { cwd: root.stdout });
-  const dirtyLines = status.stdout.split('\n').filter((line) => line && !line.startsWith('##'));
+  const dirtyLines = status.ok ? status.stdout.split('\n').filter((line) => line && !line.startsWith('##')) : [];
+  const failures = [
+    ['status', status],
+    ['head', head],
+    ['branch', branch],
+  ].filter(([, result]) => !result.ok);
+  if (failures.length) {
+    return {
+      ok: false,
+      root: root.stdout,
+      branch: branch.stdout,
+      head: head.stdout,
+      status: status.stdout,
+      dirtyCount: dirtyLines.length,
+      dirtyLines: dirtyLines.slice(0, 8),
+      label: `git ${failures[0][0]} failed`,
+      detail: failures.map(([label, result]) => `${label}: ${result.stderr || result.stdout || `exit ${result.code ?? 'unknown'}`}`).join(' | '),
+    };
+  }
   return {
     ok: true,
     root: root.stdout,
@@ -89,7 +107,7 @@ async function getTools() {
 async function getMacmon() {
   const present = await run('/bin/zsh', ['-lc', 'command -v macmon || true']);
   if (!present.stdout) return { ok: false, present: false, error: 'macmon not found in PATH' };
-  const sample = await run('/bin/zsh', ['-lc', 'macmon pipe --interval 1000 | head -1'], { timeout: 5500, maxBuffer: 64_000 });
+  const sample = await run('/bin/zsh', ['-lc', 'macmon pipe --interval 1000 | head -n 1'], { timeout: 5500, maxBuffer: 64_000 });
   if (!sample.stdout) return { ok: false, present: true, error: sample.stderr || 'macmon emitted no sample' };
   try {
     const data = JSON.parse(sample.stdout.split('\n')[0]);
@@ -191,17 +209,18 @@ const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=u
 
 const server = http.createServer(async (req, res) => {
   try {
-    const url = new URL(req.url, `http://${req.headers.host}`);
+    const url = new URL(req.url || '/', `http://${req.headers.host || '127.0.0.1'}`);
     if (url.pathname === '/api/snapshot') {
       const body = JSON.stringify(await snapshot());
       res.writeHead(200, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
       res.end(body);
       return;
     }
-    const rel = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);
-    const file = path.normalize(path.join(publicDir, rel));
+    const rel = url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname.slice(1));
+    const file = path.resolve(publicDir, rel);
     const relative = path.relative(publicDir, file);
-    if (relative.startsWith('..') || path.isAbsolute(relative) || !existsSync(file)) {
+    const insidePublicDir = relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
+    if (!insidePublicDir || !existsSync(file)) {
       res.writeHead(404, { 'content-type': 'text/plain' });
       res.end('not found');
       return;

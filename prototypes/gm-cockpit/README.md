@@ -45,6 +45,7 @@ MUW_REPO=/path/to/multica-ultimate-workbench
 - Glances API: CPU, memory, swap, load, filesystem, process list.
 - Git: branch, head, dirty status for the configured Workbench checkout.
 - Tool presence: fastfetch, btop, btm, glances, macmon, node.
+- macmon metric sampling: single-sample Apple Silicon power/temperature side-card when `macmon` is installed.
 - Hermes pressure: derived from Glances process list by matching Hermes commands.
 
 ## Not yet wired
@@ -52,7 +53,6 @@ MUW_REPO=/path/to/multica-ultimate-workbench
 - Multica issues/runs.
 - Hermes cron list.
 - Research Vault status.
-- macmon metric sampling.
 - Browser/localterm state.
 
 Those belong in follow-up adapters after the information architecture is accepted.

@@ -14,10 +14,10 @@ function classState(state) {
 }
 
 function renderAction(a) {
-  const tier = a?.tier === 'P0' ? 'P0' : a?.tier === 'P1' ? 'P1' : '';
+  const tier = ['P0', 'P1', 'P2'].includes(a?.tier) ? ` ${a.tier}` : '';
   const tierLabel = escapeHtml(a?.tier);
   return `<div class="action">
-    <div class="tier${tier ? ` ${tier}` : ''}">${tierLabel}</div>
+    <div class="tier${tier}">${tierLabel}</div>
     <div><h3>${escapeHtml(a?.title)}</h3><p>${escapeHtml(a?.detail)}</p><small>${escapeHtml(a?.evidence)}</small></div>
   </div>`;
 }
@@ -36,6 +36,10 @@ function renderTools(tools) {
 async function tick() {
   try {
     const res = await fetch('/api/snapshot', { cache: 'no-store' });
+    if (!res.ok) {
+      const detail = (await res.text()).trim();
+      throw new Error(detail || `Snapshot HTTP ${res.status}`);
+    }
     const data = await res.json();
     const state = classState(data.state);
     $('headline').textContent = data.state === 'critical' ? 'GM, pressure is real.' : data.state === 'watch' ? 'GM, let it cook carefully.' : 'GM, we are clear.';
@@ -53,9 +57,11 @@ async function tick() {
       $('memMeta').textContent = `${data.glances.mem.used} / ${data.glances.mem.total}`;
       $('swapValue').textContent = pct(data.glances.swap.percent);
       $('swapMeta').textContent = `${data.glances.swap.used} / ${data.glances.swap.total}`;
+      $('swapMetric').className = `metric${data.glances.swap.percent >= 90 ? ' danger' : data.glances.swap.percent >= 75 ? ' watch' : ''}`;
       $('loadValue').textContent = [data.glances.load.min1, data.glances.load.min5, data.glances.load.min15].map((v) => Number(v || 0).toFixed(2)).join(' / ');
     } else {
       $('hostLine').textContent = `Glances unavailable: ${data.glances.error}`;
+      $('swapMetric').className = 'metric';
     }
 
     if (data.macmon?.ok) {

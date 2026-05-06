@@ -67,6 +67,7 @@ h1 { margin: 10px 0 0; font-size: clamp(42px, 7vw, 98px); line-height: .86; lett
 .metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
 .metric { background: var(--panel-strong); border: 1px solid var(--line); padding: 14px; min-height: 120px; position: relative; }
 .metric::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--green); opacity: .7; }
+.metric.watch::after { background: var(--amber); }
 .metric.danger::after { background: var(--red); }
 .metric span { color: var(--muted); font-size: 12px; letter-spacing: .16em; }
 .metric strong { display: block; margin-top: 10px; font-size: clamp(32px, 3.4vw, 54px); letter-spacing: -.08em; white-space: nowrap; }
