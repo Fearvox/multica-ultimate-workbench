@@ -3,7 +3,7 @@ import http from 'node:http';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { readFile } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import { existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -60,17 +60,18 @@ async function getGlances() {
 
 async function getGit() {
   const root = await run('git', ['rev-parse', '--show-toplevel'], { cwd: workbenchRepo });
-  if (!root.ok) return { ok: false, label: 'not a git checkout', detail: root.stderr };
+  if (!root.ok) return { ok: false, label: 'not a git checkout', detail: root.stderr, stderr: root.stderr, code: root.code ?? null };
   const status = await run('git', ['status', '--short', '--branch'], { cwd: root.stdout });
   const head = await run('git', ['rev-parse', '--short', 'HEAD'], { cwd: root.stdout });
   const branch = await run('git', ['branch', '--show-current'], { cwd: root.stdout });
   const dirtyLines = status.ok ? status.stdout.split('\n').filter((line) => line && !line.startsWith('##')) : [];
   const failed = [
-    ['status', status],
-    ['head', head],
-    ['branch', branch],
-  ].filter(([, result]) => !result.ok);
-  if (failed.length) {
+    ['git status failed', status],
+    ['git head lookup failed', head],
+    ['git branch lookup failed', branch],
+  ].find(([, result]) => !result.ok);
+  if (failed) {
+    const [label, result] = failed;
     return {
       ok: false,
       root: root.stdout,
@@ -79,8 +80,10 @@ async function getGit() {
       status: status.stdout,
       dirtyCount: dirtyLines.length,
       dirtyLines: dirtyLines.slice(0, 8),
-      label: 'git metadata failed',
-      detail: failed.map(([name, result]) => `${name}: ${result.stderr || result.stdout || `exit ${result.code ?? 'unknown'}`}`).join(' | '),
+      label,
+      detail: result.stderr || result.stdout || `exit ${result.code ?? 'unknown'}`,
+      stderr: result.stderr,
+      code: result.code ?? null,
     };
   }
   return {
@@ -210,8 +213,8 @@ const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=u
 
 const server = http.createServer(async (req, res) => {
   try {
-    const base = `http://${req.headers.host || `127.0.0.1:${port}`}`;
-    const url = new URL(req.url || '/', base);
+    const baseHost = req.headers.host || `127.0.0.1:${port}`;
+    const url = new URL(req.url || '/', `http://${baseHost}`);
     if (url.pathname === '/api/snapshot') {
       const body = JSON.stringify(await snapshot());
       res.writeHead(200, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
@@ -222,7 +225,7 @@ const server = http.createServer(async (req, res) => {
     const file = path.resolve(publicDir, rel);
     const relative = path.relative(publicDir, file);
     const insidePublicDir = relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
-    if (!insidePublicDir || !existsSync(file)) {
+    if (!insidePublicDir || !existsSync(file) || !statSync(file).isFile()) {
       res.writeHead(404, { 'content-type': 'text/plain' });
       res.end('not found');
       return;

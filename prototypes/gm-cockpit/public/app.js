@@ -1,44 +1,99 @@
 const $ = (id) => document.getElementById(id);
 const pct = (n) => Number.isFinite(Number(n)) ? `${Number(n).toFixed(1)}%` : '—';
 const short = (s, n = 94) => (s || '').length > n ? `${s.slice(0, n - 1)}…` : (s || '—');
-const escapeHtml = (value) => String(value ?? '—').replace(/[&<>'"]/g, (char) => ({
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  "'": '&#39;',
-  '"': '&quot;',
-})[char]);
+const textValue = (value, fallback = '—') => {
+  const text = value == null || value === '' ? fallback : String(value);
+  return text;
+};
+
+function node(tag, { className, text, title } = {}, children = []) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text !== undefined) element.textContent = text;
+  if (title !== undefined) element.title = title;
+  for (const child of children) element.append(child);
+  return element;
+}
 
 function classState(state) {
   return state === 'critical' ? 'critical' : state === 'watch' ? 'watch' : 'clear';
 }
 
+function swapClass(percent) {
+  const value = Number(percent);
+  if (value >= 90) return 'danger';
+  if (value >= 75) return 'watch';
+  return 'neutral';
+}
+
 function renderAction(a) {
-  const tier = ['P0', 'P1', 'P2'].includes(a?.tier) ? ` ${a.tier}` : '';
-  const tierLabel = escapeHtml(a?.tier);
-  return `<div class="action">
-    <div class="tier${tier}">${tierLabel}</div>
-    <div><h3>${escapeHtml(a?.title)}</h3><p>${escapeHtml(a?.detail)}</p><small>${escapeHtml(a?.evidence)}</small></div>
-  </div>`;
+  const tier = ['P0', 'P1', 'P2'].includes(a?.tier) ? a.tier : '';
+  const body = node('div', {}, [
+    node('h3', { text: textValue(a?.title) }),
+    node('p', { text: textValue(a?.detail) }),
+    node('small', { text: textValue(a?.evidence) }),
+  ]);
+  return node('div', { className: 'action' }, [
+    node('div', { className: `tier${tier ? ` ${tier}` : ''}`, text: textValue(a?.tier) }),
+    body,
+  ]);
 }
 
 function renderProc(p) {
-  const hot = p.cpu >= 80 ? ' hot' : '';
-  const command = p.command || p.name || '—';
-  const escapedCommand = escapeHtml(command);
-  return `<div class="proc${hot}"><strong>${p.cpu.toFixed(1)}%</strong><span>${p.mem.toFixed(1)}% mem</span><code title="${escapedCommand}">${escapeHtml(short(command, 110))}</code></div>`;
+  const cpu = Number(p?.cpu || 0);
+  const mem = Number(p?.mem || 0);
+  const command = textValue(p?.command || p?.name);
+  return node('div', { className: `proc${cpu >= 80 ? ' hot' : ''}` }, [
+    node('strong', { text: `${cpu.toFixed(1)}%` }),
+    node('span', { text: `${mem.toFixed(1)}% mem` }),
+    node('code', { text: short(command, 110), title: command }),
+  ]);
 }
 
 function renderTools(tools) {
-  return tools.map((t) => `<span class="tool ${t.ok ? 'ok' : 'missing'}">${t.ok ? '●' : '○'} ${escapeHtml(t.name)}</span>`).join('');
+  return tools.map((t) => node('span', {
+    className: `tool ${t.ok ? 'ok' : 'missing'}`,
+    text: `${t.ok ? '●' : '○'} ${textValue(t.name)}`,
+  }));
+}
+
+function renderMuted(text) {
+  return node('p', { className: 'muted', text });
+}
+
+function renderMacmon(macmon) {
+  if (macmon?.ok) {
+    const p = macmon.power || {};
+    const t = macmon.temp || {};
+    return node('div', { className: 'chip-grid' }, [
+      node('div', {}, [node('span', { text: 'SYS' }), node('strong', { text: `${Number(p.system || 0).toFixed(1)}W` })]),
+      node('div', {}, [node('span', { text: 'CPU' }), node('strong', { text: `${Number(p.cpu || 0).toFixed(1)}W` })]),
+      node('div', {}, [node('span', { text: 'GPU' }), node('strong', { text: `${Number(p.gpu || 0).toFixed(1)}W` })]),
+      node('div', {}, [node('span', { text: 'TEMP' }), node('strong', { text: `${Number(t.cpu_temp_avg || 0).toFixed(0)}°C` })]),
+    ]);
+  }
+  return document.createTextNode(
+    macmon?.present
+      ? `macmon present but sample failed: ${textValue(macmon.error)}`
+      : 'macmon not detected by server PATH yet. When install finishes, refresh; it becomes the pretty chip side-card.',
+  );
+}
+
+function replaceChildren(id, children) {
+  $(id).replaceChildren(...children);
 }
 
 async function tick() {
   try {
     const res = await fetch('/api/snapshot', { cache: 'no-store' });
     if (!res.ok) {
-      const body = (await res.text()).trim();
-      throw new Error(`Snapshot request failed (${res.status} ${res.statusText})${body ? `: ${body}` : ''}`);
+      let detail = '';
+      try {
+        detail = (await res.text()).trim();
+      } catch {
+        detail = '';
+      }
+      throw new Error(`Snapshot request failed (${res.status} ${res.statusText})${detail ? `: ${detail}` : '. Check the local server logs.'}`);
     }
     const data = await res.json();
     const state = classState(data.state);
@@ -57,37 +112,23 @@ async function tick() {
       $('memMeta').textContent = `${data.glances.mem.used} / ${data.glances.mem.total}`;
       $('swapValue').textContent = pct(data.glances.swap.percent);
       $('swapMeta').textContent = `${data.glances.swap.used} / ${data.glances.swap.total}`;
-      $('swapMetric').className = `metric${data.glances.swap.percent >= 90 ? ' danger' : data.glances.swap.percent >= 75 ? ' watch' : ''}`;
+      $('swapMetric').className = `metric ${swapClass(data.glances.swap.percent)}`;
       $('loadValue').textContent = [data.glances.load.min1, data.glances.load.min5, data.glances.load.min15].map((v) => Number(v || 0).toFixed(2)).join(' / ');
     } else {
       $('hostLine').textContent = `Glances unavailable: ${data.glances.error}`;
-      $('swapMetric').className = 'metric';
+      $('swapMetric').className = 'metric neutral';
     }
 
-    if (data.macmon?.ok) {
-      const p = data.macmon.power;
-      const t = data.macmon.temp;
-      $('macmonState').innerHTML = `<div class="chip-grid">
-        <div><span>SYS</span><strong>${Number(p.system || 0).toFixed(1)}W</strong></div>
-        <div><span>CPU</span><strong>${Number(p.cpu || 0).toFixed(1)}W</strong></div>
-        <div><span>GPU</span><strong>${Number(p.gpu || 0).toFixed(1)}W</strong></div>
-        <div><span>TEMP</span><strong>${Number(t.cpu_temp_avg || 0).toFixed(0)}°C</strong></div>
-      </div>`;
-    } else {
-      $('macmonState').textContent = data.macmon?.present
-        ? `macmon present but sample failed: ${data.macmon.error}`
-        : 'macmon not detected by server PATH yet. When install finishes, refresh; it becomes the pretty chip side-card.';
-    }
-
-    $('actions').innerHTML = data.actions.map(renderAction).join('');
-    $('hermesList').innerHTML = data.processes.hermes.length ? data.processes.hermes.map(renderProc).join('') : '<p class="muted">No Hermes process surfaced in Glances processlist.</p>';
-    $('processList').innerHTML = [
-      ...(data.processes.brave?.length ? [`<div class="section-kicker">Brave renderers</div>`, ...data.processes.brave.map(renderProc)] : []),
-      `<div class="section-kicker">System hot list</div>`,
+    $('macmonState').replaceChildren(renderMacmon(data.macmon));
+    replaceChildren('actions', data.actions.map(renderAction));
+    replaceChildren('hermesList', data.processes.hermes.length ? data.processes.hermes.map(renderProc) : [renderMuted('No Hermes process surfaced in Glances processlist.')]);
+    replaceChildren('processList', [
+      ...(data.processes.brave?.length ? [node('div', { className: 'section-kicker', text: 'Brave renderers' }), ...data.processes.brave.map(renderProc)] : []),
+      node('div', { className: 'section-kicker', text: 'System hot list' }),
       ...data.processes.top.map(renderProc),
-    ].join('');
+    ]);
     $('gitStatus').textContent = data.git.ok ? data.git.status : `Git unavailable: ${data.git.detail || data.git.label}`;
-    $('toolStrip').innerHTML = renderTools(data.tools);
+    replaceChildren('toolStrip', renderTools(data.tools));
     $('updated').textContent = `updated ${new Date(data.generatedAt).toLocaleTimeString()}`;
   } catch (error) {
     $('headline').textContent = 'GM, cockpit adapter failed.';
