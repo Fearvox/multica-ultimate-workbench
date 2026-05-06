@@ -14,7 +14,7 @@ GitHub PRs, commits, CI/checks, and review findings remain the primary evidence.
 | Slack adapter | human attention surface | posts bounded notifications only when human attention is warranted |
 | Build agents | implementation and verification | must not write Linear or Slack directly |
 
-Default rollout: the registry entry ships disabled until an operator explicitly enables it after verifying Linear/Slack auth, permissions, and rollout intent.
+Default rollout: the registry entry ships disabled until an operator explicitly enables it after verifying Linear/Slack auth, channel/project permissions, and rollout intent.
 
 ## State Machine
 
@@ -24,7 +24,7 @@ Default rollout: the registry entry ships disabled until an operator explicitly 
 | `In Progress` | `In Review` | PR opens or ready-for-review evidence exists | GitHub PR state or equivalent review-ready repo evidence |
 | `In Review` | `Ready for Merge` | PR exists, required checks are passing, and no open high/critical review findings remain | open PR, passing required checks, no open high/critical findings |
 | `Ready for Merge` | `Done` | PR is merged | merged PR evidence |
-| any state | `Blocked` | required CI/check evidence fails, the requirement is unclear or missing, a high/critical review finding is open, or an owner/external permission blocker prevents work from proceeding | failing required checks, open high/critical finding, or explicit owner/permission blocker that stops work |
+| any state | `Blocked` | required CI/check evidence fails, the requirement is unclear or needs a required human decision before a safe transition, a high/critical review finding is open, required primary evidence cannot be read, or primary GitHub/CI/review evidence conflicts and cannot be resolved safely | failing required checks, open high/critical finding, unreadable primary evidence, or unresolved primary-evidence conflict that prevents trustworthy classification |
 
 Rules:
 
@@ -33,12 +33,11 @@ Rules:
 - `Ready for Merge` is an evidence state, not merge authority.
 - Capy must never auto-merge unless a human explicitly asks for that exact PR merge.
 - Precedence rule: classify semantic state from primary GitHub/repo evidence first.
-- If required CI/check evidence fails, the requirement is unclear or missing, an owner/external permission blocker stops work, or an open high/critical review finding exists, emit semantic state `Blocked` when that condition is supported by readable, trustworthy primary evidence.
-- A trustworthy `Blocked` semantic state does not force verdict `BLOCK`; continue evaluating the external sync verdict separately.
 - Use `PASS` when the semantic state is trustworthy and required external writes succeeded or no external write was required.
-- If durable GitHub/repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface, keep that semantic state and emit `FLAG` naming the mismatch.
 - If the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or write availability fails, keep that semantic state and emit `FLAG` naming the failed external surface.
-- If primary GitHub, CI, and review evidence disagree with each other, required primary evidence cannot be read, or required classification permission/evidence is missing and the state cannot be resolved safely, emit `BLOCK` instead of forcing `Blocked`.
+- If durable GitHub/repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface, keep that semantic state and emit `FLAG` naming the mismatch.
+- If primary GitHub, CI, and review evidence disagree with each other, required primary evidence cannot be read, or a required human decision is missing and the state cannot be resolved safely, emit `Blocked` and `BLOCK`.
+- If required CI/check evidence fails or an open high/critical review finding exists, emit `Blocked` and `BLOCK`.
 - Do not force the semantic state to `Blocked` solely because Linear/Slack auth, tooling, channel/project permission, or write availability is unavailable.
 
 ## Slack Notification Matrix
@@ -48,7 +47,7 @@ Rules:
 | `Blocked` state | yes | `#everos-ops` | use blocker channel; same channel until a dedicated blocker channel is registered |
 | CI failed | yes | `#everos-ops` | include failing surface only, not raw logs |
 | High/critical review finding opened or remains open | yes | `#everos-ops` | summarize finding severity and owner need |
-| Needs owner decision | yes | `#everos-ops` | use when requirement, permission, or evidence conflict needs human judgment |
+| Needs owner decision | yes | `#everos-ops` | use when requirement or evidence conflict needs human judgment |
 | `Ready for Merge` reached | yes | `#everos-ops` | notify once per dedupe key |
 | Task started / first commit / synchronize without gate change | no | none | avoid start and commit noise |
 | Minor/nit review chatter | no | none | avoid low-signal review spam |
@@ -95,13 +94,13 @@ Preferred event identifiers:
 - Check suite: `check_suite.id`
 - Workflow run: `workflow_run.id`
 - Review submission: `review.id`
-- Review comment created/edited/deleted: action + `pull_request_review_comment.id`
+- Review comment change: `pull_request_review_comment.id` + `action` + `comment.updated_at` when present
 - Merge closeout: PR number + merged commit sha
 
 If a provider requires a single string key, concatenate:
 
 ```text
-repo + pr/issue + event + action + sha/check_run_id/workflow_run_id/review_id/pull_request_review_comment_id
+repo + pr/issue + event + sha/check_run_id/workflow_run_id/review_id/review_comment_id
 ```
 
 Dedupe rules:
@@ -112,14 +111,15 @@ Dedupe rules:
 
 ## Tooling Failure, FLAG, And BLOCK Behavior
 
+Linear and Slack writes are disabled by default and require explicit deployment enablement plus valid auth and project/channel permission.
+
 If Linear or Slack tooling is unavailable, missing auth, or lacks channel/project permission:
 
 - keep GitHub and repo evidence as the source of truth;
 - do not claim external sync succeeded;
-- keep semantic state `Blocked` when failing required checks, unclear/missing requirements, open high/critical findings, or owner/external permission blockers are supported by readable, trustworthy primary evidence;
-- emit `FLAG` when the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or the external write could not be completed;
-- missing Linear or Slack adapter permission does not force Linear state `Blocked` unless it is the owner/external permission blocker that stops the work itself from proceeding;
-- emit `BLOCK` only when required primary evidence cannot be read, required classification permission is missing, or primary evidence conflict prevents a trustworthy state decision;
+- emit `FLAG` when the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or the external write could not be completed; do not claim the external sync succeeded;
+- missing Linear or Slack adapter permission does not force semantic state `Blocked` unless that same permission is also required to read primary evidence or otherwise prevents trustworthy classification;
+- emit `Blocked` and `BLOCK` when required primary evidence cannot be read, the requirement is unclear or needs a required human decision, required checks fail, an open high/critical finding remains, or primary evidence conflict prevents a trustworthy state decision;
 - keep the failure localized to the external adapter and name the exact unavailable auth, permission, or tool surface.
 
 ## Privacy And Safety Rules

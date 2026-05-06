@@ -5,6 +5,37 @@
     "requiresDeploymentOverride": true,
     "reason": "prevent accidental Linear or Slack writes during rollout and testing"
   },
+  "runtimeGuards": {
+    "requiresExplicitEnablement": true,
+    "requiresValidAuth": true,
+    "requiresProjectOrChannelPermission": true
+  },
+  "eventTriggers": {
+    "pullRequest": [
+      "opened",
+      "reopened",
+      "ready_for_review",
+      "synchronize",
+      "closed"
+    ],
+    "checkRun": [
+      "completed"
+    ],
+    "checkSuite": [
+      "completed"
+    ],
+    "workflowRun": [
+      "completed"
+    ],
+    "pullRequestReview": [
+      "submitted"
+    ],
+    "pullRequestReviewComment": [
+      "created",
+      "edited",
+      "deleted"
+    ]
+  },
   "linear": {
     "projects": [
       {
@@ -79,23 +110,33 @@
     "precedence": {
       "steps": [
         "classify semantic state from primary GitHub or repo evidence first",
-        "emit Blocked semantic state when blocked conditions are supported by readable trustworthy primary evidence",
         "classify sync verdict separately after the semantic state is trustworthy"
       ],
       "semanticStateAndVerdictAreSeparate": true,
       "blockedSemanticStateRequiresActionableWorkBlocker": true,
-      "blockedStateStillEvaluatesVerdictSeparately": true,
-      "blockVerdictRequiresUntrustworthyClassification": true,
       "passWhen": [
         "semantic state is trustworthy and required external writes succeeded",
         "semantic state is trustworthy and no external write was required"
+      ],
+      "flagWhen": [
+        "semantic state is clear but Linear auth, tooling, channel or project permission, or write availability fails",
+        "semantic state is clear but Slack auth, tooling, channel or project permission, or write availability fails",
+        "durable GitHub or repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface"
+      ],
+      "blockWhen": [
+        "required CI checks fail",
+        "high or critical review finding is open",
+        "required primary evidence cannot be read",
+        "primary GitHub, CI, or review evidence conflicts and cannot be resolved safely",
+        "requirement is unclear or needs a required human decision before a safe transition"
       ]
     },
     "blockedWhen": [
       "required ci checks fail",
-      "requirement is unclear or missing",
+      "requirement is unclear or needs a required human decision before a safe transition",
       "high or critical review finding is open",
-      "owner or external permission blocker prevents work from proceeding"
+      "required primary evidence cannot be read",
+      "primary github, ci, or review evidence conflicts and cannot be resolved safely"
     ],
     "flagWhen": [
       "semantic state is clear but linear auth, tooling, channel or project permission, or write availability fails",
@@ -105,8 +146,23 @@
     "blockVerdictWhen": [
       "required primary evidence cannot be read",
       "required permission or evidence for semantic classification is missing",
-      "primary github, ci, or review evidence conflicts and cannot be resolved safely"
+      "primary github, ci, or review evidence conflicts and cannot be resolved safely",
+      "required ci checks fail",
+      "high or critical review finding is open",
+      "requirement is unclear or needs a required human decision before a safe transition"
     ]
+  },
+  "idempotency": {
+    "keyFormat": "<owner>/<repo>:<issue-or-pr>:<event-family>:<event-id>",
+    "preferredEventIds": {
+      "pullRequest": "pull_request.number + action + head.sha",
+      "checkRun": "check_run.id",
+      "checkSuite": "check_suite.id",
+      "workflowRun": "workflow_run.id",
+      "review": "review.id",
+      "reviewComment": "pull_request_review_comment.id + action + comment.updated_at",
+      "mergeCloseout": "pull_request.number + merge_commit_sha"
+    }
   },
   "forbiddenData": [
     "api keys",

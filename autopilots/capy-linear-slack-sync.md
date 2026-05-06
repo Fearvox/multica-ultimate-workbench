@@ -33,8 +33,8 @@ React only to these GitHub events:
    - `docs/capy-linear-slack-sync-lane.md`
 4. Inspect the current PR, commit, required checks, workflow conclusions, review state, and open high/critical findings.
 5. Classify the highest-confidence allowed transition from primary evidence.
-6. Respect repo enablement first: this lane ships disabled in the registry until an operator explicitly enables it after verifying Linear/Slack auth, permissions, and rollout intent.
-7. Write Linear and Slack only when the required tool surface exists, auth is valid, permissions allow the write, and the dedupe key has not already been applied.
+6. Respect repo enablement first: this lane ships disabled in the registry until an operator explicitly enables it after verifying Linear/Slack auth, channel/project permissions, and rollout intent.
+7. Write Linear and Slack only when the registry is enabled for that deployment, the required tool surface exists, auth is valid, permissions allow the write, and the dedupe key has not already been applied.
 8. Emit `CAPY_LINEAR_SLACK_SYNC` every run, even when no external write occurs.
 
 ## State Classification Rules
@@ -45,22 +45,23 @@ Use this exact state machine:
 - `In Progress` -> `In Review` when a PR opens or ready-for-review evidence exists.
 - `In Review` -> `Ready for Merge` only when a PR exists, required checks are passing, and no open high/critical review findings remain.
 - `Ready for Merge` -> `Done` only when the PR is merged.
-- Any state -> `Blocked` only when required CI/check evidence fails, the requirement is unclear or missing, a high/critical review finding is open, or an owner/external permission blocker prevents work from proceeding.
+- Any state -> `Blocked` only when required CI/check evidence fails, the requirement is unclear or needs a required human decision before a safe transition, a high/critical review finding is open, required primary evidence cannot be read, or primary GitHub/CI/review evidence conflicts and cannot be resolved safely.
 
 Precedence:
 
 - The semantic state and the external sync verdict are separate outputs.
 - Classify semantic state from primary GitHub/repo evidence first, and use the canonical source-of-truth tokens `git`, `github`, `ci`, and `review-comments` in machine-readable config or reports.
-- If required CI/check evidence fails, the requirement is unclear or missing, an owner/external permission blocker stops work, or an open high/critical review finding exists, emit `Blocked` semantic state.
-- A trustworthy `Blocked` semantic state does not force verdict `BLOCK`; keep evaluating the external sync verdict separately: use `PASS` when required external writes succeeded or no external write was required, and use `FLAG` when only the external Linear/Slack write surface failed.
 - Use `PASS` when the semantic state is trustworthy and required external writes succeeded or no external write was required.
+- If the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or write availability fails, keep that semantic state, emit `FLAG`, and do not claim the external sync succeeded.
 - If durable GitHub/repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface, keep that semantic state and emit `FLAG` naming the mismatch.
-- If the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or write availability fails, keep the semantic state, emit `FLAG`, and do not claim the external sync succeeded.
-- Emit `BLOCK` verdict only when required primary evidence cannot be read, required permission or evidence for semantic classification is missing, or primary GitHub/CI/review evidence conflicts and cannot be resolved safely; in that case do not claim a semantic state transition succeeded.
+- If required primary evidence is unavailable, the requirement is unclear or needs a required human decision, or primary GitHub/CI/review evidence conflicts enough to prevent a trustworthy state decision, emit `Blocked` semantic state and `BLOCK` verdict.
+- If required CI/check evidence fails or an open high/critical review finding exists, emit `Blocked` semantic state and `BLOCK` verdict.
 - Do not force the semantic state to `Blocked` solely because Linear/Slack auth, tooling, channel/project permission, or write availability is unavailable.
 - Prefer durable GitHub/repo evidence over chat or memory whenever evidence sources disagree.
 
 ## External Write Rules
+
+Linear and Slack writes require explicit deployment enablement plus valid auth and project/channel permission checks.
 
 Linear:
 
@@ -86,7 +87,7 @@ Generate a dedupe key from repo identity plus event identity. Preferred identifi
 - check suite: repo + PR/branch + `check_suite.id`
 - workflow run: repo + PR/branch + `workflow_run.id`
 - review submission: repo + PR number + `review.id`
-- review comment change: repo + PR number + action + `pull_request_review_comment.id`
+- review comment change: repo + PR number + `pull_request_review_comment.id` + action + `comment.updated_at` when present
 - merge closeout: repo + PR number + merged sha
 
 Never emit duplicate Linear comments or Slack posts for the same dedupe key.
@@ -101,9 +102,8 @@ Never emit duplicate Linear comments or Slack posts for the same dedupe key.
 ## Failure Handling
 
 - If the semantic state is clear but Linear or Slack auth, tooling, channel/project permission, or write availability is unavailable, emit `FLAG` and keep GitHub/repo evidence as source of truth.
-- If required CI/check evidence fails, the requirement is unclear or missing, an owner/external permission blocker stops work, or an open high/critical review finding exists, keep semantic state `Blocked` when that condition is supported by readable, trustworthy primary evidence.
-- Missing Linear or Slack adapter permission does not force Linear state `Blocked` unless it is the owner/external permission blocker that stops the work itself from proceeding.
-- Emit `BLOCK` only when required primary evidence cannot be read, required classification permission is missing, or primary evidence conflict prevents a trustworthy state decision; a trustworthy `Blocked` semantic state still evaluates `PASS` or `FLAG` separately.
+- Missing Linear or Slack adapter permission does not force semantic state `Blocked` unless that same permission is required to read primary evidence or otherwise prevents a trustworthy classification.
+- If required primary evidence cannot be read, the requirement is unclear or needs a required human decision, required checks fail, an open high/critical finding remains, or primary evidence conflict prevents a trustworthy state decision, emit `Blocked` semantic state and `BLOCK` verdict.
 - Name the exact missing tool, auth, permission, or primary-evidence surface.
 
 ## Required Output
