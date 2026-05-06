@@ -22,8 +22,9 @@ function renderAction(a) {
 
 function renderProc(p) {
   const hot = p.cpu >= 80 ? ' hot' : '';
-  const command = p.command || p.name;
-  return `<div class="proc${hot}"><strong>${p.cpu.toFixed(1)}%</strong><span>${p.mem.toFixed(1)}% mem</span><code title="${escapeHtml(command)}">${escapeHtml(short(command, 110))}</code></div>`;
+  const command = p.command || p.name || '—';
+  const escapedCommand = escapeHtml(command);
+  return `<div class="proc${hot}"><strong>${p.cpu.toFixed(1)}%</strong><span>${p.mem.toFixed(1)}% mem</span><code title="${escapedCommand}">${escapeHtml(short(command, 110))}</code></div>`;
 }
 
 function renderTools(tools) {

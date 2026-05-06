@@ -89,7 +89,7 @@ async function getTools() {
 async function getMacmon() {
   const present = await run('/bin/zsh', ['-lc', 'command -v macmon || true']);
   if (!present.stdout) return { ok: false, present: false, error: 'macmon not found in PATH' };
-  const sample = await run('/bin/zsh', ['-lc', 'timeout 4 macmon pipe --interval 1000 | head -1'], { timeout: 5500, maxBuffer: 64_000 });
+  const sample = await run('/bin/zsh', ['-lc', 'macmon pipe --interval 1000 | head -1'], { timeout: 5500, maxBuffer: 64_000 });
   if (!sample.stdout) return { ok: false, present: true, error: sample.stderr || 'macmon emitted no sample' };
   try {
     const data = JSON.parse(sample.stdout.split('\n')[0]);
