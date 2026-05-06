@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GM Cockpit</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">SYN<span>DASH</span> / LOCAL OPERATOR</p>
+          <h1 id="headline">GM, operator.</h1>
+          <p id="subline" class="subline">Fetching reality. Vibes are not evidence.</p>
+        </div>
+        <div class="health-card" id="healthCard">
+          <div class="health-orb" id="healthOrb"></div>
+          <div>
+            <p class="label">overall</p>
+            <p class="health-state" id="healthState">booting</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid top-grid">
+        <article class="panel machine-panel">
+          <div class="panel-head">
+            <p class="label">machine</p>
+            <p id="hostLine" class="muted">—</p>
+          </div>
+          <div class="metric-row">
+            <div class="metric"><span>CPU</span><strong id="cpuValue">—</strong><i id="cpuMeta">—</i></div>
+            <div class="metric"><span>MEM</span><strong id="memValue">—</strong><i id="memMeta">—</i></div>
+            <div class="metric danger"><span>SWAP</span><strong id="swapValue">—</strong><i id="swapMeta">—</i></div>
+            <div class="metric"><span>LOAD</span><strong id="loadValue">—</strong><i id="loadMeta">1 / 5 / 15</i></div>
+          </div>
+        </article>
+
+        <article class="panel chip-panel">
+          <div class="panel-head">
+            <p class="label">chip feel</p>
+            <p class="muted">macmon side-card</p>
+          </div>
+          <div id="macmonState" class="chip-card">Waiting for macmon adapter. Pretty but intentionally not the source of truth yet.</div>
+        </article>
+      </section>
+
+      <section class="grid middle-grid">
+        <article class="panel action-panel">
+          <div class="panel-head">
+            <p class="label">action menu</p>
+            <p class="muted">ranked by pressure, not vibes</p>
+          </div>
+          <div id="actions" class="actions"></div>
+        </article>
+
+        <article class="panel ops-panel">
+          <div class="panel-head">
+            <p class="label">agent ops</p>
+            <p class="muted">Hermes / browser / runners</p>
+          </div>
+          <div id="hermesList" class="process-list"></div>
+        </article>
+      </section>
+
+      <section class="grid bottom-grid">
+        <article class="panel">
+          <div class="panel-head">
+            <p class="label">Brave + hot processes</p>
+            <p class="muted">browser-first, then system drill-down</p>
+          </div>
+          <div id="processList" class="process-list"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <p class="label">workbench</p>
+            <p class="muted">repo drift + receipts</p>
+          </div>
+          <pre id="gitStatus" class="receipt">—</pre>
+          <div id="toolStrip" class="tool-strip"></div>
+        </article>
+      </section>
+
+      <footer>
+        <span id="updated">not updated yet</span>
+        <span>Glances = telemetry pane · GM Cockpit = decision layer</span>
+      </footer>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
