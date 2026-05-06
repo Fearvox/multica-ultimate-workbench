@@ -65,12 +65,12 @@ async function getGit() {
   const head = await run('git', ['rev-parse', '--short', 'HEAD'], { cwd: root.stdout });
   const branch = await run('git', ['branch', '--show-current'], { cwd: root.stdout });
   const dirtyLines = status.ok ? status.stdout.split('\n').filter((line) => line && !line.startsWith('##')) : [];
-  const failures = [
+  const failed = [
     ['status', status],
     ['head', head],
     ['branch', branch],
   ].filter(([, result]) => !result.ok);
-  if (failures.length) {
+  if (failed.length) {
     return {
       ok: false,
       root: root.stdout,
@@ -79,8 +79,8 @@ async function getGit() {
       status: status.stdout,
       dirtyCount: dirtyLines.length,
       dirtyLines: dirtyLines.slice(0, 8),
-      label: `git ${failures[0][0]} failed`,
-      detail: failures.map(([label, result]) => `${label}: ${result.stderr || result.stdout || `exit ${result.code ?? 'unknown'}`}`).join(' | '),
+      label: 'git metadata failed',
+      detail: failed.map(([name, result]) => `${name}: ${result.stderr || result.stdout || `exit ${result.code ?? 'unknown'}`}`).join(' | '),
     };
   }
   return {
@@ -107,10 +107,11 @@ async function getTools() {
 async function getMacmon() {
   const present = await run('/bin/zsh', ['-lc', 'command -v macmon || true']);
   if (!present.stdout) return { ok: false, present: false, error: 'macmon not found in PATH' };
-  const sample = await run('/bin/zsh', ['-lc', 'macmon pipe --interval 1000 | head -n 1'], { timeout: 5500, maxBuffer: 64_000 });
-  if (!sample.stdout) return { ok: false, present: true, error: sample.stderr || 'macmon emitted no sample' };
+  const sample = await run(present.stdout, ['pipe', '--interval', '1000'], { timeout: 2500, maxBuffer: 64_000 });
+  const line = sample.stdout.split('\n').find(Boolean);
+  if (!line) return { ok: false, present: true, error: sample.stderr || 'macmon emitted no sample' };
   try {
-    const data = JSON.parse(sample.stdout.split('\n')[0]);
+    const data = JSON.parse(line);
     return {
       ok: true,
       present: true,
@@ -209,7 +210,8 @@ const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=u
 
 const server = http.createServer(async (req, res) => {
   try {
-    const url = new URL(req.url || '/', `http://${req.headers.host || '127.0.0.1'}`);
+    const base = `http://${req.headers.host || `127.0.0.1:${port}`}`;
+    const url = new URL(req.url || '/', base);
     if (url.pathname === '/api/snapshot') {
       const body = JSON.stringify(await snapshot());
       res.writeHead(200, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });

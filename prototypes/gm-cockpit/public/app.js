@@ -30,15 +30,15 @@ function renderProc(p) {
 }
 
 function renderTools(tools) {
-  return tools.map((t) => `<span class="tool ${t.ok ? 'ok' : 'missing'}">${t.ok ? '●' : '○'} ${t.name}</span>`).join('');
+  return tools.map((t) => `<span class="tool ${t.ok ? 'ok' : 'missing'}">${t.ok ? '●' : '○'} ${escapeHtml(t.name)}</span>`).join('');
 }
 
 async function tick() {
   try {
     const res = await fetch('/api/snapshot', { cache: 'no-store' });
     if (!res.ok) {
-      const detail = (await res.text()).trim();
-      throw new Error(detail || `Snapshot HTTP ${res.status}`);
+      const body = (await res.text()).trim();
+      throw new Error(`Snapshot request failed (${res.status} ${res.statusText})${body ? `: ${body}` : ''}`);
     }
     const data = await res.json();
     const state = classState(data.state);
