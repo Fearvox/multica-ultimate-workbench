@@ -74,12 +74,6 @@ async function getGit() {
     const [label, result] = failed;
     return {
       ok: false,
-      root: root.stdout,
-      branch: branch.stdout,
-      head: head.stdout,
-      status: status.stdout,
-      dirtyCount: dirtyLines.length,
-      dirtyLines: dirtyLines.slice(0, 8),
       label,
       detail: result.stderr || result.stdout || `exit ${result.code ?? 'unknown'}`,
       stderr: result.stderr,
