@@ -14,9 +14,11 @@ function classState(state) {
 }
 
 function renderAction(a) {
+  const tier = a?.tier === 'P0' ? 'P0' : a?.tier === 'P1' ? 'P1' : '';
+  const tierLabel = escapeHtml(a?.tier);
   return `<div class="action">
-    <div class="tier ${a.tier}">${a.tier}</div>
-    <div><h3>${a.title}</h3><p>${a.detail}</p><small>${a.evidence}</small></div>
+    <div class="tier${tier ? ` ${tier}` : ''}">${tierLabel}</div>
+    <div><h3>${escapeHtml(a?.title)}</h3><p>${escapeHtml(a?.detail)}</p><small>${escapeHtml(a?.evidence)}</small></div>
   </div>`;
 }
 
