@@ -24,20 +24,20 @@ Default rollout: the registry entry ships disabled until an operator explicitly 
 | `In Progress` | `In Review` | PR opens or ready-for-review evidence exists | GitHub PR state or equivalent review-ready repo evidence |
 | `In Review` | `Ready for Merge` | PR exists, required checks are passing, and no open high/critical review findings remain | open PR, passing required checks, no open high/critical findings |
 | `Ready for Merge` | `Done` | PR is merged | merged PR evidence |
-| any state | `Blocked` | required CI/check evidence fails, the requirement is unclear or missing, a high/critical review finding is open, or an owner/external permission blocker prevents work from proceeding | failing required checks, open high/critical finding, or explicit owner/permission blocker that stops work; these actionable work blockers also require `BLOCK` verdict |
+| any state | `Blocked` | required CI/check evidence fails, the requirement is unclear or missing, a high/critical review finding is open, or an owner/external permission blocker prevents work from proceeding | failing required checks, open high/critical finding, or explicit owner/permission blocker that stops work |
 
 Rules:
 
 - Recompute state from evidence on every eligible event; do not trust prior chat or stale cache.
 - The semantic state and the external sync verdict are separate outputs.
-- For actionable work blockers that stop the work itself, couple `Blocked` semantic state with `BLOCK` verdict; keep other semantic-state and verdict decisions separate.
 - `Ready for Merge` is an evidence state, not merge authority.
 - Capy must never auto-merge unless a human explicitly asks for that exact PR merge.
 - Precedence rule: classify semantic state from primary GitHub/repo evidence first.
+- If required CI/check evidence fails, the requirement is unclear or missing, an owner/external permission blocker stops work, or an open high/critical review finding exists, emit semantic state `Blocked` when that condition is supported by readable, trustworthy primary evidence.
+- A trustworthy `Blocked` semantic state does not force verdict `BLOCK`; continue evaluating the external sync verdict separately.
 - Use `PASS` when the semantic state is trustworthy and required external writes succeeded or no external write was required.
 - If durable GitHub/repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface, keep that semantic state and emit `FLAG` naming the mismatch.
 - If the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or write availability fails, keep that semantic state and emit `FLAG` naming the failed external surface.
-- If required CI/check evidence fails, the requirement is unclear or missing, an owner/external permission blocker stops work, or an open high/critical review finding exists, emit `Blocked` semantic state and `BLOCK` verdict because the work cannot proceed.
 - If primary GitHub, CI, and review evidence disagree with each other, required primary evidence cannot be read, or required classification permission/evidence is missing and the state cannot be resolved safely, emit `BLOCK` instead of forcing `Blocked`.
 - Do not force the semantic state to `Blocked` solely because Linear/Slack auth, tooling, channel/project permission, or write availability is unavailable.
 
@@ -116,10 +116,10 @@ If Linear or Slack tooling is unavailable, missing auth, or lacks channel/projec
 
 - keep GitHub and repo evidence as the source of truth;
 - do not claim external sync succeeded;
+- keep semantic state `Blocked` when failing required checks, unclear/missing requirements, open high/critical findings, or owner/external permission blockers are supported by readable, trustworthy primary evidence;
 - emit `FLAG` when the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or the external write could not be completed;
 - missing Linear or Slack adapter permission does not force Linear state `Blocked` unless it is the owner/external permission blocker that stops the work itself from proceeding;
-- emit `Blocked` semantic state and `BLOCK` verdict when required CI/check evidence fails, the requirement is unclear or missing, an owner/external permission blocker stops work, or an open high/critical review finding exists;
-- emit `BLOCK` when required primary evidence cannot be read, required classification permission is missing, or primary evidence conflict prevents a trustworthy state decision;
+- emit `BLOCK` only when required primary evidence cannot be read, required classification permission is missing, or primary evidence conflict prevents a trustworthy state decision;
 - keep the failure localized to the external adapter and name the exact unavailable auth, permission, or tool surface.
 
 ## Privacy And Safety Rules
