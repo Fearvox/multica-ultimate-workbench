@@ -22,14 +22,16 @@ GitHub PRs, commits, CI/checks, and review findings remain the primary evidence.
 | `In Progress` | `In Review` | PR opens or ready-for-review evidence exists | GitHub PR state or equivalent review-ready repo evidence |
 | `In Review` | `Ready for Merge` | PR exists, required checks are passing, and no open high/critical review findings remain | open PR, passing required checks, no open high/critical findings |
 | `Ready for Merge` | `Done` | PR is merged | merged PR evidence |
-| any state | `Blocked` | CI fails, permission is missing, requirement is unclear, a high/critical review finding is open, or source-of-truth evidence conflicts | failing/contradictory primary evidence or explicit permission/requirement blocker |
+| any state | `Blocked` | primary evidence shows CI failing, a requirement is unclear, a high/critical review finding is open, or a source-of-truth conflict prevents a trustworthy classification | failing or contradictory primary evidence that blocks a safe state decision |
 
 Rules:
 
 - Recompute state from evidence on every eligible event; do not trust prior chat or stale cache.
 - `Ready for Merge` is an evidence state, not merge authority.
 - Capy must never auto-merge unless a human explicitly asks for that exact PR merge.
-- If evidence disagrees across GitHub, CI, and review state, emit `FLAG` and keep the contradiction explicit.
+- Primary GitHub/repo evidence decides the Linear semantic state.
+- If supporting context disagrees but primary evidence still determines the state, keep the chosen state and emit `FLAG`.
+- Emit `BLOCK` only when permission, tooling, or evidence ambiguity prevents a safe classification or required external action.
 
 ## Slack Notification Matrix
 
@@ -105,8 +107,9 @@ If Linear or Slack tooling is unavailable, missing auth, or lacks channel/projec
 
 - keep GitHub and repo evidence as the source of truth;
 - do not claim external sync succeeded;
-- emit `FLAG` when the semantic state is clear but the external write could not be completed;
-- emit `BLOCK` when missing permission or conflicting evidence prevents a trustworthy state decision;
+- emit `FLAG` when the semantic state is clear from primary evidence but the external write could not be completed;
+- missing Linear or Slack adapter permission does not force Linear state `Blocked` unless it also prevents safe classification or required external action;
+- emit `BLOCK` when missing permission, tooling, or evidence ambiguity prevents a safe classification or required external action;
 - keep the failure localized to the external adapter and name the exact unavailable surface.
 
 ## Privacy And Safety Rules

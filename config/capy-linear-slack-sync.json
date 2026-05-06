@@ -69,11 +69,31 @@
     },
     "blockedWhen": [
       "ci fails",
-      "permission is missing",
       "requirement is unclear",
       "high or critical review finding is open",
-      "source-of-truth evidence conflicts"
-    ]
+      "source-of-truth evidence conflicts that prevent a trustworthy classification"
+    ],
+    "precedence": {
+      "linearState": {
+        "blocked": [
+          "failing primary CI evidence",
+          "unclear requirement",
+          "open high or critical review finding",
+          "primary evidence conflict that prevents a trustworthy classification"
+        ]
+      },
+      "reportVerdict": {
+        "flagWhen": [
+          "semantic state is clear but Linear or Slack write cannot complete",
+          "supporting context disagrees but primary GitHub or repo evidence still determines the state"
+        ],
+        "blockWhen": [
+          "permission prevents safe classification or required external action",
+          "tooling prevents safe classification or required external action",
+          "evidence ambiguity prevents safe classification or required external action"
+        ]
+      }
+    }
   },
   "forbiddenData": [
     "api keys",
