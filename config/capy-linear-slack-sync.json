@@ -1,0 +1,186 @@
+{
+  "enabled": false,
+  "enablement": {
+    "default": false,
+    "requiresDeploymentOverride": true,
+    "reason": "prevent accidental Linear or Slack writes during rollout and testing"
+  },
+  "runtimeGuards": {
+    "requiresExplicitEnablement": true,
+    "requiresValidAuth": true,
+    "requiresProjectOrChannelPermission": true
+  },
+  "eventTriggers": {
+    "pullRequest": [
+      "opened",
+      "reopened",
+      "ready_for_review",
+      "synchronize",
+      "closed"
+    ],
+    "checkRun": [
+      "completed"
+    ],
+    "checkSuite": [
+      "completed"
+    ],
+    "workflowRun": [
+      "completed"
+    ],
+    "pullRequestReview": [
+      "submitted"
+    ],
+    "pullRequestReviewComment": [
+      "created",
+      "edited",
+      "deleted"
+    ]
+  },
+  "linear": {
+    "projects": [
+      {
+        "name": "Multica Ultimate Workbench"
+      },
+      {
+        "name": "Windburn Remote Workhorse"
+      }
+    ],
+    "statuses": [
+      "Todo",
+      "In Progress",
+      "In Review",
+      "Ready for Merge",
+      "Done",
+      "Blocked"
+    ]
+  },
+  "slack": {
+    "defaultChannel": {
+      "name": "#everos-ops",
+      "id": "C0ASVU15ZDY"
+    },
+    "blockerChannel": {
+      "name": "#everos-ops",
+      "id": "C0ASVU15ZDY"
+    },
+    "excludedChannels": [
+      {
+        "name": "#社交",
+        "id": "C0ASM56QYUW"
+      }
+    ]
+  },
+  "notify": {
+    "blocked": true,
+    "ciFailed": true,
+    "highCriticalReviewFinding": true,
+    "needsOwnerDecision": true,
+    "readyForMerge": true,
+    "taskStarted": false,
+    "commitPushed": false,
+    "minorNit": false
+  },
+  "evidenceGates": {
+    "sourceOfTruth": [
+      "git",
+      "github",
+      "ci",
+      "review-comments"
+    ],
+    "sourceOfTruthReferences": [
+      "git commits and repo diffs",
+      "github pull requests",
+      "ci checks",
+      "github review comments and findings"
+    ],
+    "inProgress": {
+      "requiresWorkStartEvidence": true
+    },
+    "inReview": {
+      "requiresPrOrReviewReadyEvidence": true
+    },
+    "readyForMerge": {
+      "requiresPr": true,
+      "requiresPassingRequiredChecks": true,
+      "requiresNoOpenHighCriticalReviewFindings": true
+    },
+    "done": {
+      "requiresMergedPr": true
+    },
+    "precedence": {
+      "steps": [
+        "classify semantic state from primary GitHub or repo evidence first",
+        "classify sync verdict separately after the semantic state is trustworthy"
+      ],
+      "semanticStateAndVerdictAreSeparate": true,
+      "blockedSemanticStateRequiresActionableWorkBlocker": true,
+      "blockedSemanticStateImpliesBlockVerdictForActionableWorkBlockers": false,
+      "passWhen": [
+        "semantic state is trustworthy, no actionable work blocker requires Blocked and BLOCK, and required external writes succeeded",
+        "semantic state is trustworthy, no actionable work blocker requires Blocked and BLOCK, and no external write was required"
+      ],
+      "flagWhen": [
+        "semantic state is clear but Linear auth, tooling, channel or project permission, or write availability fails",
+        "semantic state is clear but Slack auth, tooling, channel or project permission, or write availability fails",
+        "semantic state is clear but a requirement, owner decision, or owner/external permission blocker stops work without preventing primary-evidence classification",
+        "durable GitHub or repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface"
+      ],
+      "blockWhen": [
+        "required primary evidence cannot be read",
+        "required primary-evidence read permission or evidence for semantic classification is missing",
+        "primary github, ci, or review evidence conflicts and cannot be resolved safely",
+        "required ci checks fail",
+        "high or critical review finding is open"
+      ]
+    },
+    "blockedWhen": [
+      "required ci checks fail",
+      "high or critical review finding is open"
+    ],
+    "flagWhen": [
+      "semantic state is clear but linear auth, tooling, channel or project permission, or write availability fails",
+      "semantic state is clear but slack auth, tooling, channel or project permission, or write availability fails",
+      "semantic state is clear but a requirement, owner decision, or owner/external permission blocker stops work without preventing primary-evidence classification",
+      "durable github or repo evidence resolves a mismatch against chat, memory, linear, slack, or another supporting surface"
+    ],
+    "blockVerdictWhen": [
+      "required primary evidence cannot be read",
+      "required primary-evidence read permission or evidence for semantic classification is missing",
+      "primary github, ci, or review evidence conflicts and cannot be resolved safely",
+      "required ci checks fail",
+      "high or critical review finding is open"
+    ]
+  },
+  "idempotency": {
+    "keyFormat": "<owner>/<repo>:<issue-or-pr>:<event-family>:<event-id>",
+    "preferredEventIds": {
+      "pullRequest": "pull_request.number + action + head.sha",
+      "checkRun": "check_run.id",
+      "checkSuite": "check_suite.id",
+      "workflowRun": "workflow_run.id",
+      "review": "review.id",
+      "reviewComment": "pull_request_review_comment.id + action + comment.updated_at",
+      "mergeCloseout": "pull_request.number + merge_commit_sha"
+    }
+  },
+  "forbiddenData": [
+    "api keys",
+    "oauth material",
+    "bearer tokens",
+    "cookies",
+    "passwords",
+    "raw request payloads",
+    "raw response payloads",
+    "raw transcripts",
+    "private screenshots",
+    "private browser traces",
+    "unrelated private UI"
+  ],
+  "authority": {
+    "capyCanMoveLinearStatus": true,
+    "capyCanCommentLinear": true,
+    "capyCanPostSlack": true,
+    "capyCanMerge": false,
+    "buildAgentsCanWriteExternalStatus": false
+  }
+}

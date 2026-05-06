@@ -4,6 +4,8 @@ The Capy Git Dialogue Responder is the webhook-backed entry point for the `Capy 
 
 It is a public review surface, not a control plane. GitHub repo state, PR state, issue state, check state, workflow state, review artifacts, CI, and local verification remain the source of truth for implementation and merge decisions.
 
+A sibling `Capy Linear Slack Sync Lane` may consume the same GitHub, CI, and review evidence to update external Linear and Slack surfaces, but it does not replace Git dialogue and must not treat Linear or Slack as authority.
+
 ## Trigger Surface
 
 | Surface | Event | Expected behavior |
