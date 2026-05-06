@@ -126,11 +126,11 @@
         "durable GitHub or repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface"
       ],
       "blockWhen": [
-        "required CI checks fail",
-        "high or critical review finding is open",
         "required primary evidence cannot be read",
         "required primary-evidence read permission or evidence for semantic classification is missing",
-        "primary GitHub, CI, or review evidence conflicts and cannot be resolved safely"
+        "primary github, ci, or review evidence conflicts and cannot be resolved safely",
+        "required ci checks fail",
+        "high or critical review finding is open"
       ]
     },
     "blockedWhen": [
