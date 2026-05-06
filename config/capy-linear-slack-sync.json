@@ -116,8 +116,8 @@
       "blockedSemanticStateRequiresActionableWorkBlocker": true,
       "blockedSemanticStateImpliesBlockVerdictForActionableWorkBlockers": true,
       "passWhen": [
-        "semantic state is trustworthy and required external writes succeeded",
-        "semantic state is trustworthy and no external write was required"
+        "semantic state is trustworthy, no actionable work blocker requires Blocked and BLOCK, and required external writes succeeded",
+        "semantic state is trustworthy, no actionable work blocker requires Blocked and BLOCK, and no external write was required"
       ],
       "flagWhen": [
         "semantic state is clear but Linear auth, tooling, channel or project permission, or write availability fails",
@@ -128,13 +128,15 @@
         "required CI checks fail",
         "high or critical review finding is open",
         "required primary evidence cannot be read",
+        "required permission to read primary evidence for semantic classification is missing",
         "primary GitHub, CI, or review evidence conflicts and cannot be resolved safely",
-        "requirement is unclear or needs a required human decision before a safe transition"
+        "requirement is unclear or missing",
+        "owner or external permission blocker prevents work from proceeding"
       ]
     },
     "blockedWhen": [
       "required ci checks fail",
-      "requirement is unclear or needs a required human decision before a safe transition",
+      "requirement is unclear or missing",
       "high or critical review finding is open",
       "owner or external permission blocker prevents work from proceeding"
     ],
@@ -149,7 +151,7 @@
       "primary github, ci, or review evidence conflicts and cannot be resolved safely",
       "required ci checks fail",
       "high or critical review finding is open",
-      "requirement is unclear or needs a required human decision before a safe transition",
+      "requirement is unclear or missing",
       "owner or external permission blocker prevents work from proceeding"
     ]
   },
