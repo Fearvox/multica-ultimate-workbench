@@ -399,6 +399,20 @@ Rationale: the current public repo evidence shows a public `main` branch with a
 minimal root only. Declaring the scaffold rule prevents agents from inventing
 structure while still giving webpage work a stable default repo anchor.
 
+## 2026-05-02 - Add Algorithm Advisory Gate Before Task List
+
+Decision: add an advisory-only Algorithm Advisory Gate between Technical Design
+and Task List for algorithm, data-structure, correctness, and complexity review.
+
+Rationale: `data-algo` is valuable, but its default workflow can move from
+diagnosis to implementation. The workbench needs the algorithm pressure inside
+SDD while keeping implementation authority with assigned execution owners and
+Supervisor review.
+
+Rules: correctness risk returns `BLOCK`; complexity risk returns `FLAG` and
+must become Task List or verification content. VM Claude Code instances use
+per-lease temporary `HOME` and temporary config. No global settings mutation.
+
 ## 2026-05-01 - Add Capy, Sanity, And Agent-Install Infra Lanes
 
 Decision: add three separate workbench lanes:
