@@ -90,7 +90,7 @@ function renderTools(tools) {
   return tools.map((t) => node('span', {
     className: `tool ${t.ok ? 'ok' : 'missing'}`,
     text: `${t.ok ? '●' : '○'} ${textValue(t.name)}`,
-    title: t.path || undefined,
+    title: t.ok ? 'available on server PATH' : 'not found on server PATH',
   }));
 }
 

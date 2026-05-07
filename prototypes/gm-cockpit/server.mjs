@@ -370,7 +370,7 @@ async function getTools() {
   const entries = [];
   for (const name of names) {
     const r = await run('/bin/zsh', ['-lc', `command -v ${name} || true`]);
-    entries.push({ name, path: r.stdout || null, ok: Boolean(r.stdout) });
+    entries.push({ name, path: r.stdout ? '[server-path-redacted]' : null, ok: Boolean(r.stdout) });
   }
   return entries;
 }
