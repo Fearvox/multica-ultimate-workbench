@@ -48,6 +48,18 @@ df -h /System/Volumes/Data
 sysctl vm.swapusage
 ```
 
+If the operator explicitly approves system-level cleanup, do not call `sudo`
+ad hoc or inside repeated prompts. Use the shared sudo-session wrapper so the
+operator authenticates once and nested cleanup stays on a non-interactive sudo
+timestamp:
+
+```bash
+scripts/workbench-sudo-session.sh -- bash -lc 'mo clean --dry-run && mo clean'
+```
+
+The wrapper must not read password files, store passwords, or keep prompting.
+If its non-interactive sudo refresh fails, stop and report `BLOCK`.
+
 Treat `mo clean` as good evidence when it stays within cache/log/temp cleanup
 and reports categories plus freed/free space. Do not run `mo purge`, Docker
 prune, app uninstall, LaunchAgent removal, Colima/Lima cleanup, or project

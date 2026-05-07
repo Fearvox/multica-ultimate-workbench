@@ -56,6 +56,19 @@ df -h /System/Volumes/Data
 sysctl vm.swapusage
 ```
 
+For an operator-approved system-level cleanup pass, use the shared sudo-session
+wrapper instead of repeated `sudo` prompts:
+
+```bash
+scripts/workbench-sudo-session.sh -- bash -lc 'mo clean --dry-run && mo clean'
+df -h /System/Volumes/Data
+sysctl vm.swapusage
+```
+
+The wrapper validates sudo once, refreshes the timestamp with `sudo -n`, and
+fails closed if the timestamp is gone. It must not read password files or store
+passwords.
+
 Interpretation rules:
 
 - `mo clean` can satisfy Tier A cleanup evidence when its output shows safe
