@@ -179,6 +179,55 @@ confidence_promotion:
 Time decay is the floor: a belief loses freshness regardless of agent behavior.
 Evidence decay is the ceiling: new counter-evidence can collapse trust sooner.
 
+### Memory Causality Self-Check
+
+Windburn memory is valuable only when it changes a decision in a verified way.
+Retrieval accuracy, citations, and plausible summaries are not enough by
+themselves. A memory record that cannot name its decision effect stays
+`hypothesis` or `parking`.
+
+Every behavior-changing memory promotion should answer this compact self-check:
+
+```text
+MEMORY_CAUSALITY_SELF_CHECK
+decision_hook: which downstream decision, route, or safety gate this memory changes
+counterfactual_baseline: what the agent would have done without this memory
+sufficiency_route: why the memory is sufficient to change the decision
+causal_alternatives: other plausible causes for the changed decision
+cycle_guard: how the system prevents this memory from proving itself by reuse
+verifier_gate: what external check must pass before promotion
+verdict: PASS | FLAG | BLOCK
+```
+
+Rules:
+
+- `decision_hook` must be actionable: route choice, verifier selection,
+  public-safety gate, retry/avoid rule, model/runtime choice, or task-list
+  injection.
+- `counterfactual_baseline` must be explicit. If no credible baseline exists,
+  the promotion is `FLAG` until a paired run or reviewer supplies one.
+- `sufficiency_route` must explain why the memory changes the decision, not
+  merely why it is relevant.
+- `causal_alternatives` must name competing explanations such as fresh repo
+  evidence, issue status, operator instruction, or model prior knowledge.
+- `cycle_guard` must prevent circular proof. Citing a memory more often cannot
+  make it more true, fresher, or more trusted.
+- `verifier_gate` must be external to the memory holder: test, review,
+  challenge run, public-safety scan, counterfactual pair, or supervised
+  evidence review.
+
+Promotion policy:
+
+```text
+PASS   memory changed a decision and the verifier gate confirms the delta
+FLAG   memory may inform routing, but causal impact or baseline is incomplete
+BLOCK  memory is only retrieved/cited, contradicts evidence, or tries to promote itself
+```
+
+This self-check aligns Windburn with the Agent Memory Causality thesis: memory
+quality is measured by decision impact under a counterfactual, not by retrieval
+accuracy alone.
+
 ### Time-Awareness First Landing
 
 The first shippable slice should be time-awareness, not the full challenger or
