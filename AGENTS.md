@@ -26,6 +26,9 @@ Read only as deep as the task requires:
 8h. [docs/windburn-challenge-orchestration-contract.md](docs/windburn-challenge-orchestration-contract.md) - local challenge-review bridge for verifier + promotion-gate outputs.
 8i. [docs/super-engineering-speed-match-lane.md](docs/super-engineering-speed-match-lane.md) - Super.engineering/Hermes upstream speed-match operating lane.
 8j. [docs/repo-brand-uplift-lane.md](docs/repo-brand-uplift-lane.md) - Zonic/Evensong-style public GitHub repo brand uplift lane.
+8k. [docs/algorithm-advisory-gate-lane.md](docs/algorithm-advisory-gate-lane.md) - algorithm review gate before Task List.
+8l. [skills/workbench-algorithm-advisory-gate/SKILL.md](skills/workbench-algorithm-advisory-gate/SKILL.md) - advisory-only algorithm gate rules.
+8m. [docs/dataset-pipeline-alpha.md](docs/dataset-pipeline-alpha.md) - local-only dataset pipeline alpha helper contract.
 9. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
 9b. [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) - Two-layer autonomous conductor with decision packets and dedupe controls.
 9c. [skills/workbench-waking-up/SKILL.md](skills/workbench-waking-up/SKILL.md) - session recall, live verification, drift-first wake reports, and session-to-Workbench bridge.
@@ -103,6 +106,7 @@ When supervising Multica from Codex Desktop:
 - Use [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) when the Friction Tier Router selects Heavy Path, when repo/runtime ownership is ambiguous, or when Standard Path evidence depends on current runtime capability.
 - Use [docs/skill-curator.md](docs/skill-curator.md) before proposing stale/archive/pin changes to skills.
 - Use [docs/windburn-cognitive-cache-direction.md](docs/windburn-cognitive-cache-direction.md) and [docs/windburn-cognitive-cache-dispatch.md](docs/windburn-cognitive-cache-dispatch.md) when a task touches Windburn cognitive cache, `.learning`, future-self memory, belief/perception/continuity state, or behavior-changing memory.
+- Use [skills/workbench-algorithm-advisory-gate/SKILL.md](skills/workbench-algorithm-advisory-gate/SKILL.md) when Technical Design has meaningful algorithm, data-structure, ranking, search, cache, queue, graph, streaming, ingestion, dedupe, or complexity risk before Task List.
 - Use [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) when an issue contains `/goal` or `GOAL_MODE: yes` for simple single-agent persistence.
 - Use [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) when the issue also contains `GOAL_MODE_V2: yes` or the objective spans multiple agents and evidence cycles — the two-layer conductor produces decision packets, dispatches bounded issues, monitors, reviews, and archives until a real blocker appears.
 - Use [skills/workbench-waking-up/SKILL.md](skills/workbench-waking-up/SKILL.md) when an operator asks for recent state, dropped leads, "gm", "where are we", "what can move now", or when a direct-chat discovery should become Workbench-visible; recall memory, verify live repo/issue/automation state, report drift first, and bridge durable changes into repo docs, skills, decisions, templates, or sanitized Multica comments.
@@ -128,7 +132,7 @@ Use the two-ring model.
 | --- | --- | --- |
 | Inner Ring | Workbench Admin, Workbench Supervisor, Workbench Synthesizer | Route work, review evidence, preserve memory, and keep the system coherent. |
 | Outer Ring | Developer, Researcher, Architect, Docs, QA, Ops, Curator | Execute bounded specialist work. Do not take over orchestration unless assigned. |
-| Remote Cell | NYC Codex Builder, NYC Hermes Researcher, NYC Ops Mechanic, NYC VM Runner | Execute longer tasks on `<REMOTE_MULTICA_DEVICE>`. Treat laptop file paths as invalid unless explicitly verified on that host. |
+| Remote Cell | NYC Codex Builder, NYC Hermes Researcher, NYC Ops Mechanic, NYC VM Runner, Remote Algorithm Advisor | Execute longer tasks on `<REMOTE_MULTICA_DEVICE>`. Treat laptop file paths as invalid unless explicitly verified on that host. |
 | Special | Workbench Max | Preserved private workbench. Use only when the human explicitly assigns it. |
 
 Direct chat is for fuzzy thought. Issues are for executable work. Mentions are for narrow review or advice. Autopilots create recurring review issues. The Friction Tier Router decides whether the work is Fast, Standard, or Heavy before additional gates are applied. Heavy work and ambiguous repo/runtime work require `SELF_AWARENESS_BOOTSTRAP` so role, repo, tool/MCP, memory, risk, route, and success metric are explicit. The Auto Review Sweeper is the automatic `in_review` handoff: Workbench Supervisor scans completed agent work on a schedule, posts `AUTO_REVIEW`, and may close PASS targets to `done`. The Remote HarnessMax Evolve Sweeper is the high-rate pressure controller for remote Hermes, remote VM, and Research Vault grounded routing; it creates issues and routes evidence, but does not silently mutate runtime state.
@@ -199,6 +203,13 @@ Earliest revisit:
 No agent assignment, issue, or doc expansion for 24h.
 ```
 
+Algorithm Advisory Gate is a hybrid SDD gate between Technical Design and Task
+List. When algorithm, data-structure, ranking, search, cache, queue, graph,
+streaming, ingestion, dedupe, or complexity risk matters, a Remote Algorithm
+Advisor may review with `data-algo` pressure, but remains advisory-only and must
+not patch repositories. Correctness risk returns `BLOCK`; complexity risk returns
+`FLAG` unless it also creates correctness risk.
+
 The Flue Agent Harness Lane is a packaging outlet. It turns a mature workflow
 into a deployable HTTP, CI, Node, Cloudflare, or sandbox-backed agent only after
 the issue has a complete `FLUE_AGENT_CONTRACT` and normal review gates remain in
@@ -267,7 +278,7 @@ For work that the Friction Tier Router sends to SDD, use the SDD comment
 pipeline:
 
 ```text
-Raw Requirement -> Product Design -> Technical Design -> Task List -> Execution And Verification
+Raw Requirement -> Product Design -> Technical Design -> Algorithm Advisory Gate (optional) -> Task List -> Execution And Verification
 ```
 
 Rules:
@@ -276,6 +287,9 @@ Rules:
 - Put stage detail in structured comments, not custom statuses.
 - Start from compact handoffs and exact evidence IDs before reading full history.
 - Use [issue-templates/sdd-workflow.md](issue-templates/sdd-workflow.md) when the work needs the full SDD path.
+- Algorithm Advisory Gate is optional, sits between Technical Design and Task
+  List, and converts correctness or complexity risk into a `BLOCK`, `FLAG`,
+  Task List content, verification pressure, or explicit residual risk.
 - Quick fixes may bypass full SDD only when the risk is low and the evidence path is still clear.
 - For `/goal` work, Task List must include `GOAL_LOCK`, closeout gates, and operator-call conditions before execution starts.
 
@@ -518,6 +532,12 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Wake report / context restore skill | [skills/workbench-waking-up/SKILL.md](skills/workbench-waking-up/SKILL.md) |
 | Goal Mode v2 issue template | [issue-templates/goal-mode-v2.md](issue-templates/goal-mode-v2.md) |
 | Goal conductor autopilot | [autopilots/goal-conductor.md](autopilots/goal-conductor.md) |
+| Algorithm advisory lane | [docs/algorithm-advisory-gate-lane.md](docs/algorithm-advisory-gate-lane.md) |
+| Algorithm advisory skill | [skills/workbench-algorithm-advisory-gate/SKILL.md](skills/workbench-algorithm-advisory-gate/SKILL.md) |
+| Algorithm advisory issue template | [issue-templates/algorithm-advisory-gate.md](issue-templates/algorithm-advisory-gate.md) |
+| Dataset Pipeline Alpha | [docs/dataset-pipeline-alpha.md](docs/dataset-pipeline-alpha.md) |
+| Dataset helper CLI | [scripts/workbench-dataset](scripts/workbench-dataset) |
+| Dataset helper tests | [tests/test_workbench_dataset.py](tests/test_workbench_dataset.py) |
 | L2 pressure execution | [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) |
 | Remote Research Vault MCP | [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
@@ -559,7 +579,7 @@ git diff -- README.md AGENTS.md
 ```
 
 ```bash
-for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/agent-communication-profile.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/codex-workbench-runtime-profile.md docs/runtime-hygiene-lane.md docs/windburn-cognitive-cache-direction.md docs/windburn-cognitive-cache-dispatch.md docs/windburn-divergence-gated-trust-research.md docs/windburn-materiality-classifier-contract.md docs/windburn-challenge-orchestration-contract.md docs/super-engineering-speed-match-lane.md docs/repo-brand-uplift-lane.md docs/plans/windburn-divergence-gate-harness-plan.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md config/multica-workbench-codex-profile.example.toml scripts/multica-codex-cache-janitor.sh scripts/windburn-verify.mjs scripts/windburn-belief-write.mjs scripts/windburn-momentum-decay.mjs scripts/windburn-divergence-gate.mjs scripts/windburn-materiality-classify.mjs scripts/windburn-materiality-corpus-eval.mjs scripts/windburn-promotion-gate.mjs scripts/windburn-challenge.mjs skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-waking-up/SKILL.md skills/workbench-runtime-hygiene/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/workbench-hermes-docs-sync/SKILL.md skills/workbench-repo-brand-uplift/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md issue-templates/windburn-divergence-gate-goal.md issue-templates/windburn-time-awareness-goal.md issue-templates/repo-brand-uplift-goal.md; do
+for path in AGENTS.md SYNTHESIS.md DECISIONS.md WORKBENCH_LOG.md WORKBENCH_METRICS.md docs/agent-communication-profile.md docs/self-awareness-infra-layer.md docs/multica-021-workflow.md docs/codex-workbench-runtime-profile.md docs/runtime-hygiene-lane.md docs/windburn-cognitive-cache-direction.md docs/windburn-cognitive-cache-dispatch.md docs/windburn-divergence-gated-trust-research.md docs/windburn-materiality-classifier-contract.md docs/windburn-challenge-orchestration-contract.md docs/super-engineering-speed-match-lane.md docs/repo-brand-uplift-lane.md docs/algorithm-advisory-gate-lane.md docs/dataset-pipeline-alpha.md docs/plans/windburn-divergence-gate-harness-plan.md docs/skill-curator.md docs/capy-process-check-lane.md docs/sanity-unified-context-lane.md docs/agent-install-unifier-lane.md docs/flue-agent-harness-lane.md config/multica-workbench-codex-profile.example.toml scripts/multica-codex-cache-janitor.sh scripts/workbench-dataset scripts/windburn-verify.mjs scripts/windburn-belief-write.mjs scripts/windburn-momentum-decay.mjs scripts/windburn-divergence-gate.mjs scripts/windburn-materiality-classify.mjs scripts/windburn-materiality-corpus-eval.mjs scripts/windburn-promotion-gate.mjs scripts/windburn-challenge.mjs skills/workbench-self-awareness-infra/SKILL.md skills/workbench-goal-mode/SKILL.md skills/workbench-goal-mode-v2/SKILL.md skills/workbench-waking-up/SKILL.md skills/workbench-runtime-hygiene/SKILL.md skills/workbench-capy-process-check/SKILL.md skills/workbench-sanity-context/SKILL.md skills/workbench-agent-install-unifier/SKILL.md skills/workbench-flue-agent-harness/SKILL.md skills/workbench-hermes-docs-sync/SKILL.md skills/workbench-repo-brand-uplift/SKILL.md skills/workbench-algorithm-advisory-gate/SKILL.md skills/README.md agents/AGENT_ROSTER.md issue-templates/goal-mode-v2.md issue-templates/capy-process-check.md issue-templates/sanity-context-schema.md issue-templates/agent-install-unifier.md issue-templates/flue-agent-scaffold.md issue-templates/windburn-divergence-gate-goal.md issue-templates/windburn-time-awareness-goal.md issue-templates/repo-brand-uplift-goal.md issue-templates/algorithm-advisory-gate.md tests/test_workbench_dataset.py; do
   test -f "$path" || exit 1
 done
 echo "link-targets-ok"

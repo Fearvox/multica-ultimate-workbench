@@ -44,6 +44,7 @@ Workbench Supervisor owns tier enforcement at review:
 | NYC Hermes Researcher | Outer | Hermes on `<REMOTE_MULTICA_DEVICE>` | private | 3 | Assigned long-context research or batch knowledge issue |
 | NYC Ops Mechanic | Outer | Codex on `<REMOTE_MULTICA_DEVICE>` | private | 1 | Assigned remote runtime health issue |
 | NYC VM Runner | Outer | Codex on `<REMOTE_MULTICA_DEVICE>` | private | 1 | Assigned remote VM/browser/sandbox issue |
+| Remote Algorithm Advisor | Outer | Claude Code VM / GPT-5.5 xhigh | private | 1 | Assigned Algorithm Advisory Gate issue |
 
 Remote agents are execution cells, not new orchestrators. They must use the `Ultimate Workbench` GitHub repo resource as the primary source. The laptop-only `file://<LOCAL_WORKBENCH_REPO>` workspace repo is not a valid checkout anchor on `<REMOTE_MULTICA_DEVICE>`.
 

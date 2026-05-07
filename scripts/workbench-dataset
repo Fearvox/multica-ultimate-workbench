@@ -1,0 +1,305 @@
+#!/usr/bin/env python3
+"""Local-only Dataset Pipeline Alpha helper."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import sys
+from collections import defaultdict
+from datetime import datetime, timezone
+from pathlib import Path
+
+
+SENSITIVE_PATTERNS = [
+    ("email", re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")),
+    ("phone", re.compile(r"\b(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]\d{3}[-.\s]\d{4}\b")),
+    ("ssn", re.compile(r"\b\d{3}-\d{2}-\d{4}\b")),
+    ("patient", re.compile(r"\bpatient\b", re.IGNORECASE)),
+    ("client", re.compile(r"\bclient\b", re.IGNORECASE)),
+    ("case_note", re.compile(r"\bcase\s+notes?\b", re.IGNORECASE)),
+]
+
+
+def now_iso() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+
+def write_json(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def normalize_text(text: str) -> str:
+    return "\n".join(" ".join(line.split()) for line in text.splitlines() if line.strip()) + "\n"
+
+
+def iter_source_files(source_dir: Path) -> list[Path]:
+    return sorted(
+        path
+        for path in source_dir.rglob("*")
+        if path.is_file() and path.suffix.lower() in {".txt", ".md"}
+    )
+
+
+def safe_slug(path: Path) -> str:
+    return re.sub(r"[^A-Za-z0-9]+", "-", path.stem).strip("-").lower() or "document"
+
+
+def cmd_init(args: argparse.Namespace) -> int:
+    if args.fixture != "public-msw":
+        print(f"unsupported fixture: {args.fixture}", file=sys.stderr)
+        return 2
+
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "public-policy.txt").write_text(
+        "Public social work policy brief.\n"
+        "This synthetic fixture discusses workforce training, community resources, "
+        "and evidence review using public non-sensitive material.\n",
+        encoding="utf-8",
+    )
+    (out / "literature-note.txt").write_text(
+        "Synthetic literature note.\n"
+        "Research workflows should separate source facts, interpretation, limitations, "
+        "and human review before downstream use.\n",
+        encoding="utf-8",
+    )
+    write_json(
+        out / "manifest.json",
+        {
+            "dataset_name": "public-msw",
+            "data_class": "synthetic",
+            "generated_at": now_iso(),
+            "network_used": False,
+            "remote_upload_used": False,
+            "source_licenses": ["synthetic fixture"],
+            "retention_policy": "temp fixture or reviewed public-safe commit only",
+        },
+    )
+    print(f"created fixture: {out}")
+    return 0
+
+
+def cmd_ingest(args: argparse.Namespace) -> int:
+    source_dir = Path(args.source_dir)
+    out = Path(args.out)
+    if not source_dir.is_dir():
+        print(f"source directory not found: {source_dir}", file=sys.stderr)
+        return 2
+
+    source_files = iter_source_files(source_dir)
+    if not source_files:
+        print(f"no .txt or .md source files found: {source_dir}", file=sys.stderr)
+        return 2
+
+    normalized_dir = out / "normalized"
+    chunks_dir = out / "chunks"
+    normalized_dir.mkdir(parents=True, exist_ok=True)
+    chunks_dir.mkdir(parents=True, exist_ok=True)
+
+    generated_files: list[str] = []
+    source_paths: list[str] = []
+    for source in source_files:
+        source_paths.append(str(source))
+        normalized = normalize_text(source.read_text(encoding="utf-8"))
+        normalized_name = f"{safe_slug(source)}{source.suffix.lower()}"
+        normalized_path = normalized_dir / normalized_name
+        normalized_path.write_text(normalized, encoding="utf-8")
+        generated_files.append(str(normalized_path))
+
+        chunk_payload = {
+            "chunk_id": f"{safe_slug(source)}-000",
+            "source_file": str(source),
+            "normalized_file": str(normalized_path),
+            "text": normalized,
+        }
+        chunk_path = chunks_dir / f"{safe_slug(source)}-000.json"
+        write_json(chunk_path, chunk_payload)
+        generated_files.append(str(chunk_path))
+
+    manifest = {
+        "DATASET_MANIFEST": {
+            "dataset_name": source_dir.name,
+            "data_class": "synthetic",
+            "source_paths": source_paths,
+            "source_licenses": ["synthetic fixture"],
+            "network_used": False,
+            "remote_upload_used": False,
+            "generated_files": generated_files,
+            "excluded_files": [],
+            "de_id_check": "pending",
+            "retention_policy": "temporary local artifact unless separately reviewed",
+        },
+        "generated_at": now_iso(),
+    }
+    write_json(out / "manifest.json", manifest)
+    print(f"ingested {len(source_files)} files into {out}")
+    return 0
+
+
+def scan_file(path: Path) -> list[dict]:
+    text = path.read_text(encoding="utf-8", errors="replace")
+    findings: list[dict] = []
+    for name, pattern in SENSITIVE_PATTERNS:
+        for match in pattern.finditer(text):
+            findings.append(
+                {
+                    "file": str(path),
+                    "kind": name,
+                    "line": text.count("\n", 0, match.start()) + 1,
+                    "match_preview": match.group(0)[:40],
+                }
+            )
+    return findings
+
+
+def cmd_deid_check(args: argparse.Namespace) -> int:
+    normalized_dir = Path(args.normalized_dir)
+    if not normalized_dir.is_dir():
+        print(f"normalized directory not found: {normalized_dir}", file=sys.stderr)
+        return 2
+
+    findings: list[dict] = []
+    for path in iter_source_files(normalized_dir):
+        findings.extend(scan_file(path))
+
+    out = normalized_dir.parent
+    payload = {
+        "checked_at": now_iso(),
+        "normalized_dir": str(normalized_dir),
+        "remote_upload_used": False,
+        "finding_count": len(findings),
+        "findings": findings,
+        "verdict": "PASS" if not findings else "FLAG",
+    }
+    write_json(out / "deid-findings.json", payload)
+
+    manifest_path = out / "manifest.json"
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if "DATASET_MANIFEST" in manifest:
+            manifest["DATASET_MANIFEST"]["de_id_check"] = payload["verdict"]
+            write_json(manifest_path, manifest)
+
+    print(json.dumps({"finding_count": len(findings), "verdict": payload["verdict"]}, sort_keys=True))
+    return 0
+
+
+def cmd_index(args: argparse.Namespace) -> int:
+    chunks_dir = Path(args.chunks_dir)
+    if not chunks_dir.is_dir():
+        print(f"chunks directory not found: {chunks_dir}", file=sys.stderr)
+        return 2
+    if not args.local_only:
+        print("--local-only is required for Dataset Pipeline Alpha", file=sys.stderr)
+        return 2
+
+    token_index: dict[str, set[str]] = defaultdict(set)
+    chunk_count = 0
+    for chunk_path in sorted(chunks_dir.glob("*.json")):
+        chunk = json.loads(chunk_path.read_text(encoding="utf-8"))
+        chunk_id = chunk["chunk_id"]
+        chunk_count += 1
+        for token in re.findall(r"[a-z0-9]{3,}", chunk["text"].lower()):
+            token_index[token].add(chunk_id)
+
+    payload = {
+        "indexed_at": now_iso(),
+        "local_only": True,
+        "remote_upload_used": False,
+        "chunk_count": chunk_count,
+        "tokens": {token: sorted(ids) for token, ids in sorted(token_index.items())},
+    }
+    write_json(chunks_dir.parent / "local-index.json", payload)
+    print(json.dumps({"chunk_count": chunk_count, "local_only": True}, sort_keys=True))
+    return 0
+
+
+def yes_no(value: bool) -> str:
+    return "yes" if value else "no"
+
+
+def cmd_report(args: argparse.Namespace) -> int:
+    root = Path(args.dataset_dir)
+    manifest_path = root / "manifest.json"
+    findings_path = root / "deid-findings.json"
+    index_path = root / "local-index.json"
+    if not manifest_path.exists():
+        print(f"manifest not found: {manifest_path}", file=sys.stderr)
+        return 2
+
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    dataset_manifest = manifest.get("DATASET_MANIFEST", manifest)
+    findings = json.loads(findings_path.read_text(encoding="utf-8")) if findings_path.exists() else {}
+    index = json.loads(index_path.read_text(encoding="utf-8")) if index_path.exists() else {}
+
+    finding_count = int(findings.get("finding_count", 0)) if findings else 0
+    local_only = bool(index.get("local_only", False))
+    remote_upload_used = bool(dataset_manifest.get("remote_upload_used", False) or index.get("remote_upload_used", False))
+    verdict = "PASS" if local_only and not remote_upload_used and finding_count == 0 else "FLAG"
+
+    report = "\n".join(
+        [
+            "DATASET_PIPELINE_ALPHA_REPORT",
+            f"dataset: {dataset_manifest.get('dataset_name', root.name)}",
+            f"data_class: {dataset_manifest.get('data_class', 'unknown')}",
+            f"local_only: {yes_no(local_only)}",
+            f"network_used: {yes_no(bool(dataset_manifest.get('network_used', False)))}",
+            f"remote_upload_used: {yes_no(remote_upload_used)}",
+            "commands_or_manual_steps: init -> ingest -> deid-check -> index -> report",
+            f"files_created: {len(dataset_manifest.get('generated_files', []))}",
+            f"de_id_findings: {finding_count}",
+            f"retrieval_smoke: {'indexed ' + str(index.get('chunk_count', 0)) + ' chunks' if index else 'missing local index'}",
+            f"lineage: {manifest_path}; {findings_path if findings_path.exists() else 'deid-findings missing'}; {index_path if index_path.exists() else 'local-index missing'}",
+            f"residual_risk: {'none for synthetic fixture' if verdict == 'PASS' else 'review de-id findings or missing local index'}",
+            f"next_action: {'use temp fixture for MSW workflow smoke' if verdict == 'PASS' else 'fix flagged dataset evidence before pilot use'}",
+            f"verdict: {verdict}",
+            "",
+        ]
+    )
+    (root / "lineage-report.md").write_text(report, encoding="utf-8")
+    print(report)
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="workbench-dataset")
+    subcommands = parser.add_subparsers(dest="command", required=True)
+
+    init_parser = subcommands.add_parser("init")
+    init_parser.add_argument("--fixture", required=True)
+    init_parser.add_argument("--out", default="fixtures/public-msw")
+    init_parser.set_defaults(func=cmd_init)
+
+    ingest_parser = subcommands.add_parser("ingest")
+    ingest_parser.add_argument("source_dir")
+    ingest_parser.add_argument("--out", required=True)
+    ingest_parser.set_defaults(func=cmd_ingest)
+
+    deid_parser = subcommands.add_parser("deid-check")
+    deid_parser.add_argument("normalized_dir")
+    deid_parser.set_defaults(func=cmd_deid_check)
+
+    index_parser = subcommands.add_parser("index")
+    index_parser.add_argument("chunks_dir")
+    index_parser.add_argument("--local-only", action="store_true")
+    index_parser.set_defaults(func=cmd_index)
+
+    report_parser = subcommands.add_parser("report")
+    report_parser.add_argument("dataset_dir")
+    report_parser.add_argument("--format", choices=["markdown"], default="markdown")
+    report_parser.set_defaults(func=cmd_report)
+
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    return args.func(args)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
