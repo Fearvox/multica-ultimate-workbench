@@ -20,6 +20,25 @@ Build agents do not write Linear or Slack directly. Captain or webhook automatio
 
 Rationale: the workbench needed durable external status sync without promoting chat or third-party surfaces into authority. Adding `Ready for Merge` preserves the last evidence gate between `In Review` and `Done`, limits Slack noise to important human-attention events, and keeps repo-visible evidence and prompt contracts as the real audit trail.
 
+## 2026-05-05 - Add Waking-Up As The Workbench Context Restore Protocol
+
+Decision: add `workbench-waking-up` as the shared wake-report and direct-chat-
+to-Workbench bridge skill. When an operator asks for recent state, dropped
+leads, `gm`, `where are we`, or asks whether a direct-chat discovery should
+become Workbench-visible, agents must recall memory leads, verify live
+repo/issue/automation/knowledge/runner state, surface drift first, and return a
+short evidence-labeled action menu.
+
+Rationale: operators and agents need fast context restoration with live
+verification and drift-first reporting, not stale chat memory. The workbench
+needs a low-friction way to wake itself, detect stale memory, and turn reusable
+session outcomes into public-safe durable surfaces without adding a full PM
+ceremony.
+
+Installed at `skills/workbench-waking-up/SKILL.md`; public maps updated in
+`README.md`, `AGENTS.md`, `SYNTHESIS.md`, `agents/AGENT_ROSTER.md`,
+`skills/README.md`, and `skills/workbench-memory-synthesis/SKILL.md`.
+
 ## 2026-05-04 - Add Repo Brand Uplift as Public Skill
 
 Decision: add `workbench-repo-brand-uplift` as the registry-facing skill for

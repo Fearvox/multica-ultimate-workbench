@@ -53,6 +53,15 @@ Remote Hermes and remote VM work may also receive `L2_PRESSURE: yes` or
 Research Vault access, post `RV_PRESSURE_CHECK`, apply prior failures and proven
 patterns to the route, and avoid raw vault dumps.
 
+## Shared Wake Reports
+
+Any Workbench role that answers "gm", "where are we", "what can move now",
+"最近干了什么", or a dropped-lead/session-catchup request follows
+[workbench-waking-up](../skills/workbench-waking-up/SKILL.md): recall memory
+leads, verify live repo/issue/automation/runner state, report drift before new
+work, and bridge reusable direct-chat discoveries into durable public-safe
+Workbench surfaces.
+
 ## Shared Hermes Docs Sync
 
 Any Hermes-family role that reviews Claude-authored public docs, skill-map

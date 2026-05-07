@@ -13,6 +13,7 @@ Use this skill for durable memory, session summaries, decision logs, issue close
 - Keep the next session resumable from files, not hidden model memory.
 - Record decisions separately from logs.
 - Keep strategy in synthesis documents and execution evidence in logs or issue comments.
+- If a session-derived behavior should affect future agents, bridge it through `workbench-waking-up` into a public-safe repo surface instead of leaving it only in chat memory.
 - Preserve IDs that matter for recovery: issue IDs, run IDs, comment IDs, agent IDs, autopilot IDs, commit IDs.
 - When a run stalls and a conductor proxy posts evidence, record both the proxy ID and the later agent-authored artifact ID if it appears.
 - Record live resource IDs only after post-sync verification confirms them.
