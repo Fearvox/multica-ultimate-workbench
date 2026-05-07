@@ -33,6 +33,7 @@ The pack is directory-structured for the `skills` CLI: each skill lives at
 | [`workbench-code-review`](workbench-code-review/SKILL.md) | Findings-first review for diffs and evidence quality. |
 | [`workbench-frontend-design-qa`](workbench-frontend-design-qa/SKILL.md) | UI QA for hierarchy, fit, responsive behavior, and interaction states. |
 | [`workbench-browser-proofshot-qa`](workbench-browser-proofshot-qa/SKILL.md) | Browser verification with screenshots/traces kept outside public Git. |
+| [`workbench-image-read`](workbench-image-read/SKILL.md) | Local `image-read` bridge for text-only agents to inspect screenshots without spawning a vision subagent. |
 | [`workbench-capy-vm-lane`](workbench-capy-vm-lane/SKILL.md) | Controlled VM/browser/sandbox execution and teardown evidence. |
 | [`workbench-capy-process-check`](workbench-capy-process-check/SKILL.md) | Real-time Capy task and PR observation through Brave/Computer Use with primary evidence readback. |
 | [`workbench-sanity-context`](workbench-sanity-context/SKILL.md) | Sanity schema and context-registry work for cross-CLI sanitized workbench memory. |
