@@ -1,5 +1,51 @@
 # Decisions
 
+## 2026-05-07 - Adopt Closeout Comment 4-Field Verbatim Rule
+
+Decision: any Workbench, Multica, Capy, Conductor, Hermes, Codex, or human
+closeout that changes or requests issue status to `Ready for Merge`, `Done`, or
+`Blocked` must include the exact four-field closeout block plus a literal
+`VERDICT: PASS | FLAG | BLOCK` line.
+
+Required closeout:
+
+```text
+CHANGED:
+VERIFIED:
+REMAINING:
+PRS / LINKS:
+VERDICT: PASS | FLAG | BLOCK
+```
+
+`REMAINING:` is mandatory even when the value is `(none)`. `VERDICT:` is the
+evidence judgment and must not be rewritten, upgraded, or collapsed into prose
+by Linear, Capy, Conductor, Slack, PR comments, or any adapter. Workflow status
+and verdict are separate signals: a lifecycle move may say where work sits, but
+it must not convert a `FLAG` or `BLOCK` into `PASS`.
+
+PR, commit, and comment references in status-changing closeout must name their
+reference type:
+
+- `contains`: the referenced PR or commit contains the issue implementation;
+  merged/closed/head-on-main proof is required before final Done.
+- `dogfood-platform`: the referenced PR was used to test the workflow or
+  review surface, not necessarily to contain the issue implementation.
+- `discovered-via`: the issue was discovered during the referenced work.
+- `cross-issue-side-effect`: the referenced work also verified named artifacts
+  for another issue.
+
+If one closeout affects multiple issues, the relevant `REMAINING:` lines must be
+copied to every affected issue as a description or comment update, not left only
+on the root issue. Status `Done` also requires active Done checkboxes in the
+issue description to be synced before or during closeout. Validator automation
+is a follow-up; until it exists, reviewers enforce this rule manually.
+
+Rationale: the SYN-25/SYN-26/SYN-27 closeout incident showed that a correct
+upstream `FLAG` can become an invalid downstream `PASS` when channel adapters
+summarize verdicts into natural language. The four-field rule preserves changed
+scope, verification evidence, residual risk, links, and exact verdict across
+human, Conductor, Capy, Linear, Slack, and PR surfaces.
+
 ## 2026-05-07 - Reserve Capy Review Credit For High-Blast-Radius Work
 
 Decision: Capy review credit is reserved for high-blast-radius work. Use Capy
