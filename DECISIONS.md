@@ -1,5 +1,32 @@
 # Decisions
 
+## 2026-05-07 - Reserve Capy Review Credit For High-Blast-Radius Work
+
+Decision: Capy review credit is reserved for high-blast-radius work. Use Capy
+review for architecture changes, runtime or daemon mutation, auth or secrets
+surfaces, deploy/release gates, cross-repo coordination, major UI changes, and
+final human-grade review before risky merges. Routine PR review should default
+to Codex bot, GitHub Copilot review, or local targeted review.
+
+Review routing is cost-aware but not evidence-light. Every review path still
+starts with the cheap local gates that fit the patch: `git diff --check`,
+targeted tests or lint, scoped secret-pattern scans on changed lines, and direct
+inspection of the files touched. Do not spend Capy credit on obvious formatting,
+docs-only, example-config, small bugfix, or narrow test-only changes unless the
+change unexpectedly touches a high-risk boundary.
+
+Cloud repo automation is advisory unless GitHub settings explicitly make it a
+merge gate. The workbench should not infer branch protection, required checks,
+or bot authority from the existence of a workflow or installed app. Current
+review truth still comes from PR reviews, checks, branch/ruleset settings, and
+human Supervisor acceptance.
+
+Rationale: Capy is useful for expensive, context-heavy review, but routine use
+burns scarce review credit and trains the workbench to route simple feedback
+through the wrong surface. Codex bot and Copilot are good enough for ordinary
+review loops; Capy should stay available for the few decisions where a deeper
+review materially changes risk.
+
 ## 2026-05-06 - Add Self-Loop Guardrails To The Capy Git Dialogue Responder
 
 Decision: the `Capy Git Dialogue Responder` must be source-first and self-loop resistant by contract. Self-authored bot comments, review comments, review submissions, synchronize events caused by Capy-authored commits, and duplicate closeout states are observation inputs only unless a human explicitly asks Capy to continue in that exact thread or after that exact commit. The responder must emit a `CAPY_GIT_DIALOGUE_GUARDRAIL` block before any write-capable action, enforce a per-PR automatic patch budget of one attempt per distinct human-authored review-finding batch, and stop with `FLAG` plus operator approval if it detects commit/comment/review churn from itself.
