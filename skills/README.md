@@ -42,6 +42,7 @@ The pack is directory-structured for the `skills` CLI: each skill lives at
 | [`workbench-runtime-hygiene`](workbench-runtime-hygiene/SKILL.md) | Disk, swap, VM, agent workspace, Codex cache, and stale session hygiene for runtime stability. |
 | [`workbench-docs-release`](workbench-docs-release/SKILL.md) | Documentation sync after behavior, roster, skill, or release changes. |
 | [`workbench-hermes-docs-sync`](workbench-hermes-docs-sync/SKILL.md) | Hermes second-pass review for Claude-authored public docs, skills, install maps, and speed-match writeups. |
+| [`workbench-repo-brand-uplift`](workbench-repo-brand-uplift/SKILL.md) | Zonic/Evensong-style README, repo metadata, and first-impression brand uplift for public GitHub repos. |
 | [`workbench-token-context-discipline`](workbench-token-context-discipline/SKILL.md) | Compact context, cache-aware execution, and role-specific skill attachment. |
 | [`workbench-product-brainstorming`](workbench-product-brainstorming/SKILL.md) | Bounded product ideation with tradeoffs and smallest tests. |
 | [`workbench-gsd-tasking`](workbench-gsd-tasking/SKILL.md) | Owner-scoped tasks with gates, rollback, verification, and smoke tests. |

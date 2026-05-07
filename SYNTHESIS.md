@@ -24,6 +24,9 @@ The workbench is a two-ring operating system for agentic software work:
   reviewed future-self context.
 - **Distribution Layer**: agent-install syncs reviewed skills, MCP definitions,
   and AGENTS.md sections across coding agents.
+- **Public Brand Layer**: repo brand uplift turns selected GitHub repositories
+  into Zonic/Evensong-style public artifacts: proof-first README, metadata,
+  architecture map, maturity labels, and public/private boundaries.
 - **Public Docs Sync Layer**: Claude Code authors public writeups first, then
   Hermes reviews every related public-facing surface through
   `workbench-hermes-docs-sync` before sync or publish.

@@ -19,10 +19,11 @@
 [![Agent Install](https://img.shields.io/badge/sync-agent--install-111827?style=flat-square)](docs/agent-install-unifier-lane.md)
 [![Flue Harness](https://img.shields.io/badge/lane-Flue_harness-f97316?style=flat-square)](docs/flue-agent-harness-lane.md)
 [![Windburn Cache](https://img.shields.io/badge/direction-Windburn_cache-0f766e?style=flat-square)](docs/windburn-cognitive-cache-direction.md)
+[![Repo Brand](https://img.shields.io/badge/lane-repo_brand_uplift-f0ee9b?style=flat-square)](docs/repo-brand-uplift-lane.md)
 [![Skills.sh](https://img.shields.io/badge/skills.sh-installable-111827?style=flat-square)](https://skills.sh/)
 [![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)](#documentation-map)
 
-**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Windburn Cache](#windburn-cognitive-cache-direction) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Wake Reports](#wake-reports) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
+**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Windburn Cache](#windburn-cognitive-cache-direction) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Wake Reports](#wake-reports) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Repo Brand Uplift](#repo-brand-uplift) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
 
 ## Overview
 
@@ -205,6 +206,15 @@ Use [skills/workbench-waking-up/SKILL.md](skills/workbench-waking-up/SKILL.md)
 when recent sessions, dropped task leads, branch drift, Multica runs, cron jobs,
 Research Vault/Sanity context, or runner state affect the next move.
 
+## Repo Brand Uplift
+
+Selected public GitHub repos should be readable as proof-first artifacts, not
+internal run logs. Use
+[workbench-repo-brand-uplift](skills/workbench-repo-brand-uplift/SKILL.md)
+and [docs/repo-brand-uplift-lane.md](docs/repo-brand-uplift-lane.md) to lift a
+repo toward the Zonic/Evensong standard: brand-first, proof-first,
+public-safe, installable, and evidence-backed.
+
 ## Multica 0.2.22 Platform
 
 Multica 0.2.22 provides the platform surfaces the workbench builds on: project-bound repos, Quick Capture intake, fresh reruns, Mermaid rendering, per-agent model config, and safer custom env handling. The workbench uses these as routing and evidence rails — they extend what the workbench can do, but do not replace SDD or Supervisor review.
@@ -353,6 +363,9 @@ Human approval required before running:
 | Flue agent harness lane | [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) |
 | Super.engineering speed-match lane | [docs/super-engineering-speed-match-lane.md](docs/super-engineering-speed-match-lane.md) |
 | Hermes docs-sync skill | [skills/workbench-hermes-docs-sync/SKILL.md](skills/workbench-hermes-docs-sync/SKILL.md) |
+| Repo brand uplift lane | [docs/repo-brand-uplift-lane.md](docs/repo-brand-uplift-lane.md) |
+| Repo brand uplift skill | [skills/workbench-repo-brand-uplift/SKILL.md](skills/workbench-repo-brand-uplift/SKILL.md) |
+| Repo brand uplift goal template | [issue-templates/repo-brand-uplift-goal.md](issue-templates/repo-brand-uplift-goal.md) |
 | Platform workflow (0.2.22) | [docs/multica-021-workflow.md](docs/multica-021-workflow.md) |
 | Codex Workbench runtime profile | [docs/codex-workbench-runtime-profile.md](docs/codex-workbench-runtime-profile.md) |
 | Lean Codex profile example | [config/multica-workbench-codex-profile.example.toml](config/multica-workbench-codex-profile.example.toml) |
@@ -399,6 +412,7 @@ Multica Ultimate Workbench 是建立在 Multica 之上的多 agent 工作台持�
 | Runtime 分工 | Codex（实现/审查）、Claude Code（架构/文档/规划）、Hermes（研究/记忆整理/docs-sync review） | [AGENT_ROSTER](agents/AGENT_ROSTER.md) |
 | Windburn Cognitive Cache | `.learning` 未来自我记忆方向：把感知、信念、失败、source truth、技能和停车想法变成可复核的行为改变层 | [windburn-cognitive-cache-direction](docs/windburn-cognitive-cache-direction.md) |
 | Workspace Skills | 共享语法，固化 SDD、routing、review、docs-sync、proofshot QA、token discipline、memory synthesis 等高频行为 | [skills/README](skills/README.md) |
+| Repo Brand Uplift | 把公开 GitHub repo 提升到 Zonic/Evensong 标准：brand-first、proof-first、quickstart、architecture map、maturity label | [repo-brand-uplift-lane](docs/repo-brand-uplift-lane.md) |
 | Flight Recorder | Issue 级轻量摘要，输出 RUN_DIGEST，不做完整 telemetry | [flight-recorder](docs/flight-recorder.md) |
 | Capy VM Lane | 受控 VM 执行通道，处理 GUI/浏览器/沙盒任务 | [capy-vm-lane](docs/capy-vm-lane.md) |
 | Capy Process Check | 通过 Brave/Computer Use 实时观察 Capy 任务与 PR 状态，但以 GitHub/CI/repo 证据为准 | [capy-process-check-lane](docs/capy-process-check-lane.md) |

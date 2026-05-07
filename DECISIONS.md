@@ -39,6 +39,25 @@ Installed at `skills/workbench-waking-up/SKILL.md`; public maps updated in
 `README.md`, `AGENTS.md`, `SYNTHESIS.md`, `agents/AGENT_ROSTER.md`,
 `skills/README.md`, and `skills/workbench-memory-synthesis/SKILL.md`.
 
+## 2026-05-04 - Add Repo Brand Uplift as Public Skill
+
+Decision: add `workbench-repo-brand-uplift` as the registry-facing skill for
+upgrading public GitHub repositories to a Zonic/Evensong-style first
+impression and first-pass metadata uplift. Public surfaces for this lane are
+`docs/repo-brand-uplift-lane.md`,
+`skills/workbench-repo-brand-uplift/SKILL.md`,
+`issue-templates/repo-brand-uplift-goal.md`, plus README/AGENTS/SYNTHESIS,
+skills index, and `DECISIONS.md` wiring. The lane requires proof-first README
+structure, current quickstart commands, architecture maps, maturity labels,
+public/private boundaries, and Hermes docs-sync review when Workbench public
+surfaces change.
+
+Rationale: the workbench now has strong artifacts, but outside users and
+maintainers cannot adopt what they cannot quickly understand. Repo brand uplift
+turns "we have the thing" into a reviewable public surface without inventing
+traction, benchmarks, or authority, and standardizes Zonic/Evensong-style
+proof-first presentation without leaking internal or private material.
+
 ## 2026-05-04 - Separate Capy Captain Contracts From Multica Runtime Execution
 
 Decision: formalize a hard boundary between Capy and Multica through the
@@ -107,6 +126,8 @@ Codex-style pattern solves both: render the graph beautifully, expose `View
 source` and `Copy source`, and preserve the raw fenced code if rendering fails.
 
 ## 2026-05-04 - Keep Repo Brand Uplift As A Public-Surface Standard
+
+Status: superseded by `2026-05-04 - Add Repo Brand Uplift as Public Skill` once the lane artifacts landed.
 
 Decision: treat repo-brand uplift as a public-surface standard and a future
 lane to define, not an installed lane in this repository today. Public GitHub
