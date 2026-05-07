@@ -13,7 +13,8 @@ The workbench is a two-ring operating system for agentic software work:
   and documentation.
 - **Governance Layer**: Friction Tier Router, Self-Awareness bootstrap, SDD,
   Goal Mode, review gates, flight recorder summaries, L2 Pressure, Temporal
-  Pincer closeout checks, and explicit PASS / FLAG / BLOCK closeout.
+  Pincer closeout checks, exact four-field closeout blocks, and literal
+  PASS / FLAG / BLOCK verdict preservation.
 - **Context Layer**: Sanity stores sanitized structured context for agents,
   runtimes, skills, evidence events, decisions, handoffs, and Capy process
   checks. Wake reports restore session context by combining memory leads with
@@ -94,9 +95,9 @@ chosen tier during review.
 
 | Tier | Use For | Required Gates |
 | --- | --- | --- |
-| Fast Path | Reading, summaries, copy edits, small README text, link cleanup, ACKs, empty scaffolds, lightweight classification, and work with no code, secrets, or runtime surface. | No bootstrap unless repo/runtime is ambiguous. No Temporal Pincer before send. No RV pressure check. No broad issue scan. Max 20 minutes. Close with Done Sentence / Changed / Verified / Next one action. |
-| Standard Path | Ordinary code or docs patches, prototype demos, tests, PR prep, and visual page fixes. | Require issue anchor or explicit local task, evidence expectations before execution, touched-path verification, and closeout with Changed / Verified / Residual risk / Next one action. After 70% complete, add no new architecture names or integrations. |
-| Heavy Path | Runtime, agent/autopilot, deploy, payment, OAuth, secrets, branch/merge, public proof, daemon/Desktop/core, and remote VM work. | Require Self-Awareness, Goal Lock when the objective spans turns, full evidence before PASS, Temporal Pincer for PASS/done/ready-to-merge, BLOCK for correctness risk, and human approval for permission/secret/payment/runtime mutation. |
+| Fast Path | Reading, summaries, copy edits, small README text, link cleanup, ACKs, empty scaffolds, lightweight classification, and work with no code, secrets, or runtime surface. | No bootstrap unless repo/runtime is ambiguous. No Temporal Pincer before send. No RV pressure check. No broad issue scan. Max 20 minutes. Close with a tiny closeout when no status changes; use the four-field closeout block for any status-changing closeout. |
+| Standard Path | Ordinary code or docs patches, prototype demos, tests, PR prep, and visual page fixes. | Require issue anchor or explicit local task, evidence expectations before execution, touched-path verification, and the four-field closeout block for status-changing closeout. After 70% complete, add no new architecture names or integrations. |
+| Heavy Path | Runtime, agent/autopilot, deploy, payment, OAuth, secrets, branch/merge, public proof, daemon/Desktop/core, and remote VM work. | Require Self-Awareness, Goal Lock when the objective spans turns, full evidence before PASS, Temporal Pincer for PASS/done/ready-to-merge, four-field closeout preservation, BLOCK for correctness risk, and human approval for permission/secret/payment/runtime mutation. |
 
 Completion Cooling keeps late-stage work from expanding: at 75% only verify,
 commit, or hand off; at 85% publish/reviewable means stop editing and collect
@@ -330,6 +331,30 @@ Evidence should be compact and reviewable:
 
 Large artifacts belong in local temp storage or private issue comments, not in
 public Git history.
+
+### Closeout Integrity
+
+Status-changing closeout must preserve four evidence fields plus the exact
+verdict line:
+
+```text
+CHANGED:
+VERIFIED:
+REMAINING:
+PRS / LINKS:
+VERDICT: PASS | FLAG | BLOCK
+```
+
+`REMAINING:` is mandatory even when `(none)`. `VERDICT:` is sacred evidence
+language: adapters must not rewrite, upgrade, or collapse it into prose such as
+`PASS, moving to Done`. Workflow status and verdict are independent; status can
+describe lifecycle position, but it must not overwrite a residual-risk verdict.
+
+PR, commit, and comment references must identify whether they `contains` the
+implementation, served as a `dogfood-platform`, were `discovered-via` the work,
+or are a `cross-issue-side-effect`. Cross-issue closeout must copy relevant
+`REMAINING:` lines to every affected issue, and status `Done` requires active
+Done checkboxes synced in the issue description.
 
 ## Current Direction
 
