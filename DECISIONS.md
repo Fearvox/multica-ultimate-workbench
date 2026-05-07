@@ -1,5 +1,24 @@
 # Decisions
 
+## 2026-05-05 - Treat OpenAI Agents SDK As A Hermes Adapter Backend
+
+Decision: add `docs/hermes-openai-sandbox-adapter-lane.md` and
+`issue-templates/hermes-openai-sandbox-adapter-spike.md` as the minimal
+Workbench landing zone for OpenAI Agents SDK sandbox adoption. The SDK is an
+execution backend for one bounded Hermes-style worker run. It does not replace
+Hermes, Multica, Runtime Panel fleet topology, permission cards, or Supervisor
+review.
+
+The first spike must use `unix-local` or Docker, stage inputs through a manifest,
+enable only `Shell`, `Filesystem`, and `Skills`, keep SDK memory disabled, and
+produce a public-safe `HERMES_SANDBOX_RUN_RECORD`.
+
+Rationale: official OpenAI docs frame sandbox agents as a split between harness
+control plane and sandbox compute. That matches Workbench's architecture if the
+SDK is kept below the fleet layer. The risky parts — hosted providers, SDK
+memory, production secrets, and Runtime Panel trace ingestion — belong to
+follow-up Workbench issues after the local adapter smoke is real.
+
 ## 2026-05-04 - Separate Capy Captain Contracts From Multica Runtime Execution
 
 Decision: formalize a hard boundary between Capy and Multica through the

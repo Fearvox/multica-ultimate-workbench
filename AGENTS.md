@@ -28,6 +28,7 @@ Read only as deep as the task requires:
 8j. [docs/repo-brand-uplift-lane.md](docs/repo-brand-uplift-lane.md) - Zonic/Evensong-style public GitHub repo brand uplift lane.
 8k. [docs/run-finalization-reconciliation-lane.md](docs/run-finalization-reconciliation-lane.md) - run lifecycle, duplicate result comment, and telemetry reconciliation contract.
 8l. [docs/image-read-bridge.md](docs/image-read-bridge.md) - local image-read bridge for text-only runtimes that need screenshot perception without a vision subagent.
+8m. [docs/hermes-openai-sandbox-adapter-lane.md](docs/hermes-openai-sandbox-adapter-lane.md) - OpenAI Agents SDK sandbox adapter spike boundary for Hermes-style workers.
 9. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
 9b. [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) - Two-layer autonomous conductor with decision packets and dedupe controls.
 10. [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) - Research Vault pressure gate for remote/HarnessMax work.
@@ -117,6 +118,7 @@ When supervising Multica from Codex Desktop:
 - Use [skills/workbench-sanity-context/SKILL.md](skills/workbench-sanity-context/SKILL.md) when a task touches Sanity schema, Studio, MCP, or the shared context registry.
 - Use [skills/workbench-agent-install-unifier/SKILL.md](skills/workbench-agent-install-unifier/SKILL.md) when a task uses `agent-install` to sync skills, MCP definitions, or AGENTS.md sections across coding agents.
 - Use [skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md) when an issue declares `FLUE_AGENT_CONTRACT` or asks to package a workflow as a deployable Flue agent.
+- Use [docs/hermes-openai-sandbox-adapter-lane.md](docs/hermes-openai-sandbox-adapter-lane.md) when a task asks whether Hermes should use OpenAI Agents SDK sandboxes, sandbox manifests, SDK traces, or a Hermes/OpenAI adapter. Start with a local `unix-local` or Docker spike; do not replace Hermes or enable SDK memory without a separate reviewed issue.
 - Use [skills/workbench-hermes-docs-sync/SKILL.md](skills/workbench-hermes-docs-sync/SKILL.md) when Hermes reviews Claude-authored public docs, skill-map changes, install instructions, agent role docs, issue templates, speed-match writeups, or any task says "sync everywhere", "skills.sh", "all Hermes", or "docs-sync".
 - Use [skills/workbench-repo-brand-uplift/SKILL.md](skills/workbench-repo-brand-uplift/SKILL.md) when a task asks to upgrade public GitHub repo first impression, README quality, repo metadata, Zonic/Evensong-style brand presentation, or "make every repo look as strong as Evensong."
 - Autopilots create issues; they do not silently perform high-risk work.
@@ -526,6 +528,8 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Flight recorder usage | [docs/flight-recorder.md](docs/flight-recorder.md) |
 | Run finalization reconciliation | [docs/run-finalization-reconciliation-lane.md](docs/run-finalization-reconciliation-lane.md) |
 | Run finalization issue template | [issue-templates/run-finalization-reconciliation.md](issue-templates/run-finalization-reconciliation.md) |
+| Hermes OpenAI sandbox adapter lane | [docs/hermes-openai-sandbox-adapter-lane.md](docs/hermes-openai-sandbox-adapter-lane.md) |
+| Hermes OpenAI sandbox adapter spike | [issue-templates/hermes-openai-sandbox-adapter-spike.md](issue-templates/hermes-openai-sandbox-adapter-spike.md) |
 | Agent communication profile | [docs/agent-communication-profile.md](docs/agent-communication-profile.md) |
 | Self-awareness protocol | [docs/self-awareness-infra-layer.md](docs/self-awareness-infra-layer.md) |
 | Self-awareness skill | [skills/workbench-self-awareness-infra/SKILL.md](skills/workbench-self-awareness-infra/SKILL.md) |
