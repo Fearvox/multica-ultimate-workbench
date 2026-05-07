@@ -1,21 +1,43 @@
 # Decisions
 
+## 2026-05-06 - Add Self-Loop Guardrails To The Capy Git Dialogue Responder
+
+Decision: the `Capy Git Dialogue Responder` must be source-first and self-loop resistant by contract. Self-authored bot comments, review comments, review submissions, synchronize events caused by Capy-authored commits, and duplicate closeout states are observation inputs only unless a human explicitly asks Capy to continue in that exact thread or after that exact commit. The responder must emit a `CAPY_GIT_DIALOGUE_GUARDRAIL` block before any write-capable action, enforce a per-PR automatic patch budget of one attempt per distinct human-authored review-finding batch, and stop with `FLAG` plus operator approval if it detects commit/comment/review churn from itself.
+
+Incident record: PR #17 entered a self-feedback loop on branch `capy/capy-linear-slack-sync`, producing 25 commits and 41 PR comments after the webhook responder reacted to its own bot comments, review comments, review submissions, and synchronize events. PR #18 was also superseded. Clean replay PR #19 replaces those runs. This decision is intentionally sanitized: no raw payloads, endpoint details, private IDs, or internal transcripts belong in repo-visible artifacts.
+
+Consequence: the live responder stays disabled until a separate human-approved rollout verifies these source-controlled guardrails. Reading and summarizing bot artifacts remains allowed, but bot-authored activity is not mutation authority.
+
+Rationale: GitHub dialogue is a useful durable lane only if the responder can distinguish evidence from authorization. Source-first loop prevention keeps public repo conversation readable, prevents repeated branch self-patching, and makes human approval the recovery path when automation churn appears.
+
+## 2026-05-06 - Adopt Capy Linear Slack Evidence Sync With Ready for Merge
+
+Decision: add a bounded Capy evidence-sync lane for Linear and Slack. GitHub PRs, commits, CI/checks, and review findings remain the primary evidence. Captain Capy may automatically move Linear status and add Linear comments when the evidence gates pass, while Slack is limited to human-attention notifications.
+
+The external sync semantic state machine is `Todo`, `In Progress`, `In Review`, `Ready for Merge`, `Done`, and `Blocked`. `Ready for Merge` is allowed only when a PR exists, required checks are passing, and no open high/critical review findings remain. `Done` still requires a merged PR. `Blocked` is reserved for primary evidence that says the work is unsafe to advance because required CI/check evidence fails or a high/critical review finding remains open. The external sync verdict is separate from the semantic state: use `PASS` when the semantic state is trustworthy and required external writes succeeded or no write was required, use `FLAG` when the semantic state is clear but Linear or Slack write/auth/channel-project-permission availability fails or a requirement/owner blocker stops the work while semantic classification remains trustworthy, and use `BLOCK` only when required CI/check evidence fails, an open high/critical finding remains, required primary evidence cannot be read, required primary-evidence read permission or semantic-classification evidence is missing, or conflicting primary evidence prevents a trustworthy semantic decision.
+
+Build agents do not write Linear or Slack directly. Captain or webhook automation makes the semantic decision, then the adapter writes idempotently. Capy must never auto-merge unless a human explicitly asks for that exact PR merge.
+
+Rationale: the workbench needed durable external status sync without promoting chat or third-party surfaces into authority. Adding `Ready for Merge` preserves the last evidence gate between `In Review` and `Done`, limits Slack noise to important human-attention events, and keeps repo-visible evidence and prompt contracts as the real audit trail.
+
 ## 2026-05-05 - Add Waking-Up As The Workbench Context Restore Protocol
 
-Decision: add `workbench-waking-up` as the shared wake-report and
-session-to-Workbench bridge skill. When an operator asks for recent state,
-dropped leads, `gm`, `where are we`, or asks whether a direct-chat discovery
-should become Workbench-visible, agents must recall memory leads, verify live
+Decision: add `workbench-waking-up` as the shared wake-report and direct-chat-
+to-Workbench bridge skill. When an operator asks for recent state, dropped
+leads, `gm`, `where are we`, or asks whether a direct-chat discovery should
+become Workbench-visible, agents must recall memory leads, verify live
 repo/issue/automation/knowledge/runner state, surface drift first, and return a
 short evidence-labeled action menu.
 
-Rationale: useful operating changes were being born in direct chat faster than
-repo docs or Multica surfaces could absorb them. The workbench needs a low-
-friction way to wake itself, detect stale memory, and turn reusable session
-outcomes into public-safe durable surfaces without adding a full PM ceremony.
+Rationale: operators and agents need fast context restoration with live
+verification and drift-first reporting, not stale chat memory. The workbench
+needs a low-friction way to wake itself, detect stale memory, and turn reusable
+session outcomes into public-safe durable surfaces without adding a full PM
+ceremony.
 
 Installed at `skills/workbench-waking-up/SKILL.md`; public maps updated in
-`README.md`, `AGENTS.md`, `skills/README.md`, and `agents/AGENT_ROSTER.md`.
+`README.md`, `AGENTS.md`, `SYNTHESIS.md`, `agents/AGENT_ROSTER.md`,
+`skills/README.md`, and `skills/workbench-memory-synthesis/SKILL.md`.
 
 ## 2026-05-04 - Separate Capy Captain Contracts From Multica Runtime Execution
 
