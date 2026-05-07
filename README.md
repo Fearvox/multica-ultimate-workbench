@@ -182,6 +182,15 @@ plugin/marketplace tables unless a task explicitly needs a named capability.
 See [docs/codex-workbench-runtime-profile.md](docs/codex-workbench-runtime-profile.md)
 and [config/multica-workbench-codex-profile.example.toml](config/multica-workbench-codex-profile.example.toml).
 
+The Windburn remote NixOS workhorse is registered as a remote execution cell,
+not an orchestrator. Its durable surface is systemd plus fixed tmux lanes;
+Herdr is a local cockpit that can attach to the remote lane without owning
+durability. Current public-safe capability evidence covers
+`herdr-cockpit-socket-api`, `codex-fixed-tmux-lane`,
+`hermes-yolo-tmux-lane`, runner aggregate `PASS`, and health safety-gate
+`PASS`. See
+[docs/windburn-workhorse-runtime-registry.md](docs/windburn-workhorse-runtime-registry.md).
+
 ## Workspace Skills
 
 Workspace skills are the shared grammar of the workbench. They make high-frequency behavior explicit — SDD, conductor routing, research, implementation, review, docs release, browser proofshot QA, token/context discipline, L2 pressure, and memory synthesis.
@@ -355,6 +364,7 @@ Human approval required before running:
 | Windburn challenge orchestration contract | [docs/windburn-challenge-orchestration-contract.md](docs/windburn-challenge-orchestration-contract.md) |
 | Windburn promotion gate runner | [scripts/windburn-promotion-gate.mjs](scripts/windburn-promotion-gate.mjs) |
 | Windburn challenge orchestration runner | [scripts/windburn-challenge.mjs](scripts/windburn-challenge.mjs) |
+| Windburn workhorse runtime registry | [docs/windburn-workhorse-runtime-registry.md](docs/windburn-workhorse-runtime-registry.md) |
 | Windburn divergence gate implementation plan | [docs/plans/windburn-divergence-gate-harness-plan.md](docs/plans/windburn-divergence-gate-harness-plan.md) |
 | Windburn divergence gate goal template | [issue-templates/windburn-divergence-gate-goal.md](issue-templates/windburn-divergence-gate-goal.md) |
 | Windburn Senter hybrid goal template | [issue-templates/windburn-senter-hybrid-goal.md](issue-templates/windburn-senter-hybrid-goal.md) |

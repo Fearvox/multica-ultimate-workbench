@@ -4,6 +4,12 @@ Remote agents are execution cells, not new orchestrators. They are useful for
 long-running builds, repo checks, VM/browser work, and batch research when the
 local laptop should stay responsive.
 
+The Windburn remote NixOS workhorse is the current proof surface for this
+pattern. Its registry card lives in
+`docs/windburn-workhorse-runtime-registry.md`: systemd and fixed tmux lanes own
+durability, while Herdr is a cockpit-only attach surface. Keep host coordinates,
+tmux targets, raw commands, and terminal panes out of public docs.
+
 ## Public Role Shape
 
 | Role | Runtime Family | Max Concurrency | Use |

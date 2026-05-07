@@ -337,6 +337,9 @@ The next useful upgrades are:
 
 - stronger public/private artifact split
 - remote runtime handoff contracts
+- Windburn workhorse registry catch-up after PR #16/#17: Herdr cockpit is an
+  operator attach surface, remote durability remains systemd plus fixed tmux,
+  and public runtime evidence is redacted/safety-gated
 - automatic review sweep hardening
 - remote HarnessMax evolve sweeper with L2 Pressure
 - remote Research Vault MCP preflight and read-only contract
