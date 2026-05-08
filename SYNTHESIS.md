@@ -40,6 +40,10 @@ The workbench is a two-ring operating system for agentic software work:
   deployable agent harnesses when a mature workflow should become HTTP, CI,
   Node, Cloudflare, or sandbox-backed code, and Runtime Hygiene for disk/swap/
   cache/session pressure management.
+- **Tool Absorption Lanes**: Mirage VFS is tracked as a candidate shell-native
+  virtual filesystem for bounded pilots across already-approved resources. It
+  supports throughput experiments but does not replace native source-of-truth
+  evidence.
 
 The goal is not "more agents." The goal is higher throughput without losing
 traceability, role boundaries, or operator control.
@@ -188,6 +192,21 @@ trigger, secrets policy, validation command, and public artifact policy.
 Flue does not replace Multica routing, SDD planning, Goal Mode persistence, L2
 Pressure, or Supervisor review. It packages proven behavior after the workbench
 has already decided the workflow is stable enough to export.
+
+## Mirage VFS Tool Lane
+
+Mirage is an optional virtual-filesystem tool layer for agents. Use it only
+when a task benefits from one shell-addressable tree over bounded RAM, temp
+disk, or already-approved service resources.
+
+The required artifact is `MIRAGE_VFS_TOOL_CARD`: purpose, upstream version,
+install surface, workspace mode, mounts, data policy, secret policy, public
+artifact policy, verification commands, teardown, source of truth, residual
+risk, and PASS/FLAG/BLOCK verdict.
+
+Mirage does not replace Git, GitHub, Linear, CI, Multica issue evidence, or
+reviewed Workbench docs. It is supporting evidence unless the task explicitly
+defines a Mirage workspace artifact as the target deliverable.
 
 ## Capy Process Check Lane
 

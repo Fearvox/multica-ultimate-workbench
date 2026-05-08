@@ -19,12 +19,13 @@
 [![Sanity Context](https://img.shields.io/badge/context-Sanity-ef4444?style=flat-square)](docs/sanity-unified-context-lane.md)
 [![Agent Install](https://img.shields.io/badge/sync-agent--install-111827?style=flat-square)](docs/agent-install-unifier-lane.md)
 [![Flue Harness](https://img.shields.io/badge/lane-Flue_harness-f97316?style=flat-square)](docs/flue-agent-harness-lane.md)
+[![Mirage VFS](https://img.shields.io/badge/tool-Mirage_VFS-334155?style=flat-square)](docs/mirage-vfs-tool-lane.md)
 [![Windburn Cache](https://img.shields.io/badge/direction-Windburn_cache-0f766e?style=flat-square)](docs/windburn-cognitive-cache-direction.md)
 [![Repo Brand](https://img.shields.io/badge/lane-repo_brand_uplift-f0ee9b?style=flat-square)](docs/repo-brand-uplift-lane.md)
 [![Skills.sh](https://img.shields.io/badge/skills.sh-installable-111827?style=flat-square)](https://skills.sh/)
 [![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)](#documentation-map)
 
-**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Windburn Cache](#windburn-cognitive-cache-direction) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Algorithm Advisory](#algorithm-advisory-gate) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Wake Reports](#wake-reports) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Repo Brand Uplift](#repo-brand-uplift) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
+**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Windburn Cache](#windburn-cognitive-cache-direction) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Algorithm Advisory](#algorithm-advisory-gate) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Wake Reports](#wake-reports) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Mirage VFS](#mirage-vfs-tool-lane) · [Repo Brand Uplift](#repo-brand-uplift) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
 
 ## Overview
 
@@ -40,7 +41,7 @@ npx skills add Fearvox/multica-ultimate-workbench --skill workbench-self-awarene
 npx skills add Fearvox/multica-ultimate-workbench --all
 ```
 
-Use `--list` first to inspect the 32 public-safe skills. Install only the slice a runtime needs unless you are intentionally bootstrapping the full workbench grammar.
+Use `--list` first to inspect the 33 public-safe skills. Install only the slice a runtime needs unless you are intentionally bootstrapping the full workbench grammar.
 
 ## Why It Exists
 
@@ -57,6 +58,7 @@ The workbench separates live execution from durable operating memory:
 | Sanity context | Sanitized structured context for CLIs | Sanity Studio / GROQ / MCP |
 | Agent-install lane | Skills, MCPs, AGENTS.md distribution | Native agent config |
 | Flue lane | Deployable agent harnesses for mature workflows | Flue project source |
+| Mirage VFS lane | Optional shell-native virtual filesystem for bounded tool pilots | Mirage workspace source plus native evidence readback |
 | Human operator | Scope, approval, taste, final judgment | You |
 
 The workbench also accepts a small external review surface: the `Capy Git
@@ -181,6 +183,18 @@ L2 Pressure is the Research Vault grounding layer for remote Hermes, VM, and Har
 Remote runtimes start read-only. The approved remote RV MCP surface is `vault_status`, `vault_search`, `vault_taxonomy`, and `vault_get`; writes, ingest, deletion, maintenance, and broad raw export require separate approval and Supervisor review.
 
 See [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) and [docs/remote-rv-mcp.md](docs/remote-rv-mcp.md).
+
+## Mirage VFS Tool Lane
+
+Mirage is tracked as an optional virtual-filesystem tool layer for agents: a
+single shell-addressable tree for temporary RAM/disk workspaces and bounded
+cross-service pilots. It is useful when an agent needs one command vocabulary
+across already-approved resources, but it is not a source-of-truth replacement
+for Git, GitHub, Linear, CI, Multica issue evidence, or reviewed Workbench docs.
+
+Use [docs/mirage-vfs-tool-lane.md](docs/mirage-vfs-tool-lane.md) and
+[skills/workbench-mirage-vfs-tool](skills/workbench-mirage-vfs-tool/SKILL.md)
+before installing, piloting, or reviewing Mirage use.
 
 ## Agent + Runtime Model
 
@@ -396,6 +410,8 @@ Human approval required before running:
 | Sanity unified context lane | [docs/sanity-unified-context-lane.md](docs/sanity-unified-context-lane.md) |
 | Agent-install unifier lane | [docs/agent-install-unifier-lane.md](docs/agent-install-unifier-lane.md) |
 | Flue agent harness lane | [docs/flue-agent-harness-lane.md](docs/flue-agent-harness-lane.md) |
+| Mirage VFS tool lane | [docs/mirage-vfs-tool-lane.md](docs/mirage-vfs-tool-lane.md) |
+| Mirage VFS tool skill | [skills/workbench-mirage-vfs-tool/SKILL.md](skills/workbench-mirage-vfs-tool/SKILL.md) |
 | Super.engineering speed-match lane | [docs/super-engineering-speed-match-lane.md](docs/super-engineering-speed-match-lane.md) |
 | Hermes docs-sync skill | [skills/workbench-hermes-docs-sync/SKILL.md](skills/workbench-hermes-docs-sync/SKILL.md) |
 | Repo brand uplift lane | [docs/repo-brand-uplift-lane.md](docs/repo-brand-uplift-lane.md) |
@@ -456,6 +472,7 @@ Multica Ultimate Workbench 是建立在 Multica 之上的多 agent 工作台持�
 | Sanity Context | 跨 CLI 的结构化上下文注册表，只存去敏摘要、handoff、evidence 和决策 | [sanity-unified-context-lane](docs/sanity-unified-context-lane.md) |
 | agent-install Unifier | 跨 Codex/Claude/Cursor/OpenCode 等分发 skills、MCP、AGENTS.md 配置 | [agent-install-unifier-lane](docs/agent-install-unifier-lane.md) |
 | Flue Harness Lane | 将成熟 workflow 打包成可部署 HTTP/CI/Node/Cloudflare/sandbox agent 的出口层 | [flue-agent-harness-lane](docs/flue-agent-harness-lane.md) |
+| Mirage VFS Tool Lane | 可选虚拟文件系统工具层，把已批准资源临时挂成 shell 可读写树；不替代 GitHub/Linear/CI/issue 证据 | [mirage-vfs-tool-lane](docs/mirage-vfs-tool-lane.md) |
 | Skill Curator | Skill 维护协议，v1 只 review 不静默修改 | [skill-curator](docs/skill-curator.md) |
 | Autopilots | 定期创建检查 issue，不静默执行高风险操作，包括 review sweep 与 remote evolve sweep | [autopilots/](autopilots/) |
 
@@ -470,6 +487,6 @@ Multica Ultimate Workbench 是建立在 Multica 之上的多 agent 工作台持�
 
 ### 当前状态
 
-工作台已具备：经过验证的双环 roster、高频 workspace skill pack、Hermes docs-sync review、source-first prompt compression、daily health autopilot、automatic review sweeper、通过 live QA/Supervisor review 的 flight recorder、skill curator protocol、wake report/context restore skill、受控 VM lane、Capy process check lane、Sanity context registry、agent-install unifier lane、Flue deployable agent harness lane、Multica 0.2.22 project-bound repo anchor、在线 NYC remote execution cell。
+工作台已具备：经过验证的双环 roster、高频 workspace skill pack、Hermes docs-sync review、source-first prompt compression、daily health autopilot、automatic review sweeper、通过 live QA/Supervisor review 的 flight recorder、skill curator protocol、wake report/context restore skill、受控 VM lane、Capy process check lane、Sanity context registry、agent-install unifier lane、Flue deployable agent harness lane、Mirage VFS candidate tool lane、Multica 0.2.22 project-bound repo anchor、在线 NYC remote execution cell。
 
 当前事实看 [SYNTHESIS.md](SYNTHESIS.md)，历史流水账看 [WORKBENCH_LOG.md](WORKBENCH_LOG.md)。

@@ -29,6 +29,7 @@ Read only as deep as the task requires:
 8k. [docs/algorithm-advisory-gate-lane.md](docs/algorithm-advisory-gate-lane.md) - algorithm review gate before Task List.
 8l. [skills/workbench-algorithm-advisory-gate/SKILL.md](skills/workbench-algorithm-advisory-gate/SKILL.md) - advisory-only algorithm gate rules.
 8m. [docs/dataset-pipeline-alpha.md](docs/dataset-pipeline-alpha.md) - local-only dataset pipeline alpha helper contract.
+8n. [docs/mirage-vfs-tool-lane.md](docs/mirage-vfs-tool-lane.md) - optional Mirage virtual-filesystem tool lane and source-of-truth boundary.
 9. [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) - `/goal` and goal-persistence closeout contract.
 9b. [skills/workbench-goal-mode-v2/SKILL.md](skills/workbench-goal-mode-v2/SKILL.md) - Two-layer autonomous conductor with decision packets and dedupe controls.
 9c. [skills/workbench-waking-up/SKILL.md](skills/workbench-waking-up/SKILL.md) - session recall, live verification, drift-first wake reports, and session-to-Workbench bridge.
@@ -122,6 +123,7 @@ When supervising Multica from Codex Desktop:
 - Use [skills/workbench-flue-agent-harness/SKILL.md](skills/workbench-flue-agent-harness/SKILL.md) when an issue declares `FLUE_AGENT_CONTRACT` or asks to package a workflow as a deployable Flue agent.
 - Use [skills/workbench-hermes-docs-sync/SKILL.md](skills/workbench-hermes-docs-sync/SKILL.md) when Hermes reviews Claude-authored public docs, skill-map changes, install instructions, agent role docs, issue templates, speed-match writeups, or any task says "sync everywhere", "skills.sh", "all Hermes", or "docs-sync".
 - Use [skills/workbench-repo-brand-uplift/SKILL.md](skills/workbench-repo-brand-uplift/SKILL.md) when a task asks to upgrade public GitHub repo first impression, README quality, repo metadata, Zonic/Evensong-style brand presentation, or "make every repo look as strong as Evensong."
+- Use [skills/workbench-mirage-vfs-tool/SKILL.md](skills/workbench-mirage-vfs-tool/SKILL.md) when a task asks to scout, install, pilot, absorb, or review Mirage as a virtual-filesystem tool layer for agents.
 - Autopilots create issues; they do not silently perform high-risk work.
 - Outer Ring agents do not assign work to each other.
 - Preserve `Workbench Max` unless the human explicitly asks to modify it.
@@ -529,6 +531,8 @@ See [docs/skill-curator.md](docs/skill-curator.md), [autopilots/skill-curator.md
 | Windburn self-consistency verifier | [scripts/windburn-verify.mjs](scripts/windburn-verify.mjs) |
 | Windburn belief write gate | [scripts/windburn-belief-write.mjs](scripts/windburn-belief-write.mjs) |
 | Windburn momentum decay dry-run | [scripts/windburn-momentum-decay.mjs](scripts/windburn-momentum-decay.mjs) |
+| Mirage VFS tool lane | [docs/mirage-vfs-tool-lane.md](docs/mirage-vfs-tool-lane.md) |
+| Mirage VFS tool skill | [skills/workbench-mirage-vfs-tool/SKILL.md](skills/workbench-mirage-vfs-tool/SKILL.md) |
 | Windburn promotion gate runner | [scripts/windburn-promotion-gate.mjs](scripts/windburn-promotion-gate.mjs) |
 | Windburn challenge orchestration runner | [scripts/windburn-challenge.mjs](scripts/windburn-challenge.mjs) |
 | Goal-persistence execution (v1) | [skills/workbench-goal-mode/SKILL.md](skills/workbench-goal-mode/SKILL.md) |
