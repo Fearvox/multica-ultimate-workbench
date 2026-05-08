@@ -123,6 +123,16 @@ Field expectations:
 - `circuit_breaker_state`: include whether the PR is within budget, exhausted, or operator-gated for the current human-authored finding batch.
 - `action_taken`: `observe`, `summarize`, `comment`, `patch`, `push`, `block`, or equivalent bounded action.
 
+Use the source-layer dogfood helper before live rollout:
+
+```bash
+node scripts/capy-git-dialogue-guardrail.mjs --format json <event-summary.json>
+node scripts/test-capy-git-dialogue-guardrail.mjs
+```
+
+This helper is not a webhook deployment. It verifies the guardrail decision
+shape for sanitized event summaries only.
+
 ## Public Artifact Rules
 
 Safe durable records may include:

@@ -40,7 +40,7 @@ npx skills add Fearvox/multica-ultimate-workbench --skill workbench-self-awarene
 npx skills add Fearvox/multica-ultimate-workbench --all
 ```
 
-Use `--list` first to inspect the 28 public-safe skills. Install only the slice a runtime needs unless you are intentionally bootstrapping the full workbench grammar.
+Use `--list` first to inspect the 32 public-safe skills. Install only the slice a runtime needs unless you are intentionally bootstrapping the full workbench grammar.
 
 ## Why It Exists
 
@@ -66,9 +66,15 @@ signals back into the workbench. A bounded GitHub webhook responder now listens
 for payload-scoped Capy dialogue across issue, PR, review, check, and workflow
 events, using the payload `owner/repo` as source of truth and treating
 self-authored bot churn as observation-only unless a human explicitly
-re-requests action; see [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md). Those artifacts complement Multica's live coordination; they do not replace it, and they do not authorize daemon, Desktop UI, or core runtime mutation.
+re-requests action; see [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md) and [skills/workbench-capy-git-dialogue-guardrails/SKILL.md](skills/workbench-capy-git-dialogue-guardrails/SKILL.md). Those artifacts complement Multica's live coordination; they do not replace it, and they do not authorize daemon, Desktop UI, or core runtime mutation.
 
 A sibling evidence-sync lane can project the same PR, CI, and review evidence into Linear and Slack for external status hygiene without changing the authority order: Captain classifies state, Linear is the durable external ledger, Slack is the human notification surface, and merge authority stays with humans plus GitHub evidence; see [docs/capy-linear-slack-sync-lane.md](docs/capy-linear-slack-sync-lane.md).
+
+Status-changing closeout now has a source-layer validator for the exact
+`CHANGED / VERIFIED / REMAINING / PRS / LINKS / VERDICT` shape, PR reference
+types, and cross-issue `REMAINING` sync; see
+[skills/workbench-closeout-validator/SKILL.md](skills/workbench-closeout-validator/SKILL.md)
+and [autopilots/closeout-audit-sweeper.md](autopilots/closeout-audit-sweeper.md).
 
 For new webpage, subpage, landing-page, or microsite work, the default route is
 the `Project Windburn` scaffold lane only when no target repo is named in the
@@ -369,7 +375,10 @@ Human approval required before running:
 | VM execution lane | [docs/capy-vm-lane.md](docs/capy-vm-lane.md) |
 | Capy process check lane | [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) |
 | Capy Git dialogue responder | [docs/capy-git-dialogue-responder.md](docs/capy-git-dialogue-responder.md) |
+| Capy Git dialogue guardrail skill | [skills/workbench-capy-git-dialogue-guardrails/SKILL.md](skills/workbench-capy-git-dialogue-guardrails/SKILL.md) |
 | Capy Linear/Slack sync lane | [docs/capy-linear-slack-sync-lane.md](docs/capy-linear-slack-sync-lane.md) |
+| Closeout validator skill | [skills/workbench-closeout-validator/SKILL.md](skills/workbench-closeout-validator/SKILL.md) |
+| Closeout audit sweeper | [autopilots/closeout-audit-sweeper.md](autopilots/closeout-audit-sweeper.md) |
 | Superconductor user dogfood | [docs/superconductor-user-dogfood.md](docs/superconductor-user-dogfood.md) |
 | Superconductor dogfood goal template | [issue-templates/superconductor-user-dogfood-goal.md](issue-templates/superconductor-user-dogfood-goal.md) |
 | Windburn scaffold routing lane | [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md) |
@@ -436,6 +445,7 @@ Multica Ultimate Workbench 是建立在 Multica 之上的多 agent 工作台持�
 | Goal Mode | `/goal` 任务的目标保活协议：锁定目标、持续推进、按 build/test/smoke/docs/report/git-status/evidence gate 收尾 | [workbench-goal-mode](skills/workbench-goal-mode/SKILL.md) |
 | Wake Reports | `gm`/最近状态/落下任务的上下文恢复协议：先查记忆，再 live verify repo/issue/cron/runner，drift 优先，给 P0/P1/P2/PARKED action menu | [workbench-waking-up](skills/workbench-waking-up/SKILL.md) |
 | L2 Pressure | 远端 Hermes/VM/HarnessMax 的 Research Vault 压力层：先读历史约束，再决定最高收益路径 | [workbench-l2-pressure-gate](skills/workbench-l2-pressure-gate/SKILL.md) |
+| Closeout Validator | 防止 `FLAG` 被压缩成 `PASS/Done` 的严格 closeout parser/verifier | [workbench-closeout-validator](skills/workbench-closeout-validator/SKILL.md) |
 | Runtime 分工 | Codex（实现/审查）、Claude Code（架构/文档/规划）、Hermes（研究/记忆整理/docs-sync review） | [AGENT_ROSTER](agents/AGENT_ROSTER.md) |
 | Windburn Cognitive Cache | `.learning` 未来自我记忆方向：把感知、信念、失败、source truth、技能和停车想法变成可复核的行为改变层 | [windburn-cognitive-cache-direction](docs/windburn-cognitive-cache-direction.md) |
 | Workspace Skills | 共享语法，固化 SDD、routing、review、docs-sync、proofshot QA、token discipline、memory synthesis 等高频行为 | [skills/README](skills/README.md) |

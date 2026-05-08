@@ -14,7 +14,8 @@ The workbench is a two-ring operating system for agentic software work:
 - **Governance Layer**: Friction Tier Router, Self-Awareness bootstrap, SDD,
   Goal Mode, review gates, flight recorder summaries, L2 Pressure, Temporal
   Pincer closeout checks, exact four-field closeout blocks, and literal
-  PASS / FLAG / BLOCK verdict preservation.
+  PASS / FLAG / BLOCK verdict preservation backed by a strict closeout
+  validator.
 - **Algorithm Advisory Gate**: VM Claude Code plus `data-algo` skill reviews
   correctness, complexity, data structures, and verification before Task List.
   Correctness risk blocks; complexity risk becomes explicit tasks or residual
@@ -361,6 +362,11 @@ or are a `cross-issue-side-effect`. Cross-issue closeout must copy relevant
 `REMAINING:` lines to every affected issue, and status `Done` requires active
 Done checkboxes synced in the issue description.
 
+The source-layer validator is `skills/workbench-closeout-validator/SKILL.md`
+plus `scripts/workbench-closeout-validator.mjs`. Closeout audit automation uses
+`autopilots/closeout-audit-sweeper.md`; failures create a `FLAG` follow-up
+instead of silently rewriting verdicts or hiding adapter drift.
+
 ## Current Direction
 
 The next useful upgrades are:
@@ -371,6 +377,8 @@ The next useful upgrades are:
   operator attach surface, remote durability remains systemd plus fixed tmux,
   and public runtime evidence is redacted/safety-gated
 - automatic review sweep hardening
+- Capy Git dialogue self-loop guardrails before live responder rollout
+- closeout validator live wiring after source-layer dogfood passes
 - remote HarnessMax evolve sweeper with L2 Pressure
 - remote Research Vault MCP preflight and read-only contract
 - Capy Process Check live-observation reports for Capy PR/thread panels
