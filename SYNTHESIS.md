@@ -44,6 +44,10 @@ The workbench is a two-ring operating system for agentic software work:
   virtual filesystem for bounded pilots across already-approved resources. It
   supports throughput experiments but does not replace native source-of-truth
   evidence.
+- **Public Repo Hardening Layer**: MUW and Windburn use a shared rulesets v0
+  spec plus approval-gated rollout plan for `main` protection, release-tag
+  protection, secret scanning, push protection, and merge hygiene. The plan is
+  source-only until the operator explicitly approves GitHub settings mutation.
 
 The goal is not "more agents." The goal is higher throughput without losing
 traceability, role boundaries, or operator control.
@@ -382,9 +386,12 @@ or are a `cross-issue-side-effect`. Cross-issue closeout must copy relevant
 Done checkboxes synced in the issue description.
 
 The source-layer validator is `skills/workbench-closeout-validator/SKILL.md`
-plus `scripts/workbench-closeout-validator.mjs`. Closeout audit automation uses
-`autopilots/closeout-audit-sweeper.md`; failures create a `FLAG` follow-up
-instead of silently rewriting verdicts or hiding adapter drift.
+plus `scripts/workbench-closeout-validator.mjs`. Linear webhook events use
+`scripts/workbench-closeout-audit-linear-adapter.mjs`, which emits audit output
+and a sanitized follow-up payload without blocking or rewriting Linear status.
+Closeout audit automation uses `autopilots/closeout-audit-sweeper.md`;
+failures create a `FLAG` follow-up instead of silently rewriting verdicts or
+hiding adapter drift.
 
 ## Current Direction
 
@@ -397,7 +404,8 @@ The next useful upgrades are:
   and public runtime evidence is redacted/safety-gated
 - automatic review sweep hardening
 - Capy Git dialogue self-loop guardrails before live responder rollout
-- closeout validator live wiring after source-layer dogfood passes
+- closeout audit sweeper live deployment after audit-only adapter dogfood passes
+- public repository rulesets v0 approval, rollout, and T+24h drift check
 - remote HarnessMax evolve sweeper with L2 Pressure
 - remote Research Vault MCP preflight and read-only contract
 - Capy Process Check live-observation reports for Capy PR/thread panels
