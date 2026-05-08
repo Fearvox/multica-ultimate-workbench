@@ -43,6 +43,7 @@ The pack is directory-structured for the `skills` CLI: each skill lives at
 | [`workbench-agent-install-unifier`](workbench-agent-install-unifier/SKILL.md) | Skills, MCP, and AGENTS.md distribution across coding agents with readback and rollback. |
 | [`workbench-flue-agent-harness`](workbench-flue-agent-harness/SKILL.md) | Deployable Flue agent harness lane for HTTP, CI, Node, Cloudflare, and sandbox-backed agents. |
 | [`workbench-runtime-hygiene`](workbench-runtime-hygiene/SKILL.md) | Disk, swap, VM, agent workspace, Codex cache, and stale session hygiene for runtime stability. |
+| [`workbench-mirage-vfs-tool`](workbench-mirage-vfs-tool/SKILL.md) | Mirage virtual-filesystem scouting, pilot, and review with source-of-truth and public-safety boundaries. |
 | [`workbench-docs-release`](workbench-docs-release/SKILL.md) | Documentation sync after behavior, roster, skill, or release changes. |
 | [`workbench-hermes-docs-sync`](workbench-hermes-docs-sync/SKILL.md) | Hermes second-pass review for Claude-authored public docs, skills, install maps, and speed-match writeups. |
 | [`workbench-repo-brand-uplift`](workbench-repo-brand-uplift/SKILL.md) | Zonic/Evensong-style README, repo metadata, and first-impression brand uplift for public GitHub repos. |
