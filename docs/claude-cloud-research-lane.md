@@ -96,7 +96,7 @@ This lane maps onto the workbench Friction Tier model from `CLAUDE.md`:
   (`docs/hermes-kanban-parity-signal.md`). The cloud lane does not write
   Linear, Slack, or kanban state directly; it produces artifacts that Hermes
   may then sync.
-- **Capy.** Capy owns review (`/`.capy/REVIEW.md`) and the Capy Git Dialogue
+- **Capy.** Capy owns review (`.capy/REVIEW.md`) and the Capy Git Dialogue
   responder (`docs/capy-git-dialogue-responder.md`). The cloud lane does not
   sign off on PRs, does not resolve review threads, and does not respond on
   Capy's behalf. It may produce evidence that Capy then references.
