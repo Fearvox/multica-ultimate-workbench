@@ -96,6 +96,28 @@ of these are true:
 
 If any field is unknown, the session stays open and the report says `FLAG`.
 
+## Goal Mode Cockpit Visual Gate
+
+Goal Mode cockpit screenshots are local visual evidence, not repo-root
+artifacts. Root-level `gm-*.png` files are ignored so browser or vision checks
+cannot pollute the Workbench checkout.
+
+Reusable gate:
+
+```bash
+node prototypes/gm-cockpit/server.mjs
+```
+
+Then inspect the cockpit in a local browser or vision-capable runtime and ask a
+bounded layout question: verify adapter panes render, the status surface is
+readable, and no raw host, credential path, token, or private command text is
+visible. Save screenshots outside the repo root or under ignored local capture
+paths.
+
+Closeout should name the exact question, the local surface checked, and the
+public-safety result. A visual gate can support `PASS`, but it does not replace
+repo, issue, or runtime evidence.
+
 ## Pressure Signals
 
 Use this lane when any of these appear:
