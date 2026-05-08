@@ -40,6 +40,18 @@ node scripts/workbench-closeout-validator.mjs \
 node scripts/test-workbench-closeout-validator.mjs
 ```
 
+For Linear webhook or adapter events, use the audit-only wrapper:
+
+```bash
+node scripts/workbench-closeout-audit-linear-adapter.mjs \
+  --event-file <linear-closeout-event.json>
+
+node scripts/test-workbench-closeout-audit-linear-adapter.mjs
+```
+
+The adapter emits `WORKBENCH_CLOSEOUT_AUDIT` and a sanitized follow-up payload.
+It must not block, revert, or rewrite Linear status transitions.
+
 Reference records use this public-safe shape:
 
 ```json

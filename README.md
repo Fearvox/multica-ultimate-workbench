@@ -74,9 +74,13 @@ A sibling evidence-sync lane can project the same PR, CI, and review evidence in
 
 Status-changing closeout now has a source-layer validator for the exact
 `CHANGED / VERIFIED / REMAINING / PRS / LINKS / VERDICT` shape, PR reference
-types, and cross-issue `REMAINING` sync; see
+types, cross-issue `REMAINING` sync, and audit-only Linear adapter events; see
 [skills/workbench-closeout-validator/SKILL.md](skills/workbench-closeout-validator/SKILL.md)
 and [autopilots/closeout-audit-sweeper.md](autopilots/closeout-audit-sweeper.md).
+Public repository hardening is staged separately: the rulesets spec and rollout
+plan document the commands for `main` and release-tag protection, but GitHub
+settings mutation still requires explicit operator approval; see
+[docs/ops/PUBLIC_REPO_RULESETS_HARDENING_SPEC.md](docs/ops/PUBLIC_REPO_RULESETS_HARDENING_SPEC.md).
 
 For new webpage, subpage, landing-page, or microsite work, the default route is
 the `Project Windburn` scaffold lane only when no target repo is named in the
@@ -393,6 +397,8 @@ Human approval required before running:
 | Capy Linear/Slack sync lane | [docs/capy-linear-slack-sync-lane.md](docs/capy-linear-slack-sync-lane.md) |
 | Closeout validator skill | [skills/workbench-closeout-validator/SKILL.md](skills/workbench-closeout-validator/SKILL.md) |
 | Closeout audit sweeper | [autopilots/closeout-audit-sweeper.md](autopilots/closeout-audit-sweeper.md) |
+| Public repo rulesets hardening spec | [docs/ops/PUBLIC_REPO_RULESETS_HARDENING_SPEC.md](docs/ops/PUBLIC_REPO_RULESETS_HARDENING_SPEC.md) |
+| Public repo rulesets rollout plan | [docs/ops/PUBLIC_REPO_RULESETS_ROLLOUT_PLAN_v0.md](docs/ops/PUBLIC_REPO_RULESETS_ROLLOUT_PLAN_v0.md) |
 | Superconductor user dogfood | [docs/superconductor-user-dogfood.md](docs/superconductor-user-dogfood.md) |
 | Superconductor dogfood goal template | [issue-templates/superconductor-user-dogfood-goal.md](issue-templates/superconductor-user-dogfood-goal.md) |
 | Windburn scaffold routing lane | [docs/project-windburn-scaffold-lane.md](docs/project-windburn-scaffold-lane.md) |

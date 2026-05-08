@@ -13,7 +13,7 @@ The workbench is a two-ring operating system for agentic software work:
   and documentation.
 - **Governance Layer**: Friction Tier Router, Self-Awareness bootstrap, SDD,
   Goal Mode, review gates, flight recorder summaries, L2 Pressure, Temporal
-  Pincer closeout checks, exact four-field closeout blocks, and literal
+  Pincer closeout checks, exact five-field closeout blocks, and literal
   PASS / FLAG / BLOCK verdict preservation backed by a strict closeout
   validator.
 - **Algorithm Advisory Gate**: VM Claude Code plus `data-algo` skill reviews
@@ -44,6 +44,10 @@ The workbench is a two-ring operating system for agentic software work:
   virtual filesystem for bounded pilots across already-approved resources. It
   supports throughput experiments but does not replace native source-of-truth
   evidence.
+- **Public Repo Hardening Layer**: MUW and Windburn use a shared rulesets v0
+  spec plus approval-gated rollout plan for `main` protection, release-tag
+  protection, secret scanning, push protection, and merge hygiene. The plan is
+  source-only until the operator explicitly approves GitHub settings mutation.
 
 The goal is not "more agents." The goal is higher throughput without losing
 traceability, role boundaries, or operator control.
@@ -105,9 +109,9 @@ chosen tier during review.
 
 | Tier | Use For | Required Gates |
 | --- | --- | --- |
-| Fast Path | Reading, summaries, copy edits, small README text, link cleanup, ACKs, empty scaffolds, lightweight classification, and work with no code, secrets, or runtime surface. | No bootstrap unless repo/runtime is ambiguous. No Temporal Pincer before send. No RV pressure check. No broad issue scan. Max 20 minutes. Close with a tiny closeout when no status changes; use the four-field closeout block for any status-changing closeout. |
-| Standard Path | Ordinary code or docs patches, prototype demos, tests, PR prep, and visual page fixes. | Require issue anchor or explicit local task, evidence expectations before execution, touched-path verification, and the four-field closeout block for status-changing closeout. After 70% complete, add no new architecture names or integrations. |
-| Heavy Path | Runtime, agent/autopilot, deploy, payment, OAuth, secrets, branch/merge, public proof, daemon/Desktop/core, and remote VM work. | Require Self-Awareness, Goal Lock when the objective spans turns, full evidence before PASS, Temporal Pincer for PASS/done/ready-to-merge, four-field closeout preservation, BLOCK for correctness risk, and human approval for permission/secret/payment/runtime mutation. |
+| Fast Path | Reading, summaries, copy edits, small README text, link cleanup, ACKs, empty scaffolds, lightweight classification, and work with no code, secrets, or runtime surface. | No bootstrap unless repo/runtime is ambiguous. No Temporal Pincer before send. No RV pressure check. No broad issue scan. Max 20 minutes. Close with a tiny closeout when no status changes; use the five-field closeout block for any status-changing closeout. |
+| Standard Path | Ordinary code or docs patches, prototype demos, tests, PR prep, and visual page fixes. | Require issue anchor or explicit local task, evidence expectations before execution, touched-path verification, and the five-field closeout block for status-changing closeout. After 70% complete, add no new architecture names or integrations. |
+| Heavy Path | Runtime, agent/autopilot, deploy, payment, OAuth, secrets, branch/merge, public proof, daemon/Desktop/core, and remote VM work. | Require Self-Awareness, Goal Lock when the objective spans turns, full evidence before PASS, Temporal Pincer for PASS/done/ready-to-merge, five-field closeout preservation, BLOCK for correctness risk, and human approval for permission/secret/payment/runtime mutation. |
 
 Completion Cooling keeps late-stage work from expanding: at 75% only verify,
 commit, or hand off; at 85% publish/reviewable means stop editing and collect
@@ -359,8 +363,7 @@ public Git history.
 
 ### Closeout Integrity
 
-Status-changing closeout must preserve four evidence fields plus the exact
-verdict line:
+Status-changing closeout must preserve the exact five-field block:
 
 ```text
 CHANGED:
@@ -382,9 +385,12 @@ or are a `cross-issue-side-effect`. Cross-issue closeout must copy relevant
 Done checkboxes synced in the issue description.
 
 The source-layer validator is `skills/workbench-closeout-validator/SKILL.md`
-plus `scripts/workbench-closeout-validator.mjs`. Closeout audit automation uses
-`autopilots/closeout-audit-sweeper.md`; failures create a `FLAG` follow-up
-instead of silently rewriting verdicts or hiding adapter drift.
+plus `scripts/workbench-closeout-validator.mjs`. Linear webhook events use
+`scripts/workbench-closeout-audit-linear-adapter.mjs`, which emits audit output
+and a sanitized follow-up payload without blocking or rewriting Linear status.
+Closeout audit automation uses `autopilots/closeout-audit-sweeper.md`;
+failures create a `FLAG` follow-up instead of silently rewriting verdicts or
+hiding adapter drift.
 
 ## Current Direction
 
@@ -397,7 +403,8 @@ The next useful upgrades are:
   and public runtime evidence is redacted/safety-gated
 - automatic review sweep hardening
 - Capy Git dialogue self-loop guardrails before live responder rollout
-- closeout validator live wiring after source-layer dogfood passes
+- closeout audit sweeper live deployment after audit-only adapter dogfood passes
+- public repository rulesets v0 approval, rollout, and T+24h drift check
 - remote HarnessMax evolve sweeper with L2 Pressure
 - remote Research Vault MCP preflight and read-only contract
 - Capy Process Check live-observation reports for Capy PR/thread panels

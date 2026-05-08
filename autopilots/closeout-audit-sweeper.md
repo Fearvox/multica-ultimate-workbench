@@ -5,7 +5,7 @@ Trigger source: Linear issue closeout comments, GitHub PR closeouts, and
 Workbench supervisor comments that request `Ready for Merge`, `Done`, or
 `Blocked`.
 
-Purpose: enforce the four-field closeout rule without relying on a human
+Purpose: enforce the five-field closeout rule without relying on a human
 anti-LGTM pass after every adapter write.
 
 ## Required Execution Order
@@ -20,7 +20,18 @@ anti-LGTM pass after every adapter write.
    accepting a final `Done` closeout.
 6. If one verdict affects multiple issues, verify relevant `REMAINING` lines
    exist on every affected issue description or issue comment.
-7. Run the strict local parser contract:
+7. For Linear webhook payloads, normalize the payload into the sanitized
+   adapter event shape and run the audit-only adapter:
+
+```bash
+node scripts/workbench-closeout-audit-linear-adapter.mjs \
+  --event-file <linear-closeout-event.json>
+```
+
+The adapter emits a follow-up payload only. It must not mutate Linear status or
+write comments directly.
+
+8. Run the strict local parser contract when an adapter is not needed:
 
 ```bash
 node scripts/workbench-closeout-validator.mjs \
@@ -30,7 +41,7 @@ node scripts/workbench-closeout-validator.mjs \
   --affected-issues-json <affected-issues.json>
 ```
 
-8. Emit `WORKBENCH_CLOSEOUT_AUDIT`.
+9. Emit `WORKBENCH_CLOSEOUT_AUDIT`.
 
 ## Failure Behavior
 
@@ -41,6 +52,8 @@ node scripts/workbench-closeout-validator.mjs \
   validator report and notify Supervisor.
 - If the validator returns `FLAG`, create or update the matching audit
   follow-up and keep the exact missing proof visible.
+- Live Linear wiring is audit-only in v0: the sweeper may create a follow-up,
+  but it must not block, revert, or rewrite the status transition.
 - If the target platform already moved status before audit, the sweeper records
   the mismatch instead of hiding it.
 
