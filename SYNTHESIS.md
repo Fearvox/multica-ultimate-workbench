@@ -363,8 +363,7 @@ public Git history.
 
 ### Closeout Integrity
 
-Status-changing closeout must preserve four evidence fields plus the exact
-verdict line:
+Status-changing closeout must preserve the exact five-field block:
 
 ```text
 CHANGED:

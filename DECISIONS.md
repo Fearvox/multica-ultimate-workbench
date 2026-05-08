@@ -1,10 +1,47 @@
 # Decisions
 
-## 2026-05-07 - Adopt Closeout Comment 4-Field Verbatim Rule
+## 2026-05-07 - Adopt Claude Official Tiered Model Allocation
+
+Decision: any Workbench, Multica, Capy, Conductor, Hermes, Codex, or human
+launcher that selects the Claude Official provider should use the Workbench
+Claude tier policy instead of inheriting whichever model the last interactive
+Claude chat selected.
+
+The policy source is
+[`docs/claude-workbench-runtime-profile.md`](docs/claude-workbench-runtime-profile.md).
+Current tier allocation:
+
+- `default` -> `claude-sonnet-4-6` with reasoning `high`.
+- `xhigh` -> `claude-opus-4-7[1m]` with reasoning `max`.
+- `cheap` -> `claude-haiku-4-5` with reasoning `low`.
+
+Conductor and Superconductor orchestration should treat `xhigh` as a Workbench
+tier label, not as a provider enum. The Claude provider accepts
+`low | medium | high | max`; `xhigh` maps to `max`.
+
+Use Opus 4.7 1M only where it changes the outcome: hard architecture,
+root-cause debugging, Heavy Path Supervisor review, Temporal Pincer
+verification, and high-risk closeout. Use Sonnet 4.6 for ordinary
+implementation and Workbench Admin/Docs/Architect flow. Use Haiku 4.5 for cheap
+triage, ACKs, summaries, OCR/readback helpers, and lightweight read-only
+sweeps. Spending Opus on routine queue churn is a quota bug, not a quality
+upgrade.
+
+Provider boundary: this decision only covers the `claude` provider key. Pi,
+OpenCode, OpenRouter, Ollama, Ollama Cloud, xAI, OpenAI, Codex, and NVIDIA keep
+their own provider keys, auth, base URLs, and model ids. Do not alias them into
+Claude Official and do not copy their secrets into Claude global env.
+
+Rationale: Vox has Claude Max 20x available and local Claude runtimes may now
+default to Opus 4.7 1M. That improves hard-task quality, but it also burns
+quota fast. A durable model-allocation decision lets Conductor route expensive
+reasoning intentionally while preserving cheaper tiers for high-volume work.
+
+## 2026-05-07 - Adopt Closeout Comment Five-Field Verbatim Rule
 
 Decision: any Workbench, Multica, Capy, Conductor, Hermes, Codex, or human
 closeout that changes or requests issue status to `Ready for Merge`, `Done`, or
-`Blocked` must include the exact four-field closeout block plus a literal
+`Blocked` must include the exact five-field closeout block including a literal
 `VERDICT: PASS | FLAG | BLOCK` line.
 
 Required closeout:
@@ -42,7 +79,7 @@ is a follow-up; until it exists, reviewers enforce this rule manually.
 
 Rationale: the SYN-25/SYN-26/SYN-27 closeout incident showed that a correct
 upstream `FLAG` can become an invalid downstream `PASS` when channel adapters
-summarize verdicts into natural language. The four-field rule preserves changed
+summarize verdicts into natural language. The five-field rule preserves changed
 scope, verification evidence, residual risk, links, and exact verdict across
 human, Conductor, Capy, Linear, Slack, and PR surfaces.
 
