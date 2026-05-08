@@ -38,7 +38,7 @@ The pack is directory-structured for the `skills` CLI: each skill lives at
 | [`workbench-capy-vm-lane`](workbench-capy-vm-lane/SKILL.md) | Controlled VM/browser/sandbox execution and teardown evidence. |
 | [`workbench-capy-process-check`](workbench-capy-process-check/SKILL.md) | Real-time Capy task and PR observation through Brave/Computer Use with primary evidence readback. |
 | [`workbench-capy-git-dialogue-guardrails`](workbench-capy-git-dialogue-guardrails/SKILL.md) | Source-first, self-loop resistant guardrails for Capy GitHub dialogue responders before write-capable actions. |
-| [`workbench-closeout-validator`](workbench-closeout-validator/SKILL.md) | Strict parser/verifier for four-field closeout comments, verdict/status discipline, PR reference types, and cross-issue REMAINING sync. |
+| [`workbench-closeout-validator`](workbench-closeout-validator/SKILL.md) | Strict parser/verifier for five-field closeout comments, verdict/status discipline, PR reference types, and cross-issue REMAINING sync. |
 | [`workbench-sanity-context`](workbench-sanity-context/SKILL.md) | Sanity schema and context-registry work for cross-CLI sanitized workbench memory. |
 | [`workbench-agent-install-unifier`](workbench-agent-install-unifier/SKILL.md) | Skills, MCP, and AGENTS.md distribution across coding agents with readback and rollback. |
 | [`workbench-flue-agent-harness`](workbench-flue-agent-harness/SKILL.md) | Deployable Flue agent harness lane for HTTP, CI, Node, Cloudflare, and sandbox-backed agents. |

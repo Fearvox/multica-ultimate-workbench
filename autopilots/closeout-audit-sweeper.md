@@ -5,7 +5,7 @@ Trigger source: Linear issue closeout comments, GitHub PR closeouts, and
 Workbench supervisor comments that request `Ready for Merge`, `Done`, or
 `Blocked`.
 
-Purpose: enforce the four-field closeout rule without relying on a human
+Purpose: enforce the five-field closeout rule without relying on a human
 anti-LGTM pass after every adapter write.
 
 ## Required Execution Order

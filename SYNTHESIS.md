@@ -13,7 +13,7 @@ The workbench is a two-ring operating system for agentic software work:
   and documentation.
 - **Governance Layer**: Friction Tier Router, Self-Awareness bootstrap, SDD,
   Goal Mode, review gates, flight recorder summaries, L2 Pressure, Temporal
-  Pincer closeout checks, exact four-field closeout blocks, and literal
+  Pincer closeout checks, exact five-field closeout blocks, and literal
   PASS / FLAG / BLOCK verdict preservation backed by a strict closeout
   validator.
 - **Algorithm Advisory Gate**: VM Claude Code plus `data-algo` skill reviews
@@ -109,9 +109,9 @@ chosen tier during review.
 
 | Tier | Use For | Required Gates |
 | --- | --- | --- |
-| Fast Path | Reading, summaries, copy edits, small README text, link cleanup, ACKs, empty scaffolds, lightweight classification, and work with no code, secrets, or runtime surface. | No bootstrap unless repo/runtime is ambiguous. No Temporal Pincer before send. No RV pressure check. No broad issue scan. Max 20 minutes. Close with a tiny closeout when no status changes; use the four-field closeout block for any status-changing closeout. |
-| Standard Path | Ordinary code or docs patches, prototype demos, tests, PR prep, and visual page fixes. | Require issue anchor or explicit local task, evidence expectations before execution, touched-path verification, and the four-field closeout block for status-changing closeout. After 70% complete, add no new architecture names or integrations. |
-| Heavy Path | Runtime, agent/autopilot, deploy, payment, OAuth, secrets, branch/merge, public proof, daemon/Desktop/core, and remote VM work. | Require Self-Awareness, Goal Lock when the objective spans turns, full evidence before PASS, Temporal Pincer for PASS/done/ready-to-merge, four-field closeout preservation, BLOCK for correctness risk, and human approval for permission/secret/payment/runtime mutation. |
+| Fast Path | Reading, summaries, copy edits, small README text, link cleanup, ACKs, empty scaffolds, lightweight classification, and work with no code, secrets, or runtime surface. | No bootstrap unless repo/runtime is ambiguous. No Temporal Pincer before send. No RV pressure check. No broad issue scan. Max 20 minutes. Close with a tiny closeout when no status changes; use the five-field closeout block for any status-changing closeout. |
+| Standard Path | Ordinary code or docs patches, prototype demos, tests, PR prep, and visual page fixes. | Require issue anchor or explicit local task, evidence expectations before execution, touched-path verification, and the five-field closeout block for status-changing closeout. After 70% complete, add no new architecture names or integrations. |
+| Heavy Path | Runtime, agent/autopilot, deploy, payment, OAuth, secrets, branch/merge, public proof, daemon/Desktop/core, and remote VM work. | Require Self-Awareness, Goal Lock when the objective spans turns, full evidence before PASS, Temporal Pincer for PASS/done/ready-to-merge, five-field closeout preservation, BLOCK for correctness risk, and human approval for permission/secret/payment/runtime mutation. |
 
 Completion Cooling keeps late-stage work from expanding: at 75% only verify,
 commit, or hand off; at 85% publish/reviewable means stop editing and collect

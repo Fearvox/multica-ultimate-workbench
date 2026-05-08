@@ -40,7 +40,7 @@ Read only as deep as the task requires:
 12. [docs/capy-process-check-lane.md](docs/capy-process-check-lane.md) - Brave/Computer Use observation for Capy task and PR state.
 13. [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md) - Capy process check report contract.
 13b. [skills/workbench-capy-git-dialogue-guardrails/SKILL.md](skills/workbench-capy-git-dialogue-guardrails/SKILL.md) - Capy GitHub responder self-loop guardrail and dogfood contract.
-13c. [skills/workbench-closeout-validator/SKILL.md](skills/workbench-closeout-validator/SKILL.md) - four-field closeout parser/verifier and cross-issue REMAINING sync rule.
+13c. [skills/workbench-closeout-validator/SKILL.md](skills/workbench-closeout-validator/SKILL.md) - five-field closeout parser/verifier and cross-issue REMAINING sync rule.
 14. [CLAUDE.md](CLAUDE.md) - Claude-compatible compact bridge for external tools.
 15. [.capy/CAPTAIN.md](.capy/CAPTAIN.md) - Capy routing and task-splitting rules.
 16. [.capy/BUILD.md](.capy/BUILD.md) - Capy implementation loop and closeout format.
@@ -118,7 +118,7 @@ When supervising Multica from Codex Desktop:
 - Use [skills/workbench-l2-pressure-gate/SKILL.md](skills/workbench-l2-pressure-gate/SKILL.md) when a task asks for HarnessMax, remote evolution, remote Hermes, remote VM, leaderboard pressure, or Research Vault grounding.
 - Use [skills/workbench-capy-process-check/SKILL.md](skills/workbench-capy-process-check/SKILL.md) when a task asks to inspect Capy live state through Brave, Computer Use, a Capy thread, a Capy task, or a Capy PR panel.
 - Use [skills/workbench-capy-git-dialogue-guardrails/SKILL.md](skills/workbench-capy-git-dialogue-guardrails/SKILL.md) when implementing, reviewing, or dogfooding Capy GitHub dialogue responder behavior, self-loop prevention, per-PR patch budgets, or `CAPY_GIT_DIALOGUE_GUARDRAIL` output.
-- Use [skills/workbench-closeout-validator/SKILL.md](skills/workbench-closeout-validator/SKILL.md) when a status-changing closeout, Linear adapter, Capy sync, Slack sync, or PR closeout needs exact four-field verdict preservation, reference-type checks, or cross-issue `REMAINING` sync.
+- Use [skills/workbench-closeout-validator/SKILL.md](skills/workbench-closeout-validator/SKILL.md) when a status-changing closeout, Linear adapter, Capy sync, Slack sync, or PR closeout needs exact five-field verdict preservation, reference-type checks, or cross-issue `REMAINING` sync.
 - Use [docs/ops/PUBLIC_REPO_RULESETS_ROLLOUT_PLAN_v0.md](docs/ops/PUBLIC_REPO_RULESETS_ROLLOUT_PLAN_v0.md) when preparing public GitHub rulesets, branch protection, merge hygiene, secret scanning, or push-protection rollout. Readback is allowed; mutation requires explicit operator approval in the current session.
 - Use [.capy/CAPTAIN.md](.capy/CAPTAIN.md), [.capy/BUILD.md](.capy/BUILD.md), [.capy/REVIEW.md](.capy/REVIEW.md), and [.capy/settings.json](.capy/settings.json) as the Capy project context pack; these files make Capy use repo, PR, CI, and review evidence before self-reporting success.
 - Use [skills/workbench-sanity-context/SKILL.md](skills/workbench-sanity-context/SKILL.md) when a task touches Sanity schema, Studio, MCP, or the shared context registry.
