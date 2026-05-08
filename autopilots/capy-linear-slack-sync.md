@@ -22,7 +22,10 @@ React only to these GitHub events:
 
 1. Resolve payload `owner/repo` first.
 2. Treat the payload repo as the source repo; do not assume `Fearvox/multica-ultimate-workbench` unless the payload says so.
-3. Read repo-local policy and registry before classifying state:
+3. Run `CAPY_GIT_DIALOGUE_GUARDRAIL` first when the event or resulting adapter
+   action could cause a GitHub, Linear, or Slack write. If it returns `FLAG` or
+   `BLOCK`, stop before external writes and route operator approval.
+4. Read repo-local policy and registry before classifying state:
    - `.capy/CAPTAIN.md` when present
    - `.capy/BUILD.md` when present
    - `.capy/REVIEW.md` when present
@@ -31,11 +34,11 @@ React only to these GitHub events:
    - `.capy/settings.json`
    - `config/capy-linear-slack-sync.json`
    - `docs/capy-linear-slack-sync-lane.md`
-4. Inspect the current PR, commit, required checks, workflow conclusions, review state, and open high/critical findings.
-5. Classify the highest-confidence allowed transition from primary evidence.
-6. Respect repo enablement first: this lane ships disabled in the registry until an operator explicitly enables it after verifying Linear/Slack auth, channel/project permissions, and rollout intent.
-7. Write Linear and Slack only when the registry is enabled for that deployment, the required tool surface exists, auth is valid, permissions allow the write, and the dedupe key has not already been applied.
-8. Emit `CAPY_LINEAR_SLACK_SYNC` every run, even when no external write occurs.
+5. Inspect the current PR, commit, required checks, workflow conclusions, review state, and open high/critical findings.
+6. Classify the highest-confidence allowed transition from primary evidence.
+7. Respect repo enablement first: this lane ships disabled in the registry until an operator explicitly enables it after verifying Linear/Slack auth, channel/project permissions, and rollout intent.
+8. Write Linear and Slack only when the registry is enabled for that deployment, the required tool surface exists, auth is valid, permissions allow the write, and the dedupe key has not already been applied.
+9. Emit `CAPY_LINEAR_SLACK_SYNC` every run, even when no external write occurs.
 
 ## State Classification Rules
 
