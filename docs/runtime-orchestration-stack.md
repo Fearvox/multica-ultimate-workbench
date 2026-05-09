@@ -25,6 +25,9 @@ OpenCode edits and executes.
 Pi shows, streams, and lets the operator take over.
 ```
 
+Layer shorthand: Hermes is the memory/queue/profile layer, OpenCode is the
+execution brain, and Pi is the observation layer.
+
 ## Evidence Scorecard
 
 When adopting runtime patterns, prefer sources in this order:
@@ -215,6 +218,7 @@ Runtime reports must not include:
 ## First Durable Next Step
 
 Before wiring any new live runtime route, create or use an issue from
-`issue-templates/runtime-stack-preflight.md`. The preflight proves the runtime
-role, source authority, permission boundary, observer story, and closeout shape
-before any implementation or provider change.
+`issue-templates/runtime-stack-preflight.md` and fill the
+`RUNTIME_STACK_PREFLIGHT` block. The preflight proves the runtime role, source
+authority, permission boundary, observer story, and closeout shape before any
+implementation or provider change.
