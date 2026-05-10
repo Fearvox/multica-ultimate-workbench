@@ -18,10 +18,33 @@ results. The acceptable outcomes are:
 - return a partial JSON payload with `MODEL_SYNTHESIS_DEGRADED`, `partial: true`,
   and the retrieved source list intact.
 
-The degraded result must not include raw API keys, provider account IDs, raw
-private payloads, hostnames, IP addresses, credential paths, or local absolute
-paths. A redacted class such as `quota_or_model_unavailable` is enough for the
-model failure.
+A degraded partial result should keep the retrieval layer successful and mark
+only the synthesis layer as degraded:
+
+```json
+{
+  "success": true,
+  "partial": true,
+  "code": "MODEL_SYNTHESIS_DEGRADED",
+  "error_class": "quota_or_model_unavailable",
+  "sources": []
+}
+```
+
+Only a failure before source retrieval should fail the search cycle outright.
+
+## Redaction Contract
+
+The degraded result must not include raw API keys, provider account IDs,
+provider team IDs, raw private payloads, hostnames, IP addresses, credential
+paths, or local absolute paths. A redacted class such as
+`quota_or_model_unavailable` is enough for the model failure.
+
+This applies to every user-facing surface that might be copied into an issue or
+report, including CLI stdout, CLI stderr, JSON output, and operator summaries.
+Do not paste raw provider error payloads as evidence. Normalize them first, and
+replace UUID-shaped provider/account/team identifiers before output leaves the
+runtime-local debug boundary.
 
 ## Observed Failure
 
@@ -30,6 +53,12 @@ the whole cycle after an unrelated xAI quota failure. A fallback web search
 then returned usable official/arXiv sources, which shows the topic and source
 retrieval were viable. The failure layer was the helper's synthesis degradation
 path, not the research query.
+
+A later DAS-1212 cycle expanded the bug: the model-quota failure path also
+included a provider-side account/team UUID-shaped identifier in raw local
+stderr. That identifier was intentionally redacted from public issue text. The
+fix must preserve retrieval results and sanitize provider errors before any
+copy-paste-facing output is emitted.
 
 ## Owner Layer
 
@@ -68,14 +97,16 @@ comments.
 ## Regression Check
 
 This repository includes a network-free check that proves the retrieval-only
-path returns Exa-style JSON without any model synthesis:
+path returns Exa-style JSON without any model synthesis and that a synthesized
+degraded result does not leak UUID-shaped provider identifiers:
 
 ```bash
 python3 scripts/check-ult-evo-exa-degraded-path.py
 ```
 
-The check uses a fake Exa client and a placeholder key, so it does not read real
-credentials or contact Exa/xAI.
+The check uses a fake Exa client, a placeholder key, and synthetic UUID-shaped
+strings. It does not read real credentials, contact Exa/xAI, or embed any real
+provider/account/team identifiers.
 
 ## Patch Target For ult-evo
 
@@ -86,5 +117,8 @@ in two phases:
 2. If synthesis raises a quota, billing, rate-limit, or unavailable-model error,
    return a partial JSON payload with `MODEL_SYNTHESIS_DEGRADED` and the stored
    sources instead of exiting nonzero with no results.
+3. Sanitize the provider exception before writing to stdout, stderr, JSON, logs
+   intended for reports, or issue comments.
 
-Only a failure before source retrieval should fail the search cycle outright.
+The regression should fail if a UUID-shaped account/team identifier appears in
+the user-facing degraded payload.

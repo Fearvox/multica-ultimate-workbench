@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Check that Exa retrieval can succeed without model synthesis.
+"""Check Exa retrieval and model-synthesis degradation stay public-safe.
 
 This is a public-safe regression check for the ult-evo degraded-path contract.
 It does not make network calls, read real credentials, or contact xAI. Instead
 it imports Hermes' Exa web-search implementation, replaces the Exa client with
 a fixture, and verifies that search JSON is returned without any auxiliary
-model/synthesis path.
+model/synthesis path. It also verifies that a synthesized degraded result
+redacts UUID-shaped provider identifiers before user-facing output.
 """
 
 from __future__ import annotations
@@ -13,11 +14,21 @@ from __future__ import annotations
 import importlib
 import json
 import os
+import re
 import shutil
 import sys
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
+
+
+UUID_SHAPED_RE = re.compile(
+    r"\b[0-9a-fA-F]{8}-"
+    r"[0-9a-fA-F]{4}-"
+    r"[0-9a-fA-F]{4}-"
+    r"[0-9a-fA-F]{4}-"
+    r"[0-9a-fA-F]{12}\b"
+)
 
 
 def _candidate_hermes_roots() -> list[Path]:
@@ -81,7 +92,28 @@ class FakeExaClient:
         )
 
 
-def main() -> int:
+def sanitize_provider_error(raw_error: str) -> str:
+    """Return a copy-paste-safe model-provider error summary."""
+    redacted = UUID_SHAPED_RE.sub("[redacted-provider-id]", raw_error)
+    return " ".join(redacted.split())
+
+
+def build_model_synthesis_degraded_result(
+    web_results: list[dict[str, object]], raw_error: str
+) -> dict[str, object]:
+    return {
+        "success": True,
+        "partial": True,
+        "code": "MODEL_SYNTHESIS_DEGRADED",
+        "error_class": "quota_or_model_unavailable",
+        "model_error": sanitize_provider_error(raw_error),
+        "data": {
+            "web": web_results,
+        },
+    }
+
+
+def _verify_retrieval_only() -> list[dict[str, object]]:
     web_tools = _import_web_tools()
     fake_exa = FakeExaClient()
     query = "public safe exa degraded path regression"
@@ -100,19 +132,58 @@ def main() -> int:
     web_results = payload.get("data", {}).get("web", [])
 
     if payload.get("success") is not True or not web_results:
-        print(json.dumps({"status": "FAIL", "reason": "no Exa search results"}))
-        return 1
+        raise AssertionError("no Exa search results")
 
     if not fake_exa.calls or fake_exa.calls[0]["num_results"] != 3:
-        print(json.dumps({"status": "FAIL", "reason": "Exa client was not called as expected"}))
+        raise AssertionError("Exa client was not called as expected")
+
+    return web_results
+
+
+def _verify_degraded_redaction(web_results: list[dict[str, object]]) -> None:
+    synthetic_provider_error = (
+        "quota exhausted for provider team "
+        "00000000-0000-4000-8000-000000000000 and account "
+        "11111111-1111-4111-8111-111111111111"
+    )
+    degraded = build_model_synthesis_degraded_result(
+        web_results=web_results,
+        raw_error=synthetic_provider_error,
+    )
+    output = json.dumps(degraded, sort_keys=True)
+
+    if degraded.get("code") != "MODEL_SYNTHESIS_DEGRADED":
+        raise AssertionError("missing MODEL_SYNTHESIS_DEGRADED code")
+
+    if degraded.get("partial") is not True:
+        raise AssertionError("degraded payload must be partial")
+
+    if degraded.get("data", {}).get("web") != web_results:
+        raise AssertionError("degraded payload did not preserve retrieval results")
+
+    if UUID_SHAPED_RE.search(output):
+        raise AssertionError("UUID-shaped provider identifier leaked")
+
+    if "[redacted-provider-id]" not in output:
+        raise AssertionError("provider identifier redaction was not exercised")
+
+
+def main() -> int:
+    try:
+        web_results = _verify_retrieval_only()
+        _verify_degraded_redaction(web_results)
+    except AssertionError as error:
+        print(json.dumps({"status": "FAIL", "reason": str(error)}, sort_keys=True))
         return 1
 
     print(
         json.dumps(
             {
                 "status": "PASS",
-                "degraded_path": "retrieval_only",
+                "degraded_path": "retrieval_only_or_model_synthesis_degraded",
                 "synthesis_required": False,
+                "redaction_checked": True,
+                "uuid_leak_checked": True,
                 "result_count": len(web_results),
                 "first_url": web_results[0]["url"],
             },
