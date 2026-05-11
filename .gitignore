@@ -9,6 +9,7 @@ state/runtime-snapshots/
 .private/
 .superconductor/
 .remember/
+.sisyphus/
 
 # Local Pi Chat worktree owned outside normal MUW PR flow.
 /pi-clean/
