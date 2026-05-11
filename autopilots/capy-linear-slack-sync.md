@@ -1,4 +1,4 @@
-# Capy Linear Slack Sync Automation
+# Capy Linear/Slack Sync Automation
 
 Mode: webhook responder
 Trigger source: GitHub
@@ -55,6 +55,7 @@ Precedence:
 - The semantic state and the external sync verdict are separate outputs.
 - Classify semantic state from primary GitHub/repo evidence first, and use the canonical source-of-truth tokens `git`, `github`, `ci`, and `review-comments` in machine-readable config or reports.
 - Keep semantic state and verdict separate: `Blocked` plus `BLOCK` applies only to required CI/check failure and open high/critical review findings, while unreadable primary evidence, missing required primary-evidence read permission or classification evidence, and unresolvable primary-evidence conflicts require `BLOCK` without forcing a semantic transition claim.
+- The canonical verdict rule lists live in `config/capy-linear-slack-sync.json` under `evidenceGates.flagWhen` and `evidenceGates.blockVerdictWhen`; `evidenceGates.precedence` points at those lists instead of duplicating them.
 - Use `PASS` when the semantic state is trustworthy, no actionable work blocker requires `Blocked` plus `BLOCK`, and required external writes succeeded or no external write was required.
 - If the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or write availability fails, keep that semantic state, emit `FLAG`, and do not claim the external sync succeeded.
 - If the semantic state is clear but a requirement, owner decision, or owner/external permission blocker stops work, keep the semantic state evidence-backed and emit `FLAG` unless the blocker also prevents primary-evidence classification.
@@ -99,7 +100,7 @@ Never emit duplicate Linear comments or Slack posts for the same dedupe key.
 
 ## Safety Boundary
 
-- No auto-merge. Capy must never merge unless a human explicitly asks for that exact PR merge.
+- This lane never merges. It only reports evidence-backed `Ready for Merge`; merge operations are outside this lane and require a separate explicit human merge request under normal Captain policy.
 - Do not mutate repo settings, branch protection, secrets, or OAuth state.
 - Do not send tokens, cookies, OAuth material, raw payloads, raw transcripts, private screenshots, private traces, or unrelated private UI to Linear or Slack.
 - Do not claim sync succeeded when the adapter/tooling was unavailable.

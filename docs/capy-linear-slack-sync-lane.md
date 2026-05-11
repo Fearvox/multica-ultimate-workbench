@@ -1,6 +1,6 @@
-# Capy Linear Slack Sync Lane
+# Capy Linear/Slack Sync Lane
 
-The Capy Linear Slack Sync Lane is the bounded, source-first automation contract for syncing GitHub evidence into Linear and Slack without turning chat into a control plane.
+The Capy Linear/Slack Sync Lane is the bounded, source-first automation contract for syncing GitHub evidence into Linear and Slack without turning chat into a control plane.
 
 GitHub PRs, commits, CI/checks, and review findings remain the primary evidence. Captain Capy makes the semantic state decision from that evidence. Linear is the durable external work ledger. Slack is the human coordination and notification surface only. Machine-readable config and reports should use the canonical project source-of-truth tokens `git`, `github`, `ci`, and `review-comments`.
 
@@ -31,9 +31,10 @@ Rules:
 - Recompute state from evidence on every eligible event; do not trust prior chat or stale cache.
 - The semantic state and the external sync verdict are separate outputs.
 - Keep semantic state and verdict separate: `Blocked` plus `BLOCK` applies only to required CI/check failure and open high/critical review findings, while unreadable primary evidence, missing required primary-evidence read permission or classification evidence, and unresolvable primary-evidence conflicts require `BLOCK` without forcing a semantic transition claim.
-- `Ready for Merge` is an evidence state, not merge authority.
-- Capy must never auto-merge unless a human explicitly asks for that exact PR merge.
+- `Ready for Merge` is an evidence-backed reporting state, not merge authority.
+- This lane never merges. It only reports evidence-backed `Ready for Merge`; merge operations are outside this lane and require a separate explicit human merge request under normal Captain policy.
 - Precedence rule: classify semantic state from primary GitHub/repo evidence first.
+- Canonical verdict rule lists live in `evidenceGates.flagWhen` and `evidenceGates.blockVerdictWhen`; `evidenceGates.precedence` points to those lists instead of duplicating them.
 - Use `PASS` when the semantic state is trustworthy, no actionable work blocker requires `Blocked` plus `BLOCK`, and required external writes succeeded or no external write was required.
 - If the semantic state is clear but Linear/Slack auth, tooling, channel/project permission, or write availability fails, keep that semantic state and emit `FLAG` naming the failed external surface.
 - If the semantic state is clear but a requirement, owner decision, or owner/external permission blocker stops work, keep the semantic state evidence-backed and emit `FLAG` unless the blocker also prevents primary-evidence classification.

@@ -114,23 +114,14 @@
       ],
       "semanticStateAndVerdictAreSeparate": true,
       "blockedSemanticStateRequiresActionableWorkBlocker": true,
-      "blockedSemanticStateImpliesBlockVerdictForActionableWorkBlockers": false,
+      "blockedSemanticStateImpliesBlockVerdictForActionableWorkBlockers": true,
+      "canonicalRuleSets": {
+        "flagWhen": "evidenceGates.flagWhen",
+        "blockVerdictWhen": "evidenceGates.blockVerdictWhen"
+      },
       "passWhen": [
         "semantic state is trustworthy, no actionable work blocker requires Blocked and BLOCK, and required external writes succeeded",
         "semantic state is trustworthy, no actionable work blocker requires Blocked and BLOCK, and no external write was required"
-      ],
-      "flagWhen": [
-        "semantic state is clear but Linear auth, tooling, channel or project permission, or write availability fails",
-        "semantic state is clear but Slack auth, tooling, channel or project permission, or write availability fails",
-        "semantic state is clear but a requirement, owner decision, or owner/external permission blocker stops work without preventing primary-evidence classification",
-        "durable GitHub or repo evidence resolves a mismatch against chat, memory, Linear, Slack, or another supporting surface"
-      ],
-      "blockWhen": [
-        "required primary evidence cannot be read",
-        "required primary-evidence read permission or evidence for semantic classification is missing",
-        "primary github, ci, or review evidence conflicts and cannot be resolved safely",
-        "required ci checks fail",
-        "high or critical review finding is open"
       ]
     },
     "blockedWhen": [
