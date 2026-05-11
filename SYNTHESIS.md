@@ -276,6 +276,43 @@ Sources: `docs/runtime-hygiene-lane.md`, `docs/codex-workbench-runtime-profile.m
 `skills/workbench-runtime-hygiene/SKILL.md`, `autopilots/runtime-hygiene-sweeper.md`,
 `issue-templates/runtime-hygiene-sweep.md`.
 
+## Runtime Orchestration Stack
+
+Hermes, OpenCode, and Pi should be adopted as a three-layer runtime stack, not
+as competing all-in-one agents.
+
+| Layer | Runtime | Workbench role |
+| --- | --- | --- |
+| Memory and queue | Hermes | Profiles, memory, skills, cron, gateway, and Kanban-backed durable worker lanes. |
+| Execution | OpenCode | Repo-aware terminal work, implementation, review, local tests, and bounded subagent fanout. |
+| Observation | Pi | TUI, JSON/RPC event stream, dashboard, visible PTY sessions, and human takeover. |
+
+The practical pattern is:
+
+```text
+Multica issue
+-> Self-Awareness Bootstrap
+-> runtime role selected
+-> Hermes / OpenCode / Pi route
+-> evidence event or report
+-> Supervisor verdict
+-> durable learning surface
+```
+
+Use Hermes when the work needs identity over time, OpenCode when the work needs
+local code execution, and Pi when the operator needs to observe or steer a live
+process. Mixed routes must name a lead runtime and an observer runtime. Observer
+state can support a review, but it must not replace repo, issue, CI, or primary
+runtime evidence.
+
+Any new durable runtime route should start from
+`issue-templates/runtime-stack-preflight.md`. The preflight proves role fit,
+repo anchor, tool envelope, permission boundary, public-surface safety,
+observer story, and cleanup policy before implementation or provider mutation.
+
+Sources: `docs/runtime-orchestration-stack.md`,
+`issue-templates/runtime-stack-preflight.md`.
+
 ## Public Artifact Boundary
 
 Tracked docs may include:
