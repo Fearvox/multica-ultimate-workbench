@@ -25,11 +25,24 @@
 [![Skills.sh](https://img.shields.io/badge/skills.sh-installable-111827?style=flat-square)](https://skills.sh/)
 [![Docs](https://img.shields.io/badge/docs-bilingual-475569?style=flat-square)](#documentation-map)
 
-**Jump to:** [Overview](#overview) · [Architecture](#architecture) · [Windburn Cache](#windburn-cognitive-cache-direction) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Algorithm Advisory](#algorithm-advisory-gate) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Wake Reports](#wake-reports) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Mirage VFS](#mirage-vfs-tool-lane) · [Repo Brand Uplift](#repo-brand-uplift) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [中文总览](#中文总览)
+**Jump to:** [Overview](#overview) · [Where this fits in DASH](#where-this-fits-in-dash) · [Architecture](#architecture) · [Windburn Cache](#windburn-cognitive-cache-direction) · [Two-Ring System](#two-ring-system) · [Self-Awareness](#self-awareness) · [SDD](#sdd-workflow) · [Algorithm Advisory](#algorithm-advisory-gate) · [Goal Mode](#goal-mode) · [L2 Pressure](#l2-pressure) · [Wake Reports](#wake-reports) · [Capy Process Check](#capy-process-check-lane) · [Sanity Context](#sanity-unified-context-lane) · [Agent Install](#agent-install-unifier-lane) · [Flue Harness](#flue-agent-harness-lane) · [Mirage VFS](#mirage-vfs-tool-lane) · [Repo Brand Uplift](#repo-brand-uplift) · [Runtime Model](#agent-runtime-model) · [Commands](#commands) · [Docs](#documentation-map) · [Status](#status) · [Related Repos](#related-repos) · [中文总览](#中文总览)
 
 ## Overview
 
 Multica Ultimate Workbench is the durable operating memory for a multi-agent workbench built on top of Multica. Multica remains the live collaboration layer for agents, issues, comments, direct chat, runtimes, skills, and autopilots. This repository preserves the operating model around that layer — roles, decisions, templates, safety rules, verification scripts, and review discipline — in Git, where it can be versioned, diffed, and audited independently of the live workspace.
+
+## Where this fits in DASH
+
+Multica Ultimate Workbench is the DASH coordination layer. DashPersona is the
+origin project, Evensong is the agent workbench, Windburn names the state and
+memory direction, and Research Vault stores durable evidence. This repo keeps
+the multi-agent operating rules legible: owners, gates, review contracts,
+handoffs, skill lanes, and source-truth boundaries.
+
+The public brand is increasingly Project Windburn, while this repository
+preserves the MUW operating grammar that made the coordination work repeatable.
+That distinction is intentional: Windburn can be the public cognitive-cache
+story while MUW remains the workbench memory, review, and routing substrate.
 
 ## Install Skills
 
@@ -433,6 +446,22 @@ Human approval required before running:
 | Remote agent cell (NYC) | [agents/remote/nyc-remote-agents.md](agents/remote/nyc-remote-agents.md) |
 | Issue templates | [issue-templates/](issue-templates/) |
 | Autopilots | [autopilots/](autopilots/) |
+
+## Status
+
+Multica Ultimate Workbench is active and public-facing. It documents a real
+operating layer for agent coordination, but it does not replace the live
+Multica workspace, GitHub checks, Linear source truth, or human approval. Treat
+the repo as durable workbench memory and review infrastructure, not as a daemon
+or permission override.
+
+## Related Repos
+
+- [dash-persona](https://github.com/Fearvox/dash-persona) — origin project and persona intelligence layer.
+- [Evensong](https://github.com/Fearvox/Evensong) — agent workbench and retrieval evidence layer.
+- [project-windburn](https://github.com/Fearvox/project-windburn) — public state-hygiene and cognitive-cache direction.
+- [dash-research-vault](https://github.com/Fearvox/dash-research-vault) — durable research memory and evidence substrate.
+- [dash-design-infra](https://github.com/Fearvox/dash-design-infra) — design constraints, tokens, and public documentation surface.
 
 ## Safety Boundaries
 
