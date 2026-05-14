@@ -3,7 +3,7 @@
 ## Goal
 
 Verify whether a Hermes, OpenCode, Pi, or mixed runtime route is the right
-WorkBench lane before relying on it for implementation, observation, memory, or
+Workbench lane before relying on it for implementation, observation, memory, or
 dispatch.
 
 ## Scope
