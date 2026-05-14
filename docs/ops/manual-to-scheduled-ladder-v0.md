@@ -43,10 +43,12 @@ A clean manual cycle must have all of the following evidence:
 If any item is missing, the cycle does not count as clean. A `FLAG` cycle may be
 useful learning, but it does not advance the clean-cycle count.
 
-## Manual Batch Eligibility At Three Clean Cycles
+## Manual Batch Eligibility At Three To Four Clean Cycles
 
-At three clean cycles, the owner may propose a manual batch for a bounded set of
-similar items. The proposal must name:
+At three to four clean cycles, the owner may propose a manual batch for a
+bounded set of similar items. The batch is eligible for the next run only, and
+the proposal must define what counts as that next run so the permission does not
+turn into an open-ended standing batch. The proposal must name:
 
 - the exact batch scope;
 - the maximum number of items;
@@ -91,7 +93,7 @@ Recommended shape:
 
 ```yaml
 public_safety:
-  verdict: PASS | FLAG | BLOCK
+  verdict: "PASS | FLAG | BLOCK"
   checked:
     - public artifacts contain no secrets, tokens, OAuth material, raw request payloads, or private screenshots
     - public artifacts contain no private hostnames, local absolute paths, SSH targets, or credential locations
