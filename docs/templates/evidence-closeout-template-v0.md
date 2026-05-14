@@ -1,7 +1,7 @@
 # Evidence-Backed Closeout Template (v0)
 
-A Markdown-only scaffold for agent task closeouts that must stand on their own
-evidence. Designed to extend, not replace, the canonical closeout shape
+A Markdown-only scaffold for agent task closeouts that must stand on their own,
+with evidence. Designed to extend, not replace, the canonical closeout shape
 enforced by `skills/workbench-closeout-validator/SKILL.md`. If a closeout
 written from this template cannot pass the validator, the template is wrong,
 not the validator.
@@ -331,7 +331,7 @@ either accept the `FLAG`, land the PR and re-verify to `PASS`, or escalate.
 - No changes to `skills/workbench-closeout-validator/SKILL.md`.
 - No new scripts, no validator extensions, no autopilot edits.
 - No external account, repo setting, or runtime mutation.
-- No replacement for the canonical CHANGED/VERIFIED/REMAINING/PRS-LINKS/VERDICT
+- No replacement for the canonical CHANGED / VERIFIED / REMAINING / PRS / LINKS / VERDICT
   block — this template wraps it, it does not supersede it.
 
 ## Change log
