@@ -1,3 +1,5 @@
+
+
 # Multica Ultimate Workbench
 
 > A durable operating memory layer for coordinating Codex, Claude Code, and Hermes agents on top of Multica.
@@ -142,7 +144,7 @@ Workbench Admin routes each request before adding ceremony:
 
 | Tier | Use For | Gate |
 | --- | --- | --- |
-| Fast Path | Reading, summaries, copy edits, link cleanup, ACKs, empty scaffolds, and no-code/no-secret/no-runtime work. | Skip heavy preflights unless repo/runtime ownership is ambiguous. Close with Done / Changed / Verified / Next one action. |
+| Fast Path | Reading, summaries, copy edits, link cleanup, ACKs, empty scaffolds, and no-code/no-secret/no-runtime work. | Skip Self-Awareness unless repo/runtime ownership is ambiguous. Close with Done / Changed / Verified / Next one action. |
 | Standard Path | Ordinary patches, prototypes, tests, PR prep, and visual fixes. | Require an issue anchor or explicit local task, expected evidence, touched-path verification, and residual-risk closeout. |
 | Heavy Path | Runtime, agents/autopilots, deploy, payment, OAuth, secrets, branch/merge, public proof, daemon/Desktop/core, and remote VM work. | Require Self-Awareness, full evidence gates, Temporal Pincer for PASS/done/ready-to-merge, and human approval for sensitive mutation. |
 
